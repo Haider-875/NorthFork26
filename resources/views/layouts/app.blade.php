@@ -94,13 +94,13 @@
             /* max-width: 1280px; */
             margin-left: auto;
             margin-right: auto;
-            /* padding-left: 1.5rem; */
-            /* padding-right: 1.5rem; */
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
         @media (min-width: 640px) {
             .section-pad {
-                /* padding-left: 2rem; */
-                /* padding-right: 2rem; */
+                padding-left: 2rem;
+                padding-right: 2rem;
             }
         }
         .font-mono-data {

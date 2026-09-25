@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use IlluminateHttpRequest;
+use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {

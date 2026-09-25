@@ -16,6 +16,7 @@ class Service extends Model
         'category',
         'short_description',
         'full_description',
+        'description',
         'price',
         'duration',
         'icon',

@@ -1,9 +1,12 @@
 <?php
 
 namespace AppHttpControllers;
+namespace App\Http\Controllers;
 
 use AppModelsContactMessage;
 use IlluminateHttpRequest;
+use App\Models\ContactMessage;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {

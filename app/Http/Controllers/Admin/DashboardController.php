@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\ControllersAdmin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;

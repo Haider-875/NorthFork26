@@ -1,10 +1,14 @@
 <?php
 
 namespace AppModels;
+namespace App\Models;
 
 use IlluminateDatabaseEloquentFactoriesHasFactory;
 use IlluminateDatabaseEloquentModel;
 use IlluminateDatabaseEloquentSoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
@@ -32,6 +36,33 @@ class Booking extends Model
     protected $casts = [
         'preferred_date' => 'date',
     ];
+
+    protected $appends = [
+        'name',
+        'email',
+        'phone',
+        'service',
+    ];
+
+    public function getNameAttribute()
+    {
+        return $this->customer_name;
+    }
+
+    public function getEmailAttribute()
+    {
+        return $this->customer_email;
+    }
+
+    public function getPhoneAttribute()
+    {
+        return $this->customer_phone;
+    }
+
+    public function getServiceAttribute()
+    {
+        return $this->service_name;
+    }
 
     public function service()
     {

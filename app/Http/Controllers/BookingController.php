@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\SupportStr;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {

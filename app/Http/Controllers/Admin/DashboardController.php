@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Service;
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,10 +19,12 @@ class DashboardController extends Controller
             'completed_bookings' => Booking::where('status', 'Completed')->count(),
             'cancelled_bookings' => Booking::where('status', 'Cancelled')->count(),
             'total_services' => Service::count(),
+            'unread_messages' => ContactMessage::where('is_read', false)->count(),
         ];
 
-        $recentBookings = Booking::latest()->take(10)->get();
+        $recentBookings = Booking::latest()->take(8)->get();
+        $recentMessages = ContactMessage::latest()->take(5)->get();
 
-        return view('admin.dashboard', compact('stats', 'recentBookings'));
+        return view('admin.dashboard', compact('stats', 'recentBookings', 'recentMessages'));
     }
 }

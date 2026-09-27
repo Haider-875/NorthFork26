@@ -5,51 +5,62 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative min-h-[100svh] flex flex-col justify-between">
+<section class="relative min-h-[92vh] sm:min-h-[100svh] flex flex-col justify-center overflow-hidden">
     <img src="https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/9d7382181_generated_60d9ab56.jpg" alt="Luxury vehicle on a hydraulic lift inside the North Fork Auto workshop" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-background via-background/95 md:via-background/85 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50"></div>
     
-    <div class="relative section-pad pt-36 pb-16 flex-1 flex flex-col justify-center">
-        <div class="max-w-3xl">
-            <div class="font-mono-data flex items-center gap-3 mb-6">
+    <div class="relative w-full section-pad pt-36 pb-20 flex flex-col justify-center items-start text-left">
+        <div class="max-w-3xl text-left">
+            <div class="font-mono-data flex items-center justify-start gap-3 mb-6">
                 <span class="h-px w-10 bg-primary"></span>
                 <span>Talkeetna, Alaska · Auto Repair Experts</span>
             </div>
             
-            <h1 class="font-heading font-800 text-4xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-balance text-foreground">
-                Trusted Auto Repair.<br>
+            <h1 class="font-heading font-extrabold font-800 text-4xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-foreground text-left">
+                Trusted Auto<br>
+                Repair.<br>
                 <span class="text-primary">Quality Service.</span><br>
                 Every Time.
             </h1>
             
-            <p class="mt-6 text-base sm:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                From routine maintenance to complex diagnostics, North Fork Auto provides professional, honest automotive care for drivers across Talkeetna and the Mat-Su Valley.
+            <p class="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed text-left max-w-2xl">
+                Count on North Fork Auto for professional vehicle maintenance, diagnostics, repairs, and dependable customer service, honest workmanship that keeps you confidently on the road.
             </p>
             
-            <!-- Open/Closed Status Pill -->
-            <div class="mt-8 border border-border bg-card/70 backdrop-blur px-6 py-4 max-w-2xl">
-                <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
-                    <div class="flex items-center gap-2.5">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span class="font-heading font-700 text-foreground">Currently Open</span>
-                    </div>
-                    <span class="font-mono-data text-foreground/80">Mon – Fri 8:00 AM – 5:00 PM</span>
-                </div>
-            </div>
-            
             <!-- CTA Buttons -->
-            <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <a href="/book" class="btn-engine bg-primary text-primary-foreground px-8 py-4 text-sm">
+            <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
+                <a href="/book" class="btn-engine bg-primary text-primary-foreground px-8 py-4 text-xs font-heading font-700 tracking-wider uppercase inline-flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
                     Book an Appointment
                 </a>
-                <a href="tel:+19077333030" class="btn-engine border border-foreground/30 bg-background/40 backdrop-blur hover:border-primary px-8 py-4 text-sm text-foreground">
+                <a href="tel:+19077333030" class="btn-engine border border-border bg-card/60 backdrop-blur hover:border-primary px-8 py-4 text-xs text-foreground font-heading font-700 tracking-wider uppercase inline-flex items-center justify-center gap-2">
                     <svg class="w-4 h-4 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     Call Now · (907) 733-3030
+                </a>
+            </div>
+
+            <!-- Open/Closed Status Pill & After Hours Queries -->
+            <div class="mt-8 border border-border bg-card/85 backdrop-blur px-5 py-3 max-w-xl text-left">
+                <div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="font-heading font-700 text-foreground uppercase tracking-wider text-[11px]">Currently Open</span>
+                        <span class="text-muted-foreground/60">|</span>
+                        <span class="font-mono-data text-foreground/80">Mon – Fri 8:00 AM – 5:00 PM</span>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-border/50 text-[11px] text-muted-foreground flex flex-wrap items-center gap-2">
+                    <span class="text-primary font-semibold">After Hours Queries:</span>
+                    <a href="tel:+19072323859" class="text-foreground hover:text-primary font-mono-data font-bold transition-colors">+1 (907) 232-3859</a>
+                </div>
+            </div>
+
+            <!-- Explore Services Anchor Link -->
+            <div class="mt-8">
+                <a href="#services" class="inline-flex items-center gap-2 text-xs font-mono-data text-muted-foreground hover:text-foreground transition-colors group">
+                    <svg class="w-3.5 h-3.5 text-primary group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    EXPLORE SERVICES
                 </a>
             </div>
         </div>
@@ -219,11 +230,10 @@
 
 <!-- Customer Reviews Section -->
 <section class="section-pad py-20 sm:py-28">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
+    <div class="max-w-3xl mb-12 text-left">
+        <div class="font-mono-data flex items-center gap-2 mb-4">
             <span class="h-px w-8 bg-primary"></span>
             <span>Customer Reviews</span>
-            <span class="h-px w-8 bg-primary"></span>
         </div>
         <h2 class="font-heading font-800 text-3xl sm:text-4xl lg:text-5xl leading-[1.05] tracking-tight text-foreground">
             What Our Customers Say
@@ -231,6 +241,14 @@
         <p class="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
             Real experiences from drivers across the Talkeetna area who trust North Fork Auto.
         </p>
+        <div class="mt-4 flex items-center gap-3">
+            <div class="flex text-primary">
+                @for($i=0; $i<5; $i++)
+                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                @endfor
+            </div>
+            <span class="font-mono-data text-foreground/80 text-xs">5.0 · Locally Rated</span>
+        </div>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
@@ -340,9 +358,20 @@
                     <p class="mt-2 text-xs text-muted-foreground leading-relaxed">
                         Questions or urgent repair requests? Call us directly.
                     </p>
-                    <a href="tel:+19077333030" class="mt-4 inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
-                        (907) 733-3030
-                    </a>
+                    <div class="mt-4 space-y-1">
+                        <div>
+                            <span class="text-xs text-muted-foreground">Main: </span>
+                            <a href="tel:+19077333030" class="inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
+                                (907) 733-3030
+                            </a>
+                        </div>
+                        <div>
+                            <span class="text-xs text-muted-foreground">After Hours: </span>
+                            <a href="tel:+19072323859" class="inline-flex items-center gap-1 font-mono-data font-bold text-xs text-foreground hover:text-primary">
+                                +1 (907) 232-3859
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Email Card -->
@@ -355,8 +384,8 @@
                     <p class="mt-2 text-xs text-muted-foreground leading-relaxed">
                         For general inquiries and written quote estimates.
                     </p>
-                    <a href="mailto:info@northforkauto.com" class="mt-4 inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
-                        info@northforkauto.com
+                    <a href="mailto:titussr84@yahoo.com" class="mt-4 inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
+                        titussr84@yahoo.com
                     </a>
                 </div>
 

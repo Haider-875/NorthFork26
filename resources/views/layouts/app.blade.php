@@ -91,16 +91,23 @@
             font-family: var(--font-heading);
         }
         .section-pad {
-            /* max-width: 1280px; */
+            width: 100%;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
         }
-        @media (min-width: 640px) {
+        @media (min-width: 768px) {
             .section-pad {
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .section-pad {
+                padding-left: 4rem;
+                padding-right: 4rem;
             }
         }
         .font-mono-data {

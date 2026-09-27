@@ -383,7 +383,12 @@
             feedback.classList.add('hidden');
 
             const formData = new FormData(form);
+            const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                || formData.get('_token')
+                || '{{ csrf_token() }}';
+
             const payload = {
+                _token: token,
                 name: formData.get('name'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
@@ -403,7 +408,9 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': token,
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify(payload)
                 });
@@ -414,7 +421,11 @@
                     document.getElementById('conf-date').textContent = payload.preferred_date + ' at ' + payload.preferred_time;
                     goToStep(5);
                 } else {
-                    throw new Error(data.message || 'Failed to submit booking.');
+                    let errMsg = data.message || 'Failed to submit booking.';
+                    if (data.errors) {
+                        errMsg = Object.values(data.errors).flat().join(' ');
+                    }
+                    throw new Error(errMsg);
                 }
             } catch (err) {
                 feedback.className = 'mb-6 p-4 border border-primary/40 bg-primary/10 text-primary text-sm';

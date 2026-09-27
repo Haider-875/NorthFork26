@@ -56,13 +56,13 @@
                             <h3 class="font-heading font-700 text-base text-foreground">Direct Shop Phone</h3>
                             <div class="mt-2 space-y-1 text-xs">
                                 <div>
-                                    <span class="text-muted-foreground">Primary: </span>
-                                    <a href="tel:+19077333030" class="font-heading font-700 text-primary hover:underline">(907) 733-3030</a>
-                                </div>
-                                <div>
-                                    <span class="text-muted-foreground">Direct Shop: </span>
-                                    <a href="tel:+19072323859" class="font-heading font-700 text-primary hover:underline">+1 (907) 232-3859</a>
-                                </div>
+                                     <span class="text-muted-foreground">Primary: </span>
+                                     <a href="tel:+19077333030" class="font-heading font-700 text-primary hover:underline">(907) 733-3030</a>
+                                 </div>
+                                 <div>
+                                     <span class="text-muted-foreground">After Hours: </span>
+                                     <a href="tel:+19072323859" class="font-heading font-700 text-primary hover:underline">+1 (907) 232-3859</a>
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@
                             <p class="mt-1 text-xs text-muted-foreground leading-relaxed">
                                 Write to us for parts inquiries, warranty questions, or general estimates.
                             </p>
-                            <a href="mailto:info@northforkauto.com" class="mt-3 inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
-                                info@northforkauto.com
+                            <a href="mailto:titussr84@yahoo.com" class="mt-3 inline-flex items-center gap-1 font-heading font-700 text-xs text-primary hover:underline">
+                                titussr84@yahoo.com
                             </a>
                         </div>
                     </div>
@@ -206,7 +206,12 @@
                 feedback.classList.add('hidden');
 
                 const formData = new FormData(form);
+                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                    || formData.get('_token')
+                    || '{{ csrf_token() }}';
+
                 const payload = {
+                    _token: token,
                     name: formData.get('name'),
                     email: formData.get('email'),
                     phone: formData.get('phone'),
@@ -219,7 +224,9 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token,
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
                         body: JSON.stringify(payload)
                     });
@@ -230,7 +237,11 @@
                         feedback.classList.remove('hidden');
                         form.reset();
                     } else {
-                        throw new Error(data.message || 'Failed to send message.');
+                        let errMsg = data.message || 'Failed to send message.';
+                        if (data.errors) {
+                            errMsg = Object.values(data.errors).flat().join(' ');
+                        }
+                        throw new Error(errMsg);
                     }
                 } catch (err) {
                     feedback.className = 'mb-6 p-4 border border-primary/40 bg-primary/10 text-primary text-sm';

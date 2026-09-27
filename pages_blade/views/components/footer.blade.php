@@ -37,9 +37,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
+                        <a href="tel:+19072323859" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
+                            <svg class="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>After Hours: <strong class="text-foreground hover:text-primary">+1 (907) 232-3859</strong></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:titussr84@yahoo.com" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
                             <svg class="w-4 h-4 text-primary shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            <span>info@northforkauto.com</span>
+                            <span>titussr84@yahoo.com</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.northforkauto.com" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
+                            <svg class="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                            <span>www.northforkauto.com</span>
                         </a>
                     </li>
                 </ul>
@@ -77,6 +89,10 @@
                         <span class="font-mono-data text-foreground/80">Closed</span>
                     </li>
                 </ul>
+                <div class="mt-3 text-xs text-muted-foreground">
+                    <span class="text-primary font-semibold">After Hours Queries:</span><br>
+                    <a href="tel:+19072323859" class="hover:text-primary text-foreground font-mono-data">+1 (907) 232-3859</a>
+                </div>
             </div>
 
             <div>
@@ -92,9 +108,11 @@
             </div>
         </div>
 
-        <div class="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
-            <p>© {{ date('Y') }} North Fork Auto. All rights reserved.</p>
-            <p class="font-mono-data">Talkeetna, Alaska · Est. locally owned</p>
+        <div class="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-muted-foreground">
+            <p>© {{ date('Y') }} North Fork Auto. All rights reserved. · www.northforkauto.com</p>
+            <p class="font-mono-data text-foreground/80">
+                designed by azora solution <a href="https://www.azorasolution.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-bold">www.azorasolution.com</a>
+            </p>
         </div>
     </div>
 </footer>

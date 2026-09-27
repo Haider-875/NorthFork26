@@ -103,7 +103,7 @@
                     <li><a href="/about" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">About</a></li>
                     <li><a href="/contact" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Visit Us</a></li>
                     <li><a href="/book" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Book Appointment</a></li>
-                    <li><a href="/admin" class="text-muted-foreground/60 hover:text-primary transition-colors">Staff Login</a></li>
+                    {{-- <li><a href="/admin" class="text-muted-foreground/60 hover:text-primary transition-colors">Staff Login</a></li> --}}
                 </ul>
             </div>
         </div>

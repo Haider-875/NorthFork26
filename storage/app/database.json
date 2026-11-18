@@ -17,6 +17,26 @@
   ],
   "bookings": [
     {
+      "id": 1795022471495,
+      "booking_number": "NFA-2026-8659",
+      "booking_reference": "NFA-2026-8659",
+      "customer_name": "Test",
+      "customer_email": "",
+      "customer_phone": "180236126792",
+      "service_name": "Diagnostic Inspection",
+      "preferred_date": "2026-11-21",
+      "preferred_time": "03:30 PM",
+      "vehicle_year": "2020",
+      "vehicle_make": "BMW",
+      "vehicle_model": "BMW",
+      "vehicle_info": "2020 BMW BMW",
+      "notes": "",
+      "internal_notes": "Created via AI Auto Assistant",
+      "source": "ai_chatbot",
+      "status": "pending",
+      "created_at": "2026-11-18T17:21:11.495Z"
+    },
+    {
       "id": 1795020436239,
       "booking_number": "NFA-2026-3302",
       "booking_reference": "NFA-2026-3302",

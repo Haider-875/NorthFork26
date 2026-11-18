@@ -110,6 +110,29 @@
             color: var(--nfa-primary);
         }
 
+        /* Customer Support Headset Icon with Dynamic Website Theme */
+        .nfa-support-icon {
+            display: inline-block;
+            background-color: currentColor;
+            -webkit-mask: url('/images/support-icon.png') no-repeat center / contain;
+            mask: url('/images/support-icon.png') no-repeat center / contain;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nfa-launcher-btn .nfa-support-icon {
+            width: 26px;
+            height: 26px;
+            color: var(--nfa-text);
+        }
+        .nfa-chat-launcher:hover .nfa-launcher-btn .nfa-support-icon {
+            color: var(--nfa-primary);
+            transform: scale(1.08);
+        }
+        .nfa-header-avatar .nfa-support-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--nfa-primary);
+        }
+
         /* Main Chat Window */
         .nfa-chat-window {
             position: fixed;
@@ -558,9 +581,7 @@
             <span>AI Service Advisor</span>
         </div>
         <div class="nfa-launcher-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-            </svg>
+            <span class="nfa-support-icon" aria-hidden="true"></span>
         </div>
     </div>
 
@@ -570,9 +591,7 @@
         <div class="nfa-chat-header">
             <div class="nfa-header-brand">
                 <div class="nfa-header-avatar">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                    </svg>
+                    <span class="nfa-support-icon" aria-hidden="true"></span>
                 </div>
                 <div class="nfa-header-titles">
                     <h4 class="nfa-assistant-title">

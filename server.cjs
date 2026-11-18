@@ -2333,6 +2333,28 @@ const server = http.createServer((req, res) => {
   const sessionCookie = cookies['nfa_session'];
   const isAuthenticated = sessionCookie && activeSessions.has(sessionCookie);
 
+  // 0. STATIC ASSETS ROUTE (images, css, js)
+  if (method === 'GET' && (pathname.startsWith('/images/') || pathname.startsWith('/public/') || pathname.startsWith('/css/') || pathname.startsWith('/js/'))) {
+    const relPath = pathname.startsWith('/public/') ? pathname.slice(8) : pathname.slice(1);
+    const filePath = path.join(__dirname, 'public', relPath);
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      const ext = path.extname(filePath).toLowerCase();
+      const mimeTypes = {
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.svg': 'image/svg+xml',
+        '.gif': 'image/gif',
+        '.webp': 'image/webp',
+        '.ico': 'image/x-icon',
+        '.css': 'text/css',
+        '.js': 'text/javascript'
+      };
+      res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
+      return res.end(fs.readFileSync(filePath));
+    }
+  }
+
   // 1. PUBLIC GET ROUTES
   if (method === 'GET' && pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });

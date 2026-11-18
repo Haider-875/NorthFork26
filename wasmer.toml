@@ -1,0 +1,19 @@
+[package]
+name = "north-fork-auto"
+version = "0.1.0"
+description = "North Fork Auto on Wasmer Edge"
+entrypoint = "web"
+
+[dependencies]
+"phpix/phpix-83-64bit" = "*"
+
+[fs]
+"/app" = "."
+
+[[command]]
+name = "web"
+module = "phpix/phpix-83-64bit:phpix"
+runner = "wasi"
+
+[command.annotations.wasi]
+main-args = ["-t", "/app/public", "-S", "0.0.0.0:80"]

@@ -341,6 +341,75 @@
             color: var(--nfa-primary);
         }
 
+        /* Verified Appointment Card in Chat */
+        .nfa-verified-card {
+            background: linear-gradient(145deg, #1b1b26, #14141d);
+            border: 1px solid var(--nfa-border);
+            border-left: 3px solid #10b981;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 11px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .nfa-card-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+        .nfa-status-pill {
+            font-family: var(--nfa-font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .nfa-status-pill.status-confirmed, .nfa-status-pill.status-completed {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .nfa-status-pill.status-pending, .nfa-status-pill.status-rescheduled {
+            background: rgba(234, 179, 8, 0.15);
+            color: #eab308;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+        .nfa-status-pill.status-cancelled {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .nfa-appt-id {
+            font-family: var(--nfa-font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.03em;
+        }
+        .nfa-appt-detail-row {
+            display: flex;
+            gap: 6px;
+            color: var(--nfa-text-muted);
+            line-height: 1.4;
+        }
+        .nfa-appt-label {
+            color: var(--nfa-text-dim);
+            min-width: 65px;
+            font-family: var(--nfa-font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .nfa-appt-val {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
         /* Message Bubbles */
         .nfa-msg {
             display: flex;
@@ -683,6 +752,22 @@
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
+
+                    <!-- Card 4: Check My Appointment -->
+                    <div class="nfa-prompt-card" data-query="Can you please check my appointment?">
+                        <div class="nfa-card-content">
+                            <div class="nfa-card-icon">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <span class="nfa-card-title">Check My Appointment</span>
+                        </div>
+                        <svg class="nfa-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -855,7 +940,7 @@
                     hideTyping();
 
                     if (data && data.reply) {
-                        appendAssistantMessage(data.reply);
+                        appendAssistantMessage(data.reply, data.appointment);
                     } else if (data && data.error === 'rate_limit') {
                         appendAssistantMessage("You're sending messages a bit fast. Please give us a call at (907) 733-3030.");
                     } else {
@@ -885,13 +970,46 @@
                 chatBody.appendChild(row);
             }
 
-            function appendAssistantMessage(text) {
+            function appendAssistantMessage(text, appointment = null) {
                 const time = getTime();
                 const formatted = formatText(text);
                 const row = document.createElement('div');
                 row.className = 'nfa-msg assistant';
+
+                let cardHtml = '';
+                if (appointment && appointment.verified) {
+                    const st = (appointment.status || 'Pending').toLowerCase();
+                    cardHtml = `
+                        <div class="nfa-verified-card">
+                            <div class="nfa-card-badge-row">
+                                <span class="nfa-appt-id">${escapeHtml(appointment.confirmation_id)}</span>
+                                <span class="nfa-status-pill status-${escapeHtml(st)}">${escapeHtml(appointment.status)}</span>
+                            </div>
+                            <div class="nfa-appt-detail-row">
+                                <span class="nfa-appt-label">Service:</span>
+                                <span class="nfa-appt-val">${escapeHtml(appointment.service_name || 'Service')}</span>
+                            </div>
+                            <div class="nfa-appt-detail-row">
+                                <span class="nfa-appt-label">Schedule:</span>
+                                <span class="nfa-appt-val">${escapeHtml(appointment.date)} at ${escapeHtml(appointment.time)}</span>
+                            </div>
+                            <div class="nfa-appt-detail-row">
+                                <span class="nfa-appt-label">Vehicle:</span>
+                                <span class="nfa-appt-val">${escapeHtml(appointment.vehicle || 'Vehicle on file')}</span>
+                            </div>
+                            <div class="nfa-appt-detail-row">
+                                <span class="nfa-appt-label">Location:</span>
+                                <span class="nfa-appt-val">${escapeHtml(appointment.location || 'North Fork Auto, Talkeetna, AK')}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
                 row.innerHTML = `
-                    <div class="nfa-msg-bubble">${formatted}</div>
+                    <div class="nfa-msg-bubble">
+                        ${formatted}
+                        ${cardHtml}
+                    </div>
                     <span class="nfa-msg-time">${time}</span>
                 `;
                 chatBody.appendChild(row);

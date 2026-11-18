@@ -1,0 +1,8 @@
+kind: wasmer.io/App.v0
+app_id: 77h9igtwywge
+name: north-fork-auto
+package: .
+env:
+  APP_ENV: production
+  APP_DEBUG: "false"
+  APP_TIMEZONE: America/Anchorage

@@ -1,0 +1,27 @@
+name: Deploy to Wasmer Edge
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Wasmer
+        uses: wasmerio/setup-wasmer@v3.1
+
+      - name: Deploy to Wasmer Edge
+        env:
+          WASMER_TOKEN: ${{ secrets.WASMER_TOKEN }}
+        run: |
+          if [ -n "$WASMER_TOKEN" ]; then
+            wasmer deploy --non-interactive --no-validate --publish-package
+          else
+            echo "WASMER_TOKEN secret is not set yet. Please add WASMER_TOKEN in GitHub repository Secrets to enable automated deployments."
+          fi

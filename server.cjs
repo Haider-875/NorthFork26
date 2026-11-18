@@ -166,6 +166,203 @@ function getChatbotHtml() {
   return '';
 }
 
+// =============================================================
+// APPOINTMENT LOOKUP & CUSTOMER VERIFICATION ENGINE
+// =============================================================
+
+function normalizeConfirmationId(id) {
+  if (!id) return '';
+  const clean = String(id).replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+  const m = clean.match(/^NFA(\d{4})([A-Z0-9]+)$/);
+  if (m) {
+    return `NFA-${m[1]}-${m[2]}`;
+  }
+  return String(id).trim().toUpperCase();
+}
+
+function extractConfirmationId(text) {
+  const t = (text || '').trim();
+  const m = t.match(/\b(?:#?\s*)?(NFA[-_\s]?(?:20\d{2})[-_\s]?[A-Z0-9]{4,6})\b/i) ||
+            t.match(/\b(NFA[-_\s]?[A-Z0-9]{4,12})\b/i);
+  if (m) {
+    return normalizeConfirmationId(m[1]);
+  }
+  return null;
+}
+
+function extractVerificationDetail(text) {
+  const t = (text || '').trim();
+  const emailMatch = t.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  if (emailMatch) {
+    return { type: 'email', value: emailMatch[0].toLowerCase() };
+  }
+  const phoneMatch = t.match(/(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})/) || t.match(/\b\d{7,15}\b/);
+  if (phoneMatch) {
+    return { type: 'phone', value: phoneMatch[0].replace(/\D/g, '') };
+  }
+  return null;
+}
+
+function findAppointmentInDb(id) {
+  if (!id) return null;
+  const targetId = normalizeConfirmationId(id);
+  const currentDb = getDb();
+  const bookings = currentDb.bookings || [];
+  for (const b of bookings) {
+    const bNum = normalizeConfirmationId(b.booking_number || b.booking_reference || String(b.id || ''));
+    if (bNum === targetId || String(b.id) === targetId) {
+      return b;
+    }
+  }
+  return null;
+}
+
+function formatAlaskaDate(dateStr) {
+  if (!dateStr) return '';
+  try {
+    const d = new Date(dateStr + 'T12:00:00Z');
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Anchorage' };
+    return new Intl.DateTimeFormat('en-US', options).format(d);
+  } catch (e) {
+    return dateStr;
+  }
+}
+
+function maskPhone(phone) {
+  const digits = (phone || '').replace(/\D/g, '');
+  if (digits.length >= 4) {
+    return '***-***-' + digits.slice(-4);
+  }
+  return '***-****';
+}
+
+function maskEmail(email) {
+  if (!email || !email.includes('@')) return '***@***.***';
+  const [user, domain] = email.split('@');
+  return (user[0] || '*') + '***@' + domain;
+}
+
+function formatAppointmentSummary(b, isVerified = false) {
+  const confId = normalizeConfirmationId(b.booking_number || b.booking_reference || String(b.id || ''));
+  const vehicle = [b.vehicle_year, b.vehicle_make, b.vehicle_model].filter(Boolean).join(' ') || b.vehicle_info || 'Vehicle on file';
+  const formattedDate = formatAlaskaDate(b.preferred_date);
+
+  const base = {
+    confirmation_id: confId,
+    status: (b.status ? b.status.charAt(0).toUpperCase() + b.status.slice(1).toLowerCase() : 'Pending'),
+    location: 'North Fork Auto, 25460 Talkeetna Spur Rd, Talkeetna, AK 99676',
+    timezone: 'America/Anchorage (Alaska Time)'
+  };
+
+  if (!isVerified) {
+    return {
+      ...base,
+      verified: false,
+      message: 'Appointment located. Customer verification required to view schedule and service details.'
+    };
+  }
+
+  return {
+    ...base,
+    verified: true,
+    customer_name: b.customer_name || 'Valued Customer',
+    masked_phone: maskPhone(b.customer_phone),
+    masked_email: maskEmail(b.customer_email),
+    service_name: b.service_name || 'Diagnostic Inspection',
+    date: formattedDate,
+    raw_date: b.preferred_date,
+    time: b.preferred_time || '10:00 AM',
+    vehicle: vehicle,
+    notes: b.notes || ''
+  };
+}
+
+const verifyLockoutMap = new Map();
+const MAX_VERIFY_ATTEMPTS = 5;
+const LOCKOUT_MS = 15 * 60 * 1000;
+
+function checkVerificationLockout(key) {
+  const now = Date.now();
+  const entry = verifyLockoutMap.get(key);
+  if (!entry) return { locked: false };
+  if (entry.lockedUntil && entry.lockedUntil > now) {
+    return { locked: true, waitSec: Math.ceil((entry.lockedUntil - now) / 1000) };
+  }
+  if (entry.lockedUntil && entry.lockedUntil <= now) {
+    verifyLockoutMap.delete(key);
+    return { locked: false };
+  }
+  return { locked: false };
+}
+
+function recordFailedVerification(key) {
+  const now = Date.now();
+  let entry = verifyLockoutMap.get(key);
+  if (!entry) {
+    entry = { count: 0, lockedUntil: 0 };
+    verifyLockoutMap.set(key, entry);
+  }
+  entry.count++;
+  if (entry.count >= MAX_VERIFY_ATTEMPTS) {
+    entry.lockedUntil = now + LOCKOUT_MS;
+    return { locked: true, waitSec: Math.ceil(LOCKOUT_MS / 1000) };
+  }
+  return { locked: false, attemptsLeft: MAX_VERIFY_ATTEMPTS - entry.count };
+}
+
+function verifyAppointmentCustomer(appointment, providedDetail, lockoutKey) {
+  const lockout = checkVerificationLockout(lockoutKey);
+  if (lockout.locked) {
+    return {
+      verified: false,
+      locked_out: true,
+      message: `Too many verification attempts. For your security, please wait ${lockout.waitSec} seconds or call North Fork Auto at (907) 733-3030.`
+    };
+  }
+
+  const provided = (providedDetail || '').trim();
+  const recEmail = (appointment.customer_email || '').trim().toLowerCase();
+  const recPhone = (appointment.customer_phone || '').replace(/\D/g, '');
+
+  let isMatch = false;
+
+  // Email check
+  if (provided.includes('@')) {
+    if (recEmail && provided.toLowerCase() === recEmail) {
+      isMatch = true;
+    }
+  }
+
+  // Phone check
+  const pDigits = provided.replace(/\D/g, '');
+  if (!isMatch && pDigits.length >= 7) {
+    if (recPhone) {
+      if (pDigits === recPhone) {
+        isMatch = true;
+      } else if (pDigits.length >= 10 && recPhone.length >= 10 && pDigits.slice(-10) === recPhone.slice(-10)) {
+        isMatch = true;
+      } else if (pDigits.length >= 7 && recPhone.length >= 7 && pDigits.slice(-7) === recPhone.slice(-7)) {
+        isMatch = true;
+      }
+    }
+  }
+
+  if (isMatch) {
+    verifyLockoutMap.delete(lockoutKey);
+    return { verified: true, locked_out: false };
+  }
+
+  const fail = recordFailedVerification(lockoutKey);
+  return {
+    verified: false,
+    locked_out: fail.locked,
+    attempts_left: fail.attemptsLeft,
+    message: fail.locked
+      ? `Too many verification attempts. For security, please wait ${fail.waitSec} seconds or call us at (907) 733-3030.`
+      : 'The phone number or email address provided does not match our records for this confirmation number.'
+  };
+}
+
 // Initialize / Ensure database structure
 function initDatabase() {
   const dir = path.dirname(DB_FILE);
@@ -2410,7 +2607,13 @@ const server = http.createServer((req, res) => {
 
       let session = chatSessions.get(sessionId);
       if (!session) {
-        session = { messages: [], lastReq: Date.now(), reqCount: 1 };
+        session = {
+          messages: [],
+          lastReq: Date.now(),
+          reqCount: 1,
+          pendingAppointmentId: null,
+          verifiedAppointmentId: null
+        };
         chatSessions.set(sessionId, session);
       }
 
@@ -2420,8 +2623,108 @@ const server = http.createServer((req, res) => {
         time: new Date().toISOString()
       });
 
-      const aiResult = await callCloudflareWorkersAI(session.messages);
-      const botReply = aiResult.reply || "I'm having trouble connecting right now. Please call our team at (907) 733-3030.";
+      const lockoutKey = `verify_lockout:${sessionId}:${clientIp}`;
+      let botReply = null;
+      let appointmentPayload = null;
+
+      // 1. Check if user provided an appointment confirmation ID (e.g. NFA-2026-8659)
+      const extractedId = extractConfirmationId(userMessage);
+      if (extractedId) {
+        const appt = findAppointmentInDb(extractedId);
+        if (!appt) {
+          botReply = "I couldn't find an appointment with that confirmation number. Please double-check the ID and try again.";
+        } else {
+          let isVerified = (session.verifiedAppointmentId === extractedId);
+
+          // Check if customer provided verification details in the same query
+          if (!isVerified) {
+            const detail = extractVerificationDetail(userMessage);
+            if (detail) {
+              const vr = verifyAppointmentCustomer(appt, detail.value, lockoutKey);
+              if (vr.verified) {
+                isVerified = true;
+                session.verifiedAppointmentId = extractedId;
+                session.pendingAppointmentId = null;
+              }
+            }
+          }
+
+          if (isVerified) {
+            const summary = formatAppointmentSummary(appt, true);
+            appointmentPayload = summary;
+            botReply = `Your appointment is confirmed for ${summary.date} at ${summary.time}. You're booked for ${summary.service_name} (Status: ${summary.status}). Your confirmation number is ${summary.confirmation_id}.`;
+          } else {
+            session.pendingAppointmentId = extractedId;
+            botReply = `I found your appointment (${extractedId}). For privacy, please verify the email address or phone number associated with your booking before I share its details.`;
+          }
+        }
+      }
+
+      // 2. If waiting for customer verification on a pending appointment
+      else if (session.pendingAppointmentId) {
+        const pendingId = session.pendingAppointmentId;
+        const detail = extractVerificationDetail(userMessage);
+
+        if (detail) {
+          const appt = findAppointmentInDb(pendingId);
+          if (appt) {
+            const vr = verifyAppointmentCustomer(appt, detail.value, lockoutKey);
+            if (vr.locked_out) {
+              botReply = vr.message;
+            } else if (vr.verified) {
+              session.verifiedAppointmentId = pendingId;
+              session.pendingAppointmentId = null;
+              const summary = formatAppointmentSummary(appt, true);
+              appointmentPayload = summary;
+              botReply = `Your appointment is confirmed for ${summary.date} at ${summary.time}. You're booked for ${summary.service_name} (Status: ${summary.status}). Your confirmation number is ${summary.confirmation_id}.`;
+            } else {
+              botReply = "The verification details provided do not match our records for that appointment. For security, please check your information and try again, or call us directly at (907) 733-3030.";
+            }
+          } else {
+            session.pendingAppointmentId = null;
+            botReply = "I couldn't find an appointment with that confirmation number. Please double-check the ID and try again.";
+          }
+        }
+      }
+
+      // 3. Check general appointment query without an ID
+      if (botReply === null) {
+        const isAskingAppointment = /\b(check|find|look up|view|status of|when is|what time is|my)\b.*\b(appointment|booking|scheduled|schedule|meeting)\b/i.test(userMessage)
+          || /\b(when is my appointment|check my appointment|my appointment|check confirmation)\b/i.test(userMessage);
+
+        if (isAskingAppointment) {
+          if (session.verifiedAppointmentId) {
+            const appt = findAppointmentInDb(session.verifiedAppointmentId);
+            if (appt) {
+              const summary = formatAppointmentSummary(appt, true);
+              appointmentPayload = summary;
+              botReply = `Your appointment is confirmed for ${summary.date} at ${summary.time} for ${summary.service_name} (Confirmation: ${summary.confirmation_id}).`;
+            }
+          }
+
+          if (botReply === null) {
+            botReply = "I can check your appointment! What is your confirmation number (for example, NFA-2026-xxxx)?";
+          }
+        }
+      }
+
+      // 4. General automotive query -> Cloudflare Workers AI
+      if (botReply === null) {
+        const aiMessages = [...session.messages];
+        if (session.verifiedAppointmentId) {
+          const appt = findAppointmentInDb(session.verifiedAppointmentId);
+          if (appt) {
+            const summary = formatAppointmentSummary(appt, true);
+            aiMessages.unshift({
+              role: 'system',
+              content: `[VERIFIED GROUND TRUTH: Appointment ${summary.confirmation_id} confirmed for ${summary.date} at ${summary.time}. Service: ${summary.service_name}. Vehicle: ${summary.vehicle}. Status: ${summary.status}.]`
+            });
+          }
+        }
+
+        const aiResult = await callCloudflareWorkersAI(aiMessages);
+        botReply = aiResult.reply || "I'm having trouble connecting right now. Please call our team at (907) 733-3030.";
+      }
 
       session.messages.push({
         role: 'assistant',
@@ -2429,17 +2732,255 @@ const server = http.createServer((req, res) => {
         time: new Date().toISOString()
       });
 
-      // Keep sliding window of 20 messages in session
       if (session.messages.length > 20) {
         session.messages = session.messages.slice(-20);
       }
 
       res.writeHead(200);
-      return res.end(JSON.stringify({
+      const resPayload = {
         success: true,
         reply: botReply,
         session_id: sessionId,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      if (appointmentPayload) {
+        resPayload.appointment = appointmentPayload;
+      }
+      return res.end(JSON.stringify(resPayload));
+    });
+    return;
+  }
+
+  // 1.6 REAL APPOINTMENT LOOKUP & VERIFICATION REST API
+  if (method === 'POST' && (pathname === '/api/appointments/lookup' || pathname === '/appointments/lookup')) {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      res.setHeader('Content-Type', 'application/json');
+      let params = {};
+      try { params = JSON.parse(body || '{}'); } catch(e){}
+
+      const confId = normalizeConfirmationId(params.confirmation_id || '');
+      const verificationDetail = (params.verification_detail || '').trim();
+      const sessionId = (params.session_id || '').trim() || ('sess_' + clientIp);
+
+      if (!confId) {
+        res.writeHead(400);
+        return res.end(JSON.stringify({ success: false, error: 'Confirmation ID is required.' }));
+      }
+
+      const appt = findAppointmentInDb(confId);
+      if (!appt) {
+        res.writeHead(404);
+        return res.end(JSON.stringify({
+          success: false,
+          error: 'not_found',
+          message: "I couldn't find an appointment with that confirmation number. Please double-check the ID and try again."
+        }));
+      }
+
+      let isVerified = false;
+      const lockoutKey = `verify_lockout:${sessionId}:${clientIp}`;
+
+      if (verificationDetail) {
+        const vr = verifyAppointmentCustomer(appt, verificationDetail, lockoutKey);
+        if (vr.locked_out) {
+          res.writeHead(429);
+          return res.end(JSON.stringify({ success: false, error: 'locked_out', message: vr.message }));
+        }
+        if (!vr.verified) {
+          res.writeHead(403);
+          return res.end(JSON.stringify({
+            success: false,
+            error: 'verification_failed',
+            attempts_left: vr.attempts_left,
+            message: vr.message
+          }));
+        }
+        isVerified = true;
+      }
+
+      const summary = formatAppointmentSummary(appt, isVerified);
+      const reply = isVerified
+        ? `Your appointment is confirmed for ${summary.date} at ${summary.time}. You're booked for ${summary.service_name} (Status: ${summary.status}). Your confirmation number is ${summary.confirmation_id}.`
+        : `I found your appointment (${summary.confirmation_id}). For privacy, please verify the email address or phone number associated with your booking before I share its details.`;
+
+      res.writeHead(200);
+      return res.end(JSON.stringify({
+        success: true,
+        verified: isVerified,
+        appointment: summary,
+        reply
+      }));
+    });
+    return;
+  }
+
+  if (method === 'POST' && (pathname === '/api/appointments/verify' || pathname === '/appointments/verify')) {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      res.setHeader('Content-Type', 'application/json');
+      let params = {};
+      try { params = JSON.parse(body || '{}'); } catch(e){}
+
+      const confId = normalizeConfirmationId(params.confirmation_id || '');
+      const verificationDetail = (params.verification_detail || '').trim();
+      const sessionId = (params.session_id || '').trim() || ('sess_' + clientIp);
+
+      if (!confId || !verificationDetail) {
+        res.writeHead(400);
+        return res.end(JSON.stringify({ success: false, error: 'confirmation_id and verification_detail are required.' }));
+      }
+
+      const appt = findAppointmentInDb(confId);
+      if (!appt) {
+        res.writeHead(404);
+        return res.end(JSON.stringify({ success: false, error: 'not_found', message: "Appointment not found." }));
+      }
+
+      const lockoutKey = `verify_lockout:${sessionId}:${clientIp}`;
+      const vr = verifyAppointmentCustomer(appt, verificationDetail, lockoutKey);
+
+      if (vr.locked_out) {
+        res.writeHead(429);
+        return res.end(JSON.stringify({ success: false, error: 'locked_out', message: vr.message }));
+      }
+
+      if (!vr.verified) {
+        res.writeHead(403);
+        return res.end(JSON.stringify({
+          success: false,
+          error: 'verification_failed',
+          attempts_left: vr.attempts_left,
+          message: vr.message
+        }));
+      }
+
+      const summary = formatAppointmentSummary(appt, true);
+      res.writeHead(200);
+      return res.end(JSON.stringify({
+        success: true,
+        verified: true,
+        appointment: summary,
+        reply: `Your appointment is confirmed for ${summary.date} at ${summary.time}. You're booked for ${summary.service_name} (Status: ${summary.status}). Your confirmation number is ${summary.confirmation_id}.`
+      }));
+    });
+    return;
+  }
+
+  if (method === 'GET' && (pathname === '/api/appointments/provider-status' || pathname === '/appointments/provider-status')) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({
+      success: true,
+      status: {
+        provider: 'local_database',
+        connected: true,
+        source_of_truth: 'storage/app/database.json',
+        timezone: 'America/Anchorage (Alaska Time)',
+        message: 'Primary appointment source of truth is the local North Fork Auto database (storage/app/database.json). No third-party calendar credentials configured.'
+      }
+    }));
+  }
+
+  if (method === 'POST' && (pathname === '/api/appointments/reschedule' || pathname === '/appointments/reschedule')) {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      res.setHeader('Content-Type', 'application/json');
+      let params = {};
+      try { params = JSON.parse(body || '{}'); } catch(e){}
+
+      const confId = normalizeConfirmationId(params.confirmation_id || '');
+      const verificationDetail = (params.verification_detail || '').trim();
+      const preferredDate = (params.preferred_date || '').trim();
+      const preferredTime = (params.preferred_time || '').trim();
+      const confirmed = params.confirmed === true;
+
+      if (!confirmed) {
+        res.writeHead(400);
+        return res.end(JSON.stringify({ success: false, error: 'confirmation_required', message: 'Explicit customer confirmation is required before rescheduling.' }));
+      }
+
+      const appt = findAppointmentInDb(confId);
+      if (!appt) {
+        res.writeHead(404);
+        return res.end(JSON.stringify({ success: false, error: 'not_found', message: 'Appointment not found.' }));
+      }
+
+      const lockoutKey = `verify_lockout:${params.session_id || clientIp}:${clientIp}`;
+      const vr = verifyAppointmentCustomer(appt, verificationDetail, lockoutKey);
+      if (!vr.verified) {
+        res.writeHead(403);
+        return res.end(JSON.stringify({ success: false, error: 'verification_failed', message: 'Verification failed.' }));
+      }
+
+      const currentDb = getDb();
+      for (const b of currentDb.bookings) {
+        if (normalizeConfirmationId(b.booking_number || b.booking_reference || String(b.id)) === confId) {
+          b.preferred_date = preferredDate;
+          b.preferred_time = preferredTime;
+          b.status = 'rescheduled';
+          b.internal_notes = ((b.internal_notes || '') + '\n' + new Date().toISOString() + ': Rescheduled via Virtual Assistant').trim();
+          break;
+        }
+      }
+      saveDb(currentDb);
+
+      res.writeHead(200);
+      return res.end(JSON.stringify({
+        success: true,
+        message: `Your appointment (${confId}) has been successfully rescheduled to ${preferredDate} at ${preferredTime}.`
+      }));
+    });
+    return;
+  }
+
+  if (method === 'POST' && (pathname === '/api/appointments/cancel' || pathname === '/appointments/cancel')) {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      res.setHeader('Content-Type', 'application/json');
+      let params = {};
+      try { params = JSON.parse(body || '{}'); } catch(e){}
+
+      const confId = normalizeConfirmationId(params.confirmation_id || '');
+      const verificationDetail = (params.verification_detail || '').trim();
+      const confirmed = params.confirmed === true;
+      const reason = (params.reason || 'Customer requested').trim();
+
+      if (!confirmed) {
+        res.writeHead(400);
+        return res.end(JSON.stringify({ success: false, error: 'confirmation_required', message: 'Explicit customer confirmation is required before cancelling.' }));
+      }
+
+      const appt = findAppointmentInDb(confId);
+      if (!appt) {
+        res.writeHead(404);
+        return res.end(JSON.stringify({ success: false, error: 'not_found', message: 'Appointment not found.' }));
+      }
+
+      const lockoutKey = `verify_lockout:${params.session_id || clientIp}:${clientIp}`;
+      const vr = verifyAppointmentCustomer(appt, verificationDetail, lockoutKey);
+      if (!vr.verified) {
+        res.writeHead(403);
+        return res.end(JSON.stringify({ success: false, error: 'verification_failed', message: 'Verification failed.' }));
+      }
+
+      const currentDb = getDb();
+      for (const b of currentDb.bookings) {
+        if (normalizeConfirmationId(b.booking_number || b.booking_reference || String(b.id)) === confId) {
+          b.status = 'cancelled';
+          b.internal_notes = ((b.internal_notes || '') + '\n' + new Date().toISOString() + ': Cancelled. Reason: ' + reason).trim();
+          break;
+        }
+      }
+      saveDb(currentDb);
+
+      res.writeHead(200);
+      return res.end(JSON.stringify({
+        success: true,
+        message: `Your appointment (${confId}) has been cancelled.`
       }));
     });
     return;

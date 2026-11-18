@@ -771,7 +771,6 @@ function renderLayout(title, description, content, activeNav = '') {
             <a href="/services" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Services</a>
             <a href="/about" class="block text-sm font-medium tracking-wide hover:text-primary py-1">About</a>
             <a href="/contact" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Visit Us</a>
-            <a href="/staff/login" class="block text-sm font-medium tracking-wide text-muted-foreground hover:text-primary py-1">Staff Login</a>
             <div class="pt-4 border-t border-border/60">
                 <a href="/book" class="block btn-engine bg-primary text-primary-foreground py-3 text-center text-xs">Book Appointment</a>
             </div>
@@ -854,7 +853,6 @@ function renderLayout(title, description, content, activeNav = '') {
                         <li><a href="/about" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">About</a></li>
                         <li><a href="/contact" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Visit Us</a></li>
                         <li><a href="/book" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Book Appointment</a></li>
-                        <li><a href="/staff/login" class="text-muted-foreground/60 hover:text-primary transition-colors">Staff Login</a></li>
                     </ul>
                 </div>
             </div>

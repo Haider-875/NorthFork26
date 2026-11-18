@@ -646,8 +646,8 @@
     <!-- Floating Trigger Launcher Button -->
     <div class="nfa-chat-launcher" id="nfa-launcher" role="button" aria-label="Open North Fork Auto Assistant">
         <div class="nfa-launcher-pill">
-            <span class="nfa-status-dot"></span>
-            <span>AI Service Advisor</span>
+            <!-- <span class="nfa-status-dot"></span> -->
+            <!-- <span>AI Service Advisor</span> -->
         </div>
         <div class="nfa-launcher-btn">
             <span class="nfa-support-icon" aria-hidden="true"></span>

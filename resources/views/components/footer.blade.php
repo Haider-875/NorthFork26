@@ -3,8 +3,7 @@
         <div class="grid gap-12 lg:grid-cols-4">
             <div class="lg:col-span-1">
                 <div class="flex items-center gap-3 mb-5">
-                    <img src="/images/logo.png" alt="North Fork Auto Logo" class="w-9 h-9 object-contain rounded-md border border-primary/40 shadow-sm">
-                    <span class="font-heading font-800 text-lg text-foreground">North Fork Auto</span>
+                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-border/40 shadow-sm">
                 </div>
                 <p class="text-sm text-muted-foreground leading-relaxed mb-5">
                     Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.

@@ -1,24 +1,27 @@
-<!-- NORTH FORK AUTO - INTELLIGENT AI AUTO SERVICE CHATBOT -->
+<!-- NORTH FORK AUTO — PREMIUM AI SERVICE ADVISOR WIDGET -->
 <div id="nfa-chatbot-root">
-    <!-- Chat Widget Styles (Scoped Automotive CSS with Bootstrap 5.3 standards - Zero Tailwind) -->
     <style>
         #nfa-chatbot-root {
-            --nfa-bg-main: #0c0c0f;
-            --nfa-bg-card: #15151a;
-            --nfa-bg-bubble-ai: #1a1a22;
-            --nfa-bg-input: #101015;
-            --nfa-border: #292934;
-            --nfa-border-subtle: #1e1e28;
+            --nfa-bg: #0c0c10;
+            --nfa-surface: #14141a;
+            --nfa-surface-card: #181822;
+            --nfa-surface-hover: #1f1f2c;
+            --nfa-bubble-ai: #171720;
+            --nfa-bubble-user: #DF1F40;
+            --nfa-border: #262634;
+            --nfa-border-hover: #36364a;
             --nfa-primary: #DF1F40;
             --nfa-primary-hover: #fa274d;
-            --nfa-primary-glow: rgba(223, 31, 64, 0.4);
+            --nfa-primary-glow: rgba(223, 31, 64, 0.25);
             --nfa-text: #f8fafc;
             --nfa-text-muted: #94a3b8;
-            --nfa-font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
-            --nfa-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --nfa-text-dim: #64748b;
+            --nfa-font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --nfa-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --nfa-font-mono: 'JetBrains Mono', monospace;
             font-family: var(--nfa-font-body);
             color: var(--nfa-text);
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Floating Trigger Launcher */
@@ -29,36 +32,43 @@
             z-index: 1050;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
-            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
         }
         @media (max-width: 1024px) {
             .nfa-chat-launcher {
-                bottom: 76px; /* Above mobile sticky bottom bar */
+                bottom: 76px;
                 right: 16px;
             }
         }
         .nfa-chat-launcher:hover {
             transform: translateY(-2px);
         }
+        .nfa-chat-launcher:active {
+            transform: translateY(0);
+        }
 
         .nfa-launcher-pill {
-            background: rgba(18, 18, 24, 0.95);
-            backdrop-filter: blur(8px);
+            background: rgba(18, 18, 24, 0.96);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--nfa-border);
-            padding: 8px 14px;
+            padding: 9px 15px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
             font-family: var(--nfa-font-mono);
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-weight: 600;
+            letter-spacing: 0.04em;
             color: var(--nfa-text);
+            transition: border-color 0.2s;
+        }
+        .nfa-chat-launcher:hover .nfa-launcher-pill {
+            border-color: var(--nfa-border-hover);
         }
         @media (max-width: 640px) {
             .nfa-launcher-pill {
@@ -66,73 +76,59 @@
             }
         }
 
-        .nfa-live-dot {
-            width: 8px;
-            height: 8px;
+        .nfa-status-dot {
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background-color: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            animation: nfaPulse 2s infinite;
-        }
-        @keyframes nfaPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            box-shadow: 0 0 8px #10b981;
+            display: inline-block;
         }
 
         .nfa-launcher-btn {
-            width: 58px;
-            height: 58px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1b1b22, #0d0d12);
-            border: 2px solid var(--nfa-primary);
-            box-shadow: 0 8px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(223, 31, 64, 0.2);
+            background: linear-gradient(145deg, #1d1d26, #121218);
+            border: 1.5px solid var(--nfa-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nfa-launcher-btn:hover {
-            box-shadow: 0 10px 35px rgba(223, 31, 64, 0.6);
-            border-color: var(--nfa-primary-hover);
+        .nfa-chat-launcher:hover .nfa-launcher-btn {
+            border-color: var(--nfa-primary);
+            box-shadow: 0 10px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(223, 31, 64, 0.2);
         }
-        .nfa-launcher-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: var(--nfa-primary);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 800;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--nfa-bg-main);
-            font-family: var(--nfa-font-mono);
+        .nfa-launcher-btn svg {
+            color: var(--nfa-text);
+            transition: color 0.2s;
+        }
+        .nfa-chat-launcher:hover .nfa-launcher-btn svg {
+            color: var(--nfa-primary);
         }
 
         /* Main Chat Window */
         .nfa-chat-window {
             position: fixed;
-            bottom: 96px;
+            bottom: 92px;
             right: 24px;
-            width: 410px;
+            width: 390px;
             max-width: calc(100vw - 32px);
-            height: 640px;
-            max-height: calc(100vh - 120px);
-            background: var(--nfa-bg-main);
+            height: 600px;
+            max-height: calc(100vh - 110px);
+            background: var(--nfa-bg);
             border: 1px solid var(--nfa-border);
-            border-radius: 12px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
             display: none;
             flex-direction: column;
             overflow: hidden;
             z-index: 1060;
-            animation: nfaSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: bottom right;
+            animation: nfaWindowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @media (max-width: 640px) {
             .nfa-chat-window {
@@ -147,313 +143,330 @@
                 border: none !important;
             }
         }
-        @keyframes nfaSlideUp {
-            from { opacity: 0; transform: translateY(18px) scale(0.98); }
+        @keyframes nfaWindowOpen {
+            from { opacity: 0; transform: translateY(12px) scale(0.97); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Chat Header */
+        /* Header */
         .nfa-chat-header {
-            background: linear-gradient(180deg, #181820 0%, #111116 100%);
+            background: linear-gradient(180deg, #171720 0%, #111117 100%);
             border-bottom: 1px solid var(--nfa-border);
-            padding: 14px 18px;
+            padding: 13px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             user-select: none;
         }
-        .nfa-header-info {
+        .nfa-header-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 11px;
         }
         .nfa-header-avatar {
-            width: 38px;
-            height: 38px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
-            background: #1e1e28;
-            border: 1px solid var(--nfa-primary);
+            background: #1b1b24;
+            border: 1px solid var(--nfa-border);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--nfa-primary);
         }
-        .nfa-header-titles h4 {
+        .nfa-header-titles {
+            display: flex;
+            flex-direction: column;
+        }
+        .nfa-assistant-title {
             font-family: var(--nfa-font-heading);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: #ffffff;
             margin: 0;
-            line-height: 1.2;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .nfa-header-titles span {
+        .nfa-assistant-status {
             font-family: var(--nfa-font-mono);
             font-size: 10px;
             color: var(--nfa-text-muted);
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
         }
         .nfa-header-actions {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
-        .nfa-action-btn {
+        .nfa-btn-icon {
             background: transparent;
             border: none;
             color: var(--nfa-text-muted);
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
         }
-        .nfa-action-btn:hover {
+        .nfa-btn-icon:hover {
             background: rgba(255, 255, 255, 0.08);
-            color: #fff;
+            color: #ffffff;
         }
 
-        /* Message Area */
-        .nfa-chat-messages {
+        /* Messages Body */
+        .nfa-chat-body {
             flex: 1;
             overflow-y: auto;
-            padding: 18px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            background-color: var(--nfa-bg-main);
-            background-image: radial-gradient(rgba(223, 31, 64, 0.03) 1px, transparent 0);
-            background-size: 24px 24px;
+            gap: 12px;
+            background-color: var(--nfa-bg);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 0);
+            background-size: 20px 20px;
         }
-        .nfa-chat-messages::-webkit-scrollbar {
-            width: 6px;
+        .nfa-chat-body::-webkit-scrollbar {
+            width: 5px;
         }
-        .nfa-chat-messages::-webkit-scrollbar-thumb {
+        .nfa-chat-body::-webkit-scrollbar-thumb {
             background: var(--nfa-border);
-            border-radius: 3px;
+            border-radius: 4px;
         }
 
-        /* Welcome Card */
-        .nfa-welcome-card {
-            background: var(--nfa-bg-card);
+        /* Welcome Screen */
+        .nfa-welcome-screen {
+            background: var(--nfa-surface);
             border: 1px solid var(--nfa-border);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 18px 16px;
             margin-bottom: 4px;
+            animation: nfaFadeIn 0.3s ease;
         }
-        .nfa-welcome-header {
+        .nfa-welcome-heading {
+            font-family: var(--nfa-font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+        .nfa-welcome-desc {
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--nfa-text-muted);
+            margin: 0 0 16px 0;
+        }
+
+        /* Three Suggested Prompt Cards */
+        .nfa-prompt-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nfa-prompt-card {
+            background: var(--nfa-surface-card);
+            border: 1px solid var(--nfa-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .nfa-prompt-card:hover {
+            background: var(--nfa-surface-hover);
+            border-color: var(--nfa-primary);
+            transform: translateX(2px);
+        }
+        .nfa-prompt-card:active {
+            transform: translateX(0);
+        }
+        .nfa-card-content {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
         }
-        .nfa-welcome-badge {
-            font-family: var(--nfa-font-mono);
-            font-size: 9px;
-            text-transform: uppercase;
-            background: rgba(223, 31, 64, 0.15);
+        .nfa-card-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(223, 31, 64, 0.1);
             color: var(--nfa-primary);
-            border: 1px solid rgba(223, 31, 64, 0.3);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 700;
-        }
-        .nfa-welcome-card p {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #cbd5e1;
-            margin: 0 0 12px 0;
-        }
-
-        /* Suggested Questions */
-        .nfa-suggestions {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 8px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .nfa-suggestion-chip {
-            background: #171720;
-            border: 1px solid var(--nfa-border);
-            color: #cbd5e1;
-            font-size: 11px;
-            padding: 5px 10px;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-            user-select: none;
+        .nfa-card-title {
+            font-family: var(--nfa-font-heading);
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
         }
-        .nfa-suggestion-chip:hover {
-            background: #232330;
-            border-color: var(--nfa-primary);
-            color: #fff;
-            transform: translateY(-1px);
+        .nfa-card-arrow {
+            color: var(--nfa-text-dim);
+            transition: transform 0.2s, color 0.2s;
+        }
+        .nfa-prompt-card:hover .nfa-card-arrow {
+            transform: translateX(3px);
+            color: var(--nfa-primary);
         }
 
         /* Message Bubbles */
-        .nfa-message-row {
+        .nfa-msg {
             display: flex;
             flex-direction: column;
-            max-width: 88%;
-            animation: nfaFadeIn 0.25s ease forwards;
+            max-width: 84%;
+            animation: nfaFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes nfaFadeIn {
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .nfa-message-row.user {
+        .nfa-msg.user {
             align-self: flex-end;
             align-items: flex-end;
         }
-        .nfa-message-row.assistant {
+        .nfa-msg.assistant {
             align-self: flex-start;
             align-items: flex-start;
         }
 
-        .nfa-bubble {
+        .nfa-msg-bubble {
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 13px;
-            line-height: 1.55;
+            line-height: 1.5;
             word-break: break-word;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
-        .nfa-message-row.user .nfa-bubble {
-            background: linear-gradient(135deg, #DF1F40, #ad132e);
+        .nfa-msg.user .nfa-msg-bubble {
+            background: linear-gradient(135deg, #DF1F40, #b91533);
             color: #ffffff;
-            border-bottom-right-radius: 2px;
+            border-bottom-right-radius: 3px;
+            box-shadow: 0 4px 14px rgba(223, 31, 64, 0.25);
         }
-        .nfa-message-row.assistant .nfa-bubble {
-            background: var(--nfa-bg-bubble-ai);
+        .nfa-msg.assistant .nfa-msg-bubble {
+            background: var(--nfa-bubble-ai);
             color: #f1f5f9;
             border: 1px solid var(--nfa-border);
-            border-bottom-left-radius: 2px;
+            border-bottom-left-radius: 3px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-        .nfa-bubble strong {
-            color: #ffffff;
-            font-weight: 700;
-        }
-        .nfa-bubble a {
-            color: #ff6b84;
+        .nfa-msg-bubble a {
+            color: #ff6e87;
             text-decoration: underline;
             font-weight: 600;
         }
-        .nfa-bubble ul, .nfa-bubble ol {
-            margin: 6px 0;
-            padding-left: 18px;
-        }
-        .nfa-bubble li {
-            margin-bottom: 4px;
-        }
 
-        .nfa-timestamp {
+        .nfa-msg-time {
             font-family: var(--nfa-font-mono);
             font-size: 9px;
-            color: #64748b;
-            margin-top: 4px;
+            color: var(--nfa-text-dim);
+            margin-top: 3px;
             padding: 0 4px;
         }
 
         /* Typing Indicator */
-        .nfa-typing {
+        .nfa-typing-row {
             display: flex;
             align-items: center;
-            gap: 5px;
-            padding: 12px 16px;
-            background: var(--nfa-bg-bubble-ai);
+            gap: 4px;
+            padding: 10px 14px;
+            background: var(--nfa-bubble-ai);
             border: 1px solid var(--nfa-border);
             border-radius: 12px;
-            border-bottom-left-radius: 2px;
+            border-bottom-left-radius: 3px;
             width: fit-content;
         }
         .nfa-typing-dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background-color: var(--nfa-primary);
-            animation: nfaTyping 1.4s infinite ease-in-out both;
+            animation: nfaPulseDot 1.4s infinite ease-in-out both;
         }
         .nfa-typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .nfa-typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes nfaTyping {
+        @keyframes nfaPulseDot {
             0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
             40% { transform: scale(1.1); opacity: 1; }
         }
 
-        /* Appointment Request Card (Embedded Form inside Chat) */
-        .nfa-appointment-card {
-            background: #14141c;
-            border: 1px solid var(--nfa-primary);
+        /* Appointment Request Form Inside Chat */
+        .nfa-appt-modal {
+            background: var(--nfa-surface-card);
+            border: 1px solid var(--nfa-border);
             border-radius: 10px;
             padding: 14px;
-            margin-top: 8px;
             width: 100%;
+            box-sizing: border-box;
+            margin-top: 4px;
         }
-        .nfa-appointment-card h5 {
+        .nfa-appt-header {
             font-family: var(--nfa-font-heading);
             font-size: 13px;
             font-weight: 700;
             color: #ffffff;
-            margin: 0 0 10px 0;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .nfa-form-grid {
+        .nfa-appt-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
         }
-        .nfa-form-full {
+        .nfa-appt-full {
             grid-column: span 2;
         }
-        .nfa-form-input {
+        .nfa-appt-input {
             width: 100%;
-            background: #09090d;
+            background: #0d0d12;
             border: 1px solid var(--nfa-border);
-            border-radius: 4px;
-            padding: 6px 10px;
+            border-radius: 5px;
+            padding: 7px 10px;
             font-size: 12px;
-            color: #fff;
+            color: #ffffff;
             outline: none;
             box-sizing: border-box;
+            transition: border-color 0.2s;
         }
-        .nfa-form-input:focus {
+        .nfa-appt-input:focus {
             border-color: var(--nfa-primary);
         }
-        .nfa-form-label {
+        .nfa-appt-label {
             font-family: var(--nfa-font-mono);
             font-size: 9px;
-            color: #94a3b8;
+            color: var(--nfa-text-muted);
             text-transform: uppercase;
             margin-bottom: 2px;
             display: block;
         }
-        .nfa-submit-booking-btn {
+        .nfa-appt-submit-btn {
             background: var(--nfa-primary);
             color: #ffffff;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             padding: 8px 12px;
             font-family: var(--nfa-font-heading);
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
             transition: all 0.2s;
         }
-        .nfa-submit-booking-btn:hover {
+        .nfa-appt-submit-btn:hover {
             background: var(--nfa-primary-hover);
-            box-shadow: 0 0 16px var(--nfa-primary-glow);
         }
 
         /* Input Controls Area */
@@ -462,50 +475,20 @@
             border-top: 1px solid var(--nfa-border);
             padding: 12px 14px;
         }
-        .nfa-quick-actions-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .nfa-quick-booking-pill {
-            background: rgba(223, 31, 64, 0.12);
-            border: 1px solid rgba(223, 31, 64, 0.3);
-            color: #ff5775;
-            font-family: var(--nfa-font-mono);
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .nfa-quick-booking-pill:hover {
-            background: var(--nfa-primary);
-            color: #fff;
-        }
-        .nfa-char-count {
-            font-family: var(--nfa-font-mono);
-            font-size: 9px;
-            color: #64748b;
-        }
-
-        .nfa-input-wrapper {
+        .nfa-input-box {
             display: flex;
             align-items: flex-end;
-            background: var(--nfa-bg-input);
+            background: #0b0b10;
             border: 1px solid var(--nfa-border);
             border-radius: 8px;
             padding: 6px 10px;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .nfa-input-wrapper:focus-within {
+        .nfa-input-box:focus-within {
             border-color: var(--nfa-primary);
             box-shadow: 0 0 0 1px var(--nfa-primary);
         }
-        .nfa-chat-textarea {
+        .nfa-textarea {
             flex: 1;
             background: transparent;
             border: none;
@@ -514,14 +497,14 @@
             font-family: var(--nfa-font-body);
             resize: none;
             outline: none;
-            max-height: 100px;
+            max-height: 90px;
             line-height: 1.4;
             padding: 4px 0;
         }
-        .nfa-chat-textarea::placeholder {
-            color: #64748b;
+        .nfa-textarea::placeholder {
+            color: var(--nfa-text-dim);
         }
-        .nfa-send-btn {
+        .nfa-send-button {
             background: var(--nfa-primary);
             color: #ffffff;
             border: none;
@@ -532,77 +515,88 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin-left: 6px;
+            transition: all 0.15s ease;
+            margin-left: 8px;
             flex-shrink: 0;
         }
-        .nfa-send-btn:hover:not(:disabled) {
+        .nfa-send-button:hover:not(:disabled) {
             background: var(--nfa-primary-hover);
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
-        .nfa-send-btn:disabled {
-            background: #2a2a35;
+        .nfa-send-button:disabled {
+            background: #252530;
             color: #555566;
             cursor: not-allowed;
+            transform: none;
         }
 
-        .nfa-disclaimer {
-            font-size: 9px;
-            color: #64748b;
+        .nfa-footer-note {
+            font-size: 10px;
+            color: var(--nfa-text-dim);
             text-align: center;
-            margin-top: 6px;
+            margin-top: 7px;
             font-family: var(--nfa-font-mono);
         }
-        .nfa-disclaimer a {
-            color: #94a3b8;
+        .nfa-footer-note a {
+            color: var(--nfa-text-muted);
             text-decoration: underline;
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .nfa-chat-window, .nfa-msg, .nfa-prompt-card, .nfa-typing-dot {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 
-    <!-- Floating Launcher Trigger Button -->
-    <div class="nfa-chat-launcher" id="nfa-launcher" role="button" aria-label="Open North Fork Auto Service Assistant">
+    <!-- Floating Trigger Launcher Button -->
+    <div class="nfa-chat-launcher" id="nfa-launcher" role="button" aria-label="Open North Fork Auto Assistant">
         <div class="nfa-launcher-pill">
-            <span class="nfa-live-dot"></span>
-            <span>AI Auto Assistant</span>
+            <span class="nfa-status-dot"></span>
+            <span>AI Service Advisor</span>
         </div>
         <div class="nfa-launcher-btn">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                <path d="M12 8V4H8"></path>
-                <rect width="16" height="12" x="4" y="8" rx="2"></rect>
-                <path d="M2 14h2"></path>
-                <path d="M20 14h2"></path>
-                <path d="M15 13v2"></path>
-                <path d="M9 13v2"></path>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
             </svg>
-            <span class="nfa-launcher-badge" id="nfa-badge">1</span>
         </div>
     </div>
 
     <!-- Main Chat Window -->
-    <div class="nfa-chat-window" id="nfa-window" role="dialog" aria-modal="true" aria-label="North Fork Auto AI Assistant">
+    <div class="nfa-chat-window" id="nfa-window" role="dialog" aria-modal="true" aria-label="North Fork Auto Assistant">
         <!-- Header -->
         <div class="nfa-chat-header">
-            <div class="nfa-header-info">
+            <div class="nfa-header-brand">
                 <div class="nfa-header-avatar">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                     </svg>
                 </div>
                 <div class="nfa-header-titles">
-                    <h4>North Fork Auto <span class="nfa-live-dot" style="display:inline-block; width:6px; height:6px;"></span></h4>
-                    <span>AI Service Assistant · Talkeetna, AK</span>
+                    <h4 class="nfa-assistant-title">
+                        North Fork Auto Assistant
+                        <span class="nfa-status-dot"></span>
+                    </h4>
+                    <span class="nfa-assistant-status">Online · Talkeetna, AK</span>
                 </div>
             </div>
             <div class="nfa-header-actions">
-                <button type="button" class="nfa-action-btn" id="nfa-clear-chat" title="Clear conversation" aria-label="Clear conversation">
+                <button type="button" class="nfa-btn-icon" id="nfa-clear-btn" title="Clear conversation" aria-label="Clear conversation">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 6h18"></path>
                         <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
                         <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
                     </svg>
                 </button>
-                <button type="button" class="nfa-action-btn" id="nfa-close-chat" title="Close chat" aria-label="Close chat">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button type="button" class="nfa-btn-icon" id="nfa-minimize-btn" title="Minimize chat" aria-label="Minimize chat">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <button type="button" class="nfa-btn-icon" id="nfa-close-btn" title="Close chat" aria-label="Close chat">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
@@ -610,53 +604,83 @@
             </div>
         </div>
 
-        <!-- Messages Container -->
-        <div class="nfa-chat-messages" id="nfa-messages">
-            <!-- Welcome Card -->
-            <div class="nfa-welcome-card">
-                <div class="nfa-welcome-header">
-                    <span class="nfa-welcome-badge">Official AI Assistant</span>
-                    <span style="font-family:var(--nfa-font-mono); font-size:10px; color:#94a3b8;">Mon-Fri 8AM-5PM</span>
-                </div>
-                <p>Hello! I am your AI Auto Service Assistant at <strong>North Fork Auto</strong> in Talkeetna, Alaska. How can I help your vehicle today?</p>
-                
-                <div style="font-family:var(--nfa-font-mono); font-size:10px; color:#94a3b8; margin-bottom:6px; text-transform:uppercase;">Quick Questions:</div>
-                <div class="nfa-suggestions">
-                    <div class="nfa-suggestion-chip" data-query="My check engine light is flashing. Can I still drive?">Check engine light flashing?</div>
-                    <div class="nfa-suggestion-chip" data-query="How much does an oil change service cost?">Oil change service & pricing</div>
-                    <div class="nfa-suggestion-chip" data-query="Do you service Subaru vehicles and Ford trucks?">Do you service Subaru & Ford?</div>
-                    <div class="nfa-suggestion-chip" data-query="I would like to schedule a diagnostic inspection.">Schedule an appointment</div>
-                    <div class="nfa-suggestion-chip" data-query="Where are you located and what are your business hours?">Shop hours & location</div>
+        <!-- Chat Area -->
+        <div class="nfa-chat-body" id="nfa-body">
+            <!-- Welcome Screen -->
+            <div class="nfa-welcome-screen" id="nfa-welcome">
+                <h3 class="nfa-welcome-heading">How can we help with your vehicle today?</h3>
+                <p class="nfa-welcome-desc">Ask us about repairs, maintenance or scheduling your next service.</p>
+
+                <!-- Three Suggested Prompt Cards -->
+                <div class="nfa-prompt-cards">
+                    <!-- Card 1: Check Engine Light -->
+                    <div class="nfa-prompt-card" data-query="My truck's check engine light just came on. Can you help?">
+                        <div class="nfa-card-content">
+                            <div class="nfa-card-icon">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <span class="nfa-card-title">Check Engine Light</span>
+                        </div>
+                        <svg class="nfa-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+
+                    <!-- Card 2: Brake Repair -->
+                    <div class="nfa-prompt-card" data-query="My brakes are making a squealing noise when I stop. Can you inspect them?">
+                        <div class="nfa-card-content">
+                            <div class="nfa-card-icon">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                    <path d="M2 12h20"></path>
+                                </svg>
+                            </div>
+                            <span class="nfa-card-title">Brake Repair</span>
+                        </div>
+                        <svg class="nfa-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+
+                    <!-- Card 3: Schedule a Service -->
+                    <div class="nfa-prompt-card" id="nfa-card-schedule">
+                        <div class="nfa-card-content">
+                            <div class="nfa-card-icon">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <span class="nfa-card-title">Schedule a Service</span>
+                        </div>
+                        <svg class="nfa-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Input Area -->
         <div class="nfa-chat-input-area">
-            <div class="nfa-quick-actions-bar">
-                <button type="button" class="nfa-quick-booking-pill" id="nfa-trigger-booking">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    <span>Request Appointment</span>
-                </button>
-                <span class="nfa-char-count" id="nfa-char-counter">0/500</span>
-            </div>
-
-            <form id="nfa-chat-form" onsubmit="return false;">
-                <div class="nfa-input-wrapper">
+            <form id="nfa-form" onsubmit="return false;">
+                <div class="nfa-input-box">
                     <textarea 
-                        id="nfa-input" 
-                        class="nfa-chat-textarea" 
+                        id="nfa-textarea" 
+                        class="nfa-textarea" 
                         rows="1" 
-                        maxlength="500" 
-                        placeholder="Ask about repairs, sounds, check engine lights..." 
-                        aria-label="Message for North Fork Auto AI Assistant"></textarea>
+                        maxlength="400" 
+                        placeholder="Ask us about your vehicle..." 
+                        aria-label="Ask us about your vehicle..."></textarea>
                     
-                    <button type="submit" id="nfa-send" class="nfa-send-btn" title="Send message" aria-label="Send message">
+                    <button type="submit" id="nfa-send-btn" class="nfa-send-button" title="Send message" aria-label="Send message">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -665,94 +689,93 @@
                 </div>
             </form>
 
-            <div class="nfa-disclaimer">
-                Call <a href="tel:9077333030">(907) 733-3030</a> · After Hours <a href="tel:19072323859">+1 (907) 232-3859</a>
+            <div class="nfa-footer-note">
+                North Fork Auto · Talkeetna, AK · <a href="tel:9077333030">(907) 733-3030</a>
             </div>
         </div>
     </div>
 
-    <!-- Client-Side Chat Engine -->
+    <!-- Client-Side Engine -->
     <script>
         (function() {
-            // Configuration & Session
             const API_ENDPOINT = '/api/chat';
             const APPT_ENDPOINT = '/api/chat/appointment';
             const CLEAR_ENDPOINT = '/api/chat/clear';
 
-            let sessionId = localStorage.getItem('nfa_chat_session_id');
+            let sessionId = localStorage.getItem('nfa_session_id');
             if (!sessionId) {
                 sessionId = 'nfa_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
-                localStorage.setItem('nfa_chat_session_id', sessionId);
+                localStorage.setItem('nfa_session_id', sessionId);
             }
 
-            // DOM Elements
+            // DOM References
             const launcher = document.getElementById('nfa-launcher');
             const chatWindow = document.getElementById('nfa-window');
-            const closeBtn = document.getElementById('nfa-close-chat');
-            const clearBtn = document.getElementById('nfa-clear-chat');
-            const messagesContainer = document.getElementById('nfa-messages');
-            const chatForm = document.getElementById('nfa-chat-form');
-            const chatInput = document.getElementById('nfa-input');
-            const sendBtn = document.getElementById('nfa-send');
-            const badge = document.getElementById('nfa-badge');
-            const charCounter = document.getElementById('nfa-char-counter');
-            const triggerBookingBtn = document.getElementById('nfa-trigger-booking');
+            const closeBtn = document.getElementById('nfa-close-btn');
+            const minimizeBtn = document.getElementById('nfa-minimize-btn');
+            const clearBtn = document.getElementById('nfa-clear-btn');
+            const chatBody = document.getElementById('nfa-body');
+            const chatForm = document.getElementById('nfa-form');
+            const textarea = document.getElementById('nfa-textarea');
+            const sendBtn = document.getElementById('nfa-send-btn');
+            const welcomeScreen = document.getElementById('nfa-welcome');
+            const scheduleCard = document.getElementById('nfa-card-schedule');
 
-            let isThinking = false;
+            let isBusy = false;
 
             // Open / Close Handlers
-            function toggleChat() {
-                const isOpen = chatWindow.style.display === 'flex';
-                if (isOpen) {
-                    chatWindow.style.display = 'none';
-                } else {
-                    chatWindow.style.display = 'flex';
-                    badge.style.display = 'none';
-                    chatInput.focus();
-                    scrollToBottom();
-                }
+            function openChat() {
+                chatWindow.style.display = 'flex';
+                textarea.focus();
+                scrollToBottom();
             }
 
-            launcher.addEventListener('click', toggleChat);
-            closeBtn.addEventListener('click', () => { chatWindow.style.display = 'none'; });
+            function closeChat() {
+                chatWindow.style.display = 'none';
+            }
 
-            // Char counter & Textarea auto-resize
-            chatInput.addEventListener('input', function() {
-                charCounter.textContent = this.value.length + '/500';
+            launcher.addEventListener('click', openChat);
+            closeBtn.addEventListener('click', closeChat);
+            minimizeBtn.addEventListener('click', closeChat);
+
+            // Auto-growing textarea
+            textarea.addEventListener('input', function() {
                 this.style.height = 'auto';
-                this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+                this.style.height = Math.min(this.scrollHeight, 90) + 'px';
             });
 
-            // Enter key to send (Shift+Enter for newline)
-            chatInput.addEventListener('keydown', function(e) {
+            // Enter to send, Shift+Enter for new line
+            textarea.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    submitMessage();
+                    sendMessage();
                 }
             });
 
             chatForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                submitMessage();
+                sendMessage();
             });
 
-            // Suggestion Chips Click
-            document.querySelectorAll('.nfa-suggestion-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
+            // Suggested prompt card clicks
+            document.querySelectorAll('.nfa-prompt-card[data-query]').forEach(card => {
+                card.addEventListener('click', function() {
                     const query = this.getAttribute('data-query');
                     if (query) {
-                        chatInput.value = query;
-                        submitMessage();
+                        textarea.value = query;
+                        sendMessage();
                     }
                 });
             });
 
-            // Direct Booking Shortcut
-            triggerBookingBtn.addEventListener('click', renderAppointmentCard);
+            // Schedule a Service Card
+            scheduleCard.addEventListener('click', function() {
+                renderAppointmentForm();
+            });
 
-            // Clear Chat
+            // Clear Conversation
             clearBtn.addEventListener('click', async function() {
-                if (confirm('Clear current conversation history?')) {
+                if (confirm('Start a fresh conversation?')) {
                     try {
                         await fetch(CLEAR_ENDPOINT, {
                             method: 'POST',
@@ -761,47 +784,42 @@
                         });
                     } catch (e) {}
 
-                    localStorage.removeItem('nfa_chat_session_id');
+                    localStorage.removeItem('nfa_session_id');
                     sessionId = 'nfa_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
-                    localStorage.setItem('nfa_chat_session_id', sessionId);
+                    localStorage.setItem('nfa_session_id', sessionId);
 
-                    // Reset messages view
-                    const welcomeCard = document.querySelector('.nfa-welcome-card');
-                    messagesContainer.innerHTML = '';
-                    if (welcomeCard) messagesContainer.appendChild(welcomeCard);
-                    appendAssistantBubble("Conversation history cleared. How can I help you today?");
+                    chatBody.innerHTML = '';
+                    if (welcomeScreen) chatBody.appendChild(welcomeScreen);
+                    appendAssistantMessage("Conversation cleared. How can I help with your vehicle today?");
                 }
             });
 
-            // Submit User Message
-            async function submitMessage() {
-                const text = chatInput.value.trim();
-                if (!text || isThinking) return;
+            // Send Message
+            async function sendMessage() {
+                const message = textarea.value.trim();
+                if (!message || isBusy) return;
 
                 // Reset input
-                chatInput.value = '';
-                chatInput.style.height = 'auto';
-                charCounter.textContent = '0/500';
+                textarea.value = '';
+                textarea.style.height = 'auto';
 
                 // Append user bubble
-                appendUserBubble(text);
+                appendUserMessage(message);
                 scrollToBottom();
 
-                // Check for appointment keywords to proactively offer card
-                const lower = text.toLowerCase();
-                if (lower.includes('schedule') || lower.includes('book') || lower.includes('appointment')) {
-                    setTimeout(() => {
-                        renderAppointmentCard();
-                    }, 400);
+                // Proactively show appointment card if booking intent detected
+                const lower = message.toLowerCase();
+                if (lower.includes('schedule') || lower.includes('book') || (lower.includes('appointment') && !lower.includes('check'))) {
+                    setTimeout(() => renderAppointmentForm(), 400);
                 }
 
                 // Show typing indicator
-                showTypingIndicator();
-                isThinking = true;
+                showTyping();
+                isBusy = true;
                 sendBtn.disabled = true;
 
                 try {
-                    const response = await fetch(API_ENDPOINT, {
+                    const res = await fetch(API_ENDPOINT, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -809,135 +827,127 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: JSON.stringify({
-                            message: text,
+                            message: message,
                             session_id: sessionId
                         })
                     });
 
-                    const data = await response.json();
-                    hideTypingIndicator();
+                    const data = await res.json();
+                    hideTyping();
 
                     if (data && data.reply) {
-                        appendAssistantBubble(data.reply);
+                        appendAssistantMessage(data.reply);
                     } else if (data && data.error === 'rate_limit') {
-                        appendAssistantBubble(data.reply || "Rate limit reached. Please wait a moment.");
+                        appendAssistantMessage("You're sending messages a bit fast. Please give us a call at (907) 733-3030.");
                     } else {
-                        appendAssistantBubble("I'm having a momentary connection glitch. Please call our shop directly at (907) 733-3030.");
+                        appendAssistantMessage("I'm momentarily disconnected. Please call our service desk at (907) 733-3030.");
                     }
 
-                } catch (error) {
-                    hideTypingIndicator();
-                    console.error('Chat error:', error);
-                    appendAssistantBubble("I am unable to reach the server right now. Please call us at (907) 733-3030 for immediate service!");
+                } catch (err) {
+                    hideTyping();
+                    console.error('Chat error:', err);
+                    appendAssistantMessage("We're having trouble connecting right now. Please call us directly at (907) 733-3030.");
                 } finally {
-                    isThinking = false;
+                    isBusy = false;
                     sendBtn.disabled = false;
                     scrollToBottom();
                 }
             }
 
-            // Bubble Helpers
-            function appendUserBubble(text) {
-                const time = getCurrentTime();
+            // Message Renderers
+            function appendUserMessage(text) {
+                const time = getTime();
                 const row = document.createElement('div');
-                row.className = 'nfa-message-row user';
+                row.className = 'nfa-msg user';
                 row.innerHTML = `
-                    <div class="nfa-bubble">${escapeHtml(text)}</div>
-                    <span class="nfa-timestamp">${time}</span>
+                    <div class="nfa-msg-bubble">${escapeHtml(text)}</div>
+                    <span class="nfa-msg-time">${time}</span>
                 `;
-                messagesContainer.appendChild(row);
+                chatBody.appendChild(row);
             }
 
-            function appendAssistantBubble(rawMarkdown) {
-                const time = getCurrentTime();
-                const formatted = formatMarkdown(rawMarkdown);
+            function appendAssistantMessage(text) {
+                const time = getTime();
+                const formatted = formatText(text);
                 const row = document.createElement('div');
-                row.className = 'nfa-message-row assistant';
+                row.className = 'nfa-msg assistant';
                 row.innerHTML = `
-                    <div class="nfa-bubble">${formatted}</div>
-                    <span class="nfa-timestamp">${time} · North Fork Auto AI</span>
+                    <div class="nfa-msg-bubble">${formatted}</div>
+                    <span class="nfa-msg-time">${time}</span>
                 `;
-                messagesContainer.appendChild(row);
+                chatBody.appendChild(row);
                 scrollToBottom();
             }
 
             // Typing Indicator
             let typingElem = null;
-            function showTypingIndicator() {
+            function showTyping() {
                 if (typingElem) return;
                 typingElem = document.createElement('div');
-                typingElem.className = 'nfa-message-row assistant';
+                typingElem.className = 'nfa-msg assistant';
                 typingElem.innerHTML = `
-                    <div class="nfa-typing">
+                    <div class="nfa-typing-row">
                         <span class="nfa-typing-dot"></span>
                         <span class="nfa-typing-dot"></span>
                         <span class="nfa-typing-dot"></span>
                     </div>
                 `;
-                messagesContainer.appendChild(typingElem);
+                chatBody.appendChild(typingElem);
                 scrollToBottom();
             }
 
-            function hideTypingIndicator() {
+            function hideTyping() {
                 if (typingElem) {
                     typingElem.remove();
                     typingElem = null;
                 }
             }
 
-            // Render Appointment Request Card
-            function renderAppointmentCard() {
-                if (document.getElementById('nfa-active-booking-card')) return;
+            // Appointment Request Card inside Chat
+            function renderAppointmentForm() {
+                if (document.getElementById('nfa-active-form')) return;
 
                 const cardRow = document.createElement('div');
-                cardRow.className = 'nfa-message-row assistant';
-                cardRow.id = 'nfa-active-booking-card';
+                cardRow.className = 'nfa-msg assistant';
+                cardRow.id = 'nfa-active-form';
 
                 const tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
                 const minDate = tomorrow.toISOString().split('T')[0];
 
                 cardRow.innerHTML = `
-                    <div class="nfa-appointment-card">
-                        <h5>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DF1F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="nfa-appt-modal">
+                        <div class="nfa-appt-header">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#DF1F40" stroke-width="2">
                                 <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            Request Service Appointment
-                        </h5>
-                        <form id="nfa-embedded-booking-form">
-                            <div class="nfa-form-grid">
+                            Schedule Service Appointment
+                        </div>
+                        <form id="nfa-embedded-form">
+                            <div class="nfa-appt-grid">
                                 <div>
-                                    <label class="nfa-form-label">Your Name *</label>
-                                    <input type="text" name="name" class="nfa-form-input" required placeholder="John Doe">
+                                    <label class="nfa-appt-label">Your Name *</label>
+                                    <input type="text" name="name" class="nfa-appt-input" required placeholder="John Doe">
                                 </div>
                                 <div>
-                                    <label class="nfa-form-label">Phone Number *</label>
-                                    <input type="tel" name="phone" class="nfa-form-input" required placeholder="(907) 555-0199">
+                                    <label class="nfa-appt-label">Phone *</label>
+                                    <input type="tel" name="phone" class="nfa-appt-input" required placeholder="(907) 555-0199">
                                 </div>
                                 <div>
-                                    <label class="nfa-form-label">Email (Optional)</label>
-                                    <input type="email" name="email" class="nfa-form-input" placeholder="john@example.com">
+                                    <label class="nfa-appt-label">Vehicle Year *</label>
+                                    <input type="number" name="vehicle_year" class="nfa-appt-input" required value="2020" min="1960" max="2027">
                                 </div>
                                 <div>
-                                    <label class="nfa-form-label">Vehicle Year *</label>
-                                    <input type="number" name="vehicle_year" class="nfa-form-input" required value="2020" min="1960" max="2027">
+                                    <label class="nfa-appt-label">Make & Model *</label>
+                                    <input type="text" name="vehicle_make" class="nfa-appt-input" required placeholder="Ford F-150 / Subaru">
                                 </div>
-                                <div>
-                                    <label class="nfa-form-label">Make *</label>
-                                    <input type="text" name="vehicle_make" class="nfa-form-input" required placeholder="e.g. Subaru / Ford">
-                                </div>
-                                <div>
-                                    <label class="nfa-form-label">Model *</label>
-                                    <input type="text" name="vehicle_model" class="nfa-form-input" required placeholder="e.g. Outback / F-150">
-                                </div>
-                                <div class="nfa-form-full">
-                                    <label class="nfa-form-label">Requested Service *</label>
-                                    <select name="service" class="nfa-form-input" required>
-                                        <option value="Diagnostic Inspection">Diagnostic Inspection (Check Engine / Scan)</option>
+                                <div class="nfa-appt-full">
+                                    <label class="nfa-appt-label">Service Needed *</label>
+                                    <select name="service" class="nfa-appt-input" required>
+                                        <option value="Diagnostic Inspection">Diagnostic Inspection (Check Engine / OBD)</option>
                                         <option value="Brake Repair & Replacement">Brake Repair & Replacement</option>
                                         <option value="Oil & Filter Service">Oil & Filter Service</option>
                                         <option value="Engine Repair & Overhaul">Engine Repair & Overhaul</option>
@@ -945,82 +955,69 @@
                                         <option value="Steering & Suspension">Steering & Suspension</option>
                                         <option value="Electrical & Battery">Electrical & Battery</option>
                                         <option value="Cooling & AC Repair">Cooling & AC Repair</option>
-                                        <option value="General Inspection">General Alaskan Winter Check</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="nfa-form-label">Preferred Date *</label>
-                                    <input type="date" name="preferred_date" class="nfa-form-input" required min="${minDate}" value="${minDate}">
+                                    <label class="nfa-appt-label">Preferred Date *</label>
+                                    <input type="date" name="preferred_date" class="nfa-appt-input" required min="${minDate}" value="${minDate}">
                                 </div>
                                 <div>
-                                    <label class="nfa-form-label">Preferred Time *</label>
-                                    <select name="preferred_time" class="nfa-form-input" required>
-                                        <option value="08:30 AM">08:30 AM (Early Drop-off)</option>
+                                    <label class="nfa-appt-label">Preferred Time *</label>
+                                    <select name="preferred_time" class="nfa-appt-input" required>
+                                        <option value="08:30 AM">08:30 AM</option>
                                         <option value="10:00 AM" selected>10:00 AM</option>
                                         <option value="01:30 PM">01:30 PM</option>
                                         <option value="03:30 PM">03:30 PM</option>
                                     </select>
                                 </div>
-                                <div class="nfa-form-full">
-                                    <label class="nfa-form-label">Symptoms / Notes</label>
-                                    <input type="text" name="notes" class="nfa-form-input" placeholder="e.g. Squeaking noise when braking...">
-                                </div>
                             </div>
-                            <button type="submit" class="nfa-submit-booking-btn" id="nfa-submit-appt-btn">Send Appointment Request</button>
+                            <button type="submit" class="nfa-appt-submit-btn" id="nfa-submit-btn">Send Appointment Request</button>
                         </form>
                     </div>
                 `;
 
-                messagesContainer.appendChild(cardRow);
+                chatBody.appendChild(cardRow);
                 scrollToBottom();
 
-                // Bind form submission
-                const apptForm = document.getElementById('nfa-embedded-booking-form');
-                apptForm.addEventListener('submit', async function(e) {
+                const form = document.getElementById('nfa-embedded-form');
+                form.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    const submitBtn = document.getElementById('nfa-submit-appt-btn');
+                    const submitBtn = document.getElementById('nfa-submit-btn');
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Submitting Request...';
 
-                    const formData = new FormData(apptForm);
+                    const formData = new FormData(form);
                     const payload = Object.fromEntries(formData.entries());
                     payload.session_id = sessionId;
+                    payload.vehicle_model = payload.vehicle_make; // Ensure fields match
 
                     try {
                         const res = await fetch(APPT_ENDPOINT, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            },
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(payload)
                         });
-                        const resData = await res.json();
+                        const data = await res.json();
 
-                        if (resData.success) {
+                        if (data.success) {
                             cardRow.innerHTML = `
-                                <div class="nfa-appointment-card" style="border-color:#10b981; background:rgba(16, 185, 129, 0.08);">
-                                    <div style="display:flex; align-items:center; gap:8px; color:#10b981; font-weight:700; font-size:14px; margin-bottom:8px;">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                        Appointment Request Received!
+                                <div class="nfa-appt-modal" style="border-color:#10b981; background:rgba(16, 185, 129, 0.06);">
+                                    <div style="color:#10b981; font-weight:700; font-size:13px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        Request Received (${data.booking_reference})
                                     </div>
-                                    <p style="font-size:12px; margin:0 0 8px 0; color:#e2e8f0;">
-                                        Reference Number: <strong style="color:#ffffff; font-family:var(--nfa-font-mono);">${resData.booking_reference}</strong>
-                                    </p>
-                                    <p style="font-size:11px; margin:0; color:#94a3b8; line-height:1.4;">
-                                        Thank you, ${escapeHtml(payload.name)}! Our team will contact you at <strong>${escapeHtml(payload.phone)}</strong> to confirm final bay availability.
+                                    <p style="font-size:12px; margin:0; color:#cbd5e1; line-height:1.4;">
+                                        Thanks, ${escapeHtml(payload.name)}! Our service advisor will call you at <strong>${escapeHtml(payload.phone)}</strong> to confirm bay availability.
                                     </p>
                                 </div>
                             `;
-                            appendAssistantBubble(`I have filed your service request for your **${payload.vehicle_year} ${payload.vehicle_make} ${payload.vehicle_model}** (${payload.service}) under Reference **${resData.booking_reference}**. Our advisor will confirm availability shortly!`);
                         } else {
-                            alert(resData.message || 'Error submitting booking.');
+                            alert(data.message || 'Error submitting request.');
                             submitBtn.disabled = false;
                             submitBtn.textContent = 'Send Appointment Request';
                         }
                     } catch (err) {
-                        console.error('Appt error:', err);
-                        alert('Could not submit. Please call us at (907) 733-3030.');
+                        alert('Could not submit request. Please call (907) 733-3030.');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Send Appointment Request';
                     }
@@ -1029,12 +1026,11 @@
 
             // Utilities
             function scrollToBottom() {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                chatBody.scrollTop = chatBody.scrollHeight;
             }
 
-            function getCurrentTime() {
-                const now = new Date();
-                return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            function getTime() {
+                return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
 
             function escapeHtml(str) {
@@ -1047,26 +1043,13 @@
                     .replace(/'/g, '&#039;');
             }
 
-            function formatMarkdown(text) {
+            function formatText(text) {
                 if (!text) return '';
                 let escaped = escapeHtml(text);
-                
-                // Bold: **text**
                 escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                
-                // Italic: *text*
                 escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
-                
-                // Bullet points
-                escaped = escaped.replace(/(?:^|\n)\* (.*?)(?=(?:\n\* )|\n\n|$)/g, '<li>$1</li>');
-                escaped = escaped.replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>');
-                
-                // Line breaks
                 escaped = escaped.replace(/\n/g, '<br>');
-                
-                // Phone link helper
                 escaped = escaped.replace(/\((\d{3})\)\s*(\d{3})-(\d{4})/g, '<a href="tel:$1$2$3">($1) $2-$3</a>');
-
                 return escaped;
             }
         })();

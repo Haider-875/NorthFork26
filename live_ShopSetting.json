@@ -1,0 +1,64 @@
+﻿{
+    "zip":  "99676",
+    "business_hours":  {
+                           "monday":  {
+                                          "open":  "10:00",
+                                          "close":  "18:00",
+                                          "closed":  false
+                                      },
+                           "tuesday":  {
+                                           "open":  "10:00",
+                                           "close":  "18:00",
+                                           "closed":  false
+                                       },
+                           "wednesday":  {
+                                             "open":  "10:00",
+                                             "close":  "18:00",
+                                             "closed":  false
+                                         },
+                           "thursday":  {
+                                            "open":  "10:00",
+                                            "close":  "18:00",
+                                            "closed":  false
+                                        },
+                           "friday":  {
+                                          "open":  "10:00",
+                                          "close":  "18:00",
+                                          "closed":  false
+                                      },
+                           "saturday":  {
+                                            "open":  "10:00",
+                                            "close":  "14:00",
+                                            "closed":  false
+                                        },
+                           "sunday":  {
+                                          "open":  "10:00",
+                                          "close":  "18:00",
+                                          "closed":  true
+                                      }
+                       },
+    "business_name":  "North Fork Auto",
+    "facebook_url":  "https://www.facebook.com/",
+    "address":  "25460 Talkeetna Spur Rd",
+    "blocked_dates":  [
+
+                      ],
+    "years_experience":  20.0,
+    "vehicles_serviced":  12000.0,
+    "city":  "Talkeetna",
+    "maps_embed_query":  "North Fork Auto, 25460 Talkeetna Spur Rd, Talkeetna, AK 99676",
+    "returning_customers":  85.0,
+    "slot_duration_minutes":  60.0,
+    "instagram_url":  "",
+    "customer_satisfaction":  "98%",
+    "phone":  "(907) 733-3030",
+    "state":  "AK",
+    "key":  "main",
+    "email":  "titussr84@gmail.com",
+    "google_maps_url":  "https://www.google.com/maps/search/?api=1\u0026query=North+Fork+Auto+25460+Talkeetna+Spur+Rd+Talkeetna+AK+99676",
+    "id":  "6a977bba1eaf1697782a6d5d",
+    "created_date":  "2026-09-02T01:28:26.036000",
+    "updated_date":  "2026-09-06T00:37:26.597000",
+    "created_by_id":  "6a97793b1eaf1697782a6c02",
+    "is_sample":  false
+}

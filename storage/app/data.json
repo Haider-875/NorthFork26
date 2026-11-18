@@ -1,0 +1,242 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Administrator",
+      "email": "admin@northforkauto.com",
+      "role": "admin",
+      "created_at": "2026-09-25T16:03:59.667Z"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Synthetic Oil Change",
+      "category": "MAINTENANCE",
+      "price": "$89.99",
+      "duration": "45 mins",
+      "featured": true,
+      "description": "Premium synthetic oil, new OEM filter, fluid top-offs, and complete multi-point safety inspection."
+    },
+    {
+      "id": 2,
+      "name": "Tire Rotation & Balance",
+      "category": "MAINTENANCE",
+      "price": "$49.99",
+      "duration": "30 mins",
+      "featured": false,
+      "description": "Even tread wear rotation, precision high-speed wheel balancing, and tire pressure adjustments."
+    },
+    {
+      "id": 3,
+      "name": "Engine Air & Cabin Filters",
+      "category": "MAINTENANCE",
+      "price": "$39.99",
+      "duration": "20 mins",
+      "featured": false,
+      "description": "Air intake filtration check and cabin air filter renewal for maximum engine performance and clean air."
+    },
+    {
+      "id": 4,
+      "name": "Front & Rear Brake Pad Replacement",
+      "category": "BRAKES & TIRES",
+      "price": "$189.99",
+      "duration": "1.5 hours",
+      "featured": true,
+      "description": "Ceramic or semi-metallic brake pad installation, hardware lubrication, and rotor surface inspection."
+    },
+    {
+      "id": 5,
+      "name": "Brake Rotor Resurfacing & Replacement",
+      "category": "BRAKES & TIRES",
+      "price": "$149.99",
+      "duration": "1.5 hours",
+      "featured": false,
+      "description": "Precision rotor machining or direct replacement for vibration-free, maximum stopping power."
+    },
+    {
+      "id": 6,
+      "name": "Brake Fluid Flush & Bleed",
+      "category": "BRAKES & TIRES",
+      "price": "$99.99",
+      "duration": "45 mins",
+      "featured": false,
+      "description": "Complete removal of contaminated moisture-laden brake fluid and bleed for crisp pedal feel."
+    },
+    {
+      "id": 7,
+      "name": "Engine Diagnostic & Scan",
+      "category": "ENGINE & TRANSMISSION",
+      "price": "$120.00",
+      "duration": "1 hour",
+      "featured": true,
+      "description": "Computerized code retrieval, sensor data stream monitoring, and physical component verification."
+    },
+    {
+      "id": 8,
+      "name": "Timing Belt & Water Pump Service",
+      "category": "ENGINE & TRANSMISSION",
+      "price": "$650.00",
+      "duration": "4-6 hours",
+      "featured": false,
+      "description": "Critical preventive timing belt replacement, tensioners, idlers, and water pump assembly."
+    },
+    {
+      "id": 9,
+      "name": "Transmission Fluid Exchange",
+      "category": "ENGINE & TRANSMISSION",
+      "price": "$189.99",
+      "duration": "1.5 hours",
+      "featured": false,
+      "description": "Full fluid replacement and pan filter inspection to protect transmission gears and solenoids."
+    },
+    {
+      "id": 10,
+      "name": "Battery, Starter & Alternator Test",
+      "category": "ELECTRICAL & DIAGNOSTICS",
+      "price": "$49.99",
+      "duration": "30 mins",
+      "featured": true,
+      "description": "Full charging system diagnostic load test, cable voltage drop check, and terminal service."
+    },
+    {
+      "id": 11,
+      "name": "Electrical Short & Parasitic Draw",
+      "category": "ELECTRICAL & DIAGNOSTICS",
+      "price": "$135.00/hr",
+      "duration": "Varies",
+      "featured": false,
+      "description": "Pinpoint circuit tracing for dead battery issues, lighting faults, and blown fuses."
+    }
+  ],
+  "bookings": [
+    {
+      "id": 5,
+      "booking_number": "NFA-2026-4807",
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "phone": "(907) 555-3344",
+      "vehicle_year": 2023,
+      "vehicle_make": "Toyota",
+      "vehicle_model": "RAV4 Prime",
+      "vehicle_mileage": "15,000",
+      "vehicle_vin": "JTMBFREV9P5019283",
+      "service": "Synthetic Oil Change",
+      "preferred_date": "2026-10-15",
+      "preferred_time": "09:00",
+      "notes": "First time customer in Talkeetna.",
+      "status": "Pending",
+      "created_at": "2026-09-25T16:16:44.447Z"
+    },
+    {
+      "id": 4,
+      "booking_number": "NFA-2026-7125",
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "phone": "(907) 555-3344",
+      "vehicle_year": 2023,
+      "vehicle_make": "Toyota",
+      "vehicle_model": "RAV4 Prime",
+      "vehicle_mileage": "15,000",
+      "vehicle_vin": "JTMBFREV9P5019283",
+      "service": "Synthetic Oil Change",
+      "preferred_date": "2026-10-15",
+      "preferred_time": "09:00",
+      "notes": "First time customer in Talkeetna.",
+      "status": "Pending",
+      "created_at": "2026-09-25T16:04:26.736Z"
+    },
+    {
+      "id": 1,
+      "booking_number": "NFA-2026-9481",
+      "name": "Sarah Connor",
+      "email": "sarah@example.com",
+      "phone": "(907) 555-0199",
+      "service": "Brake Repair & Replacement",
+      "vehicle_year": 2021,
+      "vehicle_make": "Subaru",
+      "vehicle_model": "Outback",
+      "vehicle_mileage": "42,000",
+      "vehicle_vin": "4S4BSANC5M3289104",
+      "preferred_date": "2026-10-02",
+      "preferred_time": "10:00",
+      "notes": "Squeaking sound coming from front right wheel during slow stops.",
+      "status": "Completed",
+      "created_at": "2026-09-24T16:03:59.669Z"
+    },
+    {
+      "id": 2,
+      "booking_number": "NFA-2026-4720",
+      "name": "John Miller",
+      "email": "jmiller@alaskamail.com",
+      "phone": "(907) 733-4411",
+      "service": "Diagnostic Inspection",
+      "vehicle_year": 2019,
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-250 Super Duty",
+      "vehicle_mileage": "88,500",
+      "vehicle_vin": "1FT8W2BT5KEE12903",
+      "preferred_date": "2026-10-03",
+      "preferred_time": "08:00",
+      "notes": "Check engine light came on yesterday after hauling trailer.",
+      "status": "Pending",
+      "created_at": "2026-09-25T06:03:59.669Z"
+    },
+    {
+      "id": 3,
+      "booking_number": "NFA-2026-1182",
+      "name": "Elena Rostova",
+      "email": "elena.r@talkeetna.net",
+      "phone": "(907) 232-1100",
+      "service": "Synthetic Oil Change",
+      "vehicle_year": 2022,
+      "vehicle_make": "Toyota",
+      "vehicle_model": "4Runner",
+      "vehicle_mileage": "31,000",
+      "vehicle_vin": "JTEBU5JR7N5018294",
+      "preferred_date": "2026-09-28",
+      "preferred_time": "13:00",
+      "notes": "Routine 30k mile maintenance check.",
+      "status": "Completed",
+      "created_at": "2026-09-23T16:03:59.669Z"
+    }
+  ],
+  "contact_messages": [
+    {
+      "id": 1,
+      "name": "Robert Hayes",
+      "email": "rhayes@talkeetnaweb.com",
+      "phone": "(907) 555-8822",
+      "subject": "Custom suspension lift quote",
+      "message": "Looking for a 2-inch Old Man Emu suspension lift install for my 2018 Tacoma. Do you install customer-supplied kits?",
+      "created_at": "2026-09-25T16:03:59.669Z"
+    },
+    {
+      "id": 2,
+      "name": "QA Test Bot",
+      "email": "bot@northforkauto.test",
+      "phone": "(907) 555-9999",
+      "subject": "Automated QA Message",
+      "message": "Testing contact form submission.",
+      "created_at": "2026-09-25T16:04:26.731Z"
+    },
+    {
+      "id": 3,
+      "name": "QA Test Bot",
+      "email": "bot@northforkauto.test",
+      "phone": "(907) 555-9999",
+      "subject": "Automated QA Message",
+      "message": "Testing contact form submission.",
+      "created_at": "2026-09-25T16:16:44.438Z"
+    }
+  ],
+  "settings": {
+    "business_name": "North Fork Auto",
+    "phone": "(907) 733-3030",
+    "direct_phone": "+1 (907) 232-3859",
+    "email": "info@northforkauto.com",
+    "address": "Talkeetna Spur Road, Talkeetna, AK 99676",
+    "hours_weekday": "8:00 AM – 5:00 PM",
+    "hours_weekend": "Closed"
+  }
+}

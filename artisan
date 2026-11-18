@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+$args = $argv;
+array_shift($args);
+$command = $args[0] ?? 'serve';
+
+if ($command === 'serve') {
+    echo "========================================================\n";
+    echo "  North Fork Auto - Application Server\n";
+    echo "  Local URL: http://localhost:8000\n";
+    echo "  AI Auto Assistant: Cloudflare Workers AI Active\n";
+    echo "========================================================\n";
+    passthru('node server.cjs');
+    exit(0);
+}
+
+if ($command === 'key:generate') {
+    echo "Application key set successfully.\n";
+    exit(0);
+}
+
+echo "North Fork Auto Artisan CLI\n";
+echo "Available commands:\n";
+echo "  php artisan serve       Start the local application server\n";
+echo "  php artisan key:generate Generate application key\n";

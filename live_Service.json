@@ -1,0 +1,580 @@
+﻿[
+    {
+        "name":  "Oil Change",
+        "icon":  null,
+        "symptoms":  [
+                         "Dashboard oil light on",
+                         "Engine running louder than usual",
+                         "It\u0027s been 5,000+ miles since last change"
+                     ],
+        "description":  "Full-service oil change with premium oil and filter replacement to keep your engine protected and running clean.",
+        "featured":  true,
+        "category":  "PREVENTIVE MAINTENANCE",
+        "id":  "6a977bba1eaf1697782a6d33",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Fluid Service",
+        "icon":  null,
+        "symptoms":  [
+                         "Low fluid warning",
+                         "Discolored or burnt-smelling fluid",
+                         "Hard shifting or spongy brakes"
+                     ],
+        "description":  "Inspection and replacement of vital fluids including coolant, transmission, brake, and power steering fluid.",
+        "featured":  false,
+        "category":  "PREVENTIVE MAINTENANCE",
+        "id":  "6a977bba1eaf1697782a6d34",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Filter Replacement",
+        "icon":  null,
+        "symptoms":  [
+                         "Reduced airflow from vents",
+                         "Musty cabin odor",
+                         "Decreased fuel economy"
+                     ],
+        "description":  "Air and cabin filter replacement to protect your engine and keep the air inside your vehicle clean.",
+        "featured":  false,
+        "category":  "PREVENTIVE MAINTENANCE",
+        "id":  "6a977bba1eaf1697782a6d35",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Scheduled Maintenance",
+        "icon":  null,
+        "symptoms":  [
+                         "Maintenance reminder light on",
+                         "Approaching mileage milestone",
+                         "Due for 30k/60k/90k service"
+                     ],
+        "description":  "Manufacturer-recommended maintenance to preserve performance, safety, and warranty coverage.",
+        "featured":  false,
+        "category":  "PREVENTIVE MAINTENANCE",
+        "id":  "6a977bba1eaf1697782a6d36",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Brake Inspection",
+        "icon":  null,
+        "symptoms":  [
+                         "Squealing or grinding noise",
+                         "Soft or spongy pedal",
+                         "Steering wheel vibration when braking"
+                     ],
+        "description":  "Thorough inspection of pads, rotors, calipers, and lines to ensure safe, reliable stopping.",
+        "featured":  true,
+        "category":  "BRAKES",
+        "id":  "6a977bba1eaf1697782a6d37",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Brake Pad Replacement",
+        "icon":  null,
+        "symptoms":  [
+                         "Squeaking when braking",
+                         "Longer stopping distance",
+                         "Brake pad warning light"
+                     ],
+        "description":  "Quality pad replacement to restore stopping power and prevent rotor damage.",
+        "featured":  false,
+        "category":  "BRAKES",
+        "id":  "6a977bba1eaf1697782a6d38",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Brake Rotor Service",
+        "icon":  null,
+        "symptoms":  [
+                         "Pedal pulsation",
+                         "Steering wheel shake",
+                         "Grooved or scored rotors"
+                     ],
+        "description":  "Resurfacing or replacement of rotors to eliminate pulsation and restore smooth braking.",
+        "featured":  false,
+        "category":  "BRAKES",
+        "id":  "6a977bba1eaf1697782a6d39",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Brake Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Brake fluid leak",
+                         "Brake pedal sinks to floor",
+                         "Illuminated brake warning"
+                     ],
+        "description":  "Complete brake system repair including calipers, lines, and master cylinder service.",
+        "featured":  false,
+        "category":  "BRAKES",
+        "id":  "6a977bba1eaf1697782a6d3a",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Check Engine Diagnostics",
+        "icon":  null,
+        "symptoms":  [
+                         "Check engine light on",
+                         "Rough idle",
+                         "Failed emissions test"
+                     ],
+        "description":  "Advanced scan and diagnosis to identify the cause behind your check engine light.",
+        "featured":  true,
+        "category":  "ENGINE \u0026 DIAGNOSTICS",
+        "id":  "6a977bba1eaf1697782a6d3b",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Engine Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Loss of power",
+                         "Knocking or tapping noise",
+                         "Excessive exhaust smoke"
+                     ],
+        "description":  "Expert engine repair from minor fixes to major overhauls, performed to exacting standards.",
+        "featured":  false,
+        "category":  "ENGINE \u0026 DIAGNOSTICS",
+        "id":  "6a977bba1eaf1697782a6d3c",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Computer Diagnostics",
+        "icon":  null,
+        "symptoms":  [
+                         "Multiple warning lights",
+                         "Intermittent drivability issues",
+                         "Unexplained performance drop"
+                     ],
+        "description":  "Full electronic diagnostic scan of all vehicle systems to pinpoint issues fast.",
+        "featured":  false,
+        "category":  "ENGINE \u0026 DIAGNOSTICS",
+        "id":  "6a977bba1eaf1697782a6d3d",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Performance Issues",
+        "icon":  null,
+        "symptoms":  [
+                         "Hesitation on acceleration",
+                         "Stalling",
+                         "Poor fuel economy"
+                     ],
+        "description":  "Diagnosis and repair of hesitation, rough running, and reduced fuel economy.",
+        "featured":  false,
+        "category":  "ENGINE \u0026 DIAGNOSTICS",
+        "id":  "6a977bba1eaf1697782a6d3e",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Tire Installation",
+        "icon":  null,
+        "symptoms":  [
+                         "Frequent vibration",
+                         "Uneven tire wear",
+                         "New tires purchased"
+                     ],
+        "description":  "Professional tire mounting, balancing, and installation for a smooth, safe ride.",
+        "featured":  true,
+        "category":  "TIRES \u0026 ALIGNMENT",
+        "id":  "6a977bba1eaf1697782a6d3f",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Tire Rotation",
+        "icon":  null,
+        "symptoms":  [
+                         "Uneven tread wear",
+                         "Every 5,000â7,000 miles",
+                         "Vehicle pulling to one side"
+                     ],
+        "description":  "Regular rotation to extend tire life and ensure even wear across all four wheels.",
+        "featured":  false,
+        "category":  "TIRES \u0026 ALIGNMENT",
+        "id":  "6a977bba1eaf1697782a6d40",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Wheel Alignment",
+        "icon":  null,
+        "symptoms":  [
+                         "Steering wheel off-center",
+                         "Vehicle pulls left or right",
+                         "Uneven tire wear"
+                     ],
+        "description":  "Precision alignment to correct handling, reduce tire wear, and improve fuel economy.",
+        "featured":  false,
+        "category":  "TIRES \u0026 ALIGNMENT",
+        "id":  "6a977bba1eaf1697782a6d41",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Tire Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Slow leak",
+                         "Tire pressure warning",
+                         "Visible puncture"
+                     ],
+        "description":  "Safe, durable repair of punctures when the tire is still serviceable.",
+        "featured":  false,
+        "category":  "TIRES \u0026 ALIGNMENT",
+        "id":  "6a977bba1eaf1697782a6d42",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Battery Replacement",
+        "icon":  null,
+        "symptoms":  [
+                         "Slow engine crank",
+                         "Dashboard lights dim",
+                         "Battery warning light"
+                     ],
+        "description":  "Testing and replacement of weak or failed batteries with reliable, long-lasting units.",
+        "featured":  true,
+        "category":  "ELECTRICAL",
+        "id":  "6a977bba1eaf1697782a6d43",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Alternator",
+        "icon":  null,
+        "symptoms":  [
+                         "Battery keeps dying",
+                         "Dimming headlights",
+                         "Whining noise from engine"
+                     ],
+        "description":  "Alternator testing and replacement to keep your battery charged and electrical system running.",
+        "featured":  false,
+        "category":  "ELECTRICAL",
+        "id":  "6a977bba1eaf1697782a6d44",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Starter",
+        "icon":  null,
+        "symptoms":  [
+                         "Clicking when turning key",
+                         "Engine won\u0027t start",
+                         "Intermittent starting"
+                     ],
+        "description":  "Starter inspection and replacement to get your engine turning over reliably.",
+        "featured":  false,
+        "category":  "ELECTRICAL",
+        "id":  "6a977bba1eaf1697782a6d45",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Electrical Diagnostics",
+        "icon":  null,
+        "symptoms":  [
+                         "Flickering lights",
+                         "Blown fuses repeatedly",
+                         "Accessory not working"
+                     ],
+        "description":  "Diagnosis of wiring, sensor, and module issues across your vehicle\u0027s electrical system.",
+        "featured":  false,
+        "category":  "ELECTRICAL",
+        "id":  "6a977bba1eaf1697782a6d46",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "AC Diagnostics",
+        "icon":  null,
+        "symptoms":  [
+                         "AC blowing warm",
+                         "Weak airflow",
+                         "Strange odors from vents"
+                     ],
+        "description":  "Full inspection of your air conditioning system to find leaks and cooling issues.",
+        "featured":  true,
+        "category":  "AC \u0026 HEATING",
+        "id":  "6a977bba1eaf1697782a6d47",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "AC Recharge",
+        "icon":  null,
+        "symptoms":  [
+                         "AC not as cold as before",
+                         "Takes long to cool down",
+                         "Low refrigerant warning"
+                     ],
+        "description":  "Recharge of refrigerant to restore cold, comfortable cabin air.",
+        "featured":  false,
+        "category":  "AC \u0026 HEATING",
+        "id":  "6a977bba1eaf1697782a6d48",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Heating Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "No heat from vents",
+                         "Engine running cold",
+                         "Sweet smell inside cabin"
+                     ],
+        "description":  "Diagnosis and repair of heater core, thermostat, and blower issues.",
+        "featured":  false,
+        "category":  "AC \u0026 HEATING",
+        "id":  "6a977bba1eaf1697782a6d49",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Climate Control",
+        "icon":  null,
+        "symptoms":  [
+                         "Temperature won\u0027t adjust",
+                         "Fan stuck on one speed",
+                         "Defroster not working"
+                     ],
+        "description":  "Repair of electronic climate control systems for consistent cabin comfort.",
+        "featured":  false,
+        "category":  "AC \u0026 HEATING",
+        "id":  "6a977bba1eaf1697782a6d4a",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Transmission Service",
+        "icon":  null,
+        "symptoms":  [
+                         "Rough or delayed shifts",
+                         "Transmission fluid dark/burnt",
+                         "Maintenance interval reached"
+                     ],
+        "description":  "Fluid exchange and filter service to extend transmission life and smooth shifting.",
+        "featured":  true,
+        "category":  "TRANSMISSION",
+        "id":  "6a977bba1eaf1697782a6d4b",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Transmission Diagnostics",
+        "icon":  null,
+        "symptoms":  [
+                         "Check engine or trans light",
+                         "Slipping gears",
+                         "Grinding noise"
+                     ],
+        "description":  "Computer and pressure diagnostics to pinpoint transmission problems.",
+        "featured":  false,
+        "category":  "TRANSMISSION",
+        "id":  "6a977bba1eaf1697782a6d4c",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Transmission Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Won\u0027t go into gear",
+                         "Leaking fluid",
+                         "Burning smell"
+                     ],
+        "description":  "Repair and rebuild services for manual and automatic transmissions.",
+        "featured":  false,
+        "category":  "TRANSMISSION",
+        "id":  "6a977bba1eaf1697782a6d4d",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Shocks \u0026 Struts",
+        "icon":  null,
+        "symptoms":  [
+                         "Bouncy ride",
+                         "Nose dive when braking",
+                         "Uneven tire wear"
+                     ],
+        "description":  "Replacement of worn shocks and struts to restore ride comfort and control.",
+        "featured":  true,
+        "category":  "SUSPENSION \u0026 STEERING",
+        "id":  "6a977bba1eaf1697782a6d4e",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Suspension Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Clunking over bumps",
+                         "Wandering steering",
+                         "Vehicle sits unevenly"
+                     ],
+        "description":  "Repair of bushings, control arms, and mounts for stable, confident handling.",
+        "featured":  false,
+        "category":  "SUSPENSION \u0026 STEERING",
+        "id":  "6a977bba1eaf1697782a6d4f",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Steering Repair",
+        "icon":  null,
+        "symptoms":  [
+                         "Loose or stiff steering",
+                         "Power steering whine",
+                         "Steering wheel vibration"
+                     ],
+        "description":  "Diagnosis and repair of steering components including rack, pump, and tie rods.",
+        "featured":  false,
+        "category":  "SUSPENSION \u0026 STEERING",
+        "id":  "6a977bba1eaf1697782a6d50",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Belts",
+        "icon":  null,
+        "symptoms":  [
+                         "Squealing under hood",
+                         "Cracked or frayed belt",
+                         "Approaching replacement interval"
+                     ],
+        "description":  "Inspection and replacement of serpentine and timing belts to prevent breakdowns.",
+        "featured":  false,
+        "category":  "GENERAL REPAIR",
+        "id":  "6a977bba1eaf1697782a6d51",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Hoses",
+        "icon":  null,
+        "symptoms":  [
+                         "Coolant leak",
+                         "Bulging hose",
+                         "Engine running hot"
+                     ],
+        "description":  "Coolant and vacuum hose inspection and replacement to prevent leaks and overheating.",
+        "featured":  false,
+        "category":  "GENERAL REPAIR",
+        "id":  "6a977bba1eaf1697782a6d52",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Cooling System",
+        "icon":  null,
+        "symptoms":  [
+                         "Engine overheating",
+                         "Coolant temperature warning",
+                         "Coolant loss"
+                     ],
+        "description":  "Radiator, thermostat, and water pump service to prevent overheating.",
+        "featured":  false,
+        "category":  "GENERAL REPAIR",
+        "id":  "6a977bba1eaf1697782a6d53",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "General Vehicle Repairs",
+        "icon":  null,
+        "symptoms":  [
+                         "Unsure what\u0027s wrong",
+                         "Multiple concerns",
+                         "Pre-purchase inspection"
+                     ],
+        "description":  "Honest, dependable repair for whatever your vehicle needs.",
+        "featured":  false,
+        "category":  "GENERAL REPAIR",
+        "id":  "6a977bba1eaf1697782a6d54",
+        "created_date":  "2026-09-02T01:28:26.011000",
+        "updated_date":  "2026-09-02T01:28:26.011000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    }
+]

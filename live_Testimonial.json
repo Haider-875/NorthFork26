@@ -1,0 +1,52 @@
+﻿[
+    {
+        "rating":  5.0,
+        "testimonial":  "Reliable and trustworthy. They\u0027ve kept our family vehicles on the road for years. Highly recommend North Fork Auto.",
+        "customer_name":  "Jessica M.",
+        "id":  "6a977bba1eaf1697782a6d5b",
+        "created_date":  "2026-09-02T01:28:26.026000",
+        "updated_date":  "2026-09-02T01:28:26.026000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "rating":  5.0,
+        "testimonial":  "Fair prices and quality work. They diagnosed a tricky engine issue two other shops missed. Grateful for their expertise.",
+        "customer_name":  "Robert L.",
+        "id":  "6a977bba1eaf1697782a6d5c",
+        "created_date":  "2026-09-02T01:28:26.026000",
+        "updated_date":  "2026-09-02T01:28:26.026000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "rating":  5.0,
+        "testimonial":  "Took my truck in for a brake issue and they were honest about exactly what needed fixing. Fast, fair, and professional. I won\u0027t go anywhere else.",
+        "customer_name":  "Michael R.",
+        "id":  "6a977bba1eaf1697782a6d58",
+        "created_date":  "2026-09-02T01:28:26.025000",
+        "updated_date":  "2026-09-02T01:28:26.025000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "rating":  5.0,
+        "testimonial":  "Best auto experience I\u0027ve had in Talkeetna. They explained everything clearly and didn\u0027t try to upsell me. My SUV runs like new.",
+        "customer_name":  "Sarah K.",
+        "id":  "6a977bba1eaf1697782a6d59",
+        "created_date":  "2026-09-02T01:28:26.025000",
+        "updated_date":  "2026-09-02T01:28:26.025000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "rating":  5.0,
+        "testimonial":  "Booked online, got a confirmation call the same day, and my oil change was done quickly. Great local shop.",
+        "customer_name":  "David T.",
+        "id":  "6a977bba1eaf1697782a6d5a",
+        "created_date":  "2026-09-02T01:28:26.025000",
+        "updated_date":  "2026-09-02T01:28:26.025000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    }
+]

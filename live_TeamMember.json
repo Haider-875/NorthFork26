@@ -1,0 +1,35 @@
+﻿[
+    {
+        "name":  "Titus",
+        "bio":  "With over 20 years under the hood, Marcus leads our shop with a sharp eye for diagnostics and a commitment to doing the job right the first time.",
+        "role":  "Master Technician",
+        "photo_url":  "https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/d14162413_generated_13d03160.jpg",
+        "id":  "6a977bba1eaf1697782a6d55",
+        "created_date":  "2026-09-02T01:28:26.019000",
+        "updated_date":  "2026-09-02T01:46:34.776000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Elena Carter",
+        "bio":  "Elena brings advanced computer-diagnostic expertise, pinpointing complex issues quickly so you get honest answers and the right repair.",
+        "role":  "Diagnostic Specialist",
+        "photo_url":  "https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/987b802d9_generated_dd3a8d6a.jpg",
+        "id":  "6a977bba1eaf1697782a6d56",
+        "created_date":  "2026-09-02T01:28:26.019000",
+        "updated_date":  "2026-09-02T01:28:26.019000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    },
+    {
+        "name":  "Frank Reyes",
+        "bio":  "A hands-on craftsman with deep experience across all makes and models, Frank takes pride in quality workmanship that lasts.",
+        "role":  "Lead Mechanic",
+        "photo_url":  "https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/e6bcd32bb_generated_5f116eb5.jpg",
+        "id":  "6a977bba1eaf1697782a6d57",
+        "created_date":  "2026-09-02T01:28:26.019000",
+        "updated_date":  "2026-09-02T01:28:26.019000",
+        "created_by_id":  "6a97793b1eaf1697782a6c02",
+        "is_sample":  false
+    }
+]

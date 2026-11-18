@@ -1,0 +1,12 @@
+{
+  "name": "north-fork-auto",
+  "version": "1.0.0",
+  "description": "North Fork Auto - Talkeetna, Alaska",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "keywords": [],
+  "author": "North Fork Auto",
+  "license": "ISC"
+}

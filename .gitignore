@@ -1,0 +1,27 @@
+# Environment files (CRITICAL: Never commit secrets or API tokens)
+.env
+.env.backup
+.env.production
+.env.local
+
+# Storage and logs
+/storage/*.key
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# Node & Composer dependencies
+/node_modules/
+/vendor/
+npm-debug.log
+yarn-error.log
+
+# Operating System & IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.user

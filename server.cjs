@@ -717,9 +717,7 @@ function renderLayout(title, description, content, activeNav = '') {
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="/" class="flex items-center gap-3 group">
-                    <span class="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary font-heading font-800 text-xl leading-none group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200">
-                        N
-                    </span>
+                    <img src="/images/logo.png" alt="North Fork Auto Logo" class="w-10 h-10 object-contain rounded-md border border-primary/40 group-hover:border-primary transition-all duration-200 shadow-sm">
                     <div class="flex flex-col">
                         <span class="font-heading font-800 text-lg tracking-tight text-foreground leading-none">
                             North Fork Auto
@@ -785,9 +783,7 @@ function renderLayout(title, description, content, activeNav = '') {
             <div class="grid gap-12 lg:grid-cols-4">
                 <div class="lg:col-span-1">
                     <div class="flex items-center gap-3 mb-5">
-                        <span class="flex items-center justify-center w-9 h-9 border-2 border-primary text-primary font-heading font-800 text-lg leading-none">
-                            N
-                        </span>
+                        <img src="/images/logo.png" alt="North Fork Auto Logo" class="w-9 h-9 object-contain rounded-md border border-primary/40 shadow-sm">
                         <span class="font-heading font-800 text-lg text-foreground">North Fork Auto</span>
                     </div>
                     <p class="text-sm text-muted-foreground leading-relaxed mb-5">

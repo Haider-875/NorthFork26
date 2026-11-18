@@ -13,9 +13,7 @@
         <div id="header-inner" class="flex items-center justify-between transition-all duration-300 h-20">
             <!-- Brand Logo -->
             <a href="/" class="flex items-center gap-3 group">
-                <span class="flex items-center justify-center w-9 h-9 border-2 border-primary text-primary font-heading font-800 text-lg leading-none group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    N
-                </span>
+                <img src="/images/logo.png" alt="North Fork Auto Logo" class="w-10 h-10 object-contain rounded-md border border-primary/40 group-hover:border-primary transition-all duration-200 shadow-sm">
                 <span class="leading-none">
                     <span class="block font-heading font-800 text-lg tracking-tight text-foreground">North Fork Auto</span>
                     <span class="block font-mono-data text-[10px]">Talkeetna, AK</span>

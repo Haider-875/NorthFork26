@@ -634,6 +634,93 @@
             text-decoration: underline;
         }
 
+        /* Quick Action Chips */
+        .nfa-quick-chips-wrapper {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--nfa-border);
+        }
+        .nfa-chips-heading {
+            font-family: var(--nfa-font-mono);
+            font-size: 10px;
+            color: var(--nfa-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .nfa-quick-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .nfa-quick-chips-bar {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 6px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nfa-quick-chips-bar::-webkit-scrollbar {
+            display: none;
+        }
+        .nfa-chip {
+            white-space: nowrap;
+            background: var(--nfa-surface-card);
+            border: 1px solid var(--nfa-border);
+            border-radius: 999px;
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: var(--nfa-font-body);
+            flex-shrink: 0;
+            user-select: none;
+        }
+        .nfa-chip:hover {
+            background: var(--nfa-surface-hover);
+            border-color: var(--nfa-primary);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+        .nfa-chip:active {
+            transform: translateY(0);
+        }
+
+        /* Input Meta (Hint + Char Counter) */
+        .nfa-input-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--nfa-font-mono);
+            font-size: 10px;
+            color: var(--nfa-text-dim);
+            margin-bottom: 6px;
+            padding: 0 2px;
+        }
+        .nfa-char-counter {
+            color: var(--nfa-text-dim);
+            font-size: 10px;
+        }
+
+        /* Typewriter Cursor */
+        .nfa-typewriter-cursor {
+            display: inline-block;
+            color: var(--nfa-primary);
+            font-weight: 700;
+            font-size: 12px;
+            margin-left: 2px;
+            animation: nfaCursorBlink 0.7s infinite;
+            vertical-align: middle;
+        }
+        @keyframes nfaCursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         /* Accessibility: Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
             .nfa-chat-window, .nfa-msg, .nfa-prompt-card, .nfa-typing-dot {
@@ -646,8 +733,8 @@
     <!-- Floating Trigger Launcher Button -->
     <div class="nfa-chat-launcher" id="nfa-launcher" role="button" aria-label="Open North Fork Auto Assistant">
         <div class="nfa-launcher-pill">
-            <!-- <span class="nfa-status-dot"></span> -->
-            <!-- <span>AI Service Advisor</span> -->
+            <span class="nfa-status-dot"></span>
+            <span>AI AUTO ASSISTANT</span>
         </div>
         <div class="nfa-launcher-btn">
             <span class="nfa-support-icon" aria-hidden="true"></span>
@@ -752,21 +839,17 @@
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
+                </div>
 
-                    <!-- Card 4: Check My Appointment -->
-                    <div class="nfa-prompt-card" data-query="Can you please check my appointment?">
-                        <div class="nfa-card-content">
-                            <div class="nfa-card-icon">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
-                            </div>
-                            <span class="nfa-card-title">Check My Appointment</span>
-                        </div>
-                        <svg class="nfa-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
+                <!-- Quick Action Chips Section -->
+                <div class="nfa-quick-chips-wrapper">
+                    <div class="nfa-chips-heading">Quick Actions</div>
+                    <div class="nfa-quick-chips">
+                        <button type="button" class="nfa-chip" data-query="What services do you offer?">Our Services</button>
+                        <button type="button" class="nfa-chip" data-action="book">Book an Appointment</button>
+                        <button type="button" class="nfa-chip" data-query="Check appointment NFA-2026-8659">Check Appointment</button>
+                        <button type="button" class="nfa-chip" data-query="What are your shop hours?">Business Hours</button>
+                        <button type="button" class="nfa-chip" data-query="Can I speak to someone?">Contact Us</button>
                     </div>
                 </div>
             </div>
@@ -774,6 +857,20 @@
 
         <!-- Input Area -->
         <div class="nfa-chat-input-area">
+            <!-- Persistent Quick Chips Bar -->
+            <div class="nfa-quick-chips-bar" id="nfa-chips-bar">
+                <button type="button" class="nfa-chip" data-query="What services do you offer?">Our Services</button>
+                <button type="button" class="nfa-chip" data-action="book">Book Appointment</button>
+                <button type="button" class="nfa-chip" data-query="Check appointment NFA-2026-8659">Check Appointment</button>
+                <button type="button" class="nfa-chip" data-query="What are your shop hours?">Business Hours</button>
+                <button type="button" class="nfa-chip" data-query="Can I speak to someone?">Contact Us</button>
+            </div>
+
+            <div class="nfa-input-meta">
+                <span class="nfa-input-hint">Enter to send · Shift+Enter for new line</span>
+                <span id="nfa-char-counter" class="nfa-char-counter">0/400</span>
+            </div>
+
             <form id="nfa-form" onsubmit="return false;">
                 <div class="nfa-input-box">
                     <textarea 
@@ -794,7 +891,7 @@
             </form>
 
             <div class="nfa-footer-note">
-                North Fork Auto · Talkeetna, AK · <a href="tel:9077333030">(907) 733-3030</a>
+                North Fork Auto · Talkeetna, AK · <a href="tel:9077333030">(907) 733-3030</a> · Emergency <a href="tel:9072323859">(907) 232-3859</a>
             </div>
         </div>
     </div>
@@ -842,10 +939,14 @@
             closeBtn.addEventListener('click', closeChat);
             minimizeBtn.addEventListener('click', closeChat);
 
-            // Auto-growing textarea
+            // Auto-growing textarea & char counter
             textarea.addEventListener('input', function() {
                 this.style.height = 'auto';
                 this.style.height = Math.min(this.scrollHeight, 90) + 'px';
+                const counter = document.getElementById('nfa-char-counter');
+                if (counter) {
+                    counter.textContent = `${this.value.length}/400`;
+                }
             });
 
             // Enter to send, Shift+Enter for new line
@@ -867,6 +968,24 @@
                     const query = this.getAttribute('data-query');
                     if (query) {
                         textarea.value = query;
+                        const counter = document.getElementById('nfa-char-counter');
+                        if (counter) counter.textContent = `${query.length}/400`;
+                        sendMessage();
+                    }
+                });
+            });
+
+            // Quick action chips clicks
+            document.querySelectorAll('.nfa-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const query = this.getAttribute('data-query');
+                    if (action === 'book') {
+                        renderAppointmentForm();
+                    } else if (query) {
+                        textarea.value = query;
+                        const counter = document.getElementById('nfa-char-counter');
+                        if (counter) counter.textContent = `${query.length}/400`;
                         sendMessage();
                     }
                 });
@@ -906,6 +1025,8 @@
                 // Reset input
                 textarea.value = '';
                 textarea.style.height = 'auto';
+                const counter = document.getElementById('nfa-char-counter');
+                if (counter) counter.textContent = '0/400';
 
                 // Append user bubble
                 appendUserMessage(message);
@@ -970,11 +1091,25 @@
                 chatBody.appendChild(row);
             }
 
-            function appendAssistantMessage(text, appointment = null) {
+            function appendAssistantMessage(text, appointment = null, stream = true) {
                 const time = getTime();
-                const formatted = formatText(text);
                 const row = document.createElement('div');
                 row.className = 'nfa-msg assistant';
+
+                const bubble = document.createElement('div');
+                bubble.className = 'nfa-msg-bubble';
+
+                const textSpan = document.createElement('span');
+                bubble.appendChild(textSpan);
+
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'nfa-msg-time';
+                timeSpan.textContent = time;
+
+                row.appendChild(bubble);
+                row.appendChild(timeSpan);
+                chatBody.appendChild(row);
+                scrollToBottom();
 
                 let cardHtml = '';
                 if (appointment && appointment.verified) {
@@ -1005,15 +1140,43 @@
                     `;
                 }
 
-                row.innerHTML = `
-                    <div class="nfa-msg-bubble">
-                        ${formatted}
-                        ${cardHtml}
-                    </div>
-                    <span class="nfa-msg-time">${time}</span>
-                `;
-                chatBody.appendChild(row);
-                scrollToBottom();
+                if (!stream || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    textSpan.innerHTML = formatText(text);
+                    if (cardHtml) {
+                        const c = document.createElement('div');
+                        c.innerHTML = cardHtml;
+                        bubble.appendChild(c);
+                    }
+                    scrollToBottom();
+                    return;
+                }
+
+                // Smooth typewriter stream
+                const cursor = document.createElement('span');
+                cursor.className = 'nfa-typewriter-cursor';
+                cursor.textContent = '▋';
+                bubble.appendChild(cursor);
+
+                const words = text.split(/(\s+)/);
+                let idx = 0;
+                let acc = '';
+
+                const timer = setInterval(() => {
+                    if (idx < words.length) {
+                        acc += words[idx++];
+                        textSpan.innerHTML = formatText(acc);
+                        scrollToBottom();
+                    } else {
+                        clearInterval(timer);
+                        cursor.remove();
+                        if (cardHtml) {
+                            const c = document.createElement('div');
+                            c.innerHTML = cardHtml;
+                            bubble.appendChild(c);
+                        }
+                        scrollToBottom();
+                    }
+                }, 16);
             }
 
             // Typing Indicator

@@ -20,6 +20,8 @@ env:
   APP_ENV: production
   APP_DEBUG: 'false'
   APP_TIMEZONE: America/Anchorage
+  CLOUDFLARE_ACCOUNT_ID: e170edb3cd40ca17903aaa54eaa71c5e
+  CLOUDFLARE_AI_MODEL: '@cf/google/gemma-4-26b-a4b-it'
 jobs:
 - action:
     execute:

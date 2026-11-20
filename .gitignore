@@ -25,3 +25,6 @@ Thumbs.db
 .vscode/
 *.suo
 *.user
+
+# Scratch & test scripts
+/scratch/

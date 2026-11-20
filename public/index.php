@@ -79,9 +79,10 @@ function sendJson(array $data, int $status = 200): void {
 }
 
 // -------------------------------------------------------------
-// 3. Database & Appointment Helpers
+// 3. Database, Conversation & Appointment Helpers
 // -------------------------------------------------------------
 $dbFile = dirname(__DIR__) . '/storage/app/database.json';
+$convFile = dirname(__DIR__) . '/storage/app/chat_conversations.json';
 
 function loadDatabase(string $file): array {
     if (!file_exists($file)) {
@@ -97,6 +98,56 @@ function saveDatabase(string $file, array $data): bool {
         mkdir($dir, 0755, true);
     }
     return (bool) file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+
+function loadConversations(string $file): array {
+    if (!file_exists($file)) {
+        return [];
+    }
+    $content = file_get_contents($file);
+    $data = json_decode($content ?: '[]', true);
+    return is_array($data) ? $data : [];
+}
+
+function saveConversations(string $file, array $data): bool {
+    $dir = dirname($file);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+    return (bool) file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+
+function extractVehicleAndIssueContext(string $text, array &$context): void {
+    $lower = strtolower($text);
+
+    // Year: 1980-2027
+    if (preg_match('/\b(19[89]\d|20[0-2]\d)\b/', $text, $ym)) {
+        $context['vehicle_year'] = $ym[1];
+    }
+    // Make
+    if (preg_match('/\b(ford|chevy|chevrolet|gmc|dodge|ram|toyota|honda|subaru|nissan|jeep|bmw|audi|mercedes|volkswagen|vw|hyundai|kia|lexus|mazda)\b/i', $text, $mm)) {
+        $context['vehicle_make'] = ucfirst(strtolower($mm[1]));
+    }
+    // Model
+    if (preg_match('/\b(f-?150|f-?250|f-?350|silverado|sierra|outback|forester|crosstrek|tacoma|tundra|camry|corolla|civic|accord|cr-?v|wrangler|cherokee|grand cherokee|ram 1500|ram 2500|explorer|escape|ranger)\b/i', $text, $modm)) {
+        $context['vehicle_model'] = strtoupper($modm[1]);
+    }
+    // Synthesize vehicle_full
+    $parts = array_filter([$context['vehicle_year'] ?? '', $context['vehicle_make'] ?? '', $context['vehicle_model'] ?? '']);
+    if (!empty($parts)) {
+        $context['vehicle_full'] = implode(' ', $parts);
+    }
+    // Issue tracking
+    if (preg_match('/\b(brake|brakes|squeak\w*|grind\w*|rotor|caliper|pad)\b/i', $lower)) {
+        $context['current_issue'] = 'Brake noise / inspection';
+        $context['service_needed'] = 'Brake Repair & Replacement';
+    } elseif (preg_match('/\b(check engine|engine light|cel|warning light|misfire)\b/i', $lower)) {
+        $context['current_issue'] = 'Check Engine Light diagnostics';
+        $context['service_needed'] = 'Diagnostic Inspection';
+    } elseif (preg_match('/\b(oil|oil change|lube|filter)\b/i', $lower)) {
+        $context['current_issue'] = 'Oil & Filter Service';
+        $context['service_needed'] = 'Oil & Filter Service';
+    }
 }
 
 function normalizeId(?string $id): string {
@@ -183,10 +234,84 @@ const SHOP_INFO = [
     'warranty'       => '12-month / 12,000-mile warranty on qualifying parts and labor',
 ];
 
-function resolveSmartIntent(string $message, array $history, array $database): ?array {
+function resolveSmartIntent(string $message, array $history, array $database, array &$context = []): ?array {
     $text = trim($message);
     $lower = strtolower($text);
     $prevTopic = getPreviousTopic($history);
+
+    // 0A. VEHICLE MEMORY INTENT: "What vehicle did I tell you I have?"
+    if (preg_match('/\bwhat (vehicle|truck|car|automobile)\b.*\b(tell you|mention|say|told you|have|drive)\b/i', $lower) ||
+        preg_match('/\bwhat did i (tell you|say)\b.*\b(have|drive|my vehicle|my car|my truck)\b/i', $lower)) {
+        if (!empty($context['vehicle_full'])) {
+            return [
+                'intent' => 'VEHICLE_MEMORY',
+                'reply' => "You mentioned you have a {$context['vehicle_full']}."
+            ];
+        } elseif (!empty($context['vehicle_make'])) {
+            return [
+                'intent' => 'VEHICLE_MEMORY',
+                'reply' => "You mentioned you drive a {$context['vehicle_make']}."
+            ];
+        }
+    }
+
+    // 0B. PARTS INQUIRY INTENT: "Can you check whether you have parts for it?"
+    if (preg_match('/\b(parts?|components?)\b.*\b(have|stock|available|for it|in stock)\b/i', $lower) ||
+        preg_match('/\bdo you have parts for (it|my truck|my car)\b/i', $lower)) {
+        $veh = !empty($context['vehicle_full']) ? $context['vehicle_full'] : (!empty($context['vehicle_make']) ? $context['vehicle_make'] : 'your vehicle');
+        if (($context['current_issue'] ?? '') === 'Brake noise / inspection' || str_contains($lower, 'brake') || $prevTopic === 'brakes') {
+            return [
+                'intent' => 'PARTS_INQUIRY',
+                'reply' => "Which brake part do you need? We stock and source quality pads, rotors, and calipers for {$veh}, but I'll be glad to verify our current inventory with our parts team."
+            ];
+        }
+        return [
+            'intent' => 'PARTS_INQUIRY',
+            'reply' => "Which part does your vehicle need? We stock and source parts for {$veh}, but I'll need to check our live inventory once we confirm your vehicle specs."
+        ];
+    }
+
+    // 0C. CHECK ENGINE LIGHT FOLLOW-UP: "It is staying solid." / "It is flashing."
+    if (preg_match('/\b(staying solid|is solid|it\'s solid|steady light|solid light)\b/i', $lower) || 
+        ($prevTopic === 'engine' && str_contains($lower, 'solid') && !str_contains($lower, 'flashing'))) {
+        return [
+            'intent' => 'DIAGNOSTIC_CEL_SOLID',
+            'reply' => "A steady check engine light indicates an emissions or sensor trouble code that should be scanned. Since it isn't flashing, it is generally safe to drive to our shop on Talkeetna Spur Road for a computerized diagnostic inspection."
+        ];
+    }
+    if (preg_match('/\b(is flashing|it\'s flashing|blinking|flashing)\b/i', $lower) && ($prevTopic === 'engine' || str_contains($lower, 'engine') || str_contains($lower, 'light'))) {
+        return [
+            'intent' => 'DIAGNOSTIC_CEL_FLASHING',
+            'reply' => "A flashing check engine light indicates an active engine misfire that can cause severe catalytic converter damage. Please safely pull over, avoid driving, and call our shop at " . SHOP_INFO['phone'] . " or our 24/7 emergency dispatch at " . SHOP_INFO['emergencyPhone'] . "."
+        ];
+    }
+
+    // 0D. PURE VEHICLE STATEMENT: "I have a 2018 Ford F-150."
+    if (preg_match('/^(i (have|drive|got)|my (truck|car|vehicle) is)\s+(a\s+)?(19\d\d|20\d\d)?\s*([a-z0-9\s\-]+)$/i', $text) && !preg_match('/\b(noise|light|broken|fix|repair|squeak|leak|oil|smoke|grind)\b/i', $lower)) {
+        $veh = !empty($context['vehicle_full']) ? $context['vehicle_full'] : 'truck';
+        return [
+            'intent' => 'VEHICLE_INFO_STATED',
+            'reply' => "Got it! What issue are you experiencing with your {$veh}?"
+        ];
+    }
+
+    // 0E. APPOINTMENT POLICY QUESTION (Walk-in vs Appointment Required): "Do I need an appointment for an oil change?"
+    if (preg_match('/\b(do i need|is (it|an?)|are)\b.*\b(appointment|booking|scheduled?)\b/i', $lower) ||
+        preg_match('/\b(appointment required|need an appointment)\b/i', $lower)) {
+        return [
+            'intent' => 'APPOINTMENT_POLICY_INQUIRY',
+            'reply' => "Appointments are recommended so our technicians have a dedicated bay ready for your vehicle, but we also welcome walk-ins during regular shop hours (Monday–Friday, 8:00 AM–5:00 PM). Would you like to schedule an appointment?"
+        ];
+    }
+
+    // 0F. GENERAL MAINTENANCE / SHOP RECOMMENDATION
+    if (preg_match('/\b(maintain|maintenance|reliable place|tune up|service my|service our|fix my truck|fix my car)\b/i', $lower)) {
+        $veh = !empty($context['vehicle_full']) ? $context['vehicle_full'] : (!empty($context['vehicle_make']) ? $context['vehicle_make'] : 'your vehicle');
+        return [
+            'intent' => 'GENERAL_MAINTENANCE_INQUIRY',
+            'reply' => "You've come to the right place! At North Fork Auto in Talkeetna, we specialize in reliable maintenance, diagnostics, and repairs for {$veh} and all vehicle makes. Give us a call at " . SHOP_INFO['phone'] . " or schedule online!"
+        ];
+    }
 
     // 1. APPOINTMENT LOOKUP INTENT
     $confId = extractIdFromText($text);
@@ -328,32 +453,12 @@ function resolveSmartIntent(string $message, array $history, array $database): ?
         ];
     }
 
-    // 10. PRICING & ESTIMATES (Strict no-hallucination policy)
-    if (preg_match('/\b(how much|cost|price|pricing|quote|estimate|charge|rate)\b/i', $lower)) {
-        if (str_contains($lower, 'oil')) {
-            return [
-                'intent' => 'PRICING_OIL_CHANGE',
-                'reply' => "Oil change pricing varies depending on your engine size, oil capacity, and whether your vehicle requires synthetic or conventional blend. Please call us at " . SHOP_INFO['phone'] . " with your vehicle details for an exact quote!"
-            ];
-        }
-        return [
-            'intent' => 'PRICING_GENERAL',
-            'reply' => "Repair and service costs depend on your specific vehicle's year, make, model, and the parts required. We provide honest, transparent estimates after an inspection—give us a call at " . SHOP_INFO['phone'] . "!"
-        ];
-    }
-
-    // 11. CONTEXTUAL FOLLOW-UP: "How long does it take?"
-    if (preg_match('/\bhow long (does it take|will it take|is it)\b/i', $lower) || preg_match('/\bhow long\b/i', $lower)) {
-        if ($prevTopic === 'engine' || str_contains($lower, 'engine')) {
-            return [
-                'intent' => 'DURATION_ENGINE',
-                'reply' => "Engine repair duration depends on diagnostic findings—minor sensor or belt fixes take a few hours, while major overhauls may require several days. Our technicians provide an estimated turnaround time once we inspect your vehicle."
-            ];
-        }
-        if ($prevTopic === 'brakes' || str_contains($lower, 'brake')) {
+    // 10. CONTEXTUAL FOLLOW-UP: DURATION ("How long does it take?" / "How much time will it take?")
+    if (preg_match('/\bhow (much time|long) (will it take|does it take|is it)\b/i', $lower) || preg_match('/\bhow long\b/i', $lower) || preg_match('/\bhow much time\b/i', $lower)) {
+        if (($context['current_issue'] ?? '') === 'Brake noise / inspection' || $prevTopic === 'brakes' || str_contains($lower, 'brake')) {
             return [
                 'intent' => 'DURATION_BRAKES',
-                'reply' => "Most standard brake pad and rotor replacements take about 1.5 to 3 hours once your vehicle is in the bay. Our technicians will inspect your braking system and confirm the exact timeline."
+                'reply' => "Brake inspection usually takes around 30–60 minutes, depending on the issue. If repairs are needed, we'll confirm the estimated time after inspection."
             ];
         }
         if ($prevTopic === 'oil_change' || str_contains($lower, 'oil')) {
@@ -365,6 +470,20 @@ function resolveSmartIntent(string $message, array $history, array $database): ?
         return [
             'intent' => 'DURATION_GENERAL',
             'reply' => "Service turnaround times vary by vehicle and the specific repairs needed. Once we inspect your vehicle, we'll give you a reliable time estimate."
+        ];
+    }
+
+    // 11. PRICING & ESTIMATES (Strict no-hallucination policy; excluded if asking about duration/time)
+    if (preg_match('/\b(cost|price|pricing|quote|estimate|charge|rate)\b/i', $lower) || (preg_match('/\bhow much\b/i', $lower) && !preg_match('/\b(time|long|hours?|minutes?)\b/i', $lower))) {
+        if (str_contains($lower, 'oil')) {
+            return [
+                'intent' => 'PRICING_OIL_CHANGE',
+                'reply' => "Oil change pricing varies depending on your engine size, oil capacity, and whether your vehicle requires synthetic or conventional blend. Please call us at " . SHOP_INFO['phone'] . " with your vehicle details for an exact quote!"
+            ];
+        }
+        return [
+            'intent' => 'PRICING_GENERAL',
+            'reply' => "Repair and service costs depend on your specific vehicle's year, make, model, and the parts required. We provide honest, transparent estimates after an inspection—give us a call at " . SHOP_INFO['phone'] . "!"
         ];
     }
 
@@ -416,38 +535,125 @@ if ($method === 'POST' && in_array($path, ['/api/chat', '/api/chatbot/chat', '/c
     $raw = file_get_contents('php://input');
     $input = json_decode($raw ?: '{}', true) ?: [];
     $message = trim((string) ($input['message'] ?? ''));
-    $history = (array) ($input['history'] ?? []);
+    $sessionId = trim((string) ($input['session_id'] ?? ($input['sessionId'] ?? '')));
+    if ($sessionId === '') {
+        $sessionId = 'nfa_' . substr(md5(uniqid((string) mt_rand(), true)), 0, 12);
+    }
+    $clientHistory = (array) ($input['history'] ?? []);
 
     if ($message === '') {
         sendJson(['reply' => 'Please ask a question about our automotive services, repairs, or appointment scheduling.'], 400);
     }
 
+    $convs = loadConversations($convFile);
+    if (!isset($convs[$sessionId])) {
+        $convs[$sessionId] = [
+            'session_id'   => $sessionId,
+            'created_at'   => date('c'),
+            'updated_at'   => date('c'),
+            'daily_count'  => 0,
+            'last_active'  => date('Y-m-d'),
+            'context'      => [
+                'vehicle_year'   => null,
+                'vehicle_make'   => null,
+                'vehicle_model'  => null,
+                'vehicle_full'   => null,
+                'current_issue'  => null,
+                'service_needed' => null,
+            ],
+            'messages'     => []
+        ];
+    }
+
+    $session = &$convs[$sessionId];
+    $today = date('Y-m-d');
+    if (($session['last_active'] ?? '') !== $today) {
+        $session['daily_count'] = 0;
+        $session['last_active'] = $today;
+    }
+
+    // Daily limit check (AI_CHATBOT_DAILY_LIMIT=100)
+    $dailyLimit = (int) (getenv('AI_CHATBOT_DAILY_LIMIT') ?: 100);
+    if (($session['daily_count'] ?? 0) >= $dailyLimit) {
+        sendJson([
+            'reply' => "You have reached the maximum daily message limit for this chat session. Please give our Talkeetna shop a call at " . SHOP_INFO['phone'] . " or (907) 232-3859 for immediate assistance.",
+            'error' => 'daily_limit_reached',
+            'session_id' => $sessionId
+        ], 429);
+    }
+
+    $session['daily_count'] = ($session['daily_count'] ?? 0) + 1;
+    $session['updated_at'] = date('c');
+
+    // If session has no messages yet but client sent history, merge client history
+    if (empty($session['messages']) && !empty($clientHistory)) {
+        foreach ($clientHistory as $ch) {
+            if (!empty($ch['content']) && in_array($ch['role'] ?? '', ['user', 'assistant'], true)) {
+                $session['messages'][] = [
+                    'role' => $ch['role'],
+                    'content' => (string) $ch['content'],
+                    'timestamp' => date('c')
+                ];
+                if ($ch['role'] === 'user') {
+                    extractVehicleAndIssueContext((string) $ch['content'], $session['context']);
+                }
+            }
+        }
+    }
+
+    // Extract context from current message
+    extractVehicleAndIssueContext($message, $session['context']);
+
     $db = loadDatabase($dbFile);
 
     // 1. Try Deterministic Intelligent Intent Router first (ultra-fast sub-20ms response)
-    $smartResult = resolveSmartIntent($message, $history, $db);
+    $smartResult = resolveSmartIntent($message, $session['messages'], $db, $session['context']);
     if ($smartResult !== null) {
+        $session['messages'][] = ['role' => 'user', 'content' => $message, 'timestamp' => date('c')];
+        $session['messages'][] = ['role' => 'assistant', 'content' => $smartResult['reply'], 'timestamp' => date('c')];
+        if (count($session['messages']) > 30) {
+            $session['messages'] = array_slice($session['messages'], -30);
+        }
+        saveConversations($convFile, $convs);
+        $smartResult['session_id'] = $sessionId;
         sendJson($smartResult);
     }
 
-    // 2. Fall back to Cloudflare Workers AI for complex conversational troubleshooting
+    // 2. Fall back to Cloudflare Workers AI for complex conversational reasoning
     $cfAccountId = getenv('CLOUDFLARE_ACCOUNT_ID') ?: 'e170edb3cd40ca17903aaa54eaa71c5e';
-    $cfApiToken  = getenv('CLOUDFLARE_API_TOKEN') ?: base64_decode('Y2Z1dF9ld3pYR1dPNUZLaktBVUJScFhzRE04TXhCek5aYTcwWDJjUVRjWGtQVWFjN2M4NGFk');
+    $cfApiToken  = getenv('CLOUDFLARE_API_TOKEN') ?: base64_decode('Y2Z1dF9ld3pYR1dPNUZLakFVQlJ0WHNETThNeEJ6TlphNzBYMmNRVGNYa1BVYWM3Yzg0YWQ=');
     $cfModel     = getenv('CLOUDFLARE_AI_MODEL') ?: '@cf/google/gemma-4-26b-a4b-it';
 
-    $systemPrompt = "You are the official AI Auto Service Assistant for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, Emergency Towing: (907) 232-3859, Mon-Fri 8am-5pm, closed weekends). " .
-                    "Give concise, professional, friendly 1-3 sentence advice (under 60 words). Never write bulleted lists or lengthy essays. " .
-                    "For appointments, customers can book online or check confirmation numbers (NFA-YYYY-XXXX). Do not invent prices or fake parts.";
+    $contextLines = [];
+    if (!empty($session['context']['vehicle_full'])) {
+        $contextLines[] = "Customer Vehicle: " . $session['context']['vehicle_full'];
+    } elseif (!empty($session['context']['vehicle_make'])) {
+        $contextLines[] = "Customer Vehicle: " . $session['context']['vehicle_make'];
+    }
+    if (!empty($session['context']['current_issue'])) {
+        $contextLines[] = "Current Issue: " . $session['context']['current_issue'];
+    }
+    $contextSummary = !empty($contextLines) ? "\nActive Conversation Memory:\n" . implode("\n", $contextLines) . "\n" : "";
 
-    $messages = [
+    $systemPrompt = "You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, Emergency Towing: (907) 232-3859, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road). " .
+                    $contextSummary .
+                    "RULES:\n" .
+                    "1. Respond in 1 to 3 short, helpful, conversational sentences (under 60 words total).\n" .
+                    "2. ALWAYS remember and reference the customer's vehicle and previous issues when responding.\n" .
+                    "3. For brake inspections, state it takes roughly 30–60 minutes. Do not invent exact repair prices without an inspection.\n" .
+                    "4. If check engine light is solid, advise a diagnostic scan. If flashing, warn them to pull over immediately.\n" .
+                    "5. Do NOT output markdown bullet lists, numbered lists, or lengthy essays.\n" .
+                    "6. Be warm, professional, and invite them to schedule online or call our shop.";
+
+    $aiMessages = [
         ['role' => 'system', 'content' => $systemPrompt]
     ];
-    foreach (array_slice($history, -4) as $h) {
+    foreach (array_slice($session['messages'], -8) as $h) {
         if (!empty($h['content']) && in_array($h['role'] ?? '', ['user', 'assistant'], true)) {
-            $messages[] = ['role' => $h['role'], 'content' => (string) $h['content']];
+            $aiMessages[] = ['role' => $h['role'], 'content' => (string) $h['content']];
         }
     }
-    $messages[] = ['role' => 'user', 'content' => $message];
+    $aiMessages[] = ['role' => 'user', 'content' => $message];
 
     $ch = curl_init("https://api.cloudflare.com/client/v4/accounts/{$cfAccountId}/ai/run/{$cfModel}");
     curl_setopt_array($ch, [
@@ -458,10 +664,10 @@ if ($method === 'POST' && in_array($path, ['/api/chat', '/api/chatbot/chat', '/c
             "Content-Type: application/json"
         ],
         CURLOPT_POSTFIELDS     => json_encode([
-            'messages'   => $messages,
-            'max_tokens' => 250
+            'messages'   => $aiMessages,
+            'max_tokens' => 800
         ]),
-        CURLOPT_TIMEOUT        => 12,
+        CURLOPT_TIMEOUT        => 15,
         CURLOPT_SSL_VERIFYPEER => true
     ]);
 
@@ -469,26 +675,82 @@ if ($method === 'POST' && in_array($path, ['/api/chat', '/api/chatbot/chat', '/c
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
+    $aiReply = null;
     if ($httpCode === 200 && $resp) {
         $json = json_decode($resp, true);
-        $reply = $json['result']['choices'][0]['message']['content']
+        $rawContent = $json['result']['choices'][0]['message']['content']
             ?? ($json['result']['response']
             ?? ($json['result']['content'] ?? null));
-
-        if ($reply && trim($reply) !== '') {
-            sendJson(['reply' => trim($reply), 'source' => 'cloudflare_ai']);
+        if ($rawContent && trim($rawContent) !== '') {
+            $aiReply = trim($rawContent);
         }
     }
 
-    // Graceful conversational fallback
-    $fallback = "Thanks for reaching out to North Fork Auto! For expert diagnostics, vehicle maintenance, or scheduling in Talkeetna, feel free to book online or call our shop directly at " . SHOP_INFO['phone'] . ".";
-    if (stripos($message, 'brake') !== false) {
-        $fallback = "If your brakes are squeaking, grinding, or feel soft, we recommend a prompt inspection. You can book an appointment online or call us at " . SHOP_INFO['phone'] . ".";
-    } elseif (stripos($message, 'engine') !== false) {
-        $fallback = "If your check engine light is flashing, pull over safely and turn off the engine. If steady, we can scan the diagnostic trouble codes at our Talkeetna shop. Call " . SHOP_INFO['phone'] . ".";
+    if ($aiReply !== null) {
+        $session['messages'][] = ['role' => 'user', 'content' => $message, 'timestamp' => date('c')];
+        $session['messages'][] = ['role' => 'assistant', 'content' => $aiReply, 'timestamp' => date('c')];
+        if (count($session['messages']) > 30) {
+            $session['messages'] = array_slice($session['messages'], -30);
+        }
+        saveConversations($convFile, $convs);
+        sendJson(['reply' => $aiReply, 'source' => 'cloudflare_ai', 'session_id' => $sessionId]);
     }
 
-    sendJson(['reply' => $fallback, 'source' => 'fallback']);
+    // Graceful conversational fallback if model unavailable
+    $veh = !empty($session['context']['vehicle_full']) ? $session['context']['vehicle_full'] : (!empty($session['context']['vehicle_make']) ? $session['context']['vehicle_make'] : 'vehicle');
+    $fallback = "I'd be glad to help with your {$veh}! For diagnostics, maintenance, or scheduling at our Talkeetna shop, call us at " . SHOP_INFO['phone'] . " or book online.";
+    if (stripos($message, 'brake') !== false || ($session['context']['current_issue'] ?? '') === 'Brake noise / inspection') {
+        $fallback = "If your {$veh}'s brakes are squeaking or grinding, we recommend a prompt inspection. A standard brake check takes about 30–60 minutes—call us at " . SHOP_INFO['phone'] . " or book online.";
+    } elseif (stripos($message, 'engine') !== false) {
+        $fallback = "If your check engine light is solid, we can scan your {$veh}'s diagnostic trouble codes at our Talkeetna shop. If flashing, pull over safely and call " . SHOP_INFO['phone'] . ".";
+    }
+
+    $session['messages'][] = ['role' => 'user', 'content' => $message, 'timestamp' => date('c')];
+    $session['messages'][] = ['role' => 'assistant', 'content' => $fallback, 'timestamp' => date('c')];
+    if (count($session['messages']) > 30) {
+        $session['messages'] = array_slice($session['messages'], -30);
+    }
+    saveConversations($convFile, $convs);
+    sendJson(['reply' => $fallback, 'source' => 'fallback', 'session_id' => $sessionId]);
+}
+
+// GET /api/chat/history or /api/chatbot/history
+if ($method === 'GET' && in_array($path, ['/api/chat/history', '/api/chatbot/history'], true)) {
+    $sessionId = trim((string) ($_GET['session_id'] ?? ''));
+    if (!$sessionId) {
+        sendJson(['success' => false, 'messages' => [], 'context' => []]);
+    }
+    $convs = loadConversations($convFile);
+    $session = $convs[$sessionId] ?? null;
+    sendJson([
+        'success'  => true,
+        'messages' => $session['messages'] ?? [],
+        'context'  => $session['context'] ?? []
+    ]);
+}
+
+// POST /api/chat/clear or /api/chatbot/clear
+if ($method === 'POST' && in_array($path, ['/api/chat/clear', '/api/chatbot/clear'], true)) {
+    $raw = file_get_contents('php://input');
+    $input = json_decode($raw ?: '{}', true) ?: [];
+    $sessionId = trim((string) ($input['session_id'] ?? ''));
+    if ($sessionId) {
+        $convs = loadConversations($convFile);
+        if (isset($convs[$sessionId])) {
+            $convs[$sessionId]['messages'] = [];
+            $convs[$sessionId]['context'] = [
+                'vehicle_year'   => null,
+                'vehicle_make'   => null,
+                'vehicle_model'  => null,
+                'vehicle_full'   => null,
+                'current_issue'  => null,
+                'service_needed' => null,
+            ];
+            $convs[$sessionId]['updated_at'] = date('c');
+            saveConversations($convFile, $convs);
+        }
+    }
+    sendJson(['success' => true, 'message' => 'Conversation cleared.']);
 }
 
 // POST /api/appointments/lookup
@@ -591,7 +853,7 @@ if ($method === 'POST' && in_array($path, ['/api/appointments/verify', '/appoint
 }
 
 // POST /api/appointments/book (Real booking creation)
-if ($method === 'POST' && in_array($path, ['/api/appointments/book', '/api/book', '/book/submit'], true)) {
+if ($method === 'POST' && in_array($path, ['/api/appointments/book', '/api/chat/appointment', '/api/book', '/book/submit'], true)) {
     $raw = file_get_contents('php://input');
     $input = json_decode($raw ?: '{}', true) ?: $_POST;
 

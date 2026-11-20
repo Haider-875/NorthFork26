@@ -1236,6 +1236,14 @@
                 localStorage.setItem('nfa_session_id', sessionId);
             }
 
+            let chatHistory = [];
+            try {
+                chatHistory = JSON.parse(localStorage.getItem('nfa_chat_history') || '[]');
+                if (!Array.isArray(chatHistory)) chatHistory = [];
+            } catch (e) {
+                chatHistory = [];
+            }
+
             // DOM References
             const launcher = document.getElementById('nfa-launcher');
             const chatWindow = document.getElementById('nfa-window');
@@ -1250,6 +1258,22 @@
             const scheduleCard = document.getElementById('nfa-card-schedule');
 
             let isBusy = false;
+
+            // Restore chat history on load if available
+            function restoreChatHistory() {
+                if (chatHistory.length > 0) {
+                    if (welcomeScreen) welcomeScreen.style.display = 'none';
+                    chatHistory.forEach(msg => {
+                        if (msg.role === 'user') {
+                            appendUserMessage(msg.content, msg.time, false);
+                        } else if (msg.role === 'assistant') {
+                            appendAssistantMessage(msg.content, msg.appointment, false, false);
+                        }
+                    });
+                    scrollToBottom();
+                }
+            }
+            restoreChatHistory();
 
             // Open / Close Handlers
             function openChat() {
@@ -1335,12 +1359,18 @@
                     } catch (e) {}
 
                     localStorage.removeItem('nfa_session_id');
+                    localStorage.removeItem('nfa_chat_history');
+                    chatHistory = [];
+
                     sessionId = 'nfa_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
                     localStorage.setItem('nfa_session_id', sessionId);
 
                     chatBody.innerHTML = '';
-                    if (welcomeScreen) chatBody.appendChild(welcomeScreen);
-                    appendAssistantMessage("Conversation cleared. How can I help with your vehicle today?");
+                    if (welcomeScreen) {
+                        welcomeScreen.style.display = '';
+                        chatBody.appendChild(welcomeScreen);
+                    }
+                    appendAssistantMessage("Conversation cleared. How can I help with your vehicle today?", null, true, true);
                 }
             });
 
@@ -1355,13 +1385,23 @@
                 const counter = document.getElementById('nfa-char-counter');
                 if (counter) counter.textContent = '0/400';
 
-                // Append user bubble
-                appendUserMessage(message);
+                // Hide welcome screen on first user message
+                if (welcomeScreen && welcomeScreen.style.display !== 'none') {
+                    welcomeScreen.style.display = 'none';
+                }
+
+                // Append user bubble & save to history
+                appendUserMessage(message, null, true);
                 scrollToBottom();
 
-                // Proactively show appointment card if booking intent detected
+                // Proactively show appointment card ONLY on explicit booking intent
+                // Do NOT show for policy questions like "Do I need an appointment for an oil change?"
                 const lower = message.toLowerCase();
-                if (lower.includes('schedule') || lower.includes('book') || (lower.includes('appointment') && !lower.includes('check'))) {
+                const isExplicitBooking = (/\b(book|schedule|make|reserve)\b.*\b(appointment|service|slot|time)\b/i.test(message) ||
+                    (/\b(book|schedule|make an appointment)\b/i.test(message))) &&
+                    !/\b(do i need|required|necessary|is an appointment|need an appointment)\b/i.test(message);
+
+                if (isExplicitBooking) {
                     setTimeout(() => renderAppointmentForm(), 400);
                 }
 
@@ -1380,7 +1420,8 @@
                         },
                         body: JSON.stringify({
                             message: message,
-                            session_id: sessionId
+                            session_id: sessionId,
+                            history: chatHistory.slice(-8)
                         })
                     });
 
@@ -1388,17 +1429,22 @@
                     hideTyping();
 
                     if (data && data.reply) {
-                        appendAssistantMessage(data.reply, data.appointment);
+                        appendAssistantMessage(data.reply, data.appointment, true, true);
+                        if (data.action === 'open_booking_modal') {
+                            setTimeout(() => renderAppointmentForm(), 300);
+                        }
                     } else if (data && data.error === 'rate_limit') {
-                        appendAssistantMessage("You're sending messages a bit fast. Please give us a call at (907) 733-3030.");
+                        appendAssistantMessage("You're sending messages a bit fast. Please give us a call at (907) 733-3030.", null, true, false);
+                    } else if (data && data.error === 'daily_limit_reached') {
+                        appendAssistantMessage(data.reply || "Daily message limit reached. Please call (907) 733-3030.", null, true, false);
                     } else {
-                        appendAssistantMessage("I'm momentarily disconnected. Please call our service desk at (907) 733-3030.");
+                        appendAssistantMessage("I'm momentarily disconnected. Please call our service desk at (907) 733-3030.", null, true, false);
                     }
 
                 } catch (err) {
                     hideTyping();
                     console.error('Chat error:', err);
-                    appendAssistantMessage("We're having trouble connecting right now. Please call us directly at (907) 733-3030.");
+                    appendAssistantMessage("We're having trouble connecting right now. Please call us directly at (907) 733-3030.", null, true, false);
                 } finally {
                     isBusy = false;
                     sendBtn.disabled = false;
@@ -1407,8 +1453,8 @@
             }
 
             // Message Renderers
-            function appendUserMessage(text) {
-                const time = getTime();
+            function appendUserMessage(text, customTime = null, save = true) {
+                const time = customTime || getTime();
                 const row = document.createElement('div');
                 row.className = 'nfa-msg user';
                 row.innerHTML = `
@@ -1416,15 +1462,39 @@
                     <span class="nfa-msg-time">${time}</span>
                 `;
                 chatBody.appendChild(row);
+
+                if (save) {
+                    chatHistory.push({ role: 'user', content: text, time: time });
+                    if (chatHistory.length > 25) chatHistory = chatHistory.slice(-25);
+                    try { localStorage.setItem('nfa_chat_history', JSON.stringify(chatHistory)); } catch(e){}
+                }
             }
 
-            function appendAssistantMessage(text, appointment = null, stream = true) {
+            function appendAssistantMessage(text, appointment = null, stream = true, save = true) {
                 const time = getTime();
                 const row = document.createElement('div');
                 row.className = 'nfa-msg assistant';
 
                 const bubble = document.createElement('div');
                 bubble.className = 'nfa-msg-bubble';
+
+                const textSpan = document.createElement('span');
+                bubble.appendChild(textSpan);
+
+                const timeSpan = document.createElement('span');
+                timeSpan.className = 'nfa-msg-time';
+                timeSpan.textContent = time;
+
+                row.appendChild(bubble);
+                row.appendChild(timeSpan);
+                chatBody.appendChild(row);
+                scrollToBottom();
+
+                if (save) {
+                    chatHistory.push({ role: 'assistant', content: text, time: time, appointment: appointment });
+                    if (chatHistory.length > 25) chatHistory = chatHistory.slice(-25);
+                    try { localStorage.setItem('nfa_chat_history', JSON.stringify(chatHistory)); } catch(e){}
+                }
 
                 const textSpan = document.createElement('span');
                 bubble.appendChild(textSpan);

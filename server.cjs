@@ -25,17 +25,35 @@ if (fs.existsSync(ENV_FILE)) {
 const PORT = process.env.PORT || 8000;
 const DB_FILE = path.join(__dirname, 'storage', 'app', 'database.json');
 const LIVE_SERVICES_FILE = path.join(__dirname, 'live_Service.json');
+const CONV_FILE = path.join(__dirname, 'storage', 'app', 'chat_conversations.json');
 
-// Chatbot in-memory session and rate-limiting store
-const chatSessions = new Map(); // sessionId => { messages: [], lastReq: timestamp, reqCount: number }
+function loadConversations() {
+  try {
+    if (fs.existsSync(CONV_FILE)) {
+      return JSON.parse(fs.readFileSync(CONV_FILE, 'utf8') || '{}');
+    }
+  } catch (e) {}
+  return {};
+}
+
+function saveConversations(data) {
+  try {
+    const dir = path.dirname(CONV_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(CONV_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {}
+}
+
+// Chatbot in-memory rate-limiting store
+const chatRateLimits = new Map(); // key => { lastReq: timestamp, reqCount: number }
 
 function checkChatRateLimit(sessionId, clientIp) {
   const now = Date.now();
   const key = sessionId || clientIp;
-  let record = chatSessions.get(key);
+  let record = chatRateLimits.get(key);
   if (!record) {
-    record = { messages: [], lastReq: now, reqCount: 1 };
-    chatSessions.set(key, record);
+    record = { lastReq: now, reqCount: 1 };
+    chatRateLimits.set(key, record);
     return true;
   }
   if (now - record.lastReq > 60000) {
@@ -48,26 +66,16 @@ function checkChatRateLimit(sessionId, clientIp) {
 }
 
 // System prompt for Cloudflare Workers AI - Concise Automotive Service Advisor
-const NFA_SYSTEM_PROMPT = `You are the North Fork Auto Assistant, an experienced, friendly automotive service advisor at North Fork Auto in Talkeetna, Alaska (25460 Talkeetna Spur Rd).
-Website: https://www.northforkauto.com/ | Phone: (907) 733-3030 | After-Hours: +1 (907) 232-3859
-Hours: Monday–Friday, 8:00 AM – 5:00 PM | Saturday & Sunday: Closed | Walk-ins welcome during business hours.
+const NFA_SYSTEM_PROMPT = `You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, Emergency Towing: (907) 232-3859, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road).
+Website: https://www.northforkauto.com/
 
-SERVICES: Diagnostic Inspection (OBD-II, check engine), Brake Repair & Replacement, Oil & Filter Service (synthetic & conventional, Subaru/Ford approved), Engine Repair & Overhaul, Transmission Service, Steering & Suspension, Electrical & Battery, Cooling & AC Repair.
-HIGHLIGHTS: ASE Certified Technicians, 12-Month / 12,000-Mile Warranty, Locally owned, 10+ years experience.
-
-STRICT RESPONSE LENGTH POLICY (CRITICAL):
-- Your answers MUST be 1–3 short sentences (approximately 25–60 words maximum).
-- For simple questions, answer in ONE sentence whenever possible.
-- Never write robotic greetings, apologies, or lengthy introductions ("I'm sorry to hear that", "I can definitely help with the next steps").
-- Never repeat or rephrase the customer's question.
-- Do NOT use markdown headers (###), bullet points, or numbered lists unless explicitly asked.
-- Ask NO MORE than TWO relevant questions in a single response.
-- Do not repeat phone numbers in every answer—only provide them when directly asked or for urgent safety emergencies.
-- CONVERSATION MEMORY: Remember vehicle details already provided (year, make, model, problem). NEVER ask for information the customer has already supplied.
-
-AUTOMOTIVE SAFETY:
-- Never present an AI guess as a confirmed diagnosis.
-- For dangerous issues (flashing check engine light, brake failure, severe overheating, unsafe steering, serious fluid leaks): concisely advise the customer to stop safely, avoid driving, and call (907) 733-3030.`;
+RULES:
+1. Respond in 1 to 3 short, helpful, conversational sentences (under 60 words total).
+2. ALWAYS remember and reference the customer's vehicle and previous issues when responding.
+3. For brake inspections, state it takes roughly 30–60 minutes. Do not invent exact repair prices without an inspection.
+4. If check engine light is solid, advise a diagnostic scan. If flashing, warn them to pull over immediately.
+5. Do NOT output markdown bullet lists, numbered lists, or lengthy essays.
+6. Be warm, professional, and invite them to schedule online or call our shop.`;
 
 // Shop ground truth information for instant deterministic responses (<20ms)
 const SHOP_INFO = {
@@ -79,6 +87,35 @@ const SHOP_INFO = {
   location: 'Talkeetna Spur Road, Talkeetna, AK 99676',
   warranty: '12-month / 12,000-mile warranty on qualifying parts and labor',
 };
+
+function extractVehicleAndIssueContext(text, context) {
+  if (!context) return;
+  const raw = text || '';
+  const lower = raw.toLowerCase();
+
+  const ym = lower.match(/\b(19[89]\d|20[0-2]\d)\b/);
+  if (ym) context.vehicle_year = ym[1];
+
+  const mm = lower.match(/\b(ford|chevy|chevrolet|gmc|dodge|ram|toyota|honda|subaru|nissan|jeep|bmw|audi|mercedes|volkswagen|vw|hyundai|kia|lexus|mazda)\b/i);
+  if (mm) context.vehicle_make = mm[1].charAt(0).toUpperCase() + mm[1].slice(1).toLowerCase();
+
+  const modm = lower.match(/\b(f-?150|f-?250|f-?350|silverado|sierra|outback|forester|crosstrek|tacoma|tundra|camry|corolla|civic|accord|cr-?v|wrangler|cherokee|grand cherokee|ram 1500|ram 2500|explorer|escape|ranger)\b/i);
+  if (modm) context.vehicle_model = modm[1].toUpperCase();
+
+  const parts = [context.vehicle_year, context.vehicle_make, context.vehicle_model].filter(Boolean);
+  if (parts.length > 0) context.vehicle_full = parts.join(' ');
+
+  if (/\b(brake|brakes|squeak\w*|grind\w*|rotor|caliper|pad)\b/i.test(lower)) {
+    context.current_issue = 'Brake noise / inspection';
+    context.service_needed = 'Brake Repair & Replacement';
+  } else if (/\b(check engine|engine light|cel|warning light|misfire)\b/i.test(lower)) {
+    context.current_issue = 'Check Engine Light diagnostics';
+    context.service_needed = 'Diagnostic Inspection';
+  } else if (/\b(oil|oil change|lube|filter)\b/i.test(lower)) {
+    context.current_issue = 'Oil & Filter Service';
+    context.service_needed = 'Oil & Filter Service';
+  }
+}
 
 function getPreviousTopic(history) {
   if (!Array.isArray(history) || history.length === 0) return null;
@@ -95,10 +132,84 @@ function getPreviousTopic(history) {
   return null;
 }
 
-function classifyAndResolveIntent(message, history = [], database = { bookings: [] }) {
+function classifyAndResolveIntent(message, history = [], database = { bookings: [] }, context = {}) {
   const text = (message || '').trim();
   const lower = text.toLowerCase();
   const prevTopic = getPreviousTopic(history);
+
+  // 0A. VEHICLE MEMORY INTENT: "What vehicle did I tell you I have?"
+  if (/\bwhat (vehicle|truck|car|automobile)\b.*\b(tell you|mention|say|told you|have|drive)\b/i.test(lower) ||
+      /\bwhat did i (tell you|say)\b.*\b(have|drive|my vehicle|my car|my truck)\b/i.test(lower)) {
+    if (context.vehicle_full) {
+      return {
+        intent: 'VEHICLE_MEMORY',
+        reply: `You mentioned you have a ${context.vehicle_full}.`
+      };
+    } else if (context.vehicle_make) {
+      return {
+        intent: 'VEHICLE_MEMORY',
+        reply: `You mentioned you drive a ${context.vehicle_make}.`
+      };
+    }
+  }
+
+  // 0B. PARTS INQUIRY INTENT: "Can you check whether you have parts for it?"
+  if (/\b(parts?|components?)\b.*\b(have|stock|available|for it|in stock)\b/i.test(lower) ||
+      /\bdo you have parts for (it|my truck|my car)\b/i.test(lower)) {
+    const veh = context.vehicle_full || context.vehicle_make || 'your vehicle';
+    if (context.current_issue === 'Brake noise / inspection' || lower.includes('brake') || prevTopic === 'brakes') {
+      return {
+        intent: 'PARTS_INQUIRY',
+        reply: `Which brake part do you need? We stock and source quality pads, rotors, and calipers for ${veh}, but I'll be glad to verify our current inventory with our parts team.`
+      };
+    }
+    return {
+      intent: 'PARTS_INQUIRY',
+      reply: `Which part does your vehicle need? We stock and source parts for ${veh}, but I'll need to check our live inventory once we confirm your vehicle specs.`
+    };
+  }
+
+  // 0C. CHECK ENGINE LIGHT FOLLOW-UP: "It is staying solid." / "It is flashing."
+  if (/\b(staying solid|is solid|it's solid|steady light|solid light)\b/i.test(lower) ||
+      (prevTopic === 'engine' && lower.includes('solid') && !lower.includes('flashing'))) {
+    return {
+      intent: 'DIAGNOSTIC_CEL_SOLID',
+      reply: `A steady check engine light indicates an emissions or sensor trouble code that should be scanned. Since it isn't flashing, it is generally safe to drive to our shop on Talkeetna Spur Road for a computerized diagnostic inspection.`
+    };
+  }
+  if (/\b(is flashing|it's flashing|blinking|flashing)\b/i.test(lower) && (prevTopic === 'engine' || lower.includes('engine') || lower.includes('light'))) {
+    return {
+      intent: 'DIAGNOSTIC_CEL_FLASHING',
+      reply: `A flashing check engine light indicates an active engine misfire that can cause severe catalytic converter damage. Please safely pull over, avoid driving, and call our shop at ${SHOP_INFO.phone} or our 24/7 emergency dispatch at ${SHOP_INFO.emergencyPhone}.`
+    };
+  }
+
+  // 0D. PURE VEHICLE STATEMENT: "I have a 2018 Ford F-150."
+  if (/^(i (have|drive|got)|my (truck|car|vehicle) is)\s+(a\s+)?(19\d\d|20\d\d)?\s*([a-z0-9\s\-]+)$/i.test(text) && !/\b(noise|light|broken|fix|repair|squeak|leak|oil|smoke|grind)\b/i.test(lower)) {
+    const veh = context.vehicle_full || 'truck';
+    return {
+      intent: 'VEHICLE_INFO_STATED',
+      reply: `Got it! What issue are you experiencing with your ${veh}?`
+    };
+  }
+
+  // 0E. APPOINTMENT POLICY QUESTION: "Do I need an appointment for an oil change?"
+  if (/\b(do i need|is (it|an?)|are)\b.*\b(appointment|booking|scheduled?)\b/i.test(lower) ||
+      /\b(appointment required|need an appointment)\b/i.test(lower)) {
+    return {
+      intent: 'APPOINTMENT_POLICY_INQUIRY',
+      reply: `Appointments are recommended so our technicians have a dedicated bay ready for your vehicle, but we also welcome walk-ins during regular shop hours (Monday–Friday, 8:00 AM–5:00 PM). Would you like to schedule an appointment?`
+    };
+  }
+
+  // 0F. GENERAL MAINTENANCE / SHOP RECOMMENDATION
+  if (/\b(maintain|maintenance|reliable place|tune up|service my|service our|fix my truck|fix my car)\b/i.test(lower)) {
+    const veh = context.vehicle_full || (context.vehicle_make ? context.vehicle_make : 'your vehicle');
+    return {
+      intent: 'GENERAL_MAINTENANCE_INQUIRY',
+      reply: `You've come to the right place! At North Fork Auto in Talkeetna, we specialize in reliable maintenance, diagnostics, and repairs for ${veh} and all vehicle makes. Give us a call at ${SHOP_INFO.phone} or schedule online!`
+    };
+  }
 
   // 1. APPOINTMENT LOOKUP
   const confId = extractConfirmationId(text);
@@ -120,7 +231,7 @@ function classifyAndResolveIntent(message, history = [], database = { bookings: 
 
         return {
           intent: 'APPOINTMENT_LOOKUP_FOUND',
-          reply: `I found your appointment!\n• Appointment ID: ${norm}\n• Date: ${date}\n• Time: ${time}\n• Service: ${service}\n• Status: ${status}\n\nWould you like help with anything else?`,
+          reply: `I found your appointment!\n\n• Appointment ID: ${norm}\n• Date: ${date}\n• Time: ${time}\n• Service: ${service}\n• Status: ${status}\n\nWould you like help with anything else?`,
           appointment: {
             confirmation_id: norm,
             date,
@@ -230,32 +341,12 @@ function classifyAndResolveIntent(message, history = [], database = { bookings: 
     };
   }
 
-  // 10. PRICING & ESTIMATES (Strict no-hallucination policy)
-  if (/\b(how much|cost|price|pricing|quote|estimate|charge|rate)\b/i.test(lower)) {
-    if (lower.includes('oil')) {
-      return {
-        intent: 'PRICING_OIL_CHANGE',
-        reply: `Oil change pricing varies depending on your engine size, oil capacity, and whether your vehicle requires synthetic or conventional blend. Please call us at ${SHOP_INFO.phone} with your vehicle details for an exact quote!`
-      };
-    }
-    return {
-      intent: 'PRICING_GENERAL',
-      reply: `Repair and service costs depend on your specific vehicle's year, make, model, and the parts required. We provide honest, transparent estimates after an inspection—give us a call at ${SHOP_INFO.phone}!`
-    };
-  }
-
-  // 11. CONTEXTUAL FOLLOW-UP: "How long does it take?"
-  if (/\bhow long (does it take|will it take|is it)\b/i.test(lower) || /\bhow long\b/i.test(lower)) {
-    if (prevTopic === 'engine' || lower.includes('engine')) {
-      return {
-        intent: 'DURATION_ENGINE',
-        reply: `Engine repair duration depends on diagnostic findings—minor sensor or belt fixes take a few hours, while major overhauls may require several days. Our technicians provide an estimated turnaround time once we inspect your vehicle.`
-      };
-    }
-    if (prevTopic === 'brakes' || lower.includes('brake')) {
+  // 10. CONTEXTUAL FOLLOW-UP: DURATION ("How long does it take?" / "How much time will it take?")
+  if (/\bhow (much time|long) (will it take|does it take|is it)\b/i.test(lower) || /\bhow long\b/i.test(lower) || /\bhow much time\b/i.test(lower)) {
+    if (context.current_issue === 'Brake noise / inspection' || prevTopic === 'brakes' || lower.includes('brake')) {
       return {
         intent: 'DURATION_BRAKES',
-        reply: `Most standard brake pad and rotor replacements take about 1.5 to 3 hours once your vehicle is in the bay. Our technicians will inspect your braking system and confirm the exact timeline.`
+        reply: `Brake inspection usually takes around 30–60 minutes, depending on the issue. If repairs are needed, we'll confirm the estimated time after inspection.`
       };
     }
     if (prevTopic === 'oil_change' || lower.includes('oil')) {
@@ -267,6 +358,20 @@ function classifyAndResolveIntent(message, history = [], database = { bookings: 
     return {
       intent: 'DURATION_GENERAL',
       reply: `Service turnaround times vary by vehicle and the specific repairs needed. Once we inspect your vehicle, we'll give you a reliable time estimate.`
+    };
+  }
+
+  // 11. PRICING & ESTIMATES (Strict no-hallucination policy; excluded if asking about duration/time)
+  if (/\b(cost|price|pricing|quote|estimate|charge|rate)\b/i.test(lower) || (/\bhow much\b/i.test(lower) && !/\b(time|long|hours?|minutes?)\b/i.test(lower))) {
+    if (lower.includes('oil')) {
+      return {
+        intent: 'PRICING_OIL_CHANGE',
+        reply: `Oil change pricing varies depending on your engine size, oil capacity, and whether your vehicle requires synthetic or conventional blend. Please call us at ${SHOP_INFO.phone} with your vehicle details for an exact quote!`
+      };
+    }
+    return {
+      intent: 'PRICING_GENERAL',
+      reply: `Repair and service costs depend on your specific vehicle's year, make, model, and the parts required. We provide honest, transparent estimates after an inspection—give us a call at ${SHOP_INFO.phone}!`
     };
   }
 
@@ -304,28 +409,43 @@ function classifyAndResolveIntent(message, history = [], database = { bookings: 
   return null;
 }
 
-async function callCloudflareWorkersAI(historyMessages) {
+async function callCloudflareWorkersAI(historyMessages, context = {}) {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID || 'e170edb3cd40ca17903aaa54eaa71c5e';
-  let token = (process.env.CLOUDFLARE_API_TOKEN || Buffer.from('Y2Z1dF9ld3pYR1dPNUZLaktBVUJScFhzRE04TXhCek5aYTcwWDJjUVRjWGtQVWFjN2M4NGFk', 'base64').toString('utf8')).trim();
+  let token = (process.env.CLOUDFLARE_API_TOKEN || Buffer.from('Y2Z1dF9ld3pYR1dPNUZLakFVQlJ0WHNETThNeEJ6TlphNzBYMmNRVGNYa1BVYWM3Yzg0YWQ=', 'base64').toString('utf8')).trim();
   token = token.replace(/^(Authorization:\s*Bearer\s*|Bearer\s*)/i, '').replace(/^["']|["']$/g, '');
   const model = process.env.CLOUDFLARE_AI_MODEL || '@cf/google/gemma-4-26b-a4b-it';
 
   const endpoint = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`;
 
+  const contextLines = [];
+  if (context.vehicle_full) {
+    contextLines.push(`Customer Vehicle: ${context.vehicle_full}`);
+  } else if (context.vehicle_make) {
+    contextLines.push(`Customer Vehicle: ${context.vehicle_make}`);
+  }
+  if (context.current_issue) {
+    contextLines.push(`Current Issue: ${context.current_issue}`);
+  }
+  const contextSummary = contextLines.length > 0 ? `\nActive Conversation Memory:\n${contextLines.join('\n')}\n` : '';
+
+  const systemPrompt = `${NFA_SYSTEM_PROMPT}${contextSummary}`;
+
   const payloadMessages = [
-    { role: 'system', content: NFA_SYSTEM_PROMPT }
+    { role: 'system', content: systemPrompt }
   ];
 
   const recent = historyMessages.slice(-8);
   for (const m of recent) {
-    payloadMessages.push({
-      role: m.role === 'user' ? 'user' : 'assistant',
-      content: String(m.content).slice(0, 1000)
-    });
+    if (m.content && ['user', 'assistant'].includes(m.role)) {
+      payloadMessages.push({
+        role: m.role,
+        content: String(m.content).slice(0, 1000)
+      });
+    }
   }
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 45000);
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
 
   try {
     const res = await fetch(endpoint, {
@@ -336,7 +456,7 @@ async function callCloudflareWorkersAI(historyMessages) {
       },
       body: JSON.stringify({
         messages: payloadMessages,
-        max_tokens: 250
+        max_tokens: 800
       }),
       signal: controller.signal
     });
@@ -344,8 +464,8 @@ async function callCloudflareWorkersAI(historyMessages) {
 
     if (res.ok) {
       const data = await res.json();
-      const content = data?.result?.choices?.[0]?.message?.content || data?.result?.response;
-      if (content) {
+      const content = data?.result?.choices?.[0]?.message?.content || data?.result?.response || data?.result?.content;
+      if (content && content.trim()) {
         return { success: true, reply: content.trim() };
       }
     }
@@ -358,19 +478,12 @@ async function callCloudflareWorkersAI(historyMessages) {
     }
 
     const errText = await res.text().catch(() => '');
-    console.error('Cloudflare AI error response:', res.status, errText);
-
-    return {
-      success: false,
-      reply: "I apologize, but I am momentarily having trouble connecting. Please feel free to call our shop directly at (907) 733-3030 or visit us on Talkeetna Spur Road."
-    };
+    console.error('Cloudflare AI Error:', res.status, errText);
+    return { success: false, reply: null };
   } catch (err) {
     clearTimeout(timeoutId);
-    console.error('Cloudflare AI Exception:', err);
-    return {
-      success: false,
-      reply: "I apologize, but our AI service is momentarily offline. For urgent questions or appointment scheduling, please call our service desk at (907) 733-3030."
-    };
+    console.error('Cloudflare AI fetch failed:', err.message);
+    return { success: false, reply: null };
   }
 }
 
@@ -2820,17 +2933,66 @@ const server = http.createServer((req, res) => {
         }));
       }
 
-      let session = chatSessions.get(sessionId);
-      if (!session) {
-        session = {
+      const allConvs = loadConversations();
+      if (!allConvs[sessionId]) {
+        allConvs[sessionId] = {
+          session_id: sessionId,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          daily_count: 0,
+          last_active: new Date().toISOString().slice(0, 10),
+          context: {
+            vehicle_year: null,
+            vehicle_make: null,
+            vehicle_model: null,
+            vehicle_full: null,
+            current_issue: null,
+            service_needed: null,
+          },
           messages: [],
-          lastReq: Date.now(),
-          reqCount: 1,
           pendingAppointmentId: null,
           verifiedAppointmentId: null
         };
-        chatSessions.set(sessionId, session);
       }
+      session = allConvs[sessionId];
+
+      const today = new Date().toISOString().slice(0, 10);
+      if (session.last_active !== today) {
+        session.daily_count = 0;
+        session.last_active = today;
+      }
+
+      // Check daily limit: AI_CHATBOT_DAILY_LIMIT=100
+      const dailyLimit = parseInt(process.env.AI_CHATBOT_DAILY_LIMIT || '100', 10);
+      if ((session.daily_count || 0) >= dailyLimit) {
+        res.writeHead(429);
+        return res.end(JSON.stringify({
+          success: false,
+          error: 'daily_limit_reached',
+          reply: `You have reached the maximum daily message limit for this chat session. Please give our Talkeetna shop a call at ${SHOP_INFO.phone} or ${SHOP_INFO.emergencyPhone} for immediate assistance.`,
+          session_id: sessionId
+        }));
+      }
+      session.daily_count = (session.daily_count || 0) + 1;
+      session.updated_at = new Date().toISOString();
+
+      // Ingest client history if server session was empty
+      if ((!session.messages || session.messages.length === 0) && Array.isArray(params.history) && params.history.length > 0) {
+        for (const ch of params.history) {
+          if (ch && ch.content && ['user', 'assistant'].includes(ch.role)) {
+            session.messages.push({
+              role: ch.role,
+              content: String(ch.content),
+              time: ch.time || new Date().toISOString()
+            });
+            if (ch.role === 'user') {
+              extractVehicleAndIssueContext(String(ch.content), session.context);
+            }
+          }
+        }
+      }
+
+      extractVehicleAndIssueContext(userMessage, session.context);
 
       session.messages.push({
         role: 'user',
@@ -2844,7 +3006,7 @@ const server = http.createServer((req, res) => {
 
       // 0. Deterministic High-Speed Intent Engine (<20ms execution)
       const currentDb = getDb();
-      const smartResult = classifyAndResolveIntent(userMessage, session.messages, currentDb);
+      const smartResult = classifyAndResolveIntent(userMessage, session.messages, currentDb, session.context);
       if (smartResult && smartResult.reply) {
         botReply = smartResult.reply;
         if (smartResult.appointment) {
@@ -2948,7 +3110,7 @@ const server = http.createServer((req, res) => {
           }
         }
 
-        const aiResult = await callCloudflareWorkersAI(aiMessages);
+        const aiResult = await callCloudflareWorkersAI(aiMessages, session.context);
         botReply = aiResult.reply || "I'm having trouble connecting right now. Please call our team at (907) 733-3030.";
       }
 
@@ -2958,9 +3120,11 @@ const server = http.createServer((req, res) => {
         time: new Date().toISOString()
       });
 
-      if (session.messages.length > 20) {
-        session.messages = session.messages.slice(-20);
+      if (session.messages.length > 30) {
+        session.messages = session.messages.slice(-30);
       }
+      allConvs[sessionId] = session;
+      saveConversations(allConvs);
 
       res.writeHead(200);
       const resPayload = {
@@ -3258,6 +3422,19 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (method === 'GET' && pathname === '/api/chat/history') {
+    res.setHeader('Content-Type', 'application/json');
+    const sessionId = parsed.query.session_id || '';
+    const allConvs = loadConversations();
+    const session = allConvs[sessionId];
+    res.writeHead(200);
+    return res.end(JSON.stringify({
+      success: true,
+      messages: session ? session.messages : [],
+      context: session ? session.context : {}
+    }));
+  }
+
   if (method === 'POST' && pathname === '/api/chat/clear') {
     let body = '';
     req.on('data', chunk => body += chunk);
@@ -3265,8 +3442,17 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'application/json');
       let params = {};
       try { params = JSON.parse(body || '{}'); } catch(e){}
-      if (params.session_id && chatSessions.has(params.session_id)) {
-        chatSessions.delete(params.session_id);
+      if (params.session_id) {
+        const allConvs = loadConversations();
+        if (allConvs[params.session_id]) {
+          allConvs[params.session_id].messages = [];
+          allConvs[params.session_id].context = {
+            vehicle_year: null, vehicle_make: null, vehicle_model: null,
+            vehicle_full: null, current_issue: null, service_needed: null
+          };
+          allConvs[params.session_id].updated_at = new Date().toISOString();
+          saveConversations(allConvs);
+        }
       }
       res.writeHead(200);
       return res.end(JSON.stringify({ success: true, message: 'Conversation history cleared.' }));

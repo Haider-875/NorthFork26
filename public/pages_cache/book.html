@@ -1693,22 +1693,6 @@
 
             let isBusy = false;
 
-            // Restore chat history on load if available
-            function restoreChatHistory() {
-                if (chatHistory.length > 0) {
-                    if (welcomeScreen) welcomeScreen.style.display = 'none';
-                    chatHistory.forEach(msg => {
-                        if (msg.role === 'user') {
-                            appendUserMessage(msg.content, msg.time, false);
-                        } else if (msg.role === 'assistant') {
-                            appendAssistantMessage(msg.content, msg.appointment, false, false);
-                        }
-                    });
-                    scrollToBottom();
-                }
-            }
-            restoreChatHistory();
-
             // Open / Close Handlers
             function openChat() {
                 chatWindow.style.display = 'flex';
@@ -1929,18 +1913,6 @@
                     if (chatHistory.length > 25) chatHistory = chatHistory.slice(-25);
                     try { localStorage.setItem('nfa_chat_history', JSON.stringify(chatHistory)); } catch(e){}
                 }
-
-                const textSpan = document.createElement('span');
-                bubble.appendChild(textSpan);
-
-                const timeSpan = document.createElement('span');
-                timeSpan.className = 'nfa-msg-time';
-                timeSpan.textContent = time;
-
-                row.appendChild(bubble);
-                row.appendChild(timeSpan);
-                chatBody.appendChild(row);
-                scrollToBottom();
 
                 let cardHtml = '';
                 if (appointment && appointment.verified) {
@@ -2182,6 +2154,26 @@
                 escaped = escaped.replace(/\n/g, '<br>');
                 escaped = escaped.replace(/\((\d{3})\)\s*(\d{3})-(\d{4})/g, '<a href="tel:$1$2$3">($1) $2-$3</a>');
                 return escaped;
+            }
+
+            // Restore chat history on load if available
+            function restoreChatHistory() {
+                if (chatHistory.length > 0) {
+                    if (welcomeScreen) welcomeScreen.style.display = 'none';
+                    chatHistory.forEach(msg => {
+                        if (msg.role === 'user') {
+                            appendUserMessage(msg.content, msg.time, false);
+                        } else if (msg.role === 'assistant') {
+                            appendAssistantMessage(msg.content, msg.appointment, false, false);
+                        }
+                    });
+                    scrollToBottom();
+                }
+            }
+            try {
+                restoreChatHistory();
+            } catch(e) {
+                console.warn('Could not restore chat history:', e);
             }
         })();
     </script>

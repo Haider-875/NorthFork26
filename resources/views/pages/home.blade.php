@@ -4,53 +4,64 @@
 @section('description', 'Honest answers, quality workmanship, and a team that cares in Talkeetna, AK.')
 
 @section('content')
-<!-- SECTION 1: FULL-BLEED HOMEPAGE HERO (CRYSTAL CLEAR CAR + DARK ICY FROST TEXT) -->
+<!-- SECTION 1: FULL-BLEED HOMEPAGE HERO (FROST TEXTURE OVERLAY BEHIND LEFT-SIDE TEXT ONLY) -->
 <section class="relative w-full overflow-hidden min-h-[580px] sm:min-h-[620px] lg:min-h-[660px] flex items-center">
-    <!-- Full-Width Background: Dark-blue Ford F-150 in Alaskan Mountains (Sharp & Clear on Right) -->
+    <!-- Layer 1: Full-Width Background: Dark-blue Ford F-150 in Alaskan Mountains (Sharp & Clear on Right) -->
     <div class="absolute inset-0 z-0">
         <img src="/images/hero-truck-mountains.jpg" alt="Dark-blue Ford F-150 in front of Alaskan snow-covered mountain range" class="w-full h-full object-cover object-[80%_center] lg:object-right">
     </div>
     
-    <!-- Dark Icy Frost Wash (STRICTLY on Left 48% - Right side where the car is remains 100% UNTOUCHED and crystal clear) -->
-    <div class="absolute inset-y-0 left-0 w-full lg:w-[48%] z-1 pointer-events-none" style="background: linear-gradient(90deg, rgba(7, 31, 53, 0.95) 0%, rgba(7, 31, 53, 0.85) 60%, rgba(11, 43, 71, 0.4) 82%, transparent 100%);"></div>
-    <div class="absolute inset-y-0 left-0 w-full lg:w-[42%] z-1 pointer-events-none" style="background: radial-gradient(ellipse at 25% 50%, rgba(8, 125, 181, 0.35) 0%, rgba(7, 31, 53, 0.6) 50%, transparent 90%);"></div>
+    <!-- Layer 1.5 & Layer 2: Organic Frost Texture & Watercolor Patch behind Left-Side Text (Naturally Feathered Edges, Zero Sharp Borders) -->
+    <div class="absolute inset-y-0 left-0 w-full lg:w-[62%] pointer-events-none z-1" 
+         style="-webkit-mask-image: radial-gradient(ellipse 72% 66% at 28% 46%, black 20%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 88%);
+                mask-image: radial-gradient(ellipse 72% 66% at 28% 46%, black 20%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 88%);">
+        
+        <!-- Organic Watercolor Ice Backing (Provides gentle icy watercolor foundation and ensures text readability) -->
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 46%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 42%, rgba(189, 235, 250, 0.45) 72%, transparent 95%);"></div>
+        
+        <!-- Exact Uploaded Frost Texture Image (Blended softly at 40% opacity) -->
+        <img src="/images/hero-frost-texture.jpg" 
+             alt="" 
+             aria-hidden="true" 
+             class="w-full h-full object-cover object-left opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+    </div>
     
     <!-- Top & Bottom Soft Atmospheric Blends -->
-    <div class="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#071F35]/40 to-transparent z-1 pointer-events-none"></div>
+    <div class="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-white/40 to-transparent z-1 pointer-events-none"></div>
     <div class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#D8F1FA]/80 to-transparent z-1 pointer-events-none"></div>
 
-    <!-- Foreground Content (Left Aligned over Dark Icy Glass Card) -->
+    <!-- Layer 3: Foreground Content (Strictly Left-Aligned over Organic Frost Patch, No Rectangular Box) -->
     <div class="relative z-10 section-pad w-full py-12 sm:py-16 lg:py-20">
-        <div class="max-w-xl lg:max-w-xl bg-[#071F35]/85 backdrop-blur-md border border-[#BDEBFA]/35 p-7 sm:p-9 rounded-3xl shadow-2xl shadow-[#071F35]/60">
-            <h1 class="text-white font-heading font-extrabold uppercase tracking-tight leading-[0.96] text-3xl sm:text-4xl lg:text-[3.2rem]">
-                <span class="block text-white">North Fork</span>
-                <span class="block mt-1 text-[#BDEBFA]">Automotive</span>
+        <div class="max-w-xl lg:max-w-xl text-left">
+            <h1 class="text-[#071F35] font-heading font-extrabold tracking-tight leading-[0.96] text-3xl sm:text-4xl lg:text-[3.4rem]">
+                <span class="block text-[#071F35]">North Fork</span>
+                <span class="block mt-1 text-[#071F35]">Automotive</span>
             </h1>
             
-            <!-- Car with Mechanic Hood Graphic (Crisp White/Icy) -->
-            <div class="my-3.5">
-                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive Mechanic & Car" class="h-12 sm:h-14 w-auto object-contain brightness-0 invert drop-shadow-[0_2px_8px_rgba(189,235,250,0.5)]">
-                <div class="flex items-center gap-2.5 mt-1.5 max-w-[240px]">
-                    <span class="h-0.5 flex-1 bg-[#BDEBFA]"></span>
-                    <span class="font-heading font-bold text-xs uppercase tracking-widest text-[#BDEBFA]">Talkeetna, AK</span>
-                    <span class="h-0.5 flex-1 bg-[#BDEBFA]"></span>
+            <!-- Car with Mechanic Hood Graphic (Clean Silhouette matching Original Reference) -->
+            <div class="my-3 max-w-[280px]">
+                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive Mechanic & Car" class="h-12 sm:h-14 w-auto object-contain">
+                <div class="flex items-center gap-2.5 mt-1.5">
+                    <span class="h-0.5 flex-1 bg-[#071F35]"></span>
+                    <span class="font-heading font-bold text-xs uppercase tracking-widest text-[#071F35]">Talkeetna, AK</span>
+                    <span class="h-0.5 flex-1 bg-[#071F35]"></span>
                 </div>
             </div>
             
-            <h2 class="text-lg sm:text-xl font-heading font-extrabold italic text-white mt-2 mb-2 leading-snug">
+            <h2 class="text-lg sm:text-xl font-heading font-extrabold italic text-[#071F35] mt-2 mb-2 leading-snug">
                 Reliable Auto Repair<br>in Talkeetna - Alaska
             </h2>
             
-            <p class="text-xs sm:text-sm text-[#D8F1FA]/90 font-medium leading-relaxed mb-6 max-w-md">
+            <p class="text-xs sm:text-sm text-[#1E3A5F] font-medium leading-relaxed mb-6 max-w-md">
                 Honest answers, quality workmanship,<br class="hidden sm:inline"> and a team that cares.
             </p>
             
-            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                <a href="/book" class="inline-flex items-center justify-center gap-2 bg-[#087DB5] hover:bg-[#0A92D4] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-[#087DB5]/30 transition-all duration-200 hover:-translate-y-0.5">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <a href="/book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#071F35] hover:bg-[#0B2B47] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all duration-200 hover:-translate-y-0.5">
                     <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span>Book Your Appointment</span>
                 </a>
-                <a href="tel:9077333030" class="inline-flex items-center justify-center gap-2 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5">
+                <a href="tel:9077333030" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5">
                     <svg class="w-4 h-4 text-[#071F35] shrink-0 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     <span>Call (907) 733-3030</span>
                 </a>

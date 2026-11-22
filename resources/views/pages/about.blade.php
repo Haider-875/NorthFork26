@@ -4,22 +4,44 @@
 @section('description', 'Locally owned. Alaskan tested. Professional automotive care in Talkeetna, Alaska.')
 
 @section('content')
-<!-- MOUNTAIN HERO BANNER (MATCHES MIDDLE-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-14 sm:pt-36 sm:pb-16">
-    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-30">
-    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35] via-[#071F35]/85 to-[#071F35]/70"></div>
-    <div class="relative section-pad max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-            <div class="text-xs font-bold uppercase tracking-widest text-[#BDEBFA] mb-2">About North Fork Auto</div>
-            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+<!-- ABOUT US HERO BANNER (WORKSHOP EXTERIOR WITH HOMEPAGE HERO STYLE FROST OVERLAY) -->
+<section class="relative w-full overflow-hidden min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] flex items-center">
+    <!-- Layer 1: Full-Width Background: Snowy Workshop Exterior in Alaskan Mountains -->
+    <div class="absolute inset-0 z-0">
+        <img src="/images/about-hero-workshop.jpg" alt="North Fork Automotive Workshop in Talkeetna, Alaska" class="w-full h-full object-cover object-[70%_center] lg:object-right">
+    </div>
+    
+    <!-- Layer 1.5 & Layer 2: Organic Frost Texture & Watercolor Patch behind Left-Side Text (Naturally Feathered Edges, Same as Homepage Hero Banner) -->
+    <div class="absolute inset-y-0 left-0 w-full lg:w-[62%] pointer-events-none z-1" 
+         style="-webkit-mask-image: radial-gradient(ellipse 75% 70% at 30% 50%, black 25%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 90%);
+                mask-image: radial-gradient(ellipse 75% 70% at 30% 50%, black 25%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 90%);">
+        
+        <!-- Organic Watercolor Ice Backing (Provides gentle icy watercolor foundation and ensures text readability) -->
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 42%, rgba(189, 235, 250, 0.45) 72%, transparent 95%);"></div>
+        
+        <!-- Exact Frost Texture Image (Blended softly at 40% opacity) -->
+        <img src="/images/hero-frost-texture.jpg" 
+             alt="" 
+             aria-hidden="true" 
+             class="w-full h-full object-cover object-left opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+    </div>
+    
+    <!-- Top & Bottom Soft Atmospheric Blends -->
+    <div class="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-white/35 to-transparent z-1 pointer-events-none"></div>
+    <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#EBF7FD]/80 to-transparent z-1 pointer-events-none"></div>
+
+    <!-- Layer 3: Foreground Content (Padded to clear fixed navbar seamlessly, Left-Aligned) -->
+    <div class="relative z-10 section-pad w-full pt-32 pb-14 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20">
+        <div class="max-w-2xl text-left">
+            <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#087DB5] mb-2.5">
+                About North Fork Auto
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-[#071F35] mb-3 leading-tight">
                 Locally Owned. Alaskan Tested.
             </h1>
-            <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed max-w-2xl">
+            <p class="text-sm sm:text-base text-[#334E68] font-medium leading-relaxed max-w-xl">
                 North Fork Auto is Talkeetna's premier independent auto care facility. We understand what it takes to keep vehicles running safely through Alaskan winters and rugged summer terrain.
             </p>
-        </div>
-        <div class="w-full md:w-64 rounded-xl overflow-hidden border border-[#BDEBFA]/30 shadow-lg shrink-0">
-            <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop" class="w-full h-32 sm:h-36 object-cover object-center">
         </div>
     </div>
 </section>

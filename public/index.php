@@ -926,6 +926,7 @@ $pageMap = [
     '/'         => 'home.html',
     '/services' => 'services.html',
     '/about'    => 'about.html',
+    '/reviews'  => 'reviews.html',
     '/contact'  => 'contact.html',
     '/book'     => 'book.html',
 ];

@@ -1755,13 +1755,50 @@ function handleHome(isScrolled = false) {
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
-        <!-- Workshop Exterior Banner Image (Left - 5 cols) -->
-        <div class="lg:col-span-5">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[#BDEBFA] group">
-                <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop Exterior in Talkeetna, Alaska" class="w-full h-[380px] sm:h-[420px] object-cover object-center transition-transform duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/35 via-transparent to-transparent pointer-events-none"></div>
-                <!-- Subtle Location Pill Over Image -->
-                <div class="absolute bottom-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#071F35]/80 backdrop-blur-md border border-[#BDEBFA]/40 text-white text-xs font-bold">
+        <!-- Workshop Exterior Visual (Left - 5 cols) - Chiseled Glacial Ice Silhouette (Zero Frame Look) -->
+        <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
+            <!-- Organic Frost Mist Aura Behind Visual (Soft, Non-Geometric Glacial Vapor) -->
+            <div class="absolute -inset-5 sm:-inset-7 pointer-events-none -z-1 overflow-hidden" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 35%, rgba(0,0,0,0.7) 65%, transparent 95%);
+                        mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 35%, rgba(0,0,0,0.7) 65%, transparent 95%);">
+                <!-- Glacial Cyan Ice Vapour -->
+                <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/70 via-[#D8F1FA]/50 to-[#087DB5]/20"></div>
+                <!-- Natural Frost Texture -->
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-50 mix-blend-multiply scale-105">
+            </div>
+
+            <!-- Dynamic Chiseled Ice Slab (Asymmetrical Glacial Faceted Angles, No Picture Frame) -->
+            <div class="relative w-full h-[390px] sm:h-[430px] transition-all duration-500 hover:scale-[1.015] group" 
+                 style="clip-path: polygon(
+                     16% 0%, 93% 0%, 100% 12%, 
+                     100% 80%, 85% 100%, 
+                     7% 100%, 0% 88%, 
+                     0% 20%
+                 ); -webkit-clip-path: polygon(
+                     16% 0%, 93% 0%, 100% 12%, 
+                     100% 80%, 85% 100%, 
+                     7% 100%, 0% 88%, 
+                     0% 20%
+                 ); filter: drop-shadow(0 20px 25px rgba(7, 31, 53, 0.18));">
+                
+                <!-- Workshop Exterior Image -->
+                <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop Exterior in Talkeetna, Alaska" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
+                
+                <!-- Alaskan Frost Splinters Across the Cut Facets -->
+                <div class="absolute inset-0 pointer-events-none" 
+                     style="background: linear-gradient(135deg, rgba(216, 241, 250, 0.6) 0%, transparent 22%, transparent 78%, rgba(189, 235, 250, 0.5) 100%),
+                                 radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(189, 235, 250, 0.35) 100%);">
+                    <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-30 mix-blend-overlay">
+                </div>
+
+                <!-- Upper Chiseled Ridge Ice Shimmer -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#BDEBFA]/90 to-transparent pointer-events-none"></div>
+
+                <!-- Soft Atmospheric Depth Gradient at Bottom -->
+                <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071F35]/65 via-[#071F35]/20 to-transparent pointer-events-none"></div>
+
+                <!-- Location Pill Positioned Naturally Along Lower Shelf -->
+                <div class="absolute bottom-6 left-7 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#071F35]/85 backdrop-blur-md border border-[#BDEBFA]/50 text-white text-xs font-bold shadow-xl">
                     <svg class="w-3.5 h-3.5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <span>Talkeetna Spur Road Workshop</span>
                 </div>

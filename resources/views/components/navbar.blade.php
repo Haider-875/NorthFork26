@@ -1,114 +1,68 @@
 @php
     $currentRoute = request()->path();
-    $navLinks = [
-        ['label' => 'Home', 'path' => '/'],
-        ['label' => 'Services', 'path' => '/services'],
-        ['label' => 'About', 'path' => '/about'],
-        ['label' => 'Visit Us', 'path' => '/contact']
-    ];
 @endphp
 
-<header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-gradient-to-b from-background/90 to-transparent">
+<header class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/85 backdrop-blur-md border-b border-[#BDEBFA]/80 shadow-sm">
     <div class="section-pad">
-        <div id="header-inner" class="flex items-center justify-between transition-all duration-300 h-20">
-            <!-- Brand Logo -->
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
             <a href="/" class="flex items-center gap-3 group">
-                <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-border/40 group-hover:border-primary transition-all duration-200 shadow-sm">
-                <span class="hidden sm:block leading-none">
-                    <span class="block font-heading font-800 text-lg tracking-tight text-foreground">North Fork Auto</span>
-                    <span class="block font-mono-data text-[10px]">Talkeetna, AK</span>
-                </span>
+                <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden lg:flex items-center gap-8">
-                @foreach($navLinks as $link)
-                    @php
-                        $isActive = ($link['path'] === '/' && ($currentRoute === '/' || $currentRoute === '')) || ($link['path'] !== '/' && request()->is(ltrim($link['path'], '/').'*'));
-                    @endphp
-                    <a href="{{ $link['path'] }}" class="font-heading font-600 text-sm uppercase tracking-wide transition-colors hover:text-primary {{ $isActive ? 'text-primary' : 'text-foreground/90' }}">
-                        {{ $link['label'] }}
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-sm font-semibold tracking-wide transition-colors {{ $currentRoute === '/' || $currentRoute === '' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Home</a>
+                <div class="relative group">
+                    <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 py-2 {{ request()->is('services*') ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5]' : 'text-[#071F35] hover:text-[#087DB5]' }}">
+                        Services
+                        <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                     </a>
-                @endforeach
+                    <div class="absolute left-0 top-full pt-1.5 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="bg-white/95 backdrop-blur-md border border-[#BDEBFA] rounded-2xl shadow-xl p-3 space-y-1">
+                            <a href="/book?service=Engine%20Diagnostics" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Diagnostics</a>
+                            <a href="/book?service=Brake%20System%20Service" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Brake Repair</a>
+                            <a href="/book?service=Oil%20%26%20Filter%20Change" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Oil &amp; Filter Service</a>
+                            <a href="/book?service=Preventive%20Maintenance" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">General Auto Repair</a>
+                            <a href="/book?service=Engine%20Diagnostics" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Engine Service</a>
+                            <a href="/book?service=Tire%20%26%20Wheel%20Service" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Tire Services</a>
+                            <div class="border-t border-[#BDEBFA] my-1 pt-1"></div>
+                            <a href="/services" class="block px-3 py-1.5 rounded-xl text-[11px] font-bold text-[#087DB5] hover:bg-[#EBF7FD] transition">View All Services →</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/about" class="text-sm font-semibold tracking-wide transition-colors {{ request()->is('about*') ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">About</a>
+                <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors {{ request()->is('reviews*') ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Reviews</a>
+                <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors {{ request()->is('contact*') ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Contact</a>
             </nav>
 
-            <!-- Desktop CTA & Phone -->
-            <div class="hidden lg:flex items-center gap-4">
-                <a href="tel:+19077333030" class="flex items-center gap-2 font-heading font-700 text-sm hover:text-primary transition-colors text-foreground">
-                    <svg class="w-4 h-4 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <!-- Phone Pill Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="tel:9077333030" class="btn-navy-pill text-xs">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     (907) 733-3030
-                </a>
-                <a href="/book" class="btn-engine bg-primary text-primary-foreground px-5 py-2.5 text-xs">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
-                    Book Appointment
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle Button -->
-            <button id="mobile-menu-btn" type="button" class="lg:hidden p-2 -mr-2 text-foreground hover:text-primary transition-colors focus:outline-none" aria-label="Toggle menu">
-                <svg id="menu-icon-bars" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-                <svg id="menu-icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
+            <!-- Mobile Menu Button -->
+            <div class="flex md:hidden items-center gap-3">
+                <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs">
+                    Call
+                </a>
+                <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-border bg-background">
-        <nav class="section-pad py-6 flex flex-col gap-1">
-            @foreach($navLinks as $link)
-                @php
-                    $isActive = ($link['path'] === '/' && ($currentRoute === '/' || $currentRoute === '')) || ($link['path'] !== '/' && request()->is(ltrim($link['path'], '/').'*'));
-                @endphp
-                <a href="{{ $link['path'] }}" class="py-3 font-heading font-600 text-base uppercase tracking-wide border-b border-border/60 transition-colors {{ $isActive ? 'text-primary' : 'text-foreground' }}">
-                    {{ $link['label'] }}
-                </a>
-            @endforeach
-            <a href="tel:+19077333030" class="mt-4 flex items-center justify-center gap-2 btn-engine border border-border py-3 text-sm text-foreground hover:border-primary">
-                <svg class="w-4 h-4 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                (907) 733-3030
-            </a>
-        </nav>
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4">
+        <a href="/" class="block text-sm font-semibold {{ $currentRoute === '/' || $currentRoute === '' ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Home</a>
+        <a href="/services" class="block text-sm font-semibold {{ request()->is('services*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Services</a>
+        <a href="/about" class="block text-sm font-semibold {{ request()->is('about*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">About</a>
+        <a href="/reviews" class="block text-sm font-semibold {{ request()->is('reviews*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Reviews</a>
+        <a href="/contact" class="block text-sm font-semibold {{ request()->is('contact*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Contact</a>
+        <a href="/book" class="block btn-navy-pill text-center py-3 text-xs font-bold mt-4">Book Your Appointment</a>
     </div>
 </header>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const header = document.getElementById('site-header');
-        const headerInner = document.getElementById('header-inner');
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconBars = document.getElementById('menu-icon-bars');
-        const iconClose = document.getElementById('menu-icon-close');
-
-        function onScroll() {
-            if (window.scrollY > 24) {
-                header.classList.remove('bg-gradient-to-b', 'from-background/90', 'to-transparent');
-                header.classList.add('bg-background/95', 'backdrop-blur', 'border-b', 'border-border');
-                headerInner.classList.remove('h-20');
-                headerInner.classList.add('h-16');
-            } else {
-                header.classList.add('bg-gradient-to-b', 'from-background/90', 'to-transparent');
-                header.classList.remove('bg-background/95', 'backdrop-blur', 'border-b', 'border-border');
-                headerInner.classList.remove('h-16');
-                headerInner.classList.add('h-20');
-            }
-        }
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-
-        if (mobileBtn) {
-            mobileBtn.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.contains('hidden');
-                if (isHidden) {
-                    mobileMenu.classList.remove('hidden');
-                    iconBars.classList.add('hidden');
-                    iconClose.classList.remove('hidden');
-                } else {
-                    mobileMenu.classList.add('hidden');
-                    iconBars.classList.remove('hidden');
-                    iconClose.classList.add('hidden');
-                }
-            });
-        }
-    });
-</script>

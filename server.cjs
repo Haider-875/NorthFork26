@@ -1080,10 +1080,24 @@ function renderLayout(title, description, content, activeNav = '') {
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
                     <a href="/" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Home</a>
-                    <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 ${activeNav === 'services' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">
-                        Services
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                    </a>
+                    <div class="relative group">
+                        <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 py-2 ${activeNav === 'services' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5]' : 'text-[#071F35] hover:text-[#087DB5]'}">
+                            Services
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                        </a>
+                        <div class="absolute left-0 top-full pt-1.5 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="bg-white/95 backdrop-blur-md border border-[#BDEBFA] rounded-2xl shadow-xl p-3 space-y-1">
+                                <a href="/book?service=Engine%20Diagnostics" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Diagnostics</a>
+                                <a href="/book?service=Brake%20System%20Service" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Brake Repair</a>
+                                <a href="/book?service=Oil%20%26%20Filter%20Change" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Oil &amp; Filter Service</a>
+                                <a href="/book?service=Preventive%20Maintenance" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">General Auto Repair</a>
+                                <a href="/book?service=Engine%20Diagnostics" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Engine Service</a>
+                                <a href="/book?service=Tire%20%26%20Wheel%20Service" class="block px-3 py-2 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Tire Services</a>
+                                <div class="border-t border-[#BDEBFA] my-1 pt-1"></div>
+                                <a href="/services" class="block px-3 py-1.5 rounded-xl text-[11px] font-bold text-[#087DB5] hover:bg-[#EBF7FD] transition">View All Services →</a>
+                            </div>
+                        </div>
+                    </div>
                     <a href="/about" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">About</a>
                     <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'reviews' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Reviews</a>
                     <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Contact</a>
@@ -1128,9 +1142,11 @@ function renderLayout(title, description, content, activeNav = '') {
         ${content}
     </main>
 
-    <!-- Footer (Matches Reference Footer) -->
-    <footer class="bg-[#071F35] text-white py-8 border-t border-[#BDEBFA]/20 mt-auto">
-        <div class="section-pad flex flex-col md:flex-row items-center justify-between gap-6">
+    <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
+    <footer class="relative bg-[#071F35] text-white py-10 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
+        <img src="/images/alaska-landscape-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-15 pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/90 to-[#071F35]/80 pointer-events-none"></div>
+        <div class="relative section-pad flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
                 <img src="/images/logo.png" alt="North Fork Automotive" class="h-9 w-auto brightness-0 invert opacity-90 object-contain">
             </div>
@@ -1518,16 +1534,21 @@ function handleServices() {
 function handleAbout() {
   const content = `
 <!-- MOUNTAIN HERO BANNER (MATCHES MIDDLE-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
-    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
-    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
-    <div class="relative section-pad text-center max-w-3xl mx-auto">
-        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-            About Us
-        </h1>
-        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
-            Driven by Quality. Trusted by Talkeetna.
-        </p>
+<section class="relative bg-[#071F35] text-white overflow-hidden py-14 sm:py-16">
+    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35] via-[#071F35]/85 to-[#071F35]/70"></div>
+    <div class="relative section-pad max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+                About Us
+            </h1>
+            <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
+                Driven by Quality. Trusted by Talkeetna.
+            </p>
+        </div>
+        <div class="w-full md:w-64 rounded-xl overflow-hidden border border-[#BDEBFA]/30 shadow-lg shrink-0">
+            <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop" class="w-full h-32 sm:h-36 object-cover object-center">
+        </div>
     </div>
 </section>
 
@@ -1727,6 +1748,10 @@ function handleContact() {
                 <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send Us a Message</h3>
                 <p class="text-xs text-[#334E68] mb-6">Drop us a line and our team will get back to you promptly.</p>
                 
+                <div id="contact-feedback" class="hidden mb-4 p-4 rounded-xl text-xs font-bold border border-emerald-400 bg-emerald-500/10 text-emerald-700">
+                    Thank you! Your message has been sent successfully. Our team will get back to you shortly.
+                </div>
+                
                 <form id="contact-form" action="/contact" method="POST" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Name</label>
@@ -1740,7 +1765,7 @@ function handleContact() {
                     
                     <div>
                         <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message</label>
-                        <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]"></textarea>
+                        <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5] resize-none"></textarea>
                     </div>
                     
                     <button type="submit" class="w-full btn-navy-pill py-3 text-sm font-bold justify-center rounded-lg">
@@ -1751,6 +1776,13 @@ function handleContact() {
         </div>
     </div>
 </section>
+
+<script>
+    if (new URLSearchParams(window.location.search).get('success') === '1') {
+        const fb = document.getElementById('contact-feedback');
+        if (fb) fb.classList.remove('hidden');
+    }
+</script>
 `;
 
   return renderLayout('Contact Us', 'We are here to help in Talkeetna, Alaska.', content, 'contact');

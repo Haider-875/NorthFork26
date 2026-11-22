@@ -154,21 +154,6 @@
       "created_at": "2026-09-25T16:51:30.738Z"
     },
     {
-      "id": 1790354690428,
-      "booking_number": "NFA-2026-4425",
-      "booking_reference": "NFA-2026-4425",
-      "customer_name": "Haider Ali",
-      "customer_email": "haiderali.exc@gmail.com",
-      "customer_phone": "03222302695",
-      "service_name": "Diagnostic Inspection",
-      "preferred_date": "2026-09-26",
-      "preferred_time": "10:00",
-      "vehicle_info": "2020 BMW M5",
-      "notes": "",
-      "status": "pending",
-      "created_at": "2026-09-25T16:44:50.428Z"
-    },
-    {
       "id": 1790354132922,
       "booking_number": "NFA-2026-9471",
       "booking_reference": "NFA-2026-9471",

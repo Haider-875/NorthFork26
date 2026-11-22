@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'North Fork Auto | Trusted Auto Repair in Talkeetna, Alaska')</title>
-    <meta name="description" content="@yield('description', 'North Fork Auto provides honest, high-quality automotive repair, diagnostics, and maintenance in Talkeetna, Alaska.')">
+    <title>@yield('title', 'North Fork Automotive | Reliable Auto Repair in Talkeetna, Alaska')</title>
+    <meta name="description" content="@yield('description', 'North Fork Automotive provides honest, high-quality automotive repair, diagnostics, and maintenance in Talkeetna, Alaska.')">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -13,162 +13,67 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     
-    <!-- Google Fonts: Sora (Headings), Inter (Body), JetBrains Mono (Data) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/app.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        background: '#071F35',
-                        foreground: '#FFFFFF',
-                        card: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
+                        background: '#EBF7FD',
+                        foreground: '#071F35',
+                        navy: {
+                            DEFAULT: '#071F35',
+                            surface: '#0B2B47',
+                            card: '#0E3557',
+                            deep: '#041321'
                         },
-                        popover: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
+                        icy: {
+                            DEFAULT: '#BDEBFA',
+                            light: '#E6F8FE',
+                            glow: 'rgba(189, 235, 250, 0.45)'
                         },
-                        primary: {
+                        sky: {
+                            DEFAULT: '#D8F1FA',
+                            soft: '#EEF9FD'
+                        },
+                        ocean: {
                             DEFAULT: '#087DB5',
-                            foreground: '#FFFFFF'
-                        },
-                        secondary: {
-                            DEFAULT: '#0E3557',
-                            foreground: '#D8F1FA'
-                        },
-                        muted: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#94A3B8'
-                        },
-                        accent: {
-                            DEFAULT: '#087DB5',
-                            foreground: '#FFFFFF'
-                        },
-                        border: 'rgba(189,235,250,0.15)',
-                        input: '#0B2B47',
-                        ring: '#087DB5'
+                            hover: '#0A92D4',
+                            dark: '#065D88'
+                        }
                     },
                     fontFamily: {
-                        heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                        body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+                        heading: ['Sora', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
-    <style>
-        :root {
-            --background: 240 6% 6%;
-            --foreground: 220 20% 98%;
-            --card: 240 5% 9%;
-            --card-foreground: 220 20% 98%;
-            --primary: 349 77% 50%;
-            --primary-foreground: 0 0% 100%;
-            --secondary: 240 5% 13%;
-            --secondary-foreground: 220 20% 98%;
-            --muted: 240 5% 13%;
-            --muted-foreground: 217 13% 65%;
-            --accent: 240 5% 16%;
-            --accent-foreground: 220 20% 98%;
-            --border: 215 19% 22%;
-            --input: 215 19% 22%;
-            --ring: 349 77% 50%;
-            --font-heading: "Sora", ui-sans-serif, system-ui, sans-serif;
-            --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-            --font-mono: "JetBrains Mono", ui-monospace, monospace;
-        }
-        body {
-            font-family: var(--font-body);
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            overflow-x: hidden;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-        }
-        .section-pad {
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        @media (min-width: 640px) {
-            .section-pad {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-        }
-        .font-mono-data {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: hsl(var(--primary));
-        }
-        .btn-engine {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            border-radius: 2px;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-engine:hover {
-            box-shadow: 0 0 0 1px hsl(var(--primary)), 0 0 24px -4px hsl(var(--primary) / 0.7);
-            transform: translateY(-1px);
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: hsl(var(--background));
-        }
-        ::-webkit-scrollbar-thumb {
-            background: hsl(var(--muted));
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: hsl(var(--border));
-        }
-    </style>
     @stack('styles')
 </head>
-<body class="min-h-screen flex flex-col bg-background text-foreground antialiased selection:bg-primary selection:text-white">
-    <!-- Header / Navbar -->
+<body class="min-h-screen flex flex-col antialiased">
+    <!-- Navbar -->
     @include('components.navbar')
 
     <!-- Main Content -->
-    <main class="flex-1">
+    <main class="flex-grow">
         @yield('content')
     </main>
 
     <!-- Footer -->
     @include('components.footer')
 
-    <!-- Spacer for mobile bottom bar -->
-    <div class="h-14 lg:hidden" aria-hidden="true"></div>
-
-    <!-- Mobile Sticky Bottom Bar -->
-    @include('components.mobile-bottom-bar')
-
-    <!-- North Fork Auto AI Service Assistant Chatbot -->
+    <!-- Chatbot Component -->
     @include('components.chatbot')
 
     @stack('scripts')

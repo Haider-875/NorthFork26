@@ -1753,12 +1753,12 @@ function handleHome(isScrolled = false) {
          style="-webkit-mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 45%, rgba(0,0,0,0.85) 68%, rgba(0,0,0,0.25) 88%, transparent 100%);
                 mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 45%, rgba(0,0,0,0.85) 68%, rgba(0,0,0,0.25) 88%, transparent 100%);">
         <!-- Watercolor Ice Backing across full 100% width -->
-        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 48%, rgba(189, 235, 250, 0.45) 82%, transparent 100%);"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.80) 0%, rgba(216, 241, 250, 0.60) 48%, rgba(189, 235, 250, 0.20) 82%, transparent 100%);"></div>
         <!-- 100% Width Frost Texture Image -->
         <img src="/images/hero-frost-texture.jpg" 
              alt="" 
              aria-hidden="true" 
-             class="w-full h-full object-cover opacity-50 mix-blend-multiply sm:opacity-50 lg:opacity-52">
+             class="w-full h-full object-cover opacity-25 mix-blend-multiply sm:opacity-25 lg:opacity-25">
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
@@ -1769,9 +1769,9 @@ function handleHome(isScrolled = false) {
                  style="-webkit-mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);
                         mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);">
                 <!-- Glacial Cyan Ice Vapour -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/75 via-[#D8F1FA]/55 to-[#087DB5]/20"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/50 via-[#D8F1FA]/30 to-[#087DB5]/10"></div>
                 <!-- Natural Frost Texture -->
-                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-45 mix-blend-multiply scale-105">
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-25 mix-blend-multiply scale-105">
             </div>
 
             <!-- Dynamic Chiseled Ice Slab (Asymmetrical Glacial Faceted Angles, No Picture Frame) -->

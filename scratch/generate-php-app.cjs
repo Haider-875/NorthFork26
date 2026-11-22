@@ -9,6 +9,7 @@ async function main() {
     { key: 'home', path: '/' },
     { key: 'services', path: '/services' },
     { key: 'about', path: '/about' },
+    { key: 'reviews', path: '/reviews' },
     { key: 'contact', path: '/contact' },
     { key: 'book', path: '/book' },
   ];

@@ -139,6 +139,29 @@
                 padding-right: 2rem;
             }
         }
+        /* Header Initial State (Over Hero Banner) */
+        header#main-header.navbar-top {
+            background-color: transparent !important;
+            background-image: none !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.45) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Header Scrolled State (User's Ice Texture Background + Crisp Dark Navy Text) */
+        header#main-header.navbar-scrolled {
+            background-color: rgba(235, 247, 253, 0.92) !important;
+            background-image: linear-gradient(rgba(240, 249, 254, 0.82), rgba(216, 241, 250, 0.88)), url('/images/hero-frost-texture.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.9) !important;
+            box-shadow: 0 4px 20px rgba(7, 31, 53, 0.10) !important;
+        }
+
         @media (min-width: 1024px) {
             .section-pad {
                 padding-left: 2.5rem;
@@ -148,8 +171,8 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-    <!-- Navbar (Matches Reference Header) -->
-    <header class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/85 backdrop-blur-md border-b border-[#BDEBFA]/80 shadow-sm">
+    <!-- Navbar (Transparent over Hero Banner at top; Scrolled state reveals exact ice texture background with crisp dark text) -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 navbar-top">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -157,13 +180,13 @@
                     <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
                 </a>
 
-                <!-- Desktop Navigation -->
+                <!-- Desktop Navigation (Crisp Dark Text) -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Home</a>
+                    <a href="/" class="text-sm font-bold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Home</a>
                     <div class="relative group">
-                        <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 py-2 text-[#071F35] hover:text-[#087DB5]">
+                        <a href="/services" class="text-sm font-bold tracking-wide transition-colors flex items-center gap-1 py-2 text-[#071F35] hover:text-[#087DB5]">
                             Services
-                            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-[#071F35]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </a>
                         <div class="absolute left-0 top-full pt-1.5 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             <div class="bg-white/95 backdrop-blur-md border border-[#BDEBFA] rounded-2xl shadow-xl p-3 space-y-1">
@@ -178,14 +201,14 @@
                             </div>
                         </div>
                     </div>
-                    <a href="/about" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">About</a>
-                    <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Reviews</a>
-                    <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Contact</a>
+                    <a href="/about" class="text-sm font-bold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">About</a>
+                    <a href="/reviews" class="text-sm font-bold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Reviews</a>
+                    <a href="/contact" class="text-sm font-bold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Contact</a>
                 </nav>
 
                 <!-- Phone Pill Button -->
                 <div class="hidden md:flex items-center gap-4">
-                    <a href="tel:9077333030" class="btn-navy-pill text-xs">
+                    <a href="tel:9077333030" class="btn-navy-pill text-xs shadow-md">
                         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         (907) 733-3030
                     </a>
@@ -193,7 +216,7 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs">
+                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs shadow-sm">
                         Call
                     </a>
                     <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
@@ -204,15 +227,15 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-semibold text-[#071F35] py-1">Home</a>
-            <a href="/services" class="block text-sm font-semibold text-[#071F35] py-1">Services</a>
-            <a href="/about" class="block text-sm font-semibold text-[#071F35] py-1">About</a>
-            <a href="/reviews" class="block text-sm font-semibold text-[#071F35] py-1">Reviews</a>
-            <a href="/contact" class="block text-sm font-semibold text-[#071F35] py-1">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4 shadow-xl" style="background-image: linear-gradient(rgba(240, 249, 254, 0.94), rgba(216, 241, 250, 0.96)), url('/images/hero-frost-texture.jpg'); background-size: cover; background-position: center;">
+            <a href="/" class="block text-sm font-bold text-[#071F35] py-1">Home</a>
+            <a href="/services" class="block text-sm font-bold text-[#071F35] py-1">Services</a>
+            <a href="/about" class="block text-sm font-bold text-[#071F35] py-1">About</a>
+            <a href="/reviews" class="block text-sm font-bold text-[#071F35] py-1">Reviews</a>
+            <a href="/contact" class="block text-sm font-bold text-[#071F35] py-1">Contact</a>
             <div class="pt-4 border-t border-[#BDEBFA] flex flex-col gap-3">
-                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs">Call (907) 733-3030</a>
-                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs">Book Appointment</a>
+                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs font-bold">Call (907) 733-3030</a>
+                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs font-bold">Book Appointment</a>
             </div>
         </div>
     </header>
@@ -694,29 +717,73 @@
 
     </main>
 
-    <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
-    <footer class="relative bg-[#071F35] text-white py-10 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
+        <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
+    <footer class="relative bg-[#071F35] text-white pt-16 pb-12 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
         <img src="/images/alaska-landscape-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-15 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/90 to-[#071F35]/80 pointer-events-none"></div>
-        <div class="relative section-pad flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <img src="/images/logo.png" alt="North Fork Automotive" class="h-9 w-auto brightness-0 invert opacity-90 object-contain">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/95 to-[#071F35]/85 pointer-events-none"></div>
+        <div class="relative section-pad">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand & Description -->
+                <div class="space-y-4">
+                    <a href="/" class="inline-block">
+                        <img src="/images/logo.png" alt="North Fork Automotive" class="h-10 w-auto brightness-0 invert opacity-95 object-contain">
+                    </a>
+                    <p class="text-xs text-[#D8F1FA]/80 leading-relaxed">
+                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.
+                    </p>
+                    <div class="font-heading font-bold text-xs text-[#BDEBFA]">
+                        Talkeetna, Alaska · Est. locally owned.
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-[#D8F1FA]/80 font-medium">
+                        <li><a href="/" class="hover:text-white transition">Home</a></li>
+                        <li><a href="/services" class="hover:text-white transition">Services</a></li>
+                        <li><a href="/about" class="hover:text-white transition">About</a></li>
+                        <li><a href="/contact" class="hover:text-white transition">Visit Us (Contact)</a></li>
+                        <li><a href="/book" class="hover:text-white transition">Book Appointment</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Business Hours -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Hours</h4>
+                    <ul class="space-y-2 text-xs text-[#D8F1FA]/80">
+                        <li class="flex justify-between gap-4"><span class="font-medium">Monday – Friday:</span><span class="text-white font-semibold">8:00 AM – 5:00 PM</span></li>
+                        <li class="flex justify-between gap-4"><span class="font-medium">Saturday:</span><span class="text-white font-semibold">By Appointment</span></li>
+                        <li class="flex justify-between gap-4"><span class="font-medium">Sunday:</span><span class="text-white/60">Closed</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact & Phone -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Contact</h4>
+                    <p class="text-xs text-[#D8F1FA]/80 leading-relaxed">
+                        Talkeetna Spur Road, Talkeetna, AK 99676
+                    </p>
+                    <p class="text-xs text-[#D8F1FA]/80">
+                        <a href="mailto:info@northforkauto.com" class="hover:text-white transition">info@northforkauto.com</a>
+                    </p>
+                    <div class="pt-2">
+                        <a href="tel:9077333030" class="btn-navy-pill text-xs px-4 py-2 border border-[#BDEBFA]/30 bg-[#0B2B47] hover:bg-[#0E3557]">
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            <span>(907) 733-3030</span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="text-center text-xs text-[#D8F1FA]/80 flex flex-col sm:flex-row items-center gap-4">
-                <span>© 2025 North Fork Automotive. All rights reserved.</span>
+            <!-- Bottom Subfooter Bar -->
+            <div class="pt-8 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D8F1FA]/70">
+                <span>© 2026 North Fork Auto. All rights reserved.</span>
                 <div class="flex items-center gap-3">
                     <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
                     <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
                     <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
                 </div>
-            </div>
-
-            <div>
-                <a href="tel:9077333030" class="inline-flex items-center gap-2 bg-[#0B2B47] text-white border border-[#BDEBFA]/30 hover:border-[#BDEBFA] px-4 py-1.5 rounded-full text-xs font-bold transition">
-                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>(907) 733-3030</span>
-                </a>
             </div>
         </div>
     </footer>
@@ -728,6 +795,22 @@
             mobileToggle.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+        }
+
+        // Header dynamic background on scroll: Transparent over hero banner at top, ice frost texture when scrolled
+        const mainHeader = document.getElementById('main-header');
+        if (mainHeader) {
+            function updateNavbarOnScroll() {
+                if (window.scrollY > 20) {
+                    mainHeader.classList.remove('navbar-top');
+                    mainHeader.classList.add('navbar-scrolled');
+                } else {
+                    mainHeader.classList.remove('navbar-scrolled');
+                    mainHeader.classList.add('navbar-top');
+                }
+            }
+            window.addEventListener('scroll', updateNavbarOnScroll, { passive: true });
+            updateNavbarOnScroll();
         }
     </script>
     

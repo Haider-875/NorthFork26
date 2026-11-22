@@ -786,53 +786,97 @@ function initDatabase() {
     }
   };
 
-  // Seed services from live_Service.json
-  if (fs.existsSync(LIVE_SERVICES_FILE)) {
-    try {
-      const liveServices = JSON.parse(fs.readFileSync(LIVE_SERVICES_FILE, 'utf8').replace(/^\uFEFF/, ''));
-      db.services = liveServices.map((s, idx) => {
-        let price = 'Custom Quote';
-        if (s.name.includes('Oil')) price = '$89.99';
-        else if (s.name.includes('Brake')) price = '$189.99';
-        else if (s.name.includes('Diagnostic')) price = '$120.00';
-        else if (s.name.includes('Transmission')) price = '$189.99';
-        else if (s.name.includes('Battery') || s.name.includes('Electrical')) price = '$135.00';
-        else if (s.name.includes('Fluid') || s.name.includes('Cool')) price = '$119.99';
-        else if (s.name.includes('Filter')) price = '$49.99';
-        else if (s.name.includes('Alignment') || s.name.includes('Suspension')) price = '$149.99';
-        else if (s.name.includes('Inspection')) price = '$99.99';
-
-        return {
-          id: idx + 1,
-          live_id: s.id,
-          name: s.name,
-          category: s.category || 'General Repair',
-          description: s.description || 'Professional automotive repair and service in Talkeetna.',
-          symptoms: s.symptoms || [],
-          price: price,
-          duration_minutes: 60,
-          is_active: true,
-          is_featured: !!s.featured,
-          display_order: idx + 1
-        };
-      });
-    } catch (e) {
-      console.error('Error loading live_Service.json', e);
+    const CANONICAL_SERVICES = [
+    {
+      id: 1,
+      name: 'Diagnostic Inspection',
+      category: 'Diagnostics',
+      description: 'State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.',
+      price: '$120.00',
+      duration_minutes: 60,
+      is_active: true,
+      is_featured: true,
+      display_order: 1
+    },
+    {
+      id: 2,
+      name: 'Brake Repair & Replacement',
+      category: 'Brakes',
+      description: 'Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.',
+      price: '$189.99',
+      duration_minutes: 90,
+      is_active: true,
+      is_featured: true,
+      display_order: 2
+    },
+    {
+      id: 3,
+      name: 'Oil & Filter Service',
+      category: 'Maintenance',
+      description: 'Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.',
+      price: '$89.99',
+      duration_minutes: 45,
+      is_active: true,
+      is_featured: true,
+      display_order: 3
+    },
+    {
+      id: 4,
+      name: 'Engine Repair & Overhaul',
+      category: 'Engine',
+      description: 'Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.',
+      price: '$650.00',
+      duration_minutes: 240,
+      is_active: true,
+      is_featured: true,
+      display_order: 4
+    },
+    {
+      id: 5,
+      name: 'Transmission Service',
+      category: 'Drivetrain',
+      description: 'Fluid exchange, filter replacements, clutch service, and transmission diagnostics.',
+      price: '$189.99',
+      duration_minutes: 90,
+      is_active: true,
+      is_featured: true,
+      display_order: 5
+    },
+    {
+      id: 6,
+      name: 'Steering & Suspension',
+      category: 'Suspension',
+      description: 'Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.',
+      price: '$220.00',
+      duration_minutes: 120,
+      is_active: true,
+      is_featured: true,
+      display_order: 6
+    },
+    {
+      id: 7,
+      name: 'Electrical & Battery',
+      category: 'Electrical',
+      description: 'Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.',
+      price: '$135.00',
+      duration_minutes: 60,
+      is_active: true,
+      is_featured: true,
+      display_order: 7
+    },
+    {
+      id: 8,
+      name: 'Cooling & AC Repair',
+      category: 'Climate',
+      description: 'Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.',
+      price: '$160.00',
+      duration_minutes: 90,
+      is_active: true,
+      is_featured: true,
+      display_order: 8
     }
-  }
-
-  if (!db.services || db.services.length === 0) {
-    db.services = [
-      { id: 1, name: 'Diagnostic Inspection', category: 'Diagnostics', description: 'Comprehensive computerized scan and physical multi-point inspection.', price: '$120.00', duration_minutes: 60, is_active: true, is_featured: true, display_order: 1 },
-      { id: 2, name: 'Synthetic Oil Change', category: 'Maintenance', description: 'Full synthetic oil, OEM filter replacement, and multi-point inspection.', price: '$89.99', duration_minutes: 45, is_active: true, is_featured: true, display_order: 2 },
-      { id: 3, name: 'Brake Pad & Rotor Service', category: 'Brakes', description: 'Front or rear pads, rotors, caliper check, and road test.', price: '$189.99', duration_minutes: 90, is_active: true, is_featured: true, display_order: 3 },
-      { id: 4, name: 'Transmission Service', category: 'Drivetrain', description: 'Fluid exchange, filter inspection, and electronic diagnostics.', price: '$189.99', duration_minutes: 90, is_active: true, is_featured: true, display_order: 4 },
-      { id: 5, name: 'Steering & Suspension', category: 'Suspension', description: 'Struts, tie-rods, control arms, bushings, and laser alignment.', price: 'Custom Quote', duration_minutes: 120, is_active: true, is_featured: true, display_order: 5 },
-      { id: 6, name: 'Electrical & Battery', category: 'Electrical', description: 'Alternator, starter, battery diagnostic, and wire repair.', price: '$135.00', duration_minutes: 60, is_active: true, is_featured: true, display_order: 6 },
-      { id: 7, name: 'Cooling & Heating / AC', category: 'Climate', description: 'Coolant flush, radiator check, thermostat, and AC service.', price: '$160.00', duration_minutes: 90, is_active: true, is_featured: true, display_order: 7 },
-      { id: 8, name: 'Engine Repair & Timing Belt', category: 'Engine', description: 'Full engine diagnostics, timing belts, head gaskets, and rebuilds.', price: 'Custom Quote', duration_minutes: 240, is_active: true, is_featured: true, display_order: 8 }
-    ];
-  }
+  ];
+  db.services = CANONICAL_SERVICES;
 
   if (fs.existsSync(DB_FILE)) {
     try {
@@ -917,7 +961,7 @@ function escapeHtml(str) {
 }
 
 // Global Public Layout - North Fork Auto Icy-Blue Brand System
-function renderLayout(title, description, content, activeNav = '') {
+function renderLayout(title, description, content, activeNav = '', isScrolled = false) {
   return `<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -1059,6 +1103,29 @@ function renderLayout(title, description, content, activeNav = '') {
                 padding-right: 2rem;
             }
         }
+        /* Header Initial State (Over Hero Banner) */
+        header#main-header.navbar-top {
+            background-color: transparent !important;
+            background-image: none !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.45) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Header Scrolled State (User's Ice Texture Background + Crisp Dark Navy Text) */
+        header#main-header.navbar-scrolled {
+            background-color: rgba(235, 247, 253, 0.92) !important;
+            background-image: linear-gradient(rgba(240, 249, 254, 0.82), rgba(216, 241, 250, 0.88)), url('/images/hero-frost-texture.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.9) !important;
+            box-shadow: 0 4px 20px rgba(7, 31, 53, 0.10) !important;
+        }
+
         @media (min-width: 1024px) {
             .section-pad {
                 padding-left: 2.5rem;
@@ -1068,8 +1135,8 @@ function renderLayout(title, description, content, activeNav = '') {
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-    <!-- Navbar (Matches Reference Header) -->
-    <header class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/85 backdrop-blur-md border-b border-[#BDEBFA]/80 shadow-sm">
+    <!-- Navbar (Transparent over Hero Banner at top; Scrolled state reveals exact ice texture background with crisp dark text) -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'navbar-scrolled' : 'navbar-top'}">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -1077,13 +1144,13 @@ function renderLayout(title, description, content, activeNav = '') {
                     <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
                 </a>
 
-                <!-- Desktop Navigation -->
+                <!-- Desktop Navigation (Crisp Dark Text) -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Home</a>
+                    <a href="/" class="text-sm font-bold tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Home</a>
                     <div class="relative group">
-                        <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 py-2 ${activeNav === 'services' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5]' : 'text-[#071F35] hover:text-[#087DB5]'}">
+                        <a href="/services" class="text-sm font-bold tracking-wide transition-colors flex items-center gap-1 py-2 ${activeNav === 'services' ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5]' : 'text-[#071F35] hover:text-[#087DB5]'}">
                             Services
-                            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-[#071F35]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </a>
                         <div class="absolute left-0 top-full pt-1.5 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             <div class="bg-white/95 backdrop-blur-md border border-[#BDEBFA] rounded-2xl shadow-xl p-3 space-y-1">
@@ -1098,14 +1165,14 @@ function renderLayout(title, description, content, activeNav = '') {
                             </div>
                         </div>
                     </div>
-                    <a href="/about" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">About</a>
-                    <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'reviews' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Reviews</a>
-                    <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Contact</a>
+                    <a href="/about" class="text-sm font-bold tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">About</a>
+                    <a href="/reviews" class="text-sm font-bold tracking-wide transition-colors ${activeNav === 'reviews' ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Reviews</a>
+                    <a href="/contact" class="text-sm font-bold tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Contact</a>
                 </nav>
 
                 <!-- Phone Pill Button -->
                 <div class="hidden md:flex items-center gap-4">
-                    <a href="tel:9077333030" class="btn-navy-pill text-xs">
+                    <a href="tel:9077333030" class="btn-navy-pill text-xs shadow-md">
                         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         (907) 733-3030
                     </a>
@@ -1113,7 +1180,7 @@ function renderLayout(title, description, content, activeNav = '') {
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs">
+                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs shadow-sm">
                         Call
                     </a>
                     <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
@@ -1124,15 +1191,15 @@ function renderLayout(title, description, content, activeNav = '') {
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-semibold ${activeNav === 'home' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Home</a>
-            <a href="/services" class="block text-sm font-semibold ${activeNav === 'services' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Services</a>
-            <a href="/about" class="block text-sm font-semibold ${activeNav === 'about' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">About</a>
-            <a href="/reviews" class="block text-sm font-semibold ${activeNav === 'reviews' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Reviews</a>
-            <a href="/contact" class="block text-sm font-semibold ${activeNav === 'contact' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4 shadow-xl" style="background-image: linear-gradient(rgba(240, 249, 254, 0.94), rgba(216, 241, 250, 0.96)), url('/images/hero-frost-texture.jpg'); background-size: cover; background-position: center;">
+            <a href="/" class="block text-sm font-bold ${activeNav === 'home' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Home</a>
+            <a href="/services" class="block text-sm font-bold ${activeNav === 'services' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Services</a>
+            <a href="/about" class="block text-sm font-bold ${activeNav === 'about' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">About</a>
+            <a href="/reviews" class="block text-sm font-bold ${activeNav === 'reviews' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Reviews</a>
+            <a href="/contact" class="block text-sm font-bold ${activeNav === 'contact' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Contact</a>
             <div class="pt-4 border-t border-[#BDEBFA] flex flex-col gap-3">
-                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs">Call (907) 733-3030</a>
-                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs">Book Appointment</a>
+                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs font-bold">Call (907) 733-3030</a>
+                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs font-bold">Book Appointment</a>
             </div>
         </div>
     </header>
@@ -1142,29 +1209,73 @@ function renderLayout(title, description, content, activeNav = '') {
         ${content}
     </main>
 
-    <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
-    <footer class="relative bg-[#071F35] text-white py-10 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
+        <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
+    <footer class="relative bg-[#071F35] text-white pt-16 pb-12 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
         <img src="/images/alaska-landscape-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-15 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/90 to-[#071F35]/80 pointer-events-none"></div>
-        <div class="relative section-pad flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <img src="/images/logo.png" alt="North Fork Automotive" class="h-9 w-auto brightness-0 invert opacity-90 object-contain">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/95 to-[#071F35]/85 pointer-events-none"></div>
+        <div class="relative section-pad">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand & Description -->
+                <div class="space-y-4">
+                    <a href="/" class="inline-block">
+                        <img src="/images/logo.png" alt="North Fork Automotive" class="h-10 w-auto brightness-0 invert opacity-95 object-contain">
+                    </a>
+                    <p class="text-xs text-[#D8F1FA]/80 leading-relaxed">
+                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.
+                    </p>
+                    <div class="font-heading font-bold text-xs text-[#BDEBFA]">
+                        Talkeetna, Alaska · Est. locally owned.
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-[#D8F1FA]/80 font-medium">
+                        <li><a href="/" class="hover:text-white transition">Home</a></li>
+                        <li><a href="/services" class="hover:text-white transition">Services</a></li>
+                        <li><a href="/about" class="hover:text-white transition">About</a></li>
+                        <li><a href="/contact" class="hover:text-white transition">Visit Us (Contact)</a></li>
+                        <li><a href="/book" class="hover:text-white transition">Book Appointment</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Business Hours -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Hours</h4>
+                    <ul class="space-y-2 text-xs text-[#D8F1FA]/80">
+                        <li class="flex justify-between gap-4"><span class="font-medium">Monday – Friday:</span><span class="text-white font-semibold">8:00 AM – 5:00 PM</span></li>
+                        <li class="flex justify-between gap-4"><span class="font-medium">Saturday:</span><span class="text-white font-semibold">By Appointment</span></li>
+                        <li class="flex justify-between gap-4"><span class="font-medium">Sunday:</span><span class="text-white/60">Closed</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact & Phone -->
+                <div class="space-y-3">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#BDEBFA]">Contact</h4>
+                    <p class="text-xs text-[#D8F1FA]/80 leading-relaxed">
+                        Talkeetna Spur Road, Talkeetna, AK 99676
+                    </p>
+                    <p class="text-xs text-[#D8F1FA]/80">
+                        <a href="mailto:info@northforkauto.com" class="hover:text-white transition">info@northforkauto.com</a>
+                    </p>
+                    <div class="pt-2">
+                        <a href="tel:9077333030" class="btn-navy-pill text-xs px-4 py-2 border border-[#BDEBFA]/30 bg-[#0B2B47] hover:bg-[#0E3557]">
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            <span>(907) 733-3030</span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="text-center text-xs text-[#D8F1FA]/80 flex flex-col sm:flex-row items-center gap-4">
-                <span>© 2025 North Fork Automotive. All rights reserved.</span>
+            <!-- Bottom Subfooter Bar -->
+            <div class="pt-8 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D8F1FA]/70">
+                <span>© 2026 North Fork Auto. All rights reserved.</span>
                 <div class="flex items-center gap-3">
                     <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
                     <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
                     <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
                 </div>
-            </div>
-
-            <div>
-                <a href="tel:9077333030" class="inline-flex items-center gap-2 bg-[#0B2B47] text-white border border-[#BDEBFA]/30 hover:border-[#BDEBFA] px-4 py-1.5 rounded-full text-xs font-bold transition">
-                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>(907) 733-3030</span>
-                </a>
             </div>
         </div>
     </footer>
@@ -1176,6 +1287,22 @@ function renderLayout(title, description, content, activeNav = '') {
             mobileToggle.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+        }
+
+        // Header dynamic background on scroll: Transparent over hero banner at top, ice frost texture when scrolled
+        const mainHeader = document.getElementById('main-header');
+        if (mainHeader) {
+            function updateNavbarOnScroll() {
+                if (window.scrollY > 20) {
+                    mainHeader.classList.remove('navbar-top');
+                    mainHeader.classList.add('navbar-scrolled');
+                } else {
+                    mainHeader.classList.remove('navbar-scrolled');
+                    mainHeader.classList.add('navbar-top');
+                }
+            }
+            window.addEventListener('scroll', updateNavbarOnScroll, { passive: true });
+            updateNavbarOnScroll();
         }
     </script>
     
@@ -1189,14 +1316,14 @@ function renderLayout(title, description, content, activeNav = '') {
 // PUBLIC PAGE HANDLERS
 // -------------------------------------------------------------
 
-function handleHome() {
+function handleHome(isScrolled = false) {
   const currentDb = getDb();
   const services = currentDb.services.filter(s => s.is_active);
 
   const heroHtml = `
 <!-- SECTION 1: FULL-BLEED HOMEPAGE HERO (FROST TEXTURE OVERLAY BEHIND LEFT-SIDE TEXT ONLY) -->
-<section class="relative w-full overflow-hidden min-h-[580px] sm:min-h-[620px] lg:min-h-[660px] flex items-center">
-    <!-- Layer 1: Full-Width Background: Dark-blue Ford F-150 in Alaskan Mountains (Sharp & Clear on Right) -->
+<section class="relative w-full overflow-hidden min-h-[640px] sm:min-h-[680px] lg:min-h-[720px] flex items-center">
+    <!-- Layer 1: Full-Width Background: Dark-blue Ford F-150 in Alaskan Mountains (Sharp & Clear on Right, extends behind navbar) -->
     <div class="absolute inset-0 z-0">
         <img src="/images/hero-truck-mountains.jpg" alt="Dark-blue Ford F-150 in front of Alaskan snow-covered mountain range" class="w-full h-full object-cover object-[80%_center] lg:object-right">
     </div>
@@ -1220,129 +1347,159 @@ function handleHome() {
     <div class="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-white/40 to-transparent z-1 pointer-events-none"></div>
     <div class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#D8F1FA]/80 to-transparent z-1 pointer-events-none"></div>
 
-    <!-- Layer 3: Foreground Content (Strictly Left-Aligned over Organic Frost Patch, No Rectangular Box) -->
-    <div class="relative z-10 section-pad w-full py-12 sm:py-16 lg:py-20">
+    <!-- Layer 3: Foreground Content (Padded to clear fixed navbar seamlessly, Strictly Left-Aligned) -->
+    <div class="relative z-10 section-pad w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20">
         <div class="max-w-xl lg:max-w-xl text-left">
-            <h1 class="text-[#071F35] font-heading font-extrabold tracking-tight leading-[0.96] text-3xl sm:text-4xl lg:text-[3.4rem]">
+            <!-- Status Badge: Currently Open -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/85 border border-[#BDEBFA] text-[#087DB5] text-xs font-bold uppercase tracking-wider mb-2.5 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Currently Open · Mon – Fri 8:00 AM – 5:00 PM</span>
+            </div>
+
+            <!-- Eyebrow: Talkeetna, Alaska · Auto Repair Experts -->
+            <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#087DB5] mb-1">
+                Talkeetna, Alaska · Auto Repair Experts
+            </div>
+
+            <h1 class="text-[#071F35] font-heading font-extrabold tracking-tight leading-[0.96] text-3xl sm:text-4xl lg:text-[3.2rem]">
                 <span class="block text-[#071F35]">North Fork</span>
                 <span class="block mt-1 text-[#071F35]">Automotive</span>
             </h1>
             
             <!-- Car with Mechanic Hood Graphic (Clean Silhouette matching Original Reference) -->
-            <div class="my-3 max-w-[280px]">
-                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive Mechanic & Car" class="h-12 sm:h-14 w-auto object-contain">
-                <div class="flex items-center gap-2.5 mt-1.5">
+            <div class="my-2.5 max-w-[280px]">
+                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive Mechanic & Car" class="h-11 sm:h-13 w-auto object-contain">
+                <div class="flex items-center gap-2.5 mt-1">
                     <span class="h-0.5 flex-1 bg-[#071F35]"></span>
                     <span class="font-heading font-bold text-xs uppercase tracking-widest text-[#071F35]">Talkeetna, AK</span>
                     <span class="h-0.5 flex-1 bg-[#071F35]"></span>
                 </div>
             </div>
             
-            <h2 class="text-lg sm:text-xl font-heading font-extrabold italic text-[#071F35] mt-2 mb-2 leading-snug">
-                Reliable Auto Repair<br>in Talkeetna - Alaska
+            <!-- Exact Live Headline -->
+            <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-[#071F35] mt-1 mb-2 leading-snug">
+                Trusted Auto Repair.<br><span class="text-[#087DB5]">Quality Service.</span> Every Time.
             </h2>
             
+            <!-- Exact Live Description -->
             <p class="text-xs sm:text-sm text-[#1E3A5F] font-medium leading-relaxed mb-6 max-w-md">
-                Honest answers, quality workmanship,<br class="hidden sm:inline"> and a team that cares.
+                From routine maintenance to complex diagnostics, North Fork Auto provides professional, honest automotive care for drivers across Talkeetna and the Mat-Su Valley.
             </p>
             
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 <a href="/book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#071F35] hover:bg-[#0B2B47] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all duration-200 hover:-translate-y-0.5">
                     <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>Book Your Appointment</span>
+                    <span>Book an Appointment</span>
                 </a>
                 <a href="tel:9077333030" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5">
                     <svg class="w-4 h-4 text-[#071F35] shrink-0 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span>Call (907) 733-3030</span>
+                    <span>Call Now · (907) 733-3030</span>
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SECTION 2: TRUST BAR (4 HORIZONTAL INDICATORS) -->
+<!-- SECTION 2: TRUST BAR (4 HORIZONTAL INDICATORS FROM LIVE SITE) -->
 <section class="section-pad my-4">
     <div class="bg-[#D8F1FA]/85 backdrop-blur-md rounded-2xl border border-[#BDEBFA] py-5 px-6 shadow-sm">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:divide-x md:divide-[#BDEBFA]">
+            <!-- 1. ASE Certified -->
             <div class="flex items-center gap-3.5 md:justify-center">
                 <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">ASE-Certified</h3>
-                    <p class="text-xs text-[#334E68]">Technicians</p>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">ASE Certified</h3>
+                    <p class="text-xs text-[#334E68]">Skilled Master Techs</p>
                 </div>
             </div>
             
+            <!-- 2. OEM Diagnostic -->
             <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
                 <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Transparent</h3>
-                    <p class="text-xs text-[#334E68]">Estimates</p>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">OEM Diagnostic</h3>
+                    <p class="text-xs text-[#334E68]">Dealer-Level Equipment</p>
                 </div>
             </div>
             
+            <!-- 3. Warranty Backed -->
             <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
                 <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
                 </div>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">12-Month / 12K-Mile</h3>
-                    <p class="text-xs text-[#334E68]">Warranty</p>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Warranty Backed</h3>
+                    <p class="text-xs text-[#334E68]">Parts &amp; Labor Protected</p>
                 </div>
             </div>
             
+            <!-- 4. Local Alaskan -->
             <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
                 <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
                 </div>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Locally Owned</h3>
-                    <p class="text-xs text-[#334E68]">&amp; Operated</p>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Local Alaskan</h3>
+                    <p class="text-xs text-[#334E68]">Community Focused</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SECTION 3: OUR SERVICES (4 CARDS LEFT, MECHANIC PHOTO RIGHT) -->
+<!-- SECTION 3: OUR CAPABILITIES (ALL 8 CANONICAL SERVICES WITH TITLES, DESCRIPTIONS & PRICES) -->
 <section class="section-pad py-16">
     <div class="text-center mb-12">
-        <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— OUR SERVICES —</span>
+        <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— OUR CAPABILITIES —</span>
         <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-[#071F35] tracking-tight mt-1 mb-2">
-            Expert Auto Services
+            Expert Auto Care For Alaskan Roads
         </h2>
-        <p class="text-sm sm:text-base text-[#334E68] max-w-xl mx-auto">
-            From diagnostics to major repairs, we've got you covered.
+        <p class="text-sm sm:text-base text-[#334E68] max-w-xl mx-auto mb-3">
+            From routine maintenance to complex diagnostics, we\'ve got you covered.
         </p>
+        <a href="/services" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#087DB5] hover:text-[#071F35] transition">
+            <span>View All Services (8)</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
     </div>
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <!-- Top Row: 4 Cards Left + Photographic Mechanic Visual Right (Matches Reference Screen Exactly) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
         <!-- 4 Frosted Service Cards (Left) -->
         <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <!-- 1. Diagnostics -->
+            <!-- 1. Diagnostic Inspection -->
             <div class="frosted-card p-6 flex flex-col items-center text-center">
                 <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
                 </div>
-                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Diagnostics</h3>
-                <p class="text-xs text-[#334E68] mb-4">Find the problem. Fast.</p>
-                <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Learn More →
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Diagnostics</span>
+                    <span class="font-heading font-bold text-xs text-[#071F35]">$120.00</span>
+                </div>
+                <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Diagnostic Inspection</h3>
+                <p class="text-xs text-[#334E68] mb-4">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
+                <a href="/book?service=Diagnostic%20Inspection" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Book Now →
                 </a>
             </div>
             
-            <!-- 2. Brake Repair -->
+            <!-- 2. Brake Repair & Replacement -->
             <div class="frosted-card p-6 flex flex-col items-center text-center">
                 <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3"/></svg>
                 </div>
-                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Brake Repair</h3>
-                <p class="text-xs text-[#334E68] mb-4">Stop with confidence.</p>
-                <a href="/book?service=Brake%20System%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Learn More →
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Brakes</span>
+                    <span class="font-heading font-bold text-xs text-[#071F35]">$189.99</span>
+                </div>
+                <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Brake Repair &amp; Replacement</h3>
+                <p class="text-xs text-[#334E68] mb-4">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
+                <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Book Now →
                 </a>
             </div>
             
@@ -1351,22 +1508,30 @@ function handleHome() {
                 <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                 </div>
-                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Oil &amp; Filter Service</h3>
-                <p class="text-xs text-[#334E68] mb-4">Keep your engine healthy.</p>
-                <a href="/book?service=Oil%20%26%20Filter%20Change" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Learn More →
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Maintenance</span>
+                    <span class="font-heading font-bold text-xs text-[#071F35]">$89.99</span>
+                </div>
+                <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Oil &amp; Filter Service</h3>
+                <p class="text-xs text-[#334E68] mb-4">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
+                <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Book Now →
                 </a>
             </div>
             
-            <!-- 4. General Auto Repair -->
+            <!-- 4. Engine Repair & Overhaul -->
             <div class="frosted-card p-6 flex flex-col items-center text-center">
                 <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L7.757 7.757m0 0l2.829-2.829a3 3 0 114.242 4.242L12 12"/></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">General Auto Repair</h3>
-                <p class="text-xs text-[#334E68] mb-4">Get back on the road.</p>
-                <a href="/book?service=Preventive%20Maintenance" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Learn More →
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Engine</span>
+                    <span class="font-heading font-bold text-xs text-[#071F35]">$650.00</span>
+                </div>
+                <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Engine Repair &amp; Overhaul</h3>
+                <p class="text-xs text-[#334E68] mb-4">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
+                <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Book Now →
                 </a>
             </div>
         </div>
@@ -1374,9 +1539,76 @@ function handleHome() {
         <!-- Photographic Mechanic Visual (Right) -->
         <div class="lg:col-span-5">
             <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA]">
-                <img src="/images/service-mechanic-engine.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[360px] object-cover object-center">
+                <img src="/images/service-mechanic-engine.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[400px] object-cover object-center">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/25 via-transparent to-transparent pointer-events-none"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Bottom Row: Remaining 4 Canonical Services (Ensures all 8 services from live site are displayed) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- 5. Transmission Service -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Drivetrain</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$189.99</span>
+            </div>
+            <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Transmission Service</h3>
+            <p class="text-xs text-[#334E68] mb-4">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
+            <a href="/book?service=Transmission%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 6. Steering & Suspension -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M2 12h20"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Suspension</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$220.00</span>
+            </div>
+            <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Steering &amp; Suspension</h3>
+            <p class="text-xs text-[#334E68] mb-4">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
+            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 7. Electrical & Battery -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Electrical</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$135.00</span>
+            </div>
+            <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Electrical &amp; Battery</h3>
+            <p class="text-xs text-[#334E68] mb-4">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
+            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 8. Cooling & AC Repair -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l3 3m-3-3l-3 3m0 12l3 3m-3-3l-3 3M3 12h18m-18 0l3-3m-3 3l3 3m12-3l3-3m-3 3l3 3"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Climate</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$160.00</span>
+            </div>
+            <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Cooling &amp; AC Repair</h3>
+            <p class="text-xs text-[#334E68] mb-4">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
+            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Book Now →
+            </a>
         </div>
     </div>
 </section>
@@ -1393,12 +1625,12 @@ function handleHome() {
         
         <!-- Story & Description (Center - 5 cols) -->
         <div class="lg:col-span-5 space-y-4">
-            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">ABOUT NORTH FORK AUTOMOTIVE —</span>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">TALKEETNA'S TRUSTED AUTO CARE —</span>
             <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35] tracking-tight leading-snug">
-                Your Trusted Auto Repair Shop in Talkeetna
+                Locally Owned. Honest Service. Real Results.
             </h2>
             <p class="text-sm text-[#334E68] leading-relaxed">
-                We're committed to keeping you on the road. From diagnostics to major repairs, our experienced technicians deliver dependable service with transparent pricing and a 12-month / 12K-mile warranty.
+                North Fork Auto was built with a simple goal: provide our Talkeetna neighbors with honest, high-quality automotive repair you can count on. We treat every vehicle like it\'s our own.
             </p>
             <div class="pt-2">
                 <a href="/about" class="btn-navy-pill text-xs px-6 py-2.5">
@@ -1412,128 +1644,205 @@ function handleHome() {
             <div class="bg-[#D8F1FA] border border-[#BDEBFA] rounded-2xl p-6 shadow-sm flex flex-col gap-4">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Experienced Team</span>
-                </div>
-                
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Quality Service</span>
+                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">ASE-Certified Master Technicians</span>
                 </div>
                 
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Fair Pricing</span>
+                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">Advanced Computer Diagnostics</span>
                 </div>
                 
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Customer Focus</span>
+                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">3-Year / 36,000-Mile Warranty</span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">Locally Owned &amp; Community Minded</span>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: HOMEPAGE CALL TO ACTION (FROM LIVE SITE) -->
+<section class="section-pad py-12">
+    <div class="frosted-card p-8 sm:p-12 text-center border-2 border-[#BDEBFA] bg-gradient-to-r from-white/95 via-[#EBF7FD] to-white/95">
+        <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase mb-2 block">— GET BACK ON THE ROAD —</span>
+        <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-[#071F35] tracking-tight mb-3">
+            Ready For Reliable Automotive Service?
+        </h2>
+        <p class="text-sm text-[#334E68] max-w-xl mx-auto mb-8 leading-relaxed">
+            Schedule your appointment online or call us directly. We provide transparent estimates and expert care.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/book" class="w-full sm:w-auto btn-navy-pill text-sm px-8 py-3.5 shadow-lg">
+                Book Service Appointment
+            </a>
+            <a href="tel:9077333030" class="w-full sm:w-auto btn-white-pill text-sm px-8 py-3.5 shadow-sm">
+                Call (907) 733-3030
+            </a>
         </div>
     </div>
 </section>
 `;
 
-  return renderLayout('North Fork Automotive | Reliable Auto Repair in Talkeetna, Alaska', 'Honest answers, quality workmanship, and a team that cares in Talkeetna, AK.', heroHtml, 'home');
+  return renderLayout('North Fork Automotive | Reliable Auto Repair in Talkeetna, Alaska', 'Honest answers, quality workmanship, and a team that cares in Talkeetna, AK.', heroHtml, 'home', isScrolled);
 }
 
 function handleServices() {
   const content = `
 <!-- MOUNTAIN HERO BANNER (MATCHES TOP-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20">
     <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
     <div class="relative section-pad text-center max-w-3xl mx-auto">
         <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-            Our Services
+            Our Automotive Services
         </h1>
-        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
-            Professional Auto Care You Can Count On
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed max-w-2xl mx-auto">
+            From routine fluid changes to complete engine diagnostics, our certified technicians keep your vehicle running smoothly in harsh Alaskan conditions.
         </p>
     </div>
 </section>
 
-<!-- 6 SERVICE CARDS GRID -->
+<!-- 8 CANONICAL SERVICES GRID (FULL LIVE WEBSITE DATA) -->
 <section class="section-pad py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 1. Diagnostics -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 1. Diagnostic Inspection -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Diagnostics</h3>
-            <p class="text-sm text-[#334E68] mb-6">Find the issue with precision.</p>
-            <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Diagnostics</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$120.00 · ~60m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Diagnostic Inspection</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
+            <a href="/book?service=Diagnostic%20Inspection" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
             </a>
         </div>
         
-        <!-- 2. Brake Repair -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+        <!-- 2. Brake Repair & Replacement -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3"/></svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Brake Repair</h3>
-            <p class="text-sm text-[#334E68] mb-6">Drive safe, stop confident.</p>
-            <a href="/book?service=Brake%20System%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Brakes</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$189.99 · ~90m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Brake Repair &amp; Replacement</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
+            <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
             </a>
         </div>
         
         <!-- 3. Oil & Filter Service -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Oil &amp; Filter Service</h3>
-            <p class="text-sm text-[#334E68] mb-6">Keep your engine running smoothly.</p>
-            <a href="/book?service=Oil%20%26%20Filter%20Change" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
-            </a>
-        </div>
-        
-        <!-- 4. General Auto Repair -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L7.757 7.757m0 0l2.829-2.829a3 3 0 114.242 4.242L12 12"/></svg>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Maintenance</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$89.99 · ~45m</span>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">General Auto Repair</h3>
-            <p class="text-sm text-[#334E68] mb-6">From minor fixes to major repairs.</p>
-            <a href="/book?service=Preventive%20Maintenance" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Oil &amp; Filter Service</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
+            <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
             </a>
         </div>
         
-        <!-- 5. Engine Service -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+        <!-- 4. Engine Repair & Overhaul -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Engine Service</h3>
-            <p class="text-sm text-[#334E68] mb-6">Boost performance and reliability.</p>
-            <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Engine</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$650.00 · ~240m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Engine Repair &amp; Overhaul</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
+            <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
             </a>
         </div>
-        
-        <!-- 6. Tire Services -->
-        <div class="frosted-card p-8 flex flex-col items-center text-center">
-            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v7m0 6v7m-10-8h7m6 0h7"/></svg>
+
+        <!-- 5. Transmission Service -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Tire Services</h3>
-            <p class="text-sm text-[#334E68] mb-6">Stay safe on any road.</p>
-            <a href="/book?service=Tire%20%26%20Wheel%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Learn More →
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Drivetrain</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$189.99 · ~90m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Transmission Service</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
+            <a href="/book?service=Transmission%20Service" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 6. Steering & Suspension -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M2 12h20"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Suspension</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$220.00 · ~120m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Steering &amp; Suspension</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
+            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 7. Electrical & Battery -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Electrical</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$135.00 · ~60m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Electrical &amp; Battery</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
+            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
+            </a>
+        </div>
+
+        <!-- 8. Cooling & AC Repair -->
+        <div class="frosted-card p-6 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m0-18l3 3m-3-3l-3 3m0 12l3 3m-3-3l-3 3M3 12h18m-18 0l3-3m-3 3l3 3m12-3l3-3m-3 3l3 3"/></svg>
+            </div>
+            <div class="flex items-center justify-between w-full mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-[#087DB5]">Climate</span>
+                <span class="font-heading font-bold text-xs text-[#071F35]">$160.00 · ~90m</span>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Cooling &amp; AC Repair</h3>
+            <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
+            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
+                Book Now →
             </a>
         </div>
     </div>
@@ -1548,22 +1857,23 @@ function handleServices() {
 </section>
 `;
 
-  return renderLayout('Our Services', 'Professional auto care you can count on in Talkeetna, Alaska.', content, 'services');
+  return renderLayout('Our Automotive Services', 'From routine fluid changes to complete engine diagnostics, our certified technicians keep your vehicle running smoothly in harsh Alaskan conditions.', content, 'services');
 }
 
 function handleAbout() {
   const content = `
 <!-- MOUNTAIN HERO BANNER (MATCHES MIDDLE-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-14 sm:py-16">
+<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-14 sm:pt-36 sm:pb-16">
     <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-30">
     <div class="absolute inset-0 bg-gradient-to-r from-[#071F35] via-[#071F35]/85 to-[#071F35]/70"></div>
     <div class="relative section-pad max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-[#BDEBFA] mb-2">About North Fork Auto</div>
             <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-                About Us
+                Locally Owned. Alaskan Tested.
             </h1>
-            <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
-                Driven by Quality. Trusted by Talkeetna.
+            <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed max-w-2xl">
+                North Fork Auto is Talkeetna's premier independent auto care facility. We understand what it takes to keep vehicles running safely through Alaskan winters and rugged summer terrain.
             </p>
         </div>
         <div class="w-full md:w-64 rounded-xl overflow-hidden border border-[#BDEBFA]/30 shadow-lg shrink-0">
@@ -1575,20 +1885,23 @@ function handleAbout() {
 <!-- TWO-COLUMN CONTENT SECTION (MATCHES SCREENSHOT) -->
 <section class="section-pad py-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <!-- Left Column: Our Story -->
+        <!-- Left Column: Our Story & Values -->
         <div class="lg:col-span-7 space-y-5">
             <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35]">
-                Our Story
+                Our Story &amp; Values
             </h2>
             <p class="text-sm sm:text-base text-[#334E68] leading-relaxed">
-                North Fork Automotive was built with a simple mission: to provide honest, reliable, and high-quality auto repair services to the Talkeetna community and beyond.
+                Founded with a mission to deliver straightforward, trustworthy auto repairs to the Talkeetna community, North Fork Auto brings modern diagnostic technology and old-school honesty to every job.
             </p>
             <p class="text-sm sm:text-base text-[#334E68] leading-relaxed">
-                We take pride in our work and treat every customer like family. Whether you're a year-round resident preparing for sub-zero weather or passing through on the Parks Highway, our certified technicians are dedicated to keeping you safe on the road.
+                We believe in total transparency. When you bring your vehicle in, we thoroughly inspect it, explain what needs immediate attention versus what can wait, and provide clear upfront estimates before any work begins.
+            </p>
+            <p class="text-sm sm:text-base text-[#334E68] leading-relaxed">
+                Whether you're a year-round resident preparing for sub-zero weather or passing through on the Parks Highway, our certified technicians are dedicated to keeping you safe on the road.
             </p>
             <div class="pt-3">
                 <a href="/book" class="btn-navy-pill text-xs px-6 py-2.5">
-                    Learn More →
+                    Book an Appointment →
                 </a>
             </div>
         </div>
@@ -1600,28 +1913,28 @@ function handleAbout() {
                     <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Experienced &amp; Certified Technicians</span>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">100% Locally Owned &amp; Operated</span>
                 </div>
                 
                 <div class="flex items-center gap-3.5">
                     <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Transparent Pricing</span>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">ASE Certified Technicians</span>
                 </div>
                 
                 <div class="flex items-center gap-3.5">
                     <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">12-Month / 12K-Mile Warranty</span>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">3-Year / 36,000-Mile Warranty</span>
                 </div>
                 
                 <div class="flex items-center gap-3.5">
                     <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="font-heading font-bold text-sm text-[#071F35]">Locally Owned &amp; Operated</span>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Transparent Upfront Pricing</span>
                 </div>
             </div>
         </div>
@@ -1629,13 +1942,13 @@ function handleAbout() {
 </section>
 `;
 
-  return renderLayout('About Us', 'Driven by quality. Trusted by Talkeetna.', content, 'about');
+  return renderLayout('About Us | North Fork Auto', 'Locally owned. Alaskan tested. Professional automotive care in Talkeetna, Alaska.', content, 'about');
 }
 
 function handleReviews() {
   const content = `
 <!-- MOUNTAIN HERO BANNER -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20">
     <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
     <div class="relative section-pad text-center max-w-3xl mx-auto">
@@ -1705,15 +2018,16 @@ function handleReviews() {
 function handleContact() {
   const content = `
 <!-- MOUNTAIN HERO BANNER (MATCHES BOTTOM-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20">
     <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
     <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <div class="text-xs font-bold uppercase tracking-widest text-[#BDEBFA] mb-2">Visit Us In Talkeetna</div>
         <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-            Contact Us
+            Contact &amp; Location
         </h1>
-        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
-            We're Here to Help
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed">
+            Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.
         </p>
     </div>
 </section>
@@ -1721,9 +2035,11 @@ function handleContact() {
 <!-- TWO-COLUMN CONTENT SECTION (MATCHES SCREENSHOT) -->
 <section class="section-pad py-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        <!-- Left Column: Contact Info Cards -->
+        <!-- Left Column: Shop Details -->
         <div class="lg:col-span-5 space-y-6">
             <div class="frosted-card p-8 space-y-6">
+                <h3 class="font-heading font-bold text-xl text-[#071F35] border-b border-[#BDEBFA] pb-3">Shop Details</h3>
+                
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -1740,7 +2056,7 @@ function handleContact() {
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Shop Location</span>
-                        <span class="font-heading font-bold text-base text-[#071F35]">Talkeetna, AK</span>
+                        <span class="font-heading font-bold text-base text-[#071F35]">Talkeetna Spur Road, Talkeetna, AK 99676</span>
                     </div>
                 </div>
                 
@@ -1750,7 +2066,7 @@ function handleContact() {
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Email Inquiries</span>
-                        <a href="mailto:info@northforkautomotive.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkautomotive.com</a>
+                        <a href="mailto:info@northforkauto.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkauto.com</a>
                     </div>
                 </div>
             </div>
@@ -1765,7 +2081,7 @@ function handleContact() {
         <!-- Right Column: Send Us a Message Form -->
         <div class="lg:col-span-7">
             <div class="frosted-card p-8 border-2 border-[#BDEBFA]">
-                <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send Us a Message</h3>
+                <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send a Message</h3>
                 <p class="text-xs text-[#334E68] mb-6">Drop us a line and our team will get back to you promptly.</p>
                 
                 <div id="contact-feedback" class="hidden mb-4 p-4 rounded-xl text-xs font-bold border border-emerald-400 bg-emerald-500/10 text-emerald-700">
@@ -1774,22 +2090,32 @@ function handleContact() {
                 
                 <form id="contact-form" action="/contact" method="POST" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Name</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Your Name *</label>
                         <input type="text" name="name" placeholder="Your Full Name" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Email</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Email Address *</label>
                         <input type="email" name="email" placeholder="you@example.com" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Phone Number</label>
+                        <input type="tel" name="phone" placeholder="(907) 555-0199" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Subject</label>
+                        <input type="text" name="subject" placeholder="e.g. Brake Inspection Inquiry" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message *</label>
                         <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5] resize-none"></textarea>
                     </div>
                     
                     <button type="submit" class="w-full btn-navy-pill py-3 text-sm font-bold justify-center rounded-lg">
-                        Send Message →
+                        Send Inquiry →
                     </button>
                 </form>
             </div>
@@ -1805,7 +2131,7 @@ function handleContact() {
 </script>
 `;
 
-  return renderLayout('Contact Us', 'We are here to help in Talkeetna, Alaska.', content, 'contact');
+  return renderLayout('Contact & Location', 'Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.', content, 'contact');
 }
 
 // -------------------------------------------------------------
@@ -3118,8 +3444,9 @@ const server = http.createServer((req, res) => {
 
   // 1. PUBLIC GET ROUTES
   if (method === 'GET' && pathname === '/') {
+    const isScrolled = parsed.query && parsed.query.scrolled === '1';
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    return res.end(handleHome());
+    return res.end(handleHome(isScrolled));
   }
 
   if (method === 'GET' && pathname === '/services') {

@@ -59,6 +59,30 @@
             }
         }
     </script>
+    <style>
+        /* Header Initial State (Over Hero Banner) */
+        header#main-header.navbar-top {
+            background-color: transparent !important;
+            background-image: none !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.45) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Header Scrolled State (User's Ice Texture Background + Crisp Dark Navy Text) */
+        header#main-header.navbar-scrolled {
+            background-color: rgba(235, 247, 253, 0.92) !important;
+            background-image: linear-gradient(rgba(240, 249, 254, 0.82), rgba(216, 241, 250, 0.88)), url('/images/hero-frost-texture.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(189, 235, 250, 0.9) !important;
+            box-shadow: 0 4px 20px rgba(7, 31, 53, 0.10) !important;
+        }
+    </style>
     @stack('styles')
 </head>
 <body class="min-h-screen flex flex-col antialiased">

@@ -1,19 +1,20 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us | North Fork Automotive')
-@section('description', 'We are here to help in Talkeetna, Alaska. Phone, location, and message form.')
+@section('title', 'Contact & Location | North Fork Auto')
+@section('description', 'Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.')
 
 @section('content')
 <!-- MOUNTAIN HERO BANNER (MATCHES BOTTOM-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20">
     <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
     <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
     <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <div class="text-xs font-bold uppercase tracking-widest text-[#BDEBFA] mb-2">Visit Us In Talkeetna</div>
         <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-            Contact Us
+            Contact &amp; Location
         </h1>
-        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
-            We're Here to Help
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed">
+            Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.
         </p>
     </div>
 </section>
@@ -21,9 +22,11 @@
 <!-- TWO-COLUMN CONTENT SECTION (MATCHES SCREENSHOT) -->
 <section class="section-pad py-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        <!-- Left Column: Contact Info Cards -->
+        <!-- Left Column: Shop Details -->
         <div class="lg:col-span-5 space-y-6">
             <div class="frosted-card p-8 space-y-6">
+                <h3 class="font-heading font-bold text-xl text-[#071F35] border-b border-[#BDEBFA] pb-3">Shop Details</h3>
+                
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -40,7 +43,7 @@
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Shop Location</span>
-                        <span class="font-heading font-bold text-base text-[#071F35]">Talkeetna, AK</span>
+                        <span class="font-heading font-bold text-base text-[#071F35]">Talkeetna Spur Road, Talkeetna, AK 99676</span>
                     </div>
                 </div>
                 
@@ -50,7 +53,7 @@
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Email Inquiries</span>
-                        <a href="mailto:info@northforkautomotive.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkautomotive.com</a>
+                        <a href="mailto:info@northforkauto.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkauto.com</a>
                     </div>
                 </div>
             </div>
@@ -65,43 +68,46 @@
         <!-- Right Column: Send Us a Message Form -->
         <div class="lg:col-span-7">
             <div class="frosted-card p-8 border-2 border-[#BDEBFA]">
-                <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send Us a Message</h3>
+                <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send a Message</h3>
                 <p class="text-xs text-[#334E68] mb-6">Drop us a line and our team will get back to you promptly.</p>
                 
                 <div id="contact-feedback" class="hidden mb-4 p-4 rounded-xl text-xs font-bold border border-emerald-400 bg-emerald-500/10 text-emerald-700">
-                    Thank you! Your message has been sent successfully. Our team will contact you shortly.
+                    Thank you! Your message has been sent successfully. Our team will get back to you shortly.
                 </div>
                 
                 <form id="contact-form" action="/contact" method="POST" class="space-y-4">
                     @csrf
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Name</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Your Name *</label>
                         <input type="text" name="name" placeholder="Your Full Name" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Email</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Email Address *</label>
                         <input type="email" name="email" placeholder="you@example.com" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Phone Number</label>
+                        <input type="tel" name="phone" placeholder="(907) 555-0199" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Subject</label>
+                        <input type="text" name="subject" placeholder="e.g. Brake Inspection Inquiry" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message</label>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message *</label>
                         <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5] resize-none"></textarea>
                     </div>
                     
                     <button type="submit" class="w-full btn-navy-pill py-3 text-sm font-bold justify-center rounded-lg">
-                        Send Message →
+                        Send Inquiry →
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </section>
-
-<script>
-    if (new URLSearchParams(window.location.search).get('success') === '1') {
-        const fb = document.getElementById('contact-feedback');
-        if (fb) fb.classList.remove('hidden');
-    }
-</script>
 @endsection

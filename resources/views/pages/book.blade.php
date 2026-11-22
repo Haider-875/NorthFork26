@@ -154,14 +154,14 @@
                 <div class="grid sm:grid-cols-2 gap-4">
                     @php
                         $bookingServices = [
-                            ['name' => 'Diagnostic Inspection', 'desc' => 'Comprehensive scanning and physical inspection.', 'price' => '$120.00'],
-                            ['name' => 'Synthetic Oil Change', 'desc' => 'Full synthetic oil, OEM filter, multi-point check.', 'price' => '$89.99'],
-                            ['name' => 'Brake Pad & Rotor Service', 'desc' => 'Front or rear pads, rotors, caliper check.', 'price' => '$189.99'],
-                            ['name' => 'Transmission Service', 'desc' => 'Fluid exchange and filter check.', 'price' => '$189.99'],
-                            ['name' => 'Steering & Suspension', 'desc' => 'Struts, tie-rods, control arms, alignment.', 'price' => 'Custom Quote'],
-                            ['name' => 'Battery & Electrical', 'desc' => 'Alternator, starter, battery diagnostic.', 'price' => '$49.99'],
-                            ['name' => 'Cooling & Heating / AC', 'desc' => 'Coolant flush, radiator, heater core, AC.', 'price' => '$99.99'],
-                            ['name' => 'General Maintenance / Tune-up', 'desc' => 'Spark plugs, belts, filters, inspection.', 'price' => 'Custom Quote']
+                            ['name' => 'Diagnostic Inspection', 'desc' => 'State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.', 'price' => '$120.00'],
+                            ['name' => 'Brake Repair & Replacement', 'desc' => 'Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.', 'price' => '$189.99'],
+                            ['name' => 'Oil & Filter Service', 'desc' => 'Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.', 'price' => '$89.99'],
+                            ['name' => 'Engine Repair & Overhaul', 'desc' => 'Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.', 'price' => '$650.00'],
+                            ['name' => 'Transmission Service', 'desc' => 'Fluid exchange, filter replacements, clutch service, and transmission diagnostics.', 'price' => '$189.99'],
+                            ['name' => 'Steering & Suspension', 'desc' => 'Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.', 'price' => '$220.00'],
+                            ['name' => 'Electrical & Battery', 'desc' => 'Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.', 'price' => '$135.00'],
+                            ['name' => 'Cooling & AC Repair', 'desc' => 'Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.', 'price' => '$160.00']
                         ];
                     @endphp
 

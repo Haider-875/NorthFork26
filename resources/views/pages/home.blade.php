@@ -59,7 +59,7 @@
             </h2>
             
             <!-- Exact Live Description -->
-            <p class="text-xs sm:text-sm text-white sm:text-[#1E3A5F] font-semibold sm:font-medium leading-relaxed mb-6 max-w-md drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] sm:drop-shadow-none">
+            <p class="text-xs sm:text-sm text-white sm:text-[#1E3A5F] font-normal leading-relaxed mb-6 max-w-md">
                 From routine maintenance to complex diagnostics, North Fork Auto provides professional, honest automotive care for drivers across Talkeetna and the Mat-Su Valley.
             </p>
             

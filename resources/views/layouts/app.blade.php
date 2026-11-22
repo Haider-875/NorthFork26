@@ -26,35 +26,35 @@
             theme: {
                 extend: {
                     colors: {
-                        background: 'hsl(240 6% 6%)',
-                        foreground: 'hsl(220 20% 98%)',
+                        background: '#071F35',
+                        foreground: '#FFFFFF',
                         card: {
-                            DEFAULT: 'hsl(240 5% 9%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         popover: {
-                            DEFAULT: 'hsl(240 6% 8%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         primary: {
-                            DEFAULT: 'hsl(349 77% 50%)',
-                            foreground: 'hsl(0 0% 100%)'
+                            DEFAULT: '#087DB5',
+                            foreground: '#FFFFFF'
                         },
                         secondary: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0E3557',
+                            foreground: '#D8F1FA'
                         },
                         muted: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(217 13% 65%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#94A3B8'
                         },
                         accent: {
-                            DEFAULT: 'hsl(240 5% 16%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#087DB5',
+                            foreground: '#FFFFFF'
                         },
-                        border: 'hsl(215 19% 22%)',
-                        input: 'hsl(215 19% 22%)',
-                        ring: 'hsl(349 77% 50%)'
+                        border: 'rgba(189,235,250,0.15)',
+                        input: '#0B2B47',
+                        ring: '#087DB5'
                     },
                     fontFamily: {
                         heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],

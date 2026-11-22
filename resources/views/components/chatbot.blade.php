@@ -2,20 +2,22 @@
 <div id="nfa-chatbot-root">
     <style>
         #nfa-chatbot-root {
-            --nfa-bg: #0c0c10;
-            --nfa-surface: #14141a;
-            --nfa-surface-card: #181822;
-            --nfa-surface-hover: #1f1f2c;
-            --nfa-bubble-ai: #171720;
-            --nfa-bubble-user: #DF1F40;
-            --nfa-border: #262634;
-            --nfa-border-hover: #36364a;
-            --nfa-primary: #DF1F40;
-            --nfa-primary-hover: #fa274d;
-            --nfa-primary-glow: rgba(223, 31, 64, 0.25);
+            --nfa-bg: #071F35;
+            --nfa-surface: #0B2B47;
+            --nfa-surface-card: #0E3557;
+            --nfa-surface-hover: #13446E;
+            --nfa-bubble-ai: #0B2B47;
+            --nfa-bubble-user: #087DB5;
+            --nfa-border: rgba(189, 235, 250, 0.2);
+            --nfa-border-hover: rgba(189, 235, 250, 0.4);
+            --nfa-primary: #087DB5;
+            --nfa-primary-hover: #0a92d4;
+            --nfa-primary-glow: rgba(8, 125, 181, 0.35);
+            --nfa-accent-icy: #BDEBFA;
+            --nfa-accent-sky: #D8F1FA;
             --nfa-text: #f8fafc;
-            --nfa-text-muted: #94a3b8;
-            --nfa-text-dim: #64748b;
+            --nfa-text-muted: #cbd5e1;
+            --nfa-text-dim: #94a3b8;
             --nfa-font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --nfa-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --nfa-font-mono: 'JetBrains Mono', monospace;
@@ -51,7 +53,7 @@
         }
 
         .nfa-launcher-pill {
-            background: rgba(18, 18, 24, 0.96);
+            background: rgba(7, 31, 53, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid var(--nfa-border);
             padding: 9px 15px;
@@ -64,7 +66,7 @@
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.04em;
-            color: var(--nfa-text);
+            color: var(--nfa-accent-sky);
             transition: border-color 0.2s;
         }
         .nfa-chat-launcher:hover .nfa-launcher-pill {
@@ -89,9 +91,9 @@
             width: 54px;
             height: 54px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #1d1d26, #121218);
+            background: linear-gradient(145deg, #0B2B47, #071F35);
             border: 1.5px solid var(--nfa-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(189, 235, 250, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -99,8 +101,8 @@
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nfa-chat-launcher:hover .nfa-launcher-btn {
-            border-color: var(--nfa-primary);
-            box-shadow: 0 10px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(223, 31, 64, 0.2);
+            border-color: var(--nfa-accent-icy);
+            box-shadow: 0 10px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(189, 235, 250, 0.3);
         }
         .nfa-launcher-btn svg {
             color: var(--nfa-text);
@@ -319,8 +321,8 @@
             width: 28px;
             height: 28px;
             border-radius: 6px;
-            background: rgba(223, 31, 64, 0.1);
-            color: var(--nfa-primary);
+            background: rgba(8, 125, 181, 0.18);
+            color: var(--nfa-accent-icy);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -438,10 +440,10 @@
             word-break: break-word;
         }
         .nfa-msg.user .nfa-msg-bubble {
-            background: linear-gradient(135deg, #DF1F40, #b91533);
+            background: linear-gradient(135deg, #087DB5, #055a83);
             color: #ffffff;
             border-bottom-right-radius: 3px;
-            box-shadow: 0 4px 14px rgba(223, 31, 64, 0.25);
+            box-shadow: 0 4px 14px rgba(8, 125, 181, 0.3);
         }
         .nfa-msg.assistant .nfa-msg-bubble {
             background: var(--nfa-bubble-ai);
@@ -451,7 +453,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         .nfa-msg-bubble a {
-            color: #ff6e87;
+            color: var(--nfa-accent-icy);
             text-decoration: underline;
             font-weight: 600;
         }
@@ -1260,7 +1262,7 @@
                 cardRow.innerHTML = `
                     <div class="nfa-appt-modal">
                         <div class="nfa-appt-header">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#DF1F40" stroke-width="2">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#087DB5" stroke-width="2">
                                 <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                 <line x1="8" y1="2" x2="8" y2="6"></line>

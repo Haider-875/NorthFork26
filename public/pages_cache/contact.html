@@ -23,35 +23,55 @@
             theme: {
                 extend: {
                     colors: {
-                        background: 'hsl(240 6% 6%)',
-                        foreground: 'hsl(220 20% 98%)',
+                        background: '#071F35',
+                        foreground: '#FFFFFF',
+                        navy: {
+                            DEFAULT: '#071F35',
+                            surface: '#0B2B47',
+                            card: '#0E3557',
+                            deep: '#041321'
+                        },
+                        icy: {
+                            DEFAULT: '#BDEBFA',
+                            light: '#E6F8FE',
+                            glow: 'rgba(189, 235, 250, 0.45)'
+                        },
+                        sky: {
+                            DEFAULT: '#D8F1FA',
+                            soft: '#EEF9FD'
+                        },
+                        ocean: {
+                            DEFAULT: '#087DB5',
+                            hover: '#0A92D4',
+                            dark: '#065D88'
+                        },
                         card: {
-                            DEFAULT: 'hsl(240 5% 9%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         popover: {
-                            DEFAULT: 'hsl(240 6% 8%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         primary: {
-                            DEFAULT: 'hsl(349 77% 50%)',
-                            foreground: 'hsl(0 0% 100%)'
+                            DEFAULT: '#087DB5',
+                            foreground: '#FFFFFF'
                         },
                         secondary: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0E3557',
+                            foreground: '#D8F1FA'
                         },
                         muted: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(217 13% 65%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#94A3B8'
                         },
                         accent: {
-                            DEFAULT: 'hsl(240 5% 16%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#BDEBFA',
+                            foreground: '#071F35'
                         },
-                        border: 'hsl(215 19% 22%)',
-                        input: 'hsl(215 19% 22%)',
-                        ring: 'hsl(349 77% 50%)'
+                        border: 'rgba(189, 235, 250, 0.18)',
+                        input: 'rgba(189, 235, 250, 0.18)',
+                        ring: '#087DB5'
                     },
                     fontFamily: {
                         heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -68,11 +88,15 @@
             --font-heading: 'Sora', sans-serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            --color-icy: #BDEBFA;
+            --color-sky: #D8F1FA;
+            --color-ocean: #087DB5;
+            --color-navy: #071F35;
         }
         body {
             font-family: var(--font-body);
-            background-color: hsl(240 6% 6%);
-            color: hsl(220 20% 98%);
+            background-color: #071F35;
+            color: #F8FAFC;
             overflow-x: hidden;
         }
         h1, h2, h3, h4, h5, h6 {
@@ -82,9 +106,9 @@
         .font-mono-data {
             font-family: var(--font-mono);
             font-size: 0.75rem;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: hsl(349 77% 50%);
+            color: #BDEBFA;
         }
         .btn-engine {
             display: inline-flex;
@@ -94,15 +118,35 @@
             font-family: var(--font-heading);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 0px;
+            letter-spacing: 0.04em;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 6px;
         }
         .btn-engine:hover {
             transform: translateY(-1px);
         }
         .btn-engine:active {
             transform: translateY(0);
+        }
+        .btn-engine-primary {
+            background-color: #087DB5;
+            color: #FFFFFF;
+            box-shadow: 0 4px 16px rgba(8, 125, 181, 0.4);
+        }
+        .btn-engine-primary:hover {
+            background-color: #0A92D4;
+            box-shadow: 0 6px 24px rgba(189, 235, 250, 0.35);
+        }
+        .btn-engine-secondary {
+            border: 1px solid rgba(189, 235, 250, 0.3);
+            background-color: rgba(11, 43, 71, 0.7);
+            color: #FFFFFF;
+            backdrop-filter: blur(8px);
+        }
+        .btn-engine-secondary:hover {
+            border-color: #BDEBFA;
+            background-color: rgba(11, 43, 71, 0.95);
+            color: #BDEBFA;
         }
         .section-pad {
             padding-left: 1.5rem;
@@ -123,51 +167,61 @@
                 padding-right: 2.5rem;
             }
         }
+        .icy-card {
+            background: #0B2B47;
+            border: 1px solid rgba(189, 235, 250, 0.18);
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+        .icy-card:hover {
+            border-color: rgba(189, 235, 250, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(189, 235, 250, 0.1);
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#071F35] text-white">
     <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/90 backdrop-blur-md border-b border-border/80">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#071F35]/95 backdrop-blur-md border-b border-[#BDEBFA]/20 shadow-lg shadow-black/20">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 group">
-                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-border/40 group-hover:border-primary transition-all duration-200 shadow-sm">
+                <a href="/" class="flex items-center gap-3.5 group">
+                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 group-hover:border-[#BDEBFA] transition-all duration-200 shadow-sm bg-[#041321]/60 p-0.5">
                     <div class="hidden sm:flex flex-col">
-                        <span class="font-heading font-800 text-lg tracking-tight text-foreground leading-none">
+                        <span class="font-heading font-800 text-lg tracking-tight text-white leading-none">
                             North Fork Auto
                         </span>
-                        <span class="font-mono-data text-[10px] mt-1 text-muted-foreground">
-                            Talkeetna, AK
+                        <span class="font-mono-data text-[10px] mt-1 text-[#BDEBFA]/80">
+                            Talkeetna, Alaska
                         </span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-medium tracking-wide hover:text-primary transition-colors text-foreground/90">Home</a>
-                    <a href="/services" class="text-sm font-medium tracking-wide hover:text-primary transition-colors text-foreground/90">Services</a>
-                    <a href="/about" class="text-sm font-medium tracking-wide hover:text-primary transition-colors text-foreground/90">About</a>
-                    <a href="/contact" class="text-sm font-medium tracking-wide hover:text-primary transition-colors text-primary font-semibold">Visit Us</a>
+                    <a href="/" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">Home</a>
+                    <a href="/services" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">Services</a>
+                    <a href="/about" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">About</a>
+                    <a href="/contact" class="text-sm font-medium tracking-wide transition-colors text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5">Visit Us</a>
                 </nav>
 
                 <!-- Action Button -->
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-muted-foreground hover:text-foreground">
-                        <svg class="w-3.5 h-3.5 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <div class="hidden md:flex items-center gap-5">
+                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA] hover:text-[#BDEBFA] transition-colors">
+                        <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         (907) 733-3030
                     </a>
-                    <a href="/book" class="btn-engine bg-primary text-primary-foreground px-5 py-2.5 text-xs shadow-lg shadow-primary/20">
+                    <a href="/book" class="btn-engine btn-engine-primary px-5 py-2.5 text-xs">
                         Book Appointment
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="/book" class="btn-engine bg-primary text-primary-foreground px-3 py-1.5 text-xs">
+                    <a href="/book" class="btn-engine btn-engine-primary px-3 py-1.5 text-xs">
                         Book
                     </a>
-                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-foreground hover:text-primary">
+                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#D8F1FA] hover:text-[#BDEBFA]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                     </button>
                 </div>
@@ -175,13 +229,17 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-border bg-card/95 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Home</a>
-            <a href="/services" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Services</a>
-            <a href="/about" class="block text-sm font-medium tracking-wide hover:text-primary py-1">About</a>
-            <a href="/contact" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Visit Us</a>
-            <div class="pt-4 border-t border-border/60">
-                <a href="/book" class="block btn-engine bg-primary text-primary-foreground py-3 text-center text-xs">Book Appointment</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA]/20 bg-[#071F35]/98 backdrop-blur-md px-6 py-6 space-y-4">
+            <a href="/" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">Home</a>
+            <a href="/services" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">Services</a>
+            <a href="/about" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">About</a>
+            <a href="/contact" class="block text-sm font-medium tracking-wide text-[#BDEBFA] font-bold hover:text-[#BDEBFA] py-1">Visit Us</a>
+            <div class="pt-4 border-t border-[#BDEBFA]/15 flex flex-col gap-3">
+                <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA]">
+                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    (907) 733-3030
+                </a>
+                <a href="/book" class="block btn-engine btn-engine-primary py-3 text-center text-xs">Book Appointment</a>
             </div>
         </div>
     </header>
@@ -191,15 +249,15 @@
         
 <div class="section-pad pt-32 pb-24">
     <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
-            <span class="h-px w-8 bg-primary"></span>
-            <span>Visit Us In Talkeetna</span>
-            <span class="h-px w-8 bg-primary"></span>
+        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>VISIT US IN TALKEETNA</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
             Contact &amp; Location
         </h1>
-        <p class="mt-5 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
             Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.
         </p>
     </div>
@@ -207,60 +265,81 @@
     <div class="grid md:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div class="space-y-8">
-            <div class="border border-border bg-card p-6 space-y-6">
-                <h3 class="font-heading font-700 text-xl text-foreground">Shop Details</h3>
-                <div class="space-y-4 text-sm">
+            <div class="icy-card p-8 space-y-6">
+                <h3 class="font-heading font-700 text-xl text-white">Shop Details</h3>
+                <div class="space-y-5 text-sm">
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
                         <div>
-                            <strong class="text-foreground block">Address</strong>
-                            <span class="text-muted-foreground">Talkeetna Spur Road, Talkeetna, AK 99676</span>
+                            <strong class="text-white block font-heading">Address</strong>
+                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="text-[#D8F1FA]/80 hover:text-[#BDEBFA] transition-colors">Talkeetna Spur Road, Talkeetna, AK 99676</a>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         <div>
-                            <strong class="text-foreground block">Direct Phone</strong>
-                            <a href="tel:+19077333030" class="text-primary hover:underline">(907) 733-3030</a>
+                            <strong class="text-white block font-heading">Direct Phone</strong>
+                            <a href="tel:+19077333030" class="text-[#BDEBFA] hover:underline font-mono">(907) 733-3030</a>
+                            <span class="text-xs text-[#D8F1FA]/60 block mt-0.5">Alt: (907) 232-3859</span>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         <div>
-                            <strong class="text-foreground block">Email Inquiries</strong>
-                            <a href="mailto:info@northforkauto.com" class="text-primary hover:underline">info@northforkauto.com</a>
+                            <strong class="text-white block font-heading">Email Inquiries</strong>
+                            <a href="mailto:info@northforkauto.com" class="text-[#BDEBFA] hover:underline font-mono">info@northforkauto.com</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Operating Hours Card -->
+            <div class="icy-card p-8 space-y-4">
+                <h3 class="font-heading font-700 text-xl text-white">Operating Hours</h3>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
+                        <span class="text-[#D8F1FA]/80">Monday – Friday</span>
+                        <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
+                    </li>
+                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
+                        <span class="text-[#D8F1FA]/80">Saturday</span>
+                        <span class="font-mono-data text-white">By Appointment</span>
+                    </li>
+                    <li class="flex justify-between py-2">
+                        <span class="text-[#D8F1FA]/80">Sunday</span>
+                        <span class="font-mono-data text-white">Closed</span>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Contact Form -->
-        <div class="border border-border bg-card p-6 sm:p-8">
-            <h3 class="font-heading font-700 text-xl text-foreground mb-4">Send a Message</h3>
+        <div class="icy-card p-6 sm:p-8">
+            <h3 class="font-heading font-700 text-xl text-white mb-2">Send an Inquiry</h3>
+            <p class="text-xs text-[#D8F1FA]/70 mb-6">Have a question about a diagnostic, repair, or estimate? Drop us a note.</p>
             <form id="contact-form" action="/contact" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Your Name *</label>
-                    <input type="text" name="name" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Your Name *</label>
+                    <input type="text" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Email Address *</label>
-                    <input type="email" name="email" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Email Address *</label>
+                    <input type="email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Phone Number</label>
-                    <input type="tel" name="phone" class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Phone Number</label>
+                    <input type="tel" name="phone" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Subject</label>
-                    <input type="text" name="subject" class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Subject</label>
+                    <input type="text" name="subject" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Message *</label>
-                    <textarea name="message" rows="4" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary"></textarea>
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Message *</label>
+                    <textarea name="message" rows="4" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <button type="submit" class="w-full btn-engine bg-primary text-primary-foreground py-3 text-xs">
-                    Send Inquiry
+                <button type="submit" class="w-full btn-engine btn-engine-primary py-3 text-xs font-bold">
+                    Send Message
                 </button>
             </form>
         </div>
@@ -270,44 +349,44 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-border bg-card/40 mt-auto">
+    <footer class="border-t border-[#BDEBFA]/20 bg-[#041321] text-white mt-auto">
         <div class="section-pad py-16">
             <div class="grid gap-12 lg:grid-cols-4">
                 <div class="lg:col-span-1">
                     <div class="flex items-center gap-3 mb-5">
-                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-border/40 shadow-sm">
+                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 shadow-sm bg-[#071F35]/80 p-1">
                     </div>
-                    <p class="text-sm text-muted-foreground leading-relaxed mb-5">
-                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.
+                    <p class="text-sm text-[#D8F1FA]/80 leading-relaxed mb-5">
+                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, certified workmanship, and dependable care built for Alaskan roads.
                     </p>
                     <div class="flex gap-3">
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-border hover:border-primary hover:text-primary transition-colors text-foreground">
+                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                         </a>
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-border hover:border-primary hover:text-primary transition-colors text-foreground">
+                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                         </a>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Contact</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Contact</h3>
                     <ul class="space-y-3 text-sm">
                         <li>
-                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
                                 <span>Talkeetna Spur Road, Talkeetna, AK 99676</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tel:+19077333030" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:+19077333030" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                                 <span>(907) 733-3030</span>
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                 <span>info@northforkauto.com</span>
                             </a>
                         </li>
@@ -315,38 +394,38 @@
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Hours</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Hours</h3>
                     <ul class="space-y-1">
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Monday – Friday</span>
-                            <span class="font-mono-data text-foreground/80">8:00 AM – 5:00 PM</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Monday – Friday</span>
+                            <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
                         </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Saturday</span>
-                            <span class="font-mono-data text-foreground/80">By Appointment</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Saturday</span>
+                            <span class="font-mono-data text-white">By Appointment</span>
                         </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Sunday</span>
-                            <span class="font-mono-data text-foreground/80">Closed</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Sunday</span>
+                            <span class="font-mono-data text-white">Closed</span>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Quick Links</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Quick Links</h3>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="/" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Home</a></li>
-                        <li><a href="/services" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Services</a></li>
-                        <li><a href="/about" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">About</a></li>
-                        <li><a href="/contact" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Visit Us</a></li>
-                        <li><a href="/book" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Book Appointment</a></li>
+                        <li><a href="/" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Home</a></li>
+                        <li><a href="/services" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Services Catalog</a></li>
+                        <li><a href="/about" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">About North Fork Auto</a></li>
+                        <li><a href="/contact" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Visit Us / Contact</a></li>
+                        <li><a href="/book" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Book Appointment</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
+            <div class="mt-12 pt-6 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#D8F1FA]/70">
                 <p>© 2026 North Fork Auto. All rights reserved.</p>
-                <p class="font-mono-data">Talkeetna, Alaska · Est. locally owned</p>
+                <p class="font-mono-data text-[#BDEBFA]">Talkeetna, Alaska · Locally Owned &amp; Operated</p>
             </div>
         </div>
     </footer>
@@ -366,20 +445,22 @@
 <div id="nfa-chatbot-root">
     <style>
         #nfa-chatbot-root {
-            --nfa-bg: #0c0c10;
-            --nfa-surface: #14141a;
-            --nfa-surface-card: #181822;
-            --nfa-surface-hover: #1f1f2c;
-            --nfa-bubble-ai: #171720;
-            --nfa-bubble-user: #DF1F40;
-            --nfa-border: #262634;
-            --nfa-border-hover: #36364a;
-            --nfa-primary: #DF1F40;
-            --nfa-primary-hover: #fa274d;
-            --nfa-primary-glow: rgba(223, 31, 64, 0.25);
+            --nfa-bg: #071F35;
+            --nfa-surface: #0B2B47;
+            --nfa-surface-card: #0E3557;
+            --nfa-surface-hover: #13446E;
+            --nfa-bubble-ai: #0B2B47;
+            --nfa-bubble-user: #087DB5;
+            --nfa-border: rgba(189, 235, 250, 0.2);
+            --nfa-border-hover: rgba(189, 235, 250, 0.4);
+            --nfa-primary: #087DB5;
+            --nfa-primary-hover: #0a92d4;
+            --nfa-primary-glow: rgba(8, 125, 181, 0.35);
+            --nfa-accent-icy: #BDEBFA;
+            --nfa-accent-sky: #D8F1FA;
             --nfa-text: #f8fafc;
-            --nfa-text-muted: #94a3b8;
-            --nfa-text-dim: #64748b;
+            --nfa-text-muted: #cbd5e1;
+            --nfa-text-dim: #94a3b8;
             --nfa-font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --nfa-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --nfa-font-mono: 'JetBrains Mono', monospace;
@@ -415,7 +496,7 @@
         }
 
         .nfa-launcher-pill {
-            background: rgba(18, 18, 24, 0.96);
+            background: rgba(7, 31, 53, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid var(--nfa-border);
             padding: 9px 15px;
@@ -428,7 +509,7 @@
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.04em;
-            color: var(--nfa-text);
+            color: var(--nfa-accent-sky);
             transition: border-color 0.2s;
         }
         .nfa-chat-launcher:hover .nfa-launcher-pill {
@@ -453,9 +534,9 @@
             width: 54px;
             height: 54px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #1d1d26, #121218);
+            background: linear-gradient(145deg, #0B2B47, #071F35);
             border: 1.5px solid var(--nfa-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(189, 235, 250, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -463,8 +544,8 @@
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nfa-chat-launcher:hover .nfa-launcher-btn {
-            border-color: var(--nfa-primary);
-            box-shadow: 0 10px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(223, 31, 64, 0.2);
+            border-color: var(--nfa-accent-icy);
+            box-shadow: 0 10px 30px var(--nfa-primary-glow), 0 0 0 2px rgba(189, 235, 250, 0.3);
         }
         .nfa-launcher-btn svg {
             color: var(--nfa-text);
@@ -683,8 +764,8 @@
             width: 28px;
             height: 28px;
             border-radius: 6px;
-            background: rgba(223, 31, 64, 0.1);
-            color: var(--nfa-primary);
+            background: rgba(8, 125, 181, 0.18);
+            color: var(--nfa-accent-icy);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -802,10 +883,10 @@
             word-break: break-word;
         }
         .nfa-msg.user .nfa-msg-bubble {
-            background: linear-gradient(135deg, #DF1F40, #b91533);
+            background: linear-gradient(135deg, #087DB5, #055a83);
             color: #ffffff;
             border-bottom-right-radius: 3px;
-            box-shadow: 0 4px 14px rgba(223, 31, 64, 0.25);
+            box-shadow: 0 4px 14px rgba(8, 125, 181, 0.3);
         }
         .nfa-msg.assistant .nfa-msg-bubble {
             background: var(--nfa-bubble-ai);
@@ -815,7 +896,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         .nfa-msg-bubble a {
-            color: #ff6e87;
+            color: var(--nfa-accent-icy);
             text-decoration: underline;
             font-weight: 600;
         }
@@ -1624,7 +1705,7 @@
                 cardRow.innerHTML = `
                     <div class="nfa-appt-modal">
                         <div class="nfa-appt-header">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#DF1F40" stroke-width="2">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#087DB5" stroke-width="2">
                                 <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                 <line x1="8" y1="2" x2="8" y2="6"></line>

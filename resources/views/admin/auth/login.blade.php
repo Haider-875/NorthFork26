@@ -12,10 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        background: 'hsl(240 6% 6%)',
-                        card: 'hsl(240 5% 9%)',
-                        primary: 'hsl(349 77% 50%)',
-                        border: 'hsl(215 19% 22%)'
+                        background: '#071F35',
+                        card: '#0B2B47',
+                        primary: '#087DB5',
+                        border: '#1A446C'
                     }
                 }
             }
@@ -25,7 +25,7 @@
 <body class="min-h-screen bg-background text-white flex items-center justify-center p-4">
     <div class="w-full max-w-md border border-border bg-card p-8">
         <div class="text-center mb-8">
-            <span class="inline-flex items-center justify-center w-10 h-10 border-2 border-primary text-primary font-bold text-xl mb-3">N</span>
+            <img src="/images/logo.png" alt="North Fork Auto" class="h-10 mx-auto mb-3 object-contain">
             <h1 class="text-2xl font-bold">North Fork Auto</h1>
             <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider font-mono">Staff &amp; Admin Portal</p>
         </div>

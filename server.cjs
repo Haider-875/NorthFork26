@@ -916,7 +916,7 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-// Global Public Layout
+// Global Public Layout - North Fork Auto Icy-Blue Brand System
 function renderLayout(title, description, content, activeNav = '') {
   return `<!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
@@ -943,35 +943,55 @@ function renderLayout(title, description, content, activeNav = '') {
             theme: {
                 extend: {
                     colors: {
-                        background: 'hsl(240 6% 6%)',
-                        foreground: 'hsl(220 20% 98%)',
+                        background: '#071F35',
+                        foreground: '#FFFFFF',
+                        navy: {
+                            DEFAULT: '#071F35',
+                            surface: '#0B2B47',
+                            card: '#0E3557',
+                            deep: '#041321'
+                        },
+                        icy: {
+                            DEFAULT: '#BDEBFA',
+                            light: '#E6F8FE',
+                            glow: 'rgba(189, 235, 250, 0.45)'
+                        },
+                        sky: {
+                            DEFAULT: '#D8F1FA',
+                            soft: '#EEF9FD'
+                        },
+                        ocean: {
+                            DEFAULT: '#087DB5',
+                            hover: '#0A92D4',
+                            dark: '#065D88'
+                        },
                         card: {
-                            DEFAULT: 'hsl(240 5% 9%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         popover: {
-                            DEFAULT: 'hsl(240 6% 8%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#FFFFFF'
                         },
                         primary: {
-                            DEFAULT: 'hsl(349 77% 50%)',
-                            foreground: 'hsl(0 0% 100%)'
+                            DEFAULT: '#087DB5',
+                            foreground: '#FFFFFF'
                         },
                         secondary: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#0E3557',
+                            foreground: '#D8F1FA'
                         },
                         muted: {
-                            DEFAULT: 'hsl(240 5% 13%)',
-                            foreground: 'hsl(217 13% 65%)'
+                            DEFAULT: '#0B2B47',
+                            foreground: '#94A3B8'
                         },
                         accent: {
-                            DEFAULT: 'hsl(240 5% 16%)',
-                            foreground: 'hsl(220 20% 98%)'
+                            DEFAULT: '#BDEBFA',
+                            foreground: '#071F35'
                         },
-                        border: 'hsl(215 19% 22%)',
-                        input: 'hsl(215 19% 22%)',
-                        ring: 'hsl(349 77% 50%)'
+                        border: 'rgba(189, 235, 250, 0.18)',
+                        input: 'rgba(189, 235, 250, 0.18)',
+                        ring: '#087DB5'
                     },
                     fontFamily: {
                         heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -988,11 +1008,15 @@ function renderLayout(title, description, content, activeNav = '') {
             --font-heading: 'Sora', sans-serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            --color-icy: #BDEBFA;
+            --color-sky: #D8F1FA;
+            --color-ocean: #087DB5;
+            --color-navy: #071F35;
         }
         body {
             font-family: var(--font-body);
-            background-color: hsl(240 6% 6%);
-            color: hsl(220 20% 98%);
+            background-color: #071F35;
+            color: #F8FAFC;
             overflow-x: hidden;
         }
         h1, h2, h3, h4, h5, h6 {
@@ -1002,9 +1026,9 @@ function renderLayout(title, description, content, activeNav = '') {
         .font-mono-data {
             font-family: var(--font-mono);
             font-size: 0.75rem;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: hsl(349 77% 50%);
+            color: #BDEBFA;
         }
         .btn-engine {
             display: inline-flex;
@@ -1014,15 +1038,35 @@ function renderLayout(title, description, content, activeNav = '') {
             font-family: var(--font-heading);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 0px;
+            letter-spacing: 0.04em;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 6px;
         }
         .btn-engine:hover {
             transform: translateY(-1px);
         }
         .btn-engine:active {
             transform: translateY(0);
+        }
+        .btn-engine-primary {
+            background-color: #087DB5;
+            color: #FFFFFF;
+            box-shadow: 0 4px 16px rgba(8, 125, 181, 0.4);
+        }
+        .btn-engine-primary:hover {
+            background-color: #0A92D4;
+            box-shadow: 0 6px 24px rgba(189, 235, 250, 0.35);
+        }
+        .btn-engine-secondary {
+            border: 1px solid rgba(189, 235, 250, 0.3);
+            background-color: rgba(11, 43, 71, 0.7);
+            color: #FFFFFF;
+            backdrop-filter: blur(8px);
+        }
+        .btn-engine-secondary:hover {
+            border-color: #BDEBFA;
+            background-color: rgba(11, 43, 71, 0.95);
+            color: #BDEBFA;
         }
         .section-pad {
             padding-left: 1.5rem;
@@ -1043,51 +1087,61 @@ function renderLayout(title, description, content, activeNav = '') {
                 padding-right: 2.5rem;
             }
         }
+        .icy-card {
+            background: #0B2B47;
+            border: 1px solid rgba(189, 235, 250, 0.18);
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+        .icy-card:hover {
+            border-color: rgba(189, 235, 250, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(189, 235, 250, 0.1);
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#071F35] text-white">
     <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/90 backdrop-blur-md border-b border-border/80">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#071F35]/95 backdrop-blur-md border-b border-[#BDEBFA]/20 shadow-lg shadow-black/20">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 group">
-                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-border/40 group-hover:border-primary transition-all duration-200 shadow-sm">
+                <a href="/" class="flex items-center gap-3.5 group">
+                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 group-hover:border-[#BDEBFA] transition-all duration-200 shadow-sm bg-[#041321]/60 p-0.5">
                     <div class="hidden sm:flex flex-col">
-                        <span class="font-heading font-800 text-lg tracking-tight text-foreground leading-none">
+                        <span class="font-heading font-800 text-lg tracking-tight text-white leading-none">
                             North Fork Auto
                         </span>
-                        <span class="font-mono-data text-[10px] mt-1 text-muted-foreground">
-                            Talkeetna, AK
+                        <span class="font-mono-data text-[10px] mt-1 text-[#BDEBFA]/80">
+                            Talkeetna, Alaska
                         </span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-medium tracking-wide hover:text-primary transition-colors ${activeNav === 'home' ? 'text-primary font-semibold' : 'text-foreground/90'}">Home</a>
-                    <a href="/services" class="text-sm font-medium tracking-wide hover:text-primary transition-colors ${activeNav === 'services' ? 'text-primary font-semibold' : 'text-foreground/90'}">Services</a>
-                    <a href="/about" class="text-sm font-medium tracking-wide hover:text-primary transition-colors ${activeNav === 'about' ? 'text-primary font-semibold' : 'text-foreground/90'}">About</a>
-                    <a href="/contact" class="text-sm font-medium tracking-wide hover:text-primary transition-colors ${activeNav === 'contact' ? 'text-primary font-semibold' : 'text-foreground/90'}">Visit Us</a>
+                    <a href="/" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Home</a>
+                    <a href="/services" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'services' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Services</a>
+                    <a href="/about" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">About</a>
+                    <a href="/contact" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Visit Us</a>
                 </nav>
 
                 <!-- Action Button -->
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-muted-foreground hover:text-foreground">
-                        <svg class="w-3.5 h-3.5 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <div class="hidden md:flex items-center gap-5">
+                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA] hover:text-[#BDEBFA] transition-colors">
+                        <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         (907) 733-3030
                     </a>
-                    <a href="/book" class="btn-engine bg-primary text-primary-foreground px-5 py-2.5 text-xs shadow-lg shadow-primary/20">
+                    <a href="/book" class="btn-engine btn-engine-primary px-5 py-2.5 text-xs">
                         Book Appointment
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="/book" class="btn-engine bg-primary text-primary-foreground px-3 py-1.5 text-xs">
+                    <a href="/book" class="btn-engine btn-engine-primary px-3 py-1.5 text-xs">
                         Book
                     </a>
-                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-foreground hover:text-primary">
+                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#D8F1FA] hover:text-[#BDEBFA]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                     </button>
                 </div>
@@ -1095,13 +1149,17 @@ function renderLayout(title, description, content, activeNav = '') {
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-border bg-card/95 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Home</a>
-            <a href="/services" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Services</a>
-            <a href="/about" class="block text-sm font-medium tracking-wide hover:text-primary py-1">About</a>
-            <a href="/contact" class="block text-sm font-medium tracking-wide hover:text-primary py-1">Visit Us</a>
-            <div class="pt-4 border-t border-border/60">
-                <a href="/book" class="block btn-engine bg-primary text-primary-foreground py-3 text-center text-xs">Book Appointment</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA]/20 bg-[#071F35]/98 backdrop-blur-md px-6 py-6 space-y-4">
+            <a href="/" class="block text-sm font-medium tracking-wide ${activeNav === 'home' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Home</a>
+            <a href="/services" class="block text-sm font-medium tracking-wide ${activeNav === 'services' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Services</a>
+            <a href="/about" class="block text-sm font-medium tracking-wide ${activeNav === 'about' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">About</a>
+            <a href="/contact" class="block text-sm font-medium tracking-wide ${activeNav === 'contact' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Visit Us</a>
+            <div class="pt-4 border-t border-[#BDEBFA]/15 flex flex-col gap-3">
+                <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA]">
+                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    (907) 733-3030
+                </a>
+                <a href="/book" class="block btn-engine btn-engine-primary py-3 text-center text-xs">Book Appointment</a>
             </div>
         </div>
     </header>
@@ -1112,44 +1170,44 @@ function renderLayout(title, description, content, activeNav = '') {
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-border bg-card/40 mt-auto">
+    <footer class="border-t border-[#BDEBFA]/20 bg-[#041321] text-white mt-auto">
         <div class="section-pad py-16">
             <div class="grid gap-12 lg:grid-cols-4">
                 <div class="lg:col-span-1">
                     <div class="flex items-center gap-3 mb-5">
-                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-border/40 shadow-sm">
+                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 shadow-sm bg-[#071F35]/80 p-1">
                     </div>
-                    <p class="text-sm text-muted-foreground leading-relaxed mb-5">
-                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.
+                    <p class="text-sm text-[#D8F1FA]/80 leading-relaxed mb-5">
+                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, certified workmanship, and dependable care built for Alaskan roads.
                     </p>
                     <div class="flex gap-3">
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-border hover:border-primary hover:text-primary transition-colors text-foreground">
+                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                         </a>
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-border hover:border-primary hover:text-primary transition-colors text-foreground">
+                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                         </a>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Contact</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Contact</h3>
                     <ul class="space-y-3 text-sm">
                         <li>
-                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
                                 <span>Talkeetna Spur Road, Talkeetna, AK 99676</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tel:+19077333030" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:+19077333030" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                                 <span>(907) 733-3030</span>
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-primary transition-colors text-muted-foreground hover:text-foreground">
-                                <svg class="w-4 h-4 text-primary shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
+                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                 <span>info@northforkauto.com</span>
                             </a>
                         </li>
@@ -1157,38 +1215,38 @@ function renderLayout(title, description, content, activeNav = '') {
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Hours</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Hours</h3>
                     <ul class="space-y-1">
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Monday – Friday</span>
-                            <span class="font-mono-data text-foreground/80">8:00 AM – 5:00 PM</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Monday – Friday</span>
+                            <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
                         </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Saturday</span>
-                            <span class="font-mono-data text-foreground/80">By Appointment</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Saturday</span>
+                            <span class="font-mono-data text-white">By Appointment</span>
                         </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-border/40">
-                            <span class="text-muted-foreground">Sunday</span>
-                            <span class="font-mono-data text-foreground/80">Closed</span>
+                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
+                            <span class="text-[#D8F1FA]/70">Sunday</span>
+                            <span class="font-mono-data text-white">Closed</span>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="font-mono-data mb-4">Quick Links</h3>
+                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Quick Links</h3>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="/" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Home</a></li>
-                        <li><a href="/services" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Services</a></li>
-                        <li><a href="/about" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">About</a></li>
-                        <li><a href="/contact" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Visit Us</a></li>
-                        <li><a href="/book" class="hover:text-primary transition-colors text-muted-foreground hover:text-foreground">Book Appointment</a></li>
+                        <li><a href="/" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Home</a></li>
+                        <li><a href="/services" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Services Catalog</a></li>
+                        <li><a href="/about" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">About North Fork Auto</a></li>
+                        <li><a href="/contact" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Visit Us / Contact</a></li>
+                        <li><a href="/book" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Book Appointment</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
+            <div class="mt-12 pt-6 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#D8F1FA]/70">
                 <p>© ${new Date().getFullYear()} North Fork Auto. All rights reserved.</p>
-                <p class="font-mono-data">Talkeetna, Alaska · Est. locally owned</p>
+                <p class="font-mono-data text-[#BDEBFA]">Talkeetna, Alaska · Locally Owned &amp; Operated</p>
             </div>
         </div>
     </footer>
@@ -1219,129 +1277,136 @@ function handleHome() {
   const featured = services.filter(s => s.is_featured).slice(0, 8);
 
   const heroHtml = `
-<section class="relative min-h-[100svh] flex flex-col justify-between">
-    <img src="https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/9d7382181_generated_60d9ab56.jpg" alt="Luxury vehicle on a hydraulic lift inside the North Fork Auto workshop" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60"></div>
+<section class="relative min-h-[92svh] flex flex-col justify-between overflow-hidden">
+    <!-- Alaskan Background Image -->
+    <img src="/images/hero.jpg" alt="North Fork Automotive Workshop & Alaskan Terrain" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out">
     
-    <div class="relative section-pad pt-36 pb-16 flex-1 flex flex-col justify-center">
+    <!-- Gradient Overlays with Icy Atmosphere -->
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35] via-[#071F35]/90 to-[#071F35]/40"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-[#071F35]/70"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#BDEBFA]/10 via-transparent to-transparent pointer-events-none"></div>
+    
+    <div class="relative section-pad pt-36 pb-20 flex-1 flex flex-col justify-center">
         <div class="max-w-3xl">
-            <div class="font-mono-data flex items-center gap-3 mb-6">
-                <span class="h-px w-10 bg-primary"></span>
-                <span>Talkeetna, Alaska · Auto Repair Experts</span>
+            <div class="font-mono-data flex items-center gap-3 mb-6 text-[#BDEBFA]">
+                <span class="h-px w-10 bg-[#BDEBFA]"></span>
+                <span class="tracking-widest text-[11px] font-bold">TALKEETNA, ALASKA · AUTO REPAIR EXPERTS</span>
             </div>
             
-            <h1 class="font-heading font-800 text-4xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-balance text-foreground">
+            <h1 class="font-heading font-800 text-4xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white">
                 Trusted Auto Repair.<br>
-                <span class="text-primary">Quality Service.</span><br>
+                <span class="text-[#BDEBFA] drop-shadow-[0_0_25px_rgba(189,235,250,0.35)]">Quality Service.</span><br>
                 Every Time.
             </h1>
             
-            <p class="mt-6 text-base sm:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                From routine maintenance to complex diagnostics, North Fork Auto provides professional, honest automotive care for drivers across Talkeetna and the Mat-Su Valley.
+            <p class="mt-6 text-base sm:text-xl text-[#D8F1FA]/85 leading-relaxed max-w-2xl font-normal">
+                From precision computerized diagnostics to complex brake, engine, and harsh-climate maintenance — North Fork Auto provides honest, master-certified automotive care for drivers across Talkeetna and the Mat-Su Valley.
             </p>
             
-            <!-- Open/Closed Status Pill -->
-            <div class="mt-8 border border-border bg-card/70 backdrop-blur px-6 py-4 max-w-2xl">
+            <!-- Live Open/Closed Status Pill -->
+            <div class="mt-8 icy-card px-6 py-4 max-w-2xl bg-[#0B2B47]/85 backdrop-blur-md border border-[#BDEBFA]/25 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
                     <div class="flex items-center gap-2.5">
                         <span class="relative flex h-2.5 w-2.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                         </span>
-                        <span class="font-heading font-700 text-foreground">Currently Open</span>
+                        <span class="font-heading font-700 text-white">Currently Open For Service</span>
                     </div>
-                    <span class="font-mono-data text-foreground/80">Mon – Fri 8:00 AM – 5:00 PM</span>
+                    <span class="font-mono-data text-[#BDEBFA] font-medium">Mon – Fri 8:00 AM – 5:00 PM</span>
                 </div>
             </div>
             
             <!-- CTA Buttons -->
             <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <a href="/book" class="btn-engine bg-primary text-primary-foreground px-8 py-4 text-sm">
+                <a href="/book" class="btn-engine btn-engine-primary px-8 py-4 text-sm font-bold">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
                     Book an Appointment
                 </a>
-                <a href="tel:+19077333030" class="btn-engine border border-foreground/30 bg-background/40 backdrop-blur hover:border-primary px-8 py-4 text-sm text-foreground">
-                    <svg class="w-4 h-4 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call Now · (907) 733-3030
+                <a href="tel:+19077333030" class="btn-engine btn-engine-secondary px-8 py-4 text-sm">
+                    <svg class="w-4 h-4 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Call (907) 733-3030
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Bar -->
-<div class="border-b border-border bg-card/40">
-    <div class="section-pad py-8">
+<!-- Trust Indicators Bar -->
+<div class="border-y border-[#BDEBFA]/20 bg-[#041321]/90">
+    <div class="section-pad py-7">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="flex items-center gap-3">
-                <span class="font-mono-data text-base">01</span>
+            <div class="flex items-center gap-3.5">
+                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">01</span>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-foreground">ASE Certified</h3>
-                    <p class="text-xs text-muted-foreground">Skilled Master Techs</p>
+                    <h3 class="font-heading font-700 text-sm text-white">ASE Certified</h3>
+                    <p class="text-xs text-[#D8F1FA]/70">Master Level Techs</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="font-mono-data text-base">02</span>
+            <div class="flex items-center gap-3.5">
+                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">02</span>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-foreground">OEM Diagnostic</h3>
-                    <p class="text-xs text-muted-foreground">Dealer-Level Equipment</p>
+                    <h3 class="font-heading font-700 text-sm text-white">OEM Diagnostics</h3>
+                    <p class="text-xs text-[#D8F1FA]/70">Dealer-Grade Scanners</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="font-mono-data text-base">03</span>
+            <div class="flex items-center gap-3.5">
+                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">03</span>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-foreground">Warranty Backed</h3>
-                    <p class="text-xs text-muted-foreground">Parts & Labor Protected</p>
+                    <h3 class="font-heading font-700 text-sm text-white">Warranty Backed</h3>
+                    <p class="text-xs text-[#D8F1FA]/70">Parts &amp; Labor Protected</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="font-mono-data text-base">04</span>
+            <div class="flex items-center gap-3.5">
+                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">04</span>
                 <div>
-                    <h3 class="font-heading font-700 text-sm text-foreground">Local Alaskan</h3>
-                    <p class="text-xs text-muted-foreground">Community Focused</p>
+                    <h3 class="font-heading font-700 text-sm text-white">Alaskan Proven</h3>
+                    <p class="text-xs text-[#D8F1FA]/70">Winterized Care</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Featured Services Section -->
+<!-- Featured Capabilities / Services Section -->
 <section class="section-pad py-24">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div>
-            <div class="font-mono-data flex items-center gap-2 mb-3">
-                <span class="h-px w-6 bg-primary"></span>
-                <span>Our Capabilities</span>
+            <div class="font-mono-data flex items-center gap-2 mb-3 text-[#BDEBFA]">
+                <span class="h-px w-6 bg-[#BDEBFA]"></span>
+                <span>OUR CAPABILITIES</span>
             </div>
-            <h2 class="font-heading font-800 text-3xl sm:text-4xl lg:text-5xl tracking-tight text-foreground">
+            <h2 class="font-heading font-800 text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white">
                 Expert Auto Care For Alaskan Roads
             </h2>
         </div>
-        <a href="/services" class="btn-engine border border-border px-6 py-3 text-xs text-foreground hover:border-primary shrink-0">
+        <a href="/services" class="btn-engine btn-engine-secondary px-6 py-3 text-xs shrink-0">
             View All Services (${services.length})
-            <svg class="w-3.5 h-3.5 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg class="w-3.5 h-3.5 ml-1 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
     </div>
 
-    <!-- Service Grid with 1px border separation -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+    <!-- Service Grid with Icy Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         ${featured.map(s => `
-            <div class="group relative bg-card p-8 flex flex-col justify-between hover:bg-card/80 transition-all duration-300">
+            <div class="icy-card p-7 flex flex-col justify-between group">
                 <div>
-                    <div class="font-mono-data text-[10px] text-muted-foreground mb-4">${escapeHtml(s.category)}</div>
-                    <h3 class="font-heading font-700 text-lg text-foreground group-hover:text-primary transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono-data text-[10px] text-[#BDEBFA] px-2 py-0.5 bg-[#087DB5]/20 rounded border border-[#BDEBFA]/20">${escapeHtml(s.category)}</span>
+                        <span class="font-mono-data text-xs text-[#BDEBFA] font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
+                    </div>
+                    <h3 class="font-heading font-700 text-lg text-white group-hover:text-[#BDEBFA] transition-colors">
                         ${escapeHtml(s.name)}
                     </h3>
-                    <p class="mt-3 text-xs text-muted-foreground leading-relaxed">
+                    <p class="mt-3 text-xs text-[#D8F1FA]/75 leading-relaxed line-clamp-3">
                         ${escapeHtml(s.description)}
                     </p>
                 </div>
-                <div class="mt-8 pt-4 border-t border-border/50 flex items-center justify-between">
-                    <span class="font-mono-data text-xs text-primary font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
-                    <a href="/book?service=${encodeURIComponent(s.name)}" class="font-heading font-700 text-xs text-primary uppercase tracking-wider flex items-center gap-1 group-hover:underline">
+                <div class="mt-8 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between">
+                    <span class="text-[11px] text-[#D8F1FA]/60 font-mono-data">~${s.duration_minutes || 60}m</span>
+                    <a href="/book?service=${encodeURIComponent(s.name)}" class="font-heading font-700 text-xs text-[#BDEBFA] hover:text-white uppercase tracking-wider flex items-center gap-1.5 transition-colors">
                         Book
-                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        <svg class="w-3 h-3 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
                 </div>
             </div>
@@ -1349,29 +1414,174 @@ function handleHome() {
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="border-t border-b border-border bg-card">
-    <div class="section-pad py-20">
-        <div class="max-w-4xl mx-auto text-center space-y-6">
-            <div class="font-mono-data flex items-center justify-center gap-2">
-                <span class="h-px w-8 bg-primary"></span>
-                <span>Get Back On The Road</span>
-                <span class="h-px w-8 bg-primary"></span>
+<!-- Built For Alaskan Conditions (Why Choose Us) -->
+<section class="border-y border-[#BDEBFA]/20 bg-[#041321] py-24">
+    <div class="section-pad">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="space-y-6">
+                <div class="font-mono-data flex items-center gap-2 text-[#BDEBFA]">
+                    <span class="h-px w-6 bg-[#BDEBFA]"></span>
+                    <span>WHY TALKEETNA CHOOSES US</span>
+                </div>
+                <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
+                    Engineered For Alaskan Driving Demands
+                </h2>
+                <p class="text-sm sm:text-base text-[#D8F1FA]/80 leading-relaxed">
+                    Driving in Alaska isn't like anywhere else. Extreme freezing temperatures, gravel roads, heavy snow, and backcountry trails put unmatched stress on suspensions, brakes, batteries, and powertrains.
+                </p>
+                <div class="space-y-4 pt-2">
+                    <div class="flex items-start gap-4 p-4 icy-card">
+                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-700 text-sm text-white">Winterization &amp; Cold-Start Systems</h4>
+                            <p class="text-xs text-[#D8F1FA]/70 mt-1">Block heaters, high-CCA battery testing, and sub-zero synthetic fluids that perform when it hits -30°F.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 icy-card">
+                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-700 text-sm text-white">4WD, AWD &amp; Heavy-Duty Suspension</h4>
+                            <p class="text-xs text-[#D8F1FA]/70 mt-1">Transfer cases, differentials, tie-rods, and shocks inspected and rebuilt to handle rough gravel and frost heaves.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 icy-card">
+                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-700 text-sm text-white">Clear Upfront Estimates &amp; Honest Advice</h4>
+                            <p class="text-xs text-[#D8F1FA]/70 mt-1">We show you what's safety-critical vs what can wait. No pressure tactics, hidden shop fees, or unexpected invoices.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 class="font-heading font-800 text-3xl sm:text-5xl text-foreground">
-                Ready For Reliable Automotive Service?
+            
+            <div class="relative rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
+                <img src="/images/why-choose.jpg" alt="Alaskan automotive care and repair equipment" class="w-full h-[480px] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 p-6 icy-card bg-[#071F35]/90 backdrop-blur-md">
+                    <div class="flex items-center justify-between text-xs font-mono-data text-[#BDEBFA]">
+                        <span>TALKEETNA WORKSHOP FACILITY</span>
+                        <span>EST. LOCALLY OPERATED</span>
+                    </div>
+                    <div class="font-heading font-700 text-white text-base mt-1">Serving Talkeetna, Trapper Creek &amp; Mat-Su Drivers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Workshop Spotlight Section -->
+<section class="section-pad py-24">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 relative rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
+            <img src="/images/about-workshop.jpg" alt="North Fork Auto certified service bay" class="w-full h-[400px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-transparent"></div>
+        </div>
+        <div class="order-1 lg:order-2 space-y-6">
+            <div class="font-mono-data flex items-center gap-2 text-[#BDEBFA]">
+                <span class="h-px w-6 bg-[#BDEBFA]"></span>
+                <span>MASTER DIAGNOSTICS &amp; WORKMANSHIP</span>
+            </div>
+            <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
+                Modern Technology. Old-School Integrity.
             </h2>
-            <p class="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
-                Schedule your appointment online or call us directly. We provide transparent estimates and expert care.
+            <p class="text-sm sm:text-base text-[#D8F1FA]/80 leading-relaxed">
+                Our shop is outfitted with the latest scan tools, oscilloscope analyzers, and lift equipment to service all makes and models — from modern Ford, Chevy, Ram, and GMC trucks to Subaru, Toyota, and Honda daily drivers.
             </p>
-            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="/book" class="btn-engine bg-primary text-primary-foreground px-8 py-4 text-sm">
-                    Book Service Appointment
-                </a>
-                <a href="tel:+19077333030" class="btn-engine border border-border px-8 py-4 text-sm text-foreground hover:border-primary">
-                    Call (907) 733-3030
-                </a>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+                <div class="icy-card p-4">
+                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">100%</div>
+                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Transparent Estimates</div>
+                </div>
+                <div class="icy-card p-4">
+                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">12 Mo</div>
+                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Warranty Protection</div>
+                </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section class="border-y border-[#BDEBFA]/20 bg-[#041321] py-20">
+    <div class="section-pad">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <div class="font-mono-data flex items-center justify-center gap-2 mb-3 text-[#BDEBFA]">
+                <span class="h-px w-8 bg-[#BDEBFA]"></span>
+                <span>VERIFIED DRIVER EXPERIENCES</span>
+                <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            </div>
+            <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
+                What Talkeetna Drivers Say
+            </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="icy-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
+                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
+                        "Broke down on the Spur Road during sub-zero temps. North Fork Auto quickly diagnosed the alternator and got us back on the road the same day. Honest, fast, and fair pricing."
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
+                    <span class="font-heading font-700 text-white">Marcus T.</span>
+                    <span class="font-mono-data text-[#BDEBFA]">Talkeetna Resident</span>
+                </div>
+            </div>
+            <div class="icy-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
+                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
+                        "The best brake and suspension shop in the Mat-Su area. They showed me exactly which parts were worn and gave me options. My F-250 handles the gravel roads like new again."
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
+                    <span class="font-heading font-700 text-white">David K.</span>
+                    <span class="font-mono-data text-[#BDEBFA]">Mat-Su Valley</span>
+                </div>
+            </div>
+            <div class="icy-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
+                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
+                        "Having a trustworthy mechanic in Talkeetna is a lifesaver. Routine maintenance, fluid checks, and pre-winter inspections are always on time and professional."
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
+                    <span class="font-heading font-700 text-white">Sarah B.</span>
+                    <span class="font-mono-data text-[#BDEBFA]">Trapper Creek</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Direct Booking CTA Section -->
+<section class="section-pad py-20">
+    <div class="icy-card p-10 sm:p-16 text-center max-w-4xl mx-auto space-y-6 bg-gradient-to-br from-[#0B2B47] to-[#071F35] border border-[#BDEBFA]/30 shadow-2xl">
+        <div class="font-mono-data flex items-center justify-center gap-2 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>GET BACK ON THE ROAD</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+        </div>
+        <h2 class="font-heading font-800 text-3xl sm:text-5xl text-white">
+            Ready For Dependable Auto Service?
+        </h2>
+        <p class="text-[#D8F1FA]/80 text-sm sm:text-base max-w-xl mx-auto">
+            Schedule your appointment online or call us directly. We provide transparent estimates, rapid turnaround, and master technician care.
+        </p>
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/book" class="btn-engine btn-engine-primary px-8 py-4 text-sm font-bold">
+                Book Service Appointment
+            </a>
+            <a href="tel:+19077333030" class="btn-engine btn-engine-secondary px-8 py-4 text-sm">
+                Call (907) 733-3030
+            </a>
         </div>
     </div>
 </section>
@@ -1387,51 +1597,67 @@ function handleServices() {
   const content = `
 <div class="section-pad pt-32 pb-24">
     <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
-            <span class="h-px w-8 bg-primary"></span>
-            <span>Complete Repair &amp; Maintenance</span>
-            <span class="h-px w-8 bg-primary"></span>
+        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>COMPLETE REPAIR &amp; MAINTENANCE</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
             Our Automotive Services
         </h1>
-        <p class="mt-5 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            From routine fluid changes to complete engine diagnostics, our certified technicians keep your vehicle running smoothly in harsh Alaskan conditions.
+        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
+            From routine fluid changes to complex engine diagnostics, our certified technicians keep your vehicle running smoothly through harsh Alaskan conditions.
         </p>
     </div>
 
-    <!-- 1px grid of all services -->
+    <!-- Grid of all services -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         ${services.map(s => `
-            <div class="border border-border bg-card p-6 flex flex-col justify-between hover:border-primary/60 transition-all duration-200">
+            <div class="icy-card p-7 flex flex-col justify-between group">
                 <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="font-mono-data text-[10px] text-muted-foreground">${escapeHtml(s.category)}</span>
-                        <span class="font-mono-data text-xs text-primary font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono-data text-[10px] text-[#BDEBFA] px-2 py-0.5 bg-[#087DB5]/20 rounded border border-[#BDEBFA]/20">${escapeHtml(s.category)}</span>
+                        <span class="font-mono-data text-xs text-[#BDEBFA] font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
                     </div>
-                    <h3 class="font-heading font-700 text-lg text-foreground mb-2">
+                    <h3 class="font-heading font-700 text-lg text-white group-hover:text-[#BDEBFA] transition-colors mb-2">
                         ${escapeHtml(s.name)}
                     </h3>
-                    <p class="text-xs text-muted-foreground leading-relaxed mb-4">
+                    <p class="text-xs text-[#D8F1FA]/75 leading-relaxed mb-4">
                         ${escapeHtml(s.description)}
                     </p>
                     ${s.symptoms && s.symptoms.length > 0 ? `
-                        <div class="border-t border-border/40 pt-3">
-                            <span class="text-[10px] font-mono-data text-muted-foreground uppercase">Common Signs:</span>
+                        <div class="border-t border-[#BDEBFA]/15 pt-3">
+                            <span class="text-[10px] font-mono-data text-[#BDEBFA] uppercase">Common Warning Signs:</span>
                             <ul class="mt-1.5 space-y-1">
-                                ${s.symptoms.slice(0, 3).map(sym => `<li class="text-[11px] text-foreground/80 flex items-center gap-1.5"><span class="w-1 h-1 bg-primary rounded-full shrink-0"></span> ${escapeHtml(sym)}</li>`).join('')}
+                                ${s.symptoms.slice(0, 3).map(sym => `<li class="text-[11px] text-[#D8F1FA]/85 flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-[#087DB5] rounded-full shrink-0"></span> ${escapeHtml(sym)}</li>`).join('')}
                             </ul>
                         </div>
                     ` : ''}
                 </div>
-                <div class="mt-6 pt-4 border-t border-border flex items-center justify-between">
-                    <span class="text-[11px] text-muted-foreground font-mono-data">Duration: ~${s.duration_minutes || 60}m</span>
-                    <a href="/book?service=${encodeURIComponent(s.name)}" class="btn-engine bg-primary text-primary-foreground px-4 py-2 text-xs">
+                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between">
+                    <span class="text-[11px] text-[#D8F1FA]/60 font-mono-data">Duration: ~${s.duration_minutes || 60}m</span>
+                    <a href="/book?service=${encodeURIComponent(s.name)}" class="btn-engine btn-engine-primary px-4 py-2 text-xs">
                         Book Now
                     </a>
                 </div>
             </div>
         `).join('')}
+    </div>
+
+    <!-- Warranty & Guarantee Banner -->
+    <div class="mt-16 icy-card p-8 bg-[#041321] border border-[#BDEBFA]/25 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div>
+                <h4 class="font-heading font-700 text-white text-base">All Services Backed By Warranty</h4>
+                <p class="text-xs text-[#D8F1FA]/70 mt-0.5">We stand behind every repair with our comprehensive parts and labor warranty protection.</p>
+            </div>
+        </div>
+        <a href="/contact" class="btn-engine btn-engine-secondary px-6 py-2.5 text-xs shrink-0">
+            Ask A Question
+        </a>
     </div>
 </div>
 `;
@@ -1443,41 +1669,67 @@ function handleAbout() {
   const content = `
 <div class="section-pad pt-32 pb-24">
     <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
-            <span class="h-px w-8 bg-primary"></span>
-            <span>About North Fork Auto</span>
-            <span class="h-px w-8 bg-primary"></span>
+        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>ABOUT NORTH FORK AUTO</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
             Locally Owned. Alaskan Tested.
         </h1>
-        <p class="mt-5 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
             North Fork Auto is Talkeetna's premier independent auto care facility. We understand what it takes to keep vehicles running safely through Alaskan winters and rugged summer terrain.
         </p>
     </div>
 
+    <!-- Story & Values -->
     <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
         <div class="space-y-6">
-            <h2 class="font-heading font-800 text-2xl sm:text-3xl text-foreground">Our Story &amp; Values</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 class="font-heading font-800 text-2xl sm:text-3xl text-white">Our Story &amp; Workshop Standards</h2>
+            <p class="text-sm text-[#D8F1FA]/80 leading-relaxed">
                 Founded with a mission to deliver straightforward, trustworthy auto repairs to the Talkeetna community, North Fork Auto brings modern diagnostic technology and old-school honesty to every job.
             </p>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <p class="text-sm text-[#D8F1FA]/80 leading-relaxed">
                 We believe in total transparency. When you bring your vehicle in, we thoroughly inspect it, explain what needs immediate attention versus what can wait, and provide clear upfront estimates before any work begins.
             </p>
             <div class="grid grid-cols-2 gap-4 pt-4">
-                <div class="border border-border p-4 bg-card">
-                    <div class="font-heading font-800 text-2xl text-primary">100%</div>
-                    <div class="text-xs text-muted-foreground mt-1">Locally Owned &amp; Operated</div>
+                <div class="icy-card p-4">
+                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">100%</div>
+                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Locally Owned &amp; Operated</div>
                 </div>
-                <div class="border border-border p-4 bg-card">
-                    <div class="font-heading font-800 text-2xl text-primary">ASE</div>
-                    <div class="text-xs text-muted-foreground mt-1">Certified Technicians</div>
+                <div class="icy-card p-4">
+                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">ASE</div>
+                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Certified Technicians</div>
                 </div>
             </div>
         </div>
-        <div class="border border-border bg-card overflow-hidden">
-            <img src="https://media.base44.com/images/public/6a97793b1eaf1697782a6c01/9d7382181_generated_60d9ab56.jpg" alt="North Fork Auto Workshop" class="w-full h-80 object-cover">
+        <div class="rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
+            <img src="/images/about-workshop.jpg" alt="North Fork Auto Workshop" class="w-full h-88 object-cover">
+        </div>
+    </div>
+
+    <!-- Pillars Grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+        <div class="icy-card p-6 space-y-3">
+            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 01</div>
+            <h3 class="font-heading font-700 text-white text-base">Alaskan Climate Readiness</h3>
+            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
+                We select fluids, belts, hoses, and batteries rated for sub-zero Arctic conditions, preventing costly roadside breakdowns during the deepest winter chills.
+            </p>
+        </div>
+        <div class="icy-card p-6 space-y-3">
+            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 02</div>
+            <h3 class="font-heading font-700 text-white text-base">Dealer-Grade Equipment</h3>
+            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
+                We invest in computerized factory scan tools that read proprietary codes and calibration protocols for all major truck, SUV, and passenger brands.
+            </p>
+        </div>
+        <div class="icy-card p-6 space-y-3">
+            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 03</div>
+            <h3 class="font-heading font-700 text-white text-base">Community Commitment</h3>
+            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
+                As a local Talkeetna business, our reputation is everything. We treat every customer like our neighbor, because in Talkeetna, you truly are.
+            </p>
         </div>
     </div>
 </div>
@@ -1490,15 +1742,15 @@ function handleContact() {
   const content = `
 <div class="section-pad pt-32 pb-24">
     <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
-            <span class="h-px w-8 bg-primary"></span>
-            <span>Visit Us In Talkeetna</span>
-            <span class="h-px w-8 bg-primary"></span>
+        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>VISIT US IN TALKEETNA</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
             Contact &amp; Location
         </h1>
-        <p class="mt-5 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
             Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.
         </p>
     </div>
@@ -1506,60 +1758,81 @@ function handleContact() {
     <div class="grid md:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div class="space-y-8">
-            <div class="border border-border bg-card p-6 space-y-6">
-                <h3 class="font-heading font-700 text-xl text-foreground">Shop Details</h3>
-                <div class="space-y-4 text-sm">
+            <div class="icy-card p-8 space-y-6">
+                <h3 class="font-heading font-700 text-xl text-white">Shop Details</h3>
+                <div class="space-y-5 text-sm">
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
                         <div>
-                            <strong class="text-foreground block">Address</strong>
-                            <span class="text-muted-foreground">Talkeetna Spur Road, Talkeetna, AK 99676</span>
+                            <strong class="text-white block font-heading">Address</strong>
+                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="text-[#D8F1FA]/80 hover:text-[#BDEBFA] transition-colors">Talkeetna Spur Road, Talkeetna, AK 99676</a>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         <div>
-                            <strong class="text-foreground block">Direct Phone</strong>
-                            <a href="tel:+19077333030" class="text-primary hover:underline">(907) 733-3030</a>
+                            <strong class="text-white block font-heading">Direct Phone</strong>
+                            <a href="tel:+19077333030" class="text-[#BDEBFA] hover:underline font-mono">(907) 733-3030</a>
+                            <span class="text-xs text-[#D8F1FA]/60 block mt-0.5">Alt: (907) 232-3859</span>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         <div>
-                            <strong class="text-foreground block">Email Inquiries</strong>
-                            <a href="mailto:info@northforkauto.com" class="text-primary hover:underline">info@northforkauto.com</a>
+                            <strong class="text-white block font-heading">Email Inquiries</strong>
+                            <a href="mailto:info@northforkauto.com" class="text-[#BDEBFA] hover:underline font-mono">info@northforkauto.com</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Operating Hours Card -->
+            <div class="icy-card p-8 space-y-4">
+                <h3 class="font-heading font-700 text-xl text-white">Operating Hours</h3>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
+                        <span class="text-[#D8F1FA]/80">Monday – Friday</span>
+                        <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
+                    </li>
+                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
+                        <span class="text-[#D8F1FA]/80">Saturday</span>
+                        <span class="font-mono-data text-white">By Appointment</span>
+                    </li>
+                    <li class="flex justify-between py-2">
+                        <span class="text-[#D8F1FA]/80">Sunday</span>
+                        <span class="font-mono-data text-white">Closed</span>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Contact Form -->
-        <div class="border border-border bg-card p-6 sm:p-8">
-            <h3 class="font-heading font-700 text-xl text-foreground mb-4">Send a Message</h3>
+        <div class="icy-card p-6 sm:p-8">
+            <h3 class="font-heading font-700 text-xl text-white mb-2">Send an Inquiry</h3>
+            <p class="text-xs text-[#D8F1FA]/70 mb-6">Have a question about a diagnostic, repair, or estimate? Drop us a note.</p>
             <form id="contact-form" action="/contact" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Your Name *</label>
-                    <input type="text" name="name" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Your Name *</label>
+                    <input type="text" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Email Address *</label>
-                    <input type="email" name="email" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Email Address *</label>
+                    <input type="email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Phone Number</label>
-                    <input type="tel" name="phone" class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Phone Number</label>
+                    <input type="tel" name="phone" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Subject</label>
-                    <input type="text" name="subject" class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary">
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Subject</label>
+                    <input type="text" name="subject" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-heading font-600 text-xs uppercase text-foreground mb-1">Message *</label>
-                    <textarea name="message" rows="4" required class="w-full bg-background border border-border px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary"></textarea>
+                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Message *</label>
+                    <textarea name="message" rows="4" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <button type="submit" class="w-full btn-engine bg-primary text-primary-foreground py-3 text-xs">
-                    Send Inquiry
+                <button type="submit" class="w-full btn-engine btn-engine-primary py-3 text-xs font-bold">
+                    Send Message
                 </button>
             </form>
         </div>
@@ -1579,12 +1852,12 @@ function handleBook() {
   const services = currentDb.services.filter(s => s.is_active);
 
   const serviceCardsHtml = services.map((s, idx) => `
-    <div class="service-select-card cursor-pointer border p-4 transition-all duration-200 ${idx === 0 ? 'border-primary bg-primary/10' : 'border-border bg-card hover:border-primary/50'}" data-service-name="${escapeHtml(s.name)}">
+    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 ${idx === 0 ? 'border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20' : 'border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50'}" data-service-name="${escapeHtml(s.name)}">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-foreground">${escapeHtml(s.name)}</h4>
-            <span class="font-mono-data text-xs text-primary shrink-0">${escapeHtml(s.price || 'Custom Quote')}</span>
+            <h4 class="font-heading font-700 text-sm text-white">${escapeHtml(s.name)}</h4>
+            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
         </div>
-        <p class="mt-1 text-xs text-muted-foreground">${escapeHtml(s.description)}</p>
+        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">${escapeHtml(s.description)}</p>
     </div>
   `).join('');
 
@@ -1594,79 +1867,79 @@ function handleBook() {
 <div class="section-pad pt-32 pb-24 min-h-screen">
     <!-- Header -->
     <div class="max-w-4xl mx-auto mb-12 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4">
-            <span class="h-px w-8 bg-primary"></span>
-            <span>Book an Appointment</span>
-            <span class="h-px w-8 bg-primary"></span>
+        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+            <span>ONLINE SERVICE BOOKING</span>
+            <span class="h-px w-8 bg-[#BDEBFA]"></span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-foreground">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
             Schedule Your Service
         </h1>
-        <p class="mt-5 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            Book in minutes. Choose your service, pick an available time, and we'll take care of the rest. No account needed.
+        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
+            Book in minutes. Choose your service, pick an available time, and our Talkeetna technicians will prepare for your arrival. No account required.
         </p>
     </div>
 
     <!-- Booking Wizard Container -->
-    <div class="max-w-4xl mx-auto border border-border bg-card p-6 sm:p-10">
+    <div class="max-w-4xl mx-auto icy-card p-6 sm:p-10 bg-[#0B2B47] border border-[#BDEBFA]/25 shadow-2xl">
         <!-- Step Progress Bar -->
         <div class="mb-10">
             <div class="grid grid-cols-4 gap-2">
-                <div id="step-tab-1" class="h-1.5 bg-primary rounded-sm transition-all duration-300"></div>
-                <div id="step-tab-2" class="h-1.5 bg-border rounded-sm transition-all duration-300"></div>
-                <div id="step-tab-3" class="h-1.5 bg-border rounded-sm transition-all duration-300"></div>
-                <div id="step-tab-4" class="h-1.5 bg-border rounded-sm transition-all duration-300"></div>
+                <div id="step-tab-1" class="h-1.5 bg-[#087DB5] rounded-full transition-all duration-300"></div>
+                <div id="step-tab-2" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
+                <div id="step-tab-3" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
+                <div id="step-tab-4" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
             </div>
-            <div class="mt-3 flex justify-between text-[11px] font-mono-data text-muted-foreground">
-                <span id="step-label-1" class="text-primary font-bold">1. Contact</span>
+            <div class="mt-3 flex justify-between text-[11px] font-mono-data text-[#D8F1FA]/70">
+                <span id="step-label-1" class="text-[#BDEBFA] font-bold">1. Contact</span>
                 <span id="step-label-2">2. Vehicle</span>
                 <span id="step-label-3">3. Service</span>
                 <span id="step-label-4">4. Date &amp; Time</span>
             </div>
         </div>
 
-        <div id="booking-feedback" class="hidden mb-6 p-4 border text-sm"></div>
+        <div id="booking-feedback" class="hidden mb-6 p-4 border rounded text-sm"></div>
 
         <form id="booking-wizard-form" action="/book" method="POST">
             <!-- STEP 1: Contact Information -->
             <div id="step-panel-1" class="space-y-6">
-                <div class="border-b border-border pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-foreground">Customer Information</h3>
-                    <p class="text-xs text-muted-foreground mt-1">Please provide your contact details so we can confirm your booking.</p>
+                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
+                    <h3 class="font-heading font-700 text-xl text-white">Customer Information</h3>
+                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Please provide your contact details so we can confirm your appointment.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-name" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Full Name <span class="text-primary">*</span>
+                        <label for="cust-name" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Full Name <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="text" id="cust-name" name="name" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="e.g. Sarah Connor">
+                        <input type="text" id="cust-name" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Sarah Connor">
                     </div>
                     <div>
-                        <label for="cust-email" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Email Address <span class="text-primary">*</span>
+                        <label for="cust-email" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Email Address <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="email" id="cust-email" name="email" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="sarah@example.com">
+                        <input type="email" id="cust-email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="sarah@example.com">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-phone" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Phone Number <span class="text-primary">*</span>
+                        <label for="cust-phone" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Phone Number <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="(907) 555-0199">
+                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="(907) 555-0199">
                     </div>
                     <div>
-                        <label for="cust-notes" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Special Requests / Symptoms
+                        <label for="cust-notes" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Special Requests / Vehicle Symptoms
                         </label>
-                        <input type="text" id="cust-notes" name="notes" class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="e.g. Squeaking noise when braking...">
+                        <input type="text" id="cust-notes" name="notes" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Grinding noise when braking...">
                     </div>
                 </div>
 
                 <div class="pt-6 flex justify-end">
-                    <button type="button" id="btn-to-step-2" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
+                    <button type="button" id="btn-to-step-2" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
                         Continue to Vehicle
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -1675,63 +1948,63 @@ function handleBook() {
 
             <!-- STEP 2: Vehicle Details -->
             <div id="step-panel-2" class="hidden space-y-6">
-                <div class="border-b border-border pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-foreground">Vehicle Details</h3>
-                    <p class="text-xs text-muted-foreground mt-1">Tell us about the vehicle you're bringing in.</p>
+                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
+                    <h3 class="font-heading font-700 text-xl text-white">Vehicle Details</h3>
+                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Tell us about the vehicle you're bringing into the shop.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-3 gap-6">
                     <div>
-                        <label for="veh-year" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Year <span class="text-primary">*</span>
+                        <label for="veh-year" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Year <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary">
+                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label for="veh-make" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Make <span class="text-primary">*</span>
+                        <label for="veh-make" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Make <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="e.g. Toyota, Subaru, Ford">
+                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Ford, Subaru, Toyota">
                     </div>
                     <div>
-                        <label for="veh-model" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Model <span class="text-primary">*</span>
+                        <label for="veh-model" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Model <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="e.g. 4Runner, Outback, F-150">
+                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. F-150, Outback, 4Runner">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="veh-mileage" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
+                        <label for="veh-mileage" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
                             Approximate Mileage
                         </label>
-                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="e.g. 85,000">
+                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. 85,000">
                     </div>
                     <div>
-                        <label for="veh-vin" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
+                        <label for="veh-vin" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
                             VIN (Optional)
                         </label>
-                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary placeholder-muted-foreground/60" placeholder="17-character VIN">
+                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="17-character VIN">
                     </div>
                 </div>
 
                 <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-1" class="btn-engine border border-border px-6 py-3 text-sm text-foreground hover:border-primary">
+                    <button type="button" id="btn-back-to-step-1" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-3" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
+                    <button type="button" id="btn-to-step-3" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
                         Continue to Service
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 3: Select Service (Cleanly rendered with dynamic DB cards) -->
+            <!-- STEP 3: Select Service -->
             <div id="step-panel-3" class="hidden space-y-6">
-                <div class="border-b border-border pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-foreground">Select Requested Service</h3>
-                    <p class="text-xs text-muted-foreground mt-1">Pick the primary service you need performed.</p>
+                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
+                    <h3 class="font-heading font-700 text-xl text-white">Select Requested Service</h3>
+                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Pick the primary service or inspection you need performed.</p>
                 </div>
 
                 <input type="hidden" id="selected-service-input" name="service" value="${escapeHtml(defaultServiceName)}">
@@ -1741,10 +2014,10 @@ function handleBook() {
                 </div>
 
                 <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-2" class="btn-engine border border-border px-6 py-3 text-sm text-foreground hover:border-primary">
+                    <button type="button" id="btn-back-to-step-2" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-4" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
+                    <button type="button" id="btn-to-step-4" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
                         Continue to Date &amp; Time
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -1753,23 +2026,23 @@ function handleBook() {
 
             <!-- STEP 4: Date & Time Picker & Submit -->
             <div id="step-panel-4" class="hidden space-y-6">
-                <div class="border-b border-border pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-foreground">Select Appointment Date &amp; Time</h3>
-                    <p class="text-xs text-muted-foreground mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
+                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
+                    <h3 class="font-heading font-700 text-xl text-white">Select Appointment Date &amp; Time</h3>
+                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="app-date" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Preferred Date <span class="text-primary">*</span>
+                        <label for="app-date" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Preferred Date <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary">
+                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label for="app-time" class="block font-heading font-600 text-xs uppercase tracking-wide text-foreground mb-2">
-                            Preferred Time Slot <span class="text-primary">*</span>
+                        <label for="app-time" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                            Preferred Time Slot <span class="text-[#BDEBFA]">*</span>
                         </label>
-                        <select id="app-time" name="preferred_time" required class="w-full bg-background border border-border px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary">
+                        <select id="app-time" name="preferred_time" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                             <option value="08:00 AM">08:00 AM (Early Drop-off)</option>
                             <option value="09:00 AM">09:00 AM</option>
                             <option value="10:00 AM" selected>10:00 AM</option>
@@ -1783,18 +2056,18 @@ function handleBook() {
                 </div>
 
                 <!-- Booking Summary Review Card -->
-                <div class="border border-border bg-background p-5 text-sm space-y-2">
-                    <div class="font-mono-data text-xs text-primary mb-2">Appointment Review</div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Customer:</span><span id="review-cust" class="font-heading font-600 text-foreground">-</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Vehicle:</span><span id="review-veh" class="font-heading font-600 text-foreground">-</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Service:</span><span id="review-srv" class="font-heading font-600 text-foreground">${escapeHtml(defaultServiceName)}</span></div>
+                <div class="border border-[#BDEBFA]/20 bg-[#071F35] p-5 text-sm space-y-2 rounded-md">
+                    <div class="font-mono-data text-xs text-[#BDEBFA] mb-2 font-bold">APPOINTMENT REVIEW SUMMARY</div>
+                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Customer:</span><span id="review-cust" class="font-heading font-600 text-white">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Vehicle:</span><span id="review-veh" class="font-heading font-600 text-white">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="review-srv" class="font-heading font-600 text-[#BDEBFA]">${escapeHtml(defaultServiceName)}</span></div>
                 </div>
 
                 <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-3" class="btn-engine border border-border px-6 py-3 text-sm text-foreground hover:border-primary">
+                    <button type="button" id="btn-back-to-step-3" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
                         Back
                     </button>
-                    <button type="submit" id="btn-submit-booking" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
+                    <button type="submit" id="btn-submit-booking" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
                         Confirm &amp; Book Appointment
                     </button>
                 </div>
@@ -1802,24 +2075,24 @@ function handleBook() {
 
             <!-- STEP 5: Success Confirmation Screen -->
             <div id="step-panel-5" class="hidden text-center py-8 space-y-6">
-                <div class="w-16 h-16 rounded-full border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
-                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <div class="w-16 h-16 rounded-full border-2 border-emerald-400 bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <h3 class="font-heading font-800 text-3xl text-foreground">Appointment Requested!</h3>
-                <p class="text-muted-foreground max-w-lg mx-auto text-sm leading-relaxed">
-                    Thank you! We have received your booking request. Our service advisor will review your slot and contact you to confirm drop-off details.
+                <h3 class="font-heading font-800 text-3xl text-white">Appointment Requested!</h3>
+                <p class="text-[#D8F1FA]/80 max-w-lg mx-auto text-sm leading-relaxed">
+                    Thank you! We have received your booking request. Our service advisor will review your vehicle and slot details and confirm your drop-off.
                 </p>
-                <div class="border border-border bg-background p-6 max-w-md mx-auto text-left space-y-2 text-sm">
-                    <div class="flex justify-between"><span class="text-muted-foreground">Booking Reference:</span><span id="conf-ref" class="font-mono-data text-primary font-bold">NFA-2026-0001</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Service:</span><span id="conf-service" class="font-heading font-600 text-foreground">-</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Date:</span><span id="conf-date" class="font-mono-data text-foreground">-</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Status:</span><span class="px-2 py-0.5 text-[10px] uppercase font-bold border border-primary/40 bg-primary/15 text-primary">Pending Confirmation</span></div>
+                <div class="border border-[#BDEBFA]/25 bg-[#071F35] p-6 max-w-md mx-auto text-left space-y-2.5 text-sm rounded-lg shadow-xl">
+                    <div class="flex justify-between items-center"><span class="text-[#D8F1FA]/70">Confirmation Ref:</span><span id="conf-ref" class="font-mono-data text-[#BDEBFA] font-bold text-base">NFA-2026-0001</span></div>
+                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="conf-service" class="font-heading font-600 text-white">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Date:</span><span id="conf-date" class="font-mono-data text-white">-</span></div>
+                    <div class="flex justify-between items-center pt-2 border-t border-[#BDEBFA]/15"><span class="text-[#D8F1FA]/70">Status:</span><span class="px-2.5 py-0.5 text-[10px] uppercase font-bold border border-amber-400/40 bg-amber-400/15 text-amber-300 rounded">Pending Confirmation</span></div>
                 </div>
                 <div class="pt-4 flex justify-center gap-4">
-                    <a href="/" class="btn-engine border border-border px-6 py-3 text-xs text-foreground hover:border-primary">
+                    <a href="/" class="btn-engine btn-engine-secondary px-6 py-3 text-xs">
                         Return Home
                     </a>
-                    <a href="tel:+19077333030" class="btn-engine bg-primary text-primary-foreground px-6 py-3 text-xs">
+                    <a href="tel:+19077333030" class="btn-engine btn-engine-primary px-6 py-3 text-xs font-bold">
                         Call Shop
                     </a>
                 </div>
@@ -1838,6 +2111,8 @@ function handleBook() {
         const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
         const dd = String(tomorrow.getDate()).padStart(2, '0');
         if (dateInput) {
+            dateInput.min = \`\${yyyy}-\${mm}-\${dd}\`;
+            dateInput.value = \`\${yyyy}-\${mm}-\${dd}\`;
         }
 
         // Check for URL parameter service
@@ -1853,11 +2128,9 @@ function handleBook() {
             document.querySelectorAll('.service-select-card').forEach(c => {
                 if (c.getAttribute('data-service-name').toLowerCase() === preselectedService.toLowerCase()) {
                     document.querySelectorAll('.service-select-card').forEach(allC => {
-                        allC.classList.remove('border-primary', 'bg-primary/10');
-                        allC.classList.add('border-border', 'bg-card');
+                        allC.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
                     });
-                    c.classList.remove('border-border', 'bg-card');
-                    c.classList.add('border-primary', 'bg-primary/10');
+                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
                 }
             });
         }
@@ -1877,20 +2150,20 @@ function handleBook() {
             tabs.forEach((t, idx) => {
                 if (t) {
                     if (idx + 1 <= step) {
-                        t.className = 'h-1.5 bg-primary rounded-sm transition-all duration-300';
+                        t.className = 'h-1.5 bg-[#087DB5] rounded-full transition-all duration-300';
                     } else {
-                        t.className = 'h-1.5 bg-border rounded-sm transition-all duration-300';
+                        t.className = 'h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300';
                     }
                 }
             });
             labels.forEach((l, idx) => {
                 if (l) {
                     if (idx + 1 === step) {
-                        l.className = 'text-primary font-bold';
+                        l.className = 'text-[#BDEBFA] font-bold';
                     } else if (idx + 1 < step) {
-                        l.className = 'text-foreground font-semibold';
+                        l.className = 'text-white font-semibold';
                     } else {
-                        l.className = 'text-muted-foreground';
+                        l.className = 'text-[#D8F1FA]/60';
                     }
                 }
             });
@@ -1943,11 +2216,9 @@ function handleBook() {
         document.querySelectorAll('.service-select-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.service-select-card').forEach(c => {
-                    c.classList.remove('border-primary', 'bg-primary/10');
-                    c.classList.add('border-border', 'bg-card');
+                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
                 });
-                card.classList.remove('border-border', 'bg-card');
-                card.classList.add('border-primary', 'bg-primary/10');
+                card.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
                 const sName = card.getAttribute('data-service-name');
                 document.getElementById('selected-service-input').value = sName;
                 document.getElementById('review-srv').textContent = sName;
@@ -2022,67 +2293,68 @@ function renderStaffLayout(title, content, activeNav = 'dashboard') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0c0c0e; color: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background-color: #071F35; color: #f8fafc; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; font-weight: 800; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .status-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.2rem 0.55rem;
+            padding: 0.25rem 0.6rem;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.65rem;
             text-transform: uppercase;
             font-weight: 700;
             letter-spacing: 0.05em;
+            border-radius: 4px;
         }
-        .status-pending { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
-        .status-confirmed { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .status-in_progress { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
-        .status-completed { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .status-pending { background: rgba(250, 204, 21, 0.15); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35); }
+        .status-confirmed { background: rgba(8, 125, 181, 0.25); color: #BDEBFA; border: 1px solid rgba(189, 235, 250, 0.4); }
+        .status-in_progress { background: rgba(168, 85, 247, 0.2); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.4); }
+        .status-completed { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
     </style>
 </head>
-<body class="min-h-screen bg-[#0c0c0e] text-[#f1f5f9] flex flex-col antialiased">
+<body class="min-h-screen bg-[#071F35] text-white flex flex-col antialiased">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 border-r border-[#26262a] bg-[#141416] p-6 flex flex-col justify-between shrink-0">
+        <aside class="w-64 border-r border-[#BDEBFA]/20 bg-[#0B2B47] p-6 flex flex-col justify-between shrink-0 shadow-xl">
             <div>
                 <!-- Brand -->
                 <div class="flex items-center gap-3 mb-10">
-                    <div class="w-9 h-9 bg-[#DF1F40] text-white flex items-center justify-center font-extrabold text-base">N</div>
+                    <img src="/images/logo.png" alt="North Fork Auto" class="h-10 w-auto object-contain rounded bg-[#041321]/80 border border-[#BDEBFA]/25 p-1">
                     <div>
-                        <div class="font-extrabold text-sm tracking-wide">NORTH FORK AUTO</div>
-                        <div class="font-mono text-[10px] text-gray-400 uppercase">Staff Portal</div>
+                        <div class="font-heading font-extrabold text-sm tracking-wide text-white">NORTH FORK AUTO</div>
+                        <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Staff Portal</div>
                     </div>
                 </div>
 
                 <!-- Navigation -->
                 <nav class="space-y-1.5 font-mono text-xs">
-                    <a href="/staff/dashboard" class="flex items-center gap-3 px-3.5 py-2.5 transition-colors ${activeNav === 'dashboard' ? 'bg-[#DF1F40] text-white font-bold' : 'text-gray-400 hover:text-white hover:bg-[#1f1f23]'}">
+                    <a href="/staff/dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'dashboard' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                         Dashboard
                     </a>
-                    <a href="/staff/bookings" class="flex items-center gap-3 px-3.5 py-2.5 transition-colors ${activeNav === 'bookings' ? 'bg-[#DF1F40] text-white font-bold' : 'text-gray-400 hover:text-white hover:bg-[#1f1f23]'}">
+                    <a href="/staff/bookings" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'bookings' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
                         Bookings
                     </a>
-                    <a href="/staff/services" class="flex items-center gap-3 px-3.5 py-2.5 transition-colors ${activeNav === 'services' ? 'bg-[#DF1F40] text-white font-bold' : 'text-gray-400 hover:text-white hover:bg-[#1f1f23]'}">
+                    <a href="/staff/services" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'services' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                         Services
                     </a>
-                    <a href="/staff/settings" class="flex items-center gap-3 px-3.5 py-2.5 transition-colors ${activeNav === 'settings' ? 'bg-[#DF1F40] text-white font-bold' : 'text-gray-400 hover:text-white hover:bg-[#1f1f23]'}">
+                    <a href="/staff/settings" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'settings' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                         Settings &amp; Inbox
                     </a>
                 </nav>
             </div>
 
-            <div class="pt-6 border-t border-[#26262a] space-y-3">
-                <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-white">
+            <div class="pt-6 border-t border-[#BDEBFA]/15 space-y-3">
+                <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-[#D8F1FA]/70 hover:text-[#BDEBFA] transition-colors">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     Live Public Site
                 </a>
-                <a href="/staff/logout" class="flex items-center gap-2 text-xs font-mono text-red-400 hover:text-red-300">
+                <a href="/staff/logout" class="flex items-center gap-2 text-xs font-mono text-red-400 hover:text-red-300 transition-colors">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     Sign Out
                 </a>
@@ -2090,7 +2362,7 @@ function renderStaffLayout(title, content, activeNav = 'dashboard') {
         </aside>
 
         <!-- Main Body -->
-        <main class="flex-1 overflow-y-auto p-8 lg:p-12">
+        <main class="flex-1 overflow-y-auto p-8 lg:p-12 bg-[#071F35]">
             ${content}
         </main>
     </div>
@@ -2110,43 +2382,43 @@ function handleStaffLogin(res, errorMsg = '') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0a0a0c; color: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background: #071F35; color: #f1f5f9; }
         h1, h2, h3 { font-family: 'Sora', sans-serif; font-weight: 800; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6 bg-[#0a0a0c]">
-    <div class="w-full max-w-md bg-[#141416] border border-[#26262a] p-8 shadow-2xl">
-        <div class="flex items-center gap-3 mb-8">
-            <div class="w-10 h-10 bg-[#DF1F40] text-white flex items-center justify-center font-extrabold text-base">N</div>
+<body class="min-h-screen flex items-center justify-center p-6 bg-[#071F35]">
+    <div class="w-full max-w-md bg-[#0B2B47] border border-[#BDEBFA]/25 p-8 sm:p-10 rounded-xl shadow-2xl">
+        <div class="flex items-center gap-3.5 mb-8">
+            <img src="/images/logo.png" alt="North Fork Auto" class="h-11 w-auto object-contain rounded bg-[#041321] border border-[#BDEBFA]/25 p-1">
             <div>
-                <div class="font-extrabold text-base text-white">NORTH FORK AUTO</div>
-                <div class="font-mono text-[10px] text-gray-400 uppercase tracking-wider">Authorized Staff Portal</div>
+                <div class="font-heading font-extrabold text-base text-white">NORTH FORK AUTO</div>
+                <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Authorized Staff Portal</div>
             </div>
         </div>
 
         ${errorMsg ? `
-            <div class="mb-6 p-4 border border-red-500/40 bg-red-500/10 text-red-400 text-xs font-mono">
+            <div class="mb-6 p-4 border border-red-500/40 bg-red-500/10 text-red-400 text-xs font-mono rounded">
                 ${escapeHtml(errorMsg)}
             </div>
         ` : ''}
 
         <form action="/staff/login" method="POST" class="space-y-5">
             <div>
-                <label class="block font-mono text-xs uppercase text-gray-400 mb-1.5">Staff Email</label>
-                <input type="email" name="email" required value="admin@northforkauto.com" class="w-full bg-[#0a0a0c] border border-[#26262a] px-4 py-3 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-1.5">Staff Email</label>
+                <input type="email" name="email" required value="admin@northforkauto.com" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
             </div>
             <div>
-                <label class="block font-mono text-xs uppercase text-gray-400 mb-1.5">Password</label>
-                <input type="password" name="password" required placeholder="••••••••" class="w-full bg-[#0a0a0c] border border-[#26262a] px-4 py-3 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-1.5">Password</label>
+                <input type="password" name="password" required placeholder="••••••••" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
             </div>
-            <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+            <div class="flex items-center justify-between text-xs font-mono text-[#D8F1FA]/70">
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" name="remember" class="accent-[#DF1F40]"> Remember session
+                    <input type="checkbox" name="remember" class="accent-[#087DB5]"> Remember session
                 </label>
-                <a href="/" class="text-gray-400 hover:text-white">Public Site &rarr;</a>
+                <a href="/" class="text-[#D8F1FA]/70 hover:text-[#BDEBFA] transition-colors">Public Site &rarr;</a>
             </div>
-            <button type="submit" class="w-full bg-[#DF1F40] text-white py-3.5 font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#c41533] transition-colors">
+            <button type="submit" class="w-full bg-[#087DB5] text-white py-3.5 font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#0A92D4] transition-colors rounded shadow-lg shadow-[#087DB5]/30">
                 Sign In to Portal
             </button>
         </form>
@@ -2176,16 +2448,16 @@ function handleStaffDashboard(res) {
   const content = `
 <div>
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#26262a] mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Operations Dashboard</h1>
-            <p class="text-xs text-gray-400 mt-1 font-mono">Real-time shop metrics, bookings &amp; workflow</p>
+            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Real-time shop metrics, bookings &amp; workflow</p>
         </div>
         <div class="flex gap-3">
-            <a href="/staff/bookings" class="px-4 py-2.5 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533] transition-colors">
+            <a href="/staff/bookings" class="px-4 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors rounded shadow-md shadow-[#087DB5]/25">
                 + Manage Bookings
             </a>
-            <a href="/staff/services" class="px-4 py-2.5 border border-[#26262a] bg-[#141416] text-white text-xs font-mono uppercase hover:border-[#DF1F40] transition-colors">
+            <a href="/staff/services" class="px-4 py-2.5 border border-[#BDEBFA]/25 bg-[#0B2B47] text-white text-xs font-mono uppercase hover:border-[#BDEBFA] transition-colors rounded">
                 Services Catalog
             </a>
         </div>
@@ -2193,62 +2465,62 @@ function handleStaffDashboard(res) {
 
     <!-- Metric Cards Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
-        <div class="bg-[#141416] border border-[#26262a] p-5">
-            <div class="text-[11px] font-mono text-gray-400 uppercase tracking-wider">Total Bookings</div>
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-5 rounded-lg shadow-md">
+            <div class="text-[11px] font-mono text-[#D8F1FA]/70 uppercase tracking-wider">Total Bookings</div>
             <div class="text-3xl font-extrabold text-white mt-2">${bookings.length}</div>
-            <div class="text-[10px] text-gray-500 font-mono mt-1">All-time volume</div>
+            <div class="text-[10px] text-[#BDEBFA] font-mono mt-1">All-time volume</div>
         </div>
-        <div class="bg-[#141416] border border-amber-500/30 p-5">
-            <div class="text-[11px] font-mono text-amber-400 uppercase tracking-wider">Pending Action</div>
-            <div class="text-3xl font-extrabold text-amber-400 mt-2">${pendingCount}</div>
-            <div class="text-[10px] text-amber-500/80 font-mono mt-1">Requires confirmation</div>
+        <div class="bg-[#0B2B47] border border-amber-400/35 p-5 rounded-lg shadow-md">
+            <div class="text-[11px] font-mono text-amber-300 uppercase tracking-wider">Pending Action</div>
+            <div class="text-3xl font-extrabold text-amber-300 mt-2">${pendingCount}</div>
+            <div class="text-[10px] text-amber-400/80 font-mono mt-1">Requires confirmation</div>
         </div>
-        <div class="bg-[#141416] border border-blue-500/30 p-5">
-            <div class="text-[11px] font-mono text-blue-400 uppercase tracking-wider">Confirmed &amp; Active</div>
-            <div class="text-3xl font-extrabold text-blue-400 mt-2">${confirmedCount + inProgressCount}</div>
-            <div class="text-[10px] text-blue-500/80 font-mono mt-1">${inProgressCount} in progress</div>
+        <div class="bg-[#0B2B47] border border-[#087DB5]/40 p-5 rounded-lg shadow-md">
+            <div class="text-[11px] font-mono text-[#BDEBFA] uppercase tracking-wider">Confirmed &amp; Active</div>
+            <div class="text-3xl font-extrabold text-[#BDEBFA] mt-2">${confirmedCount + inProgressCount}</div>
+            <div class="text-[10px] text-[#D8F1FA]/70 font-mono mt-1">${inProgressCount} in progress</div>
         </div>
-        <div class="bg-[#141416] border border-emerald-500/30 p-5">
-            <div class="text-[11px] font-mono text-emerald-400 uppercase tracking-wider">Completed Jobs</div>
-            <div class="text-3xl font-extrabold text-emerald-400 mt-2">${completedCount}</div>
-            <div class="text-[10px] text-emerald-500/80 font-mono mt-1">Ready for pickup</div>
+        <div class="bg-[#0B2B47] border border-emerald-400/35 p-5 rounded-lg shadow-md">
+            <div class="text-[11px] font-mono text-emerald-300 uppercase tracking-wider">Completed Jobs</div>
+            <div class="text-3xl font-extrabold text-emerald-300 mt-2">${completedCount}</div>
+            <div class="text-[10px] text-emerald-400/80 font-mono mt-1">Ready for pickup</div>
         </div>
     </div>
 
     <!-- Secondary Stats -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div class="bg-[#141416] border border-[#26262a] p-6 flex items-center justify-between">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-gray-400 uppercase">Active Catalog Services</div>
+                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Active Catalog Services</div>
                 <div class="text-2xl font-extrabold text-white mt-1">${activeServicesCount}</div>
             </div>
-            <div class="text-xs font-mono text-gray-500">${inactiveServicesCount} hidden</div>
+            <div class="text-xs font-mono text-[#D8F1FA]/50">${inactiveServicesCount} hidden</div>
         </div>
-        <div class="bg-[#141416] border border-[#26262a] p-6 flex items-center justify-between">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-gray-400 uppercase">Customer Inquiries</div>
+                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Customer Inquiries</div>
                 <div class="text-2xl font-extrabold text-white mt-1">${messages.length}</div>
             </div>
-            <a href="/staff/settings" class="text-xs font-mono text-[#DF1F40] hover:underline">View Inbox &rarr;</a>
+            <a href="/staff/settings" class="text-xs font-mono text-[#BDEBFA] hover:underline font-bold">View Inbox &rarr;</a>
         </div>
-        <div class="bg-[#141416] border border-[#26262a] p-6 flex items-center justify-between">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-gray-400 uppercase">Cancelled Requests</div>
-                <div class="text-2xl font-extrabold text-gray-400 mt-1">${cancelledCount}</div>
+                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Cancelled Requests</div>
+                <div class="text-2xl font-extrabold text-[#D8F1FA]/60 mt-1">${cancelledCount}</div>
             </div>
-            <div class="text-xs font-mono text-gray-500">Archived</div>
+            <div class="text-xs font-mono text-[#D8F1FA]/50">Archived</div>
         </div>
     </div>
 
     <!-- Recent Bookings Table -->
-    <div class="border border-[#26262a] bg-[#141416]">
-        <div class="p-6 border-b border-[#26262a] flex items-center justify-between">
+    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
+        <div class="p-6 border-b border-[#BDEBFA]/15 flex items-center justify-between">
             <h2 class="text-lg font-bold text-white">Recent Customer Bookings</h2>
-            <a href="/staff/bookings" class="text-xs font-mono text-[#DF1F40] hover:underline">View Full Ledger &rarr;</a>
+            <a href="/staff/bookings" class="text-xs font-mono text-[#BDEBFA] hover:underline font-bold">View Full Ledger &rarr;</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#26262a] font-mono text-gray-400 bg-[#0e0e10]">
+                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
                     <tr>
                         <th class="p-4">Reference</th>
                         <th class="p-4">Customer</th>
@@ -2259,24 +2531,24 @@ function handleStaffDashboard(res) {
                         <th class="p-4 text-right">Quick Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#26262a]">
+                <tbody class="divide-y divide-[#BDEBFA]/10">
                     ${recentBookings.length === 0 ? `
-                        <tr><td colspan="7" class="p-8 text-center text-gray-500 font-mono">No bookings found in database.</td></tr>
+                        <tr><td colspan="7" class="p-8 text-center text-[#D8F1FA]/60 font-mono">No bookings found in database.</td></tr>
                     ` : recentBookings.map(b => `
-                        <tr class="hover:bg-[#1a1a1d] transition-colors">
-                            <td class="p-4 font-mono text-[#DF1F40] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
+                        <tr class="hover:bg-[#0E3557] transition-colors">
+                            <td class="p-4 font-mono text-[#BDEBFA] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
                             <td class="p-4">
                                 <div class="font-bold text-white">${escapeHtml(b.customer_name)}</div>
-                                <div class="text-[11px] text-gray-400 font-mono">${escapeHtml(b.customer_phone)}</div>
+                                <div class="text-[11px] text-[#D8F1FA]/70 font-mono">${escapeHtml(b.customer_phone)}</div>
                             </td>
-                            <td class="p-4 text-gray-300">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Standard'))}</td>
+                            <td class="p-4 text-[#D8F1FA]/90">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Standard'))}</td>
                             <td class="p-4 text-white font-medium">${escapeHtml(b.service_name)}</td>
-                            <td class="p-4 font-mono text-gray-300">${escapeHtml(b.preferred_date)} <span class="text-gray-500">${escapeHtml(b.preferred_time)}</span></td>
+                            <td class="p-4 font-mono text-[#D8F1FA]/90">${escapeHtml(b.preferred_date)} <span class="text-[#D8F1FA]/50">${escapeHtml(b.preferred_time)}</span></td>
                             <td class="p-4">
                                 <span class="status-badge status-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
                             </td>
                             <td class="p-4 text-right font-mono">
-                                <a href="/staff/bookings?search=${encodeURIComponent(b.booking_number || b.booking_reference)}" class="text-[#DF1F40] hover:underline font-bold">Edit / Manage</a>
+                                <a href="/staff/bookings?search=${encodeURIComponent(b.booking_number || b.booking_reference)}" class="text-[#BDEBFA] hover:underline font-bold">Edit / Manage</a>
                             </td>
                         </tr>
                     `).join('')}
@@ -2314,42 +2586,42 @@ function handleStaffBookings(res, reqUrl) {
   const content = `
 <div>
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#26262a] mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Bookings Management</h1>
-            <p class="text-xs text-gray-400 mt-1 font-mono">Create, review, update status, and manage shop schedule</p>
+            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Create, review, update status, and manage shop schedule</p>
         </div>
-        <button onclick="document.getElementById('modal-create-booking').classList.remove('hidden')" class="px-5 py-2.5 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533] transition-colors flex items-center gap-2">
+        <button onclick="document.getElementById('modal-create-booking').classList.remove('hidden')" class="px-5 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors flex items-center gap-2 rounded shadow-md shadow-[#087DB5]/25">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
             + Create Manual Booking
         </button>
     </div>
 
     <!-- Filters & Search Toolbar -->
-    <div class="bg-[#141416] border border-[#26262a] p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+    <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center rounded-lg shadow-sm">
         <!-- Status Tabs -->
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <a href="/staff/bookings?status=all${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'all' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">All (${(currentDb.bookings || []).length})</a>
-            <a href="/staff/bookings?status=pending${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'pending' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">Pending</a>
-            <a href="/staff/bookings?status=confirmed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'confirmed' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">Confirmed</a>
-            <a href="/staff/bookings?status=in_progress${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'in_progress' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">In Progress</a>
-            <a href="/staff/bookings?status=completed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'completed' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">Completed</a>
-            <a href="/staff/bookings?status=cancelled${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 border ${filterStatus === 'cancelled' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">Cancelled</a>
+            <a href="/staff/bookings?status=all${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'all' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">All (${(currentDb.bookings || []).length})</a>
+            <a href="/staff/bookings?status=pending${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'pending' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Pending</a>
+            <a href="/staff/bookings?status=confirmed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'confirmed' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Confirmed</a>
+            <a href="/staff/bookings?status=in_progress${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'in_progress' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">In Progress</a>
+            <a href="/staff/bookings?status=completed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'completed' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Completed</a>
+            <a href="/staff/bookings?status=cancelled${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'cancelled' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Cancelled</a>
         </div>
 
         <!-- Search Input -->
         <form method="GET" action="/staff/bookings" class="flex gap-2 w-full md:w-auto">
             <input type="hidden" name="status" value="${escapeHtml(filterStatus)}">
-            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search customer, VIN, ref..." class="bg-[#0c0c0e] border border-[#26262a] px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#DF1F40] w-full md:w-64">
-            <button type="submit" class="px-4 py-1.5 bg-[#26262a] text-white text-xs font-mono hover:bg-[#323238]">Filter</button>
+            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search customer, VIN, ref..." class="bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#BDEBFA] rounded w-full md:w-64">
+            <button type="submit" class="px-4 py-1.5 bg-[#087DB5] text-white text-xs font-mono hover:bg-[#0A92D4] rounded">Filter</button>
         </form>
     </div>
 
     <!-- Bookings Table -->
-    <div class="border border-[#26262a] bg-[#141416]">
+    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#26262a] font-mono text-gray-400 bg-[#0e0e10]">
+                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
                     <tr>
                         <th class="p-4">Ref #</th>
                         <th class="p-4">Customer Details</th>
@@ -2360,34 +2632,34 @@ function handleStaffBookings(res, reqUrl) {
                         <th class="p-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#26262a]">
+                <tbody class="divide-y divide-[#BDEBFA]/10">
                     ${bookings.length === 0 ? `
-                        <tr><td colspan="7" class="p-12 text-center text-gray-500 font-mono">No matching bookings found.</td></tr>
+                        <tr><td colspan="7" class="p-12 text-center text-[#D8F1FA]/60 font-mono">No matching bookings found.</td></tr>
                     ` : bookings.map(b => `
-                        <tr class="hover:bg-[#1a1a1d] transition-colors">
-                            <td class="p-4 font-mono text-[#DF1F40] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
+                        <tr class="hover:bg-[#0E3557] transition-colors">
+                            <td class="p-4 font-mono text-[#BDEBFA] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
                             <td class="p-4">
                                 <div class="font-bold text-white text-sm">${escapeHtml(b.customer_name)}</div>
-                                <div class="text-gray-400 font-mono">${escapeHtml(b.customer_phone)}</div>
-                                <div class="text-gray-500 text-[11px] font-mono">${escapeHtml(b.customer_email)}</div>
+                                <div class="text-[#D8F1FA]/70 font-mono">${escapeHtml(b.customer_phone)}</div>
+                                <div class="text-[#D8F1FA]/50 text-[11px] font-mono">${escapeHtml(b.customer_email)}</div>
                             </td>
                             <td class="p-4">
-                                <div class="text-gray-200 font-medium">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Vehicle Not Specified'))}</div>
-                                ${b.vehicle_vin ? `<div class="text-[10px] text-gray-500 font-mono">VIN: ${escapeHtml(b.vehicle_vin)}</div>` : ''}
+                                <div class="text-[#D8F1FA]/90 font-medium">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Vehicle Not Specified'))}</div>
+                                ${b.vehicle_vin ? `<div class="text-[10px] text-[#D8F1FA]/50 font-mono">VIN: ${escapeHtml(b.vehicle_vin)}</div>` : ''}
                             </td>
                             <td class="p-4 text-white font-medium">${escapeHtml(b.service_name)}</td>
                             <td class="p-4 font-mono">
-                                <div class="text-gray-300">${escapeHtml(b.preferred_date)}</div>
-                                <div class="text-gray-500 text-[11px]">${escapeHtml(b.preferred_time)}</div>
+                                <div class="text-[#D8F1FA]/90">${escapeHtml(b.preferred_date)}</div>
+                                <div class="text-[#D8F1FA]/50 text-[11px]">${escapeHtml(b.preferred_time)}</div>
                             </td>
                             <td class="p-4">
                                 <span class="status-badge status-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
                             </td>
                             <td class="p-4 text-right space-x-2 font-mono">
-                                <button onclick="openEditBooking(${JSON.stringify(b).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#26262a] text-gray-300 hover:border-[#DF1F40] hover:text-white text-[11px]">
+                                <button onclick="openEditBooking(${JSON.stringify(b).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#BDEBFA]/25 text-[#D8F1FA] hover:border-[#BDEBFA] hover:text-white text-[11px] rounded">
                                     Edit
                                 </button>
-                                <button onclick="confirmDeleteBooking(${b.id}, '${escapeHtml(b.booking_number || b.booking_reference)}')" class="px-2.5 py-1.5 border border-red-900/50 text-red-400 hover:bg-red-500/20 text-[11px]">
+                                <button onclick="confirmDeleteBooking(${b.id}, '${escapeHtml(b.booking_number || b.booking_reference)}')" class="px-2.5 py-1.5 border border-red-500/40 text-red-400 hover:bg-red-500/20 text-[11px] rounded">
                                     Delete
                                 </button>
                             </td>
@@ -2399,47 +2671,47 @@ function handleStaffBookings(res, reqUrl) {
     </div>
 
     <!-- MODAL: Create Booking -->
-    <div id="modal-create-booking" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-[#141416] border border-[#26262a] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between border-b border-[#26262a] pb-4">
+    <div id="modal-create-booking" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
                 <h3 class="text-xl font-bold text-white">Create New Appointment</h3>
-                <button onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="text-gray-400 hover:text-white">&times;</button>
+                <button onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
             </div>
             <form action="/staff/bookings" method="POST" class="space-y-4">
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Customer Name *</label>
-                        <input type="text" name="customer_name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Customer Name *</label>
+                        <input type="text" name="customer_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Phone Number *</label>
-                        <input type="tel" name="customer_phone" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Phone Number *</label>
+                        <input type="tel" name="customer_phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Email Address *</label>
-                        <input type="email" name="customer_email" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Email Address *</label>
+                        <input type="email" name="customer_email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Requested Service *</label>
-                        <select name="service_name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Requested Service *</label>
+                        <select name="service_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                             ${services.map(s => `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)} (${escapeHtml(s.price || 'Quote')})</option>`).join('')}
                         </select>
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Vehicle Details *</label>
-                        <input type="text" name="vehicle_info" required placeholder="e.g. 2021 Subaru Outback" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Vehicle Details *</label>
+                        <input type="text" name="vehicle_info" required placeholder="e.g. 2021 Subaru Outback" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Preferred Date *</label>
-                        <input type="date" name="preferred_date" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Date *</label>
+                        <input type="date" name="preferred_date" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Preferred Time *</label>
-                        <select name="preferred_time" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Time *</label>
+                        <select name="preferred_time" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                             <option value="08:00 AM">08:00 AM</option>
                             <option value="09:00 AM">09:00 AM</option>
                             <option value="10:00 AM" selected>10:00 AM</option>
@@ -2451,67 +2723,67 @@ function handleStaffBookings(res, reqUrl) {
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Initial Status</label>
-                    <select name="status" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Initial Status</label>
+                    <select name="status" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                         <option value="pending">Pending</option>
                         <option value="confirmed" selected>Confirmed</option>
                         <option value="in_progress">In Progress</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Internal Staff Notes</label>
-                    <textarea name="internal_notes" rows="2" placeholder="e.g. Parts assigned to bay 2" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]"></textarea>
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Internal Staff Notes</label>
+                    <textarea name="internal_notes" rows="2" placeholder="e.g. Parts assigned to bay 2" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#26262a]">
-                    <button type="button" onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="px-4 py-2 border border-[#26262a] text-xs font-mono text-gray-400 hover:text-white">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533]">Save Booking</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
+                    <button type="button" onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Save Booking</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: Edit Booking -->
-    <div id="modal-edit-booking" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-[#141416] border border-[#26262a] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between border-b border-[#26262a] pb-4">
-                <h3 class="text-xl font-bold text-white">Edit Booking <span id="edit-modal-ref" class="text-[#DF1F40] font-mono font-normal"></span></h3>
-                <button onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="text-gray-400 hover:text-white">&times;</button>
+    <div id="modal-edit-booking" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
+                <h3 class="text-xl font-bold text-white">Edit Booking <span id="edit-modal-ref" class="text-[#BDEBFA] font-mono font-normal"></span></h3>
+                <button onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
             </div>
             <form id="form-edit-booking" method="POST" class="space-y-4">
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Customer Name *</label>
-                        <input type="text" id="edit-cust-name" name="customer_name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Customer Name *</label>
+                        <input type="text" id="edit-cust-name" name="customer_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Phone Number *</label>
-                        <input type="tel" id="edit-cust-phone" name="customer_phone" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Phone Number *</label>
+                        <input type="tel" id="edit-cust-phone" name="customer_phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Email Address *</label>
-                        <input type="email" id="edit-cust-email" name="customer_email" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Email Address *</label>
+                        <input type="email" id="edit-cust-email" name="customer_email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Requested Service *</label>
-                        <select id="edit-service" name="service_name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Requested Service *</label>
+                        <select id="edit-service" name="service_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                             ${services.map(s => `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`).join('')}
                         </select>
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Vehicle Details</label>
-                        <input type="text" id="edit-vehicle" name="vehicle_info" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Vehicle Details</label>
+                        <input type="text" id="edit-vehicle" name="vehicle_info" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Preferred Date</label>
-                        <input type="date" id="edit-date" name="preferred_date" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Date</label>
+                        <input type="date" id="edit-date" name="preferred_date" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Status Transition *</label>
-                        <select id="edit-status" name="status" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Status Transition *</label>
+                        <select id="edit-status" name="status" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
                             <option value="in_progress">In Progress</option>
@@ -2521,12 +2793,12 @@ function handleStaffBookings(res, reqUrl) {
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Internal Staff Notes</label>
-                    <textarea id="edit-notes" name="internal_notes" rows="3" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]"></textarea>
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Internal Staff Notes</label>
+                    <textarea id="edit-notes" name="internal_notes" rows="3" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#26262a]">
-                    <button type="button" onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="px-4 py-2 border border-[#26262a] text-xs font-mono text-gray-400 hover:text-white">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533]">Update Booking</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
+                    <button type="button" onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Update Booking</button>
                 </div>
             </form>
         </div>
@@ -2585,36 +2857,36 @@ function handleStaffServices(res, reqUrl) {
   const content = `
 <div>
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#26262a] mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Services Catalog</h1>
-            <p class="text-xs text-gray-400 mt-1 font-mono">Manage shop capabilities, pricing, and live website availability</p>
+            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Manage shop capabilities, pricing, and live website availability</p>
         </div>
-        <button onclick="document.getElementById('modal-create-service').classList.remove('hidden')" class="px-5 py-2.5 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533] transition-colors flex items-center gap-2">
+        <button onclick="document.getElementById('modal-create-service').classList.remove('hidden')" class="px-5 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors flex items-center gap-2 rounded shadow-md shadow-[#087DB5]/25">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
             + Add New Service
         </button>
     </div>
 
     <!-- Filter Bar -->
-    <div class="bg-[#141416] border border-[#26262a] p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+    <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center rounded-lg shadow-sm">
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <a href="/staff/services?category=all" class="px-3 py-1.5 border ${filterCat === 'all' ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">All Categories</a>
+            <a href="/staff/services?category=all" class="px-3 py-1.5 rounded border ${filterCat === 'all' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">All Categories</a>
             ${categories.map(c => `
-                <a href="/staff/services?category=${encodeURIComponent(c)}" class="px-3 py-1.5 border ${filterCat.toLowerCase() === c.toLowerCase() ? 'border-[#DF1F40] bg-[#DF1F40] text-white font-bold' : 'border-[#26262a] text-gray-400 hover:text-white'}">${escapeHtml(c)}</a>
+                <a href="/staff/services?category=${encodeURIComponent(c)}" class="px-3 py-1.5 rounded border ${filterCat.toLowerCase() === c.toLowerCase() ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">${escapeHtml(c)}</a>
             `).join('')}
         </div>
         <form method="GET" action="/staff/services" class="flex gap-2 w-full md:w-auto">
-            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search service..." class="bg-[#0c0c0e] border border-[#26262a] px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#DF1F40]">
-            <button type="submit" class="px-4 py-1.5 bg-[#26262a] text-white text-xs font-mono">Search</button>
+            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search service..." class="bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+            <button type="submit" class="px-4 py-1.5 bg-[#087DB5] text-white text-xs font-mono hover:bg-[#0A92D4] rounded">Search</button>
         </form>
     </div>
 
     <!-- Services Table -->
-    <div class="border border-[#26262a] bg-[#141416]">
+    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#26262a] font-mono text-gray-400 bg-[#0e0e10]">
+                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
                     <tr>
                         <th class="p-4">Service Name</th>
                         <th class="p-4">Category</th>
@@ -2624,33 +2896,33 @@ function handleStaffServices(res, reqUrl) {
                         <th class="p-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#26262a]">
+                <tbody class="divide-y divide-[#BDEBFA]/10">
                     ${services.map(s => `
-                        <tr class="hover:bg-[#1a1a1d] transition-colors">
+                        <tr class="hover:bg-[#0E3557] transition-colors">
                             <td class="p-4">
                                 <div class="font-bold text-white text-sm">${escapeHtml(s.name)}</div>
-                                <div class="text-gray-400 text-[11px] max-w-md truncate mt-0.5">${escapeHtml(s.description)}</div>
+                                <div class="text-[#D8F1FA]/70 text-[11px] max-w-md truncate mt-0.5">${escapeHtml(s.description)}</div>
                             </td>
-                            <td class="p-4 font-mono text-gray-300">${escapeHtml(s.category)}</td>
-                            <td class="p-4 font-mono text-primary font-bold text-sm">${escapeHtml(s.price || 'Custom Quote')}</td>
-                            <td class="p-4 font-mono text-gray-400">${s.duration_minutes || 60} mins</td>
+                            <td class="p-4 font-mono text-[#D8F1FA]/90">${escapeHtml(s.category)}</td>
+                            <td class="p-4 font-mono text-[#BDEBFA] font-bold text-sm">${escapeHtml(s.price || 'Custom Quote')}</td>
+                            <td class="p-4 font-mono text-[#D8F1FA]/70">${s.duration_minutes || 60} mins</td>
                             <td class="p-4">
                                 ${s.is_active ? `
-                                    <span class="inline-flex items-center px-2 py-0.5 font-mono text-[10px] font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Active &amp; Public</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 rounded">Active &amp; Public</span>
                                 ` : `
-                                    <span class="inline-flex items-center px-2 py-0.5 font-mono text-[10px] font-bold uppercase bg-red-500/15 text-red-400 border border-red-500/30">Disabled / Hidden</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-red-500/15 text-red-300 border border-red-500/30 rounded">Disabled / Hidden</span>
                                 `}
                             </td>
                             <td class="p-4 text-right space-x-2 font-mono">
                                 <form action="/staff/services/${s.id}/toggle" method="POST" class="inline">
-                                    <button type="submit" class="px-2.5 py-1.5 border ${s.is_active ? 'border-amber-500/40 text-amber-400 hover:bg-amber-500/10' : 'border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10'} text-[11px]">
+                                    <button type="submit" class="px-2.5 py-1.5 border ${s.is_active ? 'border-amber-400/40 text-amber-300 hover:bg-amber-400/10' : 'border-emerald-400/40 text-emerald-300 hover:bg-emerald-400/10'} text-[11px] rounded">
                                         ${s.is_active ? 'Disable' : 'Enable'}
                                     </button>
                                 </form>
-                                <button onclick="openEditService(${JSON.stringify(s).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#26262a] text-gray-300 hover:border-[#DF1F40] hover:text-white text-[11px]">
+                                <button onclick="openEditService(${JSON.stringify(s).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#BDEBFA]/25 text-[#D8F1FA] hover:border-[#BDEBFA] hover:text-white text-[11px] rounded">
                                     Edit
                                 </button>
-                                <button onclick="confirmDeleteService(${s.id}, '${escapeHtml(s.name)}')" class="px-2.5 py-1.5 border border-red-900/50 text-red-400 hover:bg-red-500/20 text-[11px]">
+                                <button onclick="confirmDeleteService(${s.id}, '${escapeHtml(s.name)}')" class="px-2.5 py-1.5 border border-red-500/40 text-red-400 hover:bg-red-500/20 text-[11px] rounded">
                                     Delete
                                 </button>
                             </td>
@@ -2662,68 +2934,68 @@ function handleStaffServices(res, reqUrl) {
     </div>
 
     <!-- MODAL: Create Service -->
-    <div id="modal-create-service" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-[#141416] border border-[#26262a] max-w-xl w-full p-6 sm:p-8 space-y-6">
-            <div class="flex items-center justify-between border-b border-[#26262a] pb-4">
+    <div id="modal-create-service" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
                 <h3 class="text-xl font-bold text-white">Add New Service</h3>
-                <button onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="text-gray-400 hover:text-white">&times;</button>
+                <button onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
             </div>
             <form action="/staff/services" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Service Name *</label>
-                    <input type="text" name="name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Service Name *</label>
+                    <input type="text" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Category *</label>
-                        <input type="text" name="category" required placeholder="e.g. Engine, Brakes" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Category *</label>
+                        <input type="text" name="category" required placeholder="e.g. Engine, Brakes" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Price</label>
-                        <input type="text" name="price" placeholder="e.g. $149.99 or Custom Quote" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Price</label>
+                        <input type="text" name="price" placeholder="e.g. $149.99 or Custom Quote" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Description *</label>
-                    <textarea name="description" rows="3" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]"></textarea>
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Description *</label>
+                    <textarea name="description" rows="3" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#26262a]">
-                    <button type="button" onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="px-4 py-2 border border-[#26262a] text-xs font-mono text-gray-400 hover:text-white">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533]">Create Service</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
+                    <button type="button" onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Create Service</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: Edit Service -->
-    <div id="modal-edit-service" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-        <div class="bg-[#141416] border border-[#26262a] max-w-xl w-full p-6 sm:p-8 space-y-6">
-            <div class="flex items-center justify-between border-b border-[#26262a] pb-4">
+    <div id="modal-edit-service" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
                 <h3 class="text-xl font-bold text-white">Edit Service</h3>
-                <button onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="text-gray-400 hover:text-white">&times;</button>
+                <button onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
             </div>
             <form id="form-edit-service" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Service Name *</label>
-                    <input type="text" id="edit-srv-name" name="name" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Service Name *</label>
+                    <input type="text" id="edit-srv-name" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Category *</label>
-                        <input type="text" id="edit-srv-cat" name="category" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Category *</label>
+                        <input type="text" id="edit-srv-cat" name="category" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-gray-400 mb-1">Price</label>
-                        <input type="text" id="edit-srv-price" name="price" class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Price</label>
+                        <input type="text" id="edit-srv-price" name="price" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-gray-400 mb-1">Description *</label>
-                    <textarea id="edit-srv-desc" name="description" rows="3" required class="w-full bg-[#0c0c0e] border border-[#26262a] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DF1F40]"></textarea>
+                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Description *</label>
+                    <textarea id="edit-srv-desc" name="description" rows="3" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#26262a]">
-                    <button type="button" onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="px-4 py-2 border border-[#26262a] text-xs font-mono text-gray-400 hover:text-white">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533]">Update Service</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
+                    <button type="button" onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Update Service</button>
                 </div>
             </form>
         </div>
@@ -2765,47 +3037,47 @@ function handleStaffSettings(res) {
 <div class="space-y-12">
     <!-- Shop Information -->
     <div>
-        <div class="border-b border-[#26262a] pb-4 mb-6">
+        <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
             <h1 class="text-2xl font-extrabold text-white">General Shop Settings</h1>
-            <p class="text-xs text-gray-400 mt-1 font-mono">Update shop contact numbers, physical location, and operating hours</p>
+            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Update shop contact numbers, physical location, and operating hours</p>
         </div>
-        <form action="/staff/settings" method="POST" class="bg-[#141416] border border-[#26262a] p-6 sm:p-8 max-w-3xl space-y-6">
+        <form action="/staff/settings" method="POST" class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 sm:p-8 max-w-3xl space-y-6 rounded-lg shadow-md">
             <div class="grid sm:grid-cols-2 gap-6">
                 <div>
-                    <label class="block font-mono text-xs uppercase text-gray-400 mb-2">Shop Name</label>
-                    <input type="text" name="shop_name" value="${escapeHtml(settings.shop_name || 'North Fork Auto')}" class="w-full bg-[#0c0c0e] border border-[#26262a] px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Shop Name</label>
+                    <input type="text" name="shop_name" value="${escapeHtml(settings.shop_name || 'North Fork Auto')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-mono text-xs uppercase text-gray-400 mb-2">Primary Phone</label>
-                    <input type="text" name="shop_phone" value="${escapeHtml(settings.shop_phone || '(907) 733-3030')}" class="w-full bg-[#0c0c0e] border border-[#26262a] px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Primary Phone</label>
+                    <input type="text" name="shop_phone" value="${escapeHtml(settings.shop_phone || '(907) 733-3030')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
             </div>
             <div class="grid sm:grid-cols-2 gap-6">
                 <div>
-                    <label class="block font-mono text-xs uppercase text-gray-400 mb-2">Contact Email</label>
-                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'info@northforkauto.com')}" class="w-full bg-[#0c0c0e] border border-[#26262a] px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Contact Email</label>
+                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'info@northforkauto.com')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
-                    <label class="block font-mono text-xs uppercase text-gray-400 mb-2">Physical Address</label>
-                    <input type="text" name="shop_address" value="${escapeHtml(settings.shop_address || 'Talkeetna Spur Road, Talkeetna, AK 99676')}" class="w-full bg-[#0c0c0e] border border-[#26262a] px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#DF1F40]">
+                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Physical Address</label>
+                    <input type="text" name="shop_address" value="${escapeHtml(settings.shop_address || 'Talkeetna Spur Road, Talkeetna, AK 99676')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
             </div>
             <div class="pt-4 flex justify-end">
-                <button type="submit" class="px-6 py-2.5 bg-[#DF1F40] text-white text-xs font-mono uppercase font-bold hover:bg-[#c41533]">Save Settings</button>
+                <button type="submit" class="px-6 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Save Settings</button>
             </div>
         </form>
     </div>
 
     <!-- Customer Inquiries Inbox -->
     <div>
-        <div class="border-b border-[#26262a] pb-4 mb-6">
+        <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
             <h2 class="text-xl font-bold text-white">Customer Inquiries Inbox (${messages.length})</h2>
-            <p class="text-xs text-gray-400 mt-1 font-mono">Inbound messages submitted through the public contact form</p>
+            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Inbound messages submitted through the public contact form</p>
         </div>
-        <div class="border border-[#26262a] bg-[#141416]">
+        <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
-                    <thead class="border-b border-[#26262a] font-mono text-gray-400 bg-[#0e0e10]">
+                    <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
                         <tr>
                             <th class="p-4">Sender</th>
                             <th class="p-4">Subject</th>
@@ -2813,18 +3085,18 @@ function handleStaffSettings(res) {
                             <th class="p-4">Received Date</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-[#26262a]">
+                    <tbody class="divide-y divide-[#BDEBFA]/10">
                         ${messages.length === 0 ? `
-                            <tr><td colspan="4" class="p-8 text-center text-gray-500 font-mono">No customer inquiries received yet.</td></tr>
+                            <tr><td colspan="4" class="p-8 text-center text-[#D8F1FA]/60 font-mono">No customer inquiries received yet.</td></tr>
                         ` : messages.map(m => `
-                            <tr class="hover:bg-[#1a1a1d]">
+                            <tr class="hover:bg-[#0E3557] transition-colors">
                                 <td class="p-4 font-bold text-white">
                                     <div>${escapeHtml(m.name || 'Anonymous')}</div>
-                                    <div class="text-[11px] text-gray-400 font-mono font-normal">${escapeHtml(m.email || '')} ${m.phone ? '· ' + escapeHtml(m.phone) : ''}</div>
+                                    <div class="text-[11px] text-[#D8F1FA]/70 font-mono font-normal">${escapeHtml(m.email || '')} ${m.phone ? '· ' + escapeHtml(m.phone) : ''}</div>
                                 </td>
-                                <td class="p-4 font-medium text-gray-200">${escapeHtml(m.subject || 'General Inquiry')}</td>
-                                <td class="p-4 text-gray-300 max-w-lg leading-relaxed">${escapeHtml(m.message || '')}</td>
-                                <td class="p-4 font-mono text-gray-400">${new Date(m.created_at).toLocaleDateString()}</td>
+                                <td class="p-4 font-medium text-[#BDEBFA]">${escapeHtml(m.subject || 'General Inquiry')}</td>
+                                <td class="p-4 text-[#D8F1FA]/90 max-w-lg leading-relaxed">${escapeHtml(m.message || '')}</td>
+                                <td class="p-4 font-mono text-[#D8F1FA]/60">${new Date(m.created_at).toLocaleDateString()}</td>
                             </tr>
                         `).join('')}
                     </tbody>

@@ -17,13 +17,13 @@
             theme: {
                 extend: {
                     colors: {
-                        background: 'hsl(240 6% 6%)',
-                        foreground: 'hsl(220 20% 98%)',
-                        card: { DEFAULT: 'hsl(240 5% 9%)', foreground: 'hsl(220 20% 98%)' },
-                        primary: { DEFAULT: 'hsl(349 77% 50%)', foreground: 'hsl(0 0% 100%)' },
-                        secondary: { DEFAULT: 'hsl(240 5% 13%)', foreground: 'hsl(220 20% 98%)' },
-                        muted: { DEFAULT: 'hsl(240 5% 13%)', foreground: 'hsl(217 13% 65%)' },
-                        border: 'hsl(215 19% 22%)'
+                        background: '#071F35',
+                        foreground: '#FFFFFF',
+                        card: { DEFAULT: '#0B2B47', foreground: '#FFFFFF' },
+                        primary: { DEFAULT: '#087DB5', foreground: '#FFFFFF' },
+                        secondary: { DEFAULT: '#0E3557', foreground: '#D8F1FA' },
+                        muted: { DEFAULT: '#0B2B47', foreground: '#94A3B8' },
+                        border: 'rgba(189,235,250,0.15)'
                     },
                     fontFamily: {
                         heading: ['Sora', 'sans-serif'],
@@ -35,9 +35,9 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: hsl(240 6% 6%); color: hsl(220 20% 98%); }
+        body { font-family: 'Inter', sans-serif; background: #071F35; color: #FFFFFF; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
-        .font-mono-data { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(349 77% 50%); }
+        .font-mono-data { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #BDEBFA; }
     </style>
     @stack('styles')
 </head>
@@ -46,8 +46,8 @@
     <aside id="admin-sidebar" class="w-full md:w-64 border-b md:border-b-0 md:border-r border-border bg-card/60 flex flex-col shrink-0">
         <div class="h-16 flex items-center justify-between px-6 border-b border-border">
             <a href="/admin" class="flex items-center gap-3">
-                <span class="flex items-center justify-center w-8 h-8 border-2 border-primary text-primary font-heading font-800 text-base leading-none">N</span>
-                <span class="font-heading font-800 text-sm tracking-tight">NFA Admin</span>
+                <img src="/images/logo.png" alt="North Fork Auto" class="h-8 object-contain">
+                <span class="font-heading font-800 text-sm tracking-tight text-white">NFA Admin</span>
             </a>
             <button id="admin-mobile-nav-toggle" class="md:hidden p-2 text-muted-foreground hover:text-foreground">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>

@@ -438,8 +438,9 @@
   "settings": {
     "shop_name": "North Fork Auto",
     "shop_phone": "(907) 733-3030",
-    "shop_secondary_phone": "+1 (907) 232-3859",
-    "shop_email": "info@northforkauto.com",
+    "shop_secondary_phone": "(907) 232-3859",
+    "after_hours_phone": "(907) 232-3859",
+    "shop_email": "titussr88@gmail.com",
     "shop_address": "Talkeetna Spur Road, Talkeetna, AK 99676",
     "hours_weekday": "8:00 AM – 5:00 PM",
     "hours_saturday": "By Appointment",

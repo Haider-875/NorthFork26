@@ -227,7 +227,9 @@ function getPreviousTopic(array $history): ?string {
 const SHOP_INFO = [
     'name'           => 'North Fork Auto',
     'phone'          => '(907) 733-3030',
+    'afterHoursPhone'=> '(907) 232-3859',
     'emergencyPhone' => '(907) 232-3859',
+    'email'          => 'titussr88@gmail.com',
     'hours'          => 'Monday through Friday, 8:00 AM – 5:00 PM',
     'weekend'        => 'Closed Saturday and Sunday',
     'location'       => 'Talkeetna Spur Road, Talkeetna, AK 99676',
@@ -635,7 +637,7 @@ if ($method === 'POST' && in_array($path, ['/api/chat', '/api/chatbot/chat', '/c
     }
     $contextSummary = !empty($contextLines) ? "\nActive Conversation Memory:\n" . implode("\n", $contextLines) . "\n" : "";
 
-    $systemPrompt = "You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, Emergency Towing: (907) 232-3859, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road). " .
+    $systemPrompt = "You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, After-Hours Calls: (907) 232-3859, Email: titussr88@gmail.com, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road). " .
                     $contextSummary .
                     "RULES:\n" .
                     "1. Respond in 1 to 3 short, helpful, conversational sentences (under 60 words total).\n" .

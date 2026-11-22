@@ -893,7 +893,7 @@
             </form>
 
             <div class="nfa-footer-note">
-                North Fork Auto · Talkeetna, AK · <a href="tel:9077333030">(907) 733-3030</a> · Emergency <a href="tel:9072323859">(907) 232-3859</a>
+                North Fork Auto · Talkeetna, AK · <a href="tel:9077333030">(907) 733-3030</a> · After-Hours <a href="tel:9072323859">(907) 232-3859</a> · <a href="mailto:titussr88@gmail.com">titussr88@gmail.com</a>
             </div>
         </div>
     </div>

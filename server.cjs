@@ -66,7 +66,7 @@ function checkChatRateLimit(sessionId, clientIp) {
 }
 
 // System prompt for Cloudflare Workers AI - Concise Automotive Service Advisor
-const NFA_SYSTEM_PROMPT = `You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, Emergency Towing: (907) 232-3859, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road).
+const NFA_SYSTEM_PROMPT = `You are the official AI Auto Service Advisor for North Fork Auto in Talkeetna, Alaska (Shop Phone: (907) 733-3030, After-Hours Calls: (907) 232-3859, Email: titussr88@gmail.com, Mon-Fri 8am-5pm, closed weekends, Location: Talkeetna Spur Road).
 Website: https://www.northforkauto.com/
 
 RULES:
@@ -81,7 +81,9 @@ RULES:
 const SHOP_INFO = {
   name: 'North Fork Auto',
   phone: '(907) 733-3030',
-  emergencyPhone: '+1 (907) 232-3859',
+  afterHoursPhone: '(907) 232-3859',
+  emergencyPhone: '(907) 232-3859',
+  email: 'titussr88@gmail.com',
   hours: 'Monday through Friday, 8:00 AM – 5:00 PM',
   weekend: 'Closed Saturday and Sunday',
   location: 'Talkeetna Spur Road, Talkeetna, AK 99676',
@@ -776,8 +778,9 @@ function initDatabase() {
     settings: {
       shop_name: 'North Fork Auto',
       shop_phone: '(907) 733-3030',
-      shop_secondary_phone: '+1 (907) 232-3859',
-      shop_email: 'info@northforkauto.com',
+      shop_secondary_phone: '(907) 232-3859',
+      after_hours_phone: '(907) 232-3859',
+      shop_email: 'titussr88@gmail.com',
       shop_address: 'Talkeetna Spur Road, Talkeetna, AK 99676',
       hours_weekday: '8:00 AM – 5:00 PM',
       hours_saturday: 'By Appointment',
@@ -1291,13 +1294,16 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
                         Talkeetna Spur Road, Talkeetna, AK 99676
                     </p>
                     <p class="text-xs text-[#D8F1FA]/80">
-                        <a href="mailto:info@northforkauto.com" class="hover:text-white transition">info@northforkauto.com</a>
+                        <a href="mailto:titussr88@gmail.com" class="hover:text-white transition">titussr88@gmail.com</a>
                     </p>
-                    <div class="pt-2">
-                        <a href="tel:9077333030" class="btn-navy-pill text-xs px-4 py-2 border border-[#BDEBFA]/30 bg-[#0B2B47] hover:bg-[#0E3557]">
+                    <div class="pt-2 space-y-2">
+                        <a href="tel:9077333030" class="btn-navy-pill text-xs px-4 py-2 border border-[#BDEBFA]/30 bg-[#0B2B47] hover:bg-[#0E3557] flex items-center gap-1.5 w-fit">
                             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                             <span>(907) 733-3030</span>
                         </a>
+                        <div class="text-[11px] text-[#D8F1FA]/80">
+                            <span class="text-[#BDEBFA] font-medium">After-Hours:</span> <a href="tel:9072323859" class="hover:text-white transition font-semibold">(907) 232-3859</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2340,8 +2346,18 @@ function handleContact() {
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     </div>
                     <div>
-                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Direct Phone</span>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Shop Phone</span>
                         <a href="tel:9077333030" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">(907) 733-3030</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">After-Hours Calls</span>
+                        <a href="tel:9072323859" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">(907) 232-3859</a>
                     </div>
                 </div>
                 
@@ -2361,7 +2377,7 @@ function handleContact() {
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Email Inquiries</span>
-                        <a href="mailto:info@northforkauto.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkauto.com</a>
+                        <a href="mailto:titussr88@gmail.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">titussr88@gmail.com</a>
                     </div>
                 </div>
             </div>
@@ -3640,7 +3656,7 @@ function handleStaffSettings(res) {
             <div class="grid sm:grid-cols-2 gap-6">
                 <div>
                     <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Contact Email</label>
-                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'info@northforkauto.com')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'titussr88@gmail.com')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
                 </div>
                 <div>
                     <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Physical Address</label>

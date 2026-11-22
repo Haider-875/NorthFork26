@@ -59,8 +59,18 @@
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     </div>
                     <div>
-                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Direct Phone</span>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Shop Phone</span>
                         <a href="tel:9077333030" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">(907) 733-3030</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">After-Hours Calls</span>
+                        <a href="tel:9072323859" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">(907) 232-3859</a>
                     </div>
                 </div>
                 
@@ -80,7 +90,7 @@
                     </div>
                     <div>
                         <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Email Inquiries</span>
-                        <a href="mailto:info@northforkauto.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkauto.com</a>
+                        <a href="mailto:titussr88@gmail.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">titussr88@gmail.com</a>
                     </div>
                 </div>
             </div>

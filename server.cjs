@@ -919,7 +919,7 @@ function escapeHtml(str) {
 // Global Public Layout - North Fork Auto Icy-Blue Brand System
 function renderLayout(title, description, content, activeNav = '') {
   return `<!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -934,17 +934,16 @@ function renderLayout(title, description, content, activeNav = '') {
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        background: '#071F35',
-                        foreground: '#FFFFFF',
+                        background: '#EBF7FD',
+                        foreground: '#071F35',
                         navy: {
                             DEFAULT: '#071F35',
                             surface: '#0B2B47',
@@ -964,34 +963,7 @@ function renderLayout(title, description, content, activeNav = '') {
                             DEFAULT: '#087DB5',
                             hover: '#0A92D4',
                             dark: '#065D88'
-                        },
-                        card: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
-                        },
-                        popover: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
-                        },
-                        primary: {
-                            DEFAULT: '#087DB5',
-                            foreground: '#FFFFFF'
-                        },
-                        secondary: {
-                            DEFAULT: '#0E3557',
-                            foreground: '#D8F1FA'
-                        },
-                        muted: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#94A3B8'
-                        },
-                        accent: {
-                            DEFAULT: '#BDEBFA',
-                            foreground: '#071F35'
-                        },
-                        border: 'rgba(189, 235, 250, 0.18)',
-                        input: 'rgba(189, 235, 250, 0.18)',
-                        ring: '#087DB5'
+                        }
                     },
                     fontFamily: {
                         heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -1015,62 +987,68 @@ function renderLayout(title, description, content, activeNav = '') {
         }
         body {
             font-family: var(--font-body);
-            background-color: #071F35;
-            color: #F8FAFC;
+            background: linear-gradient(180deg, #F0F9FE 0%, #D8F1FA 350px, #EBF8FD 100%);
+            color: #071F35;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-heading);
-            font-weight: 800;
+            color: #071F35;
         }
-        .font-mono-data {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #BDEBFA;
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(7, 31, 53, 0.05);
+            transition: all 0.25s ease;
         }
-        .btn-engine {
+        .frosted-card:hover {
+            border-color: #087DB5;
+            box-shadow: 0 10px 30px rgba(8, 125, 181, 0.12);
+            transform: translateY(-2px);
+        }
+        .btn-navy-pill {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            font-family: var(--font-heading);
+            background-color: #071F35;
+            color: #FFFFFF;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 6px;
+            border-radius: 9999px;
+            padding: 0.625rem 1.5rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(7, 31, 53, 0.15);
         }
-        .btn-engine:hover {
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(7, 31, 53, 0.25);
+        }
+        .btn-white-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #071F35;
+            border: 1.5px solid #071F35;
+            font-weight: 700;
+            border-radius: 9999px;
+            padding: 0.625rem 1.5rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-white-pill:hover {
+            background-color: #FFFFFF;
+            border-color: #087DB5;
+            color: #087DB5;
             transform: translateY(-1px);
         }
-        .btn-engine:active {
-            transform: translateY(0);
-        }
-        .btn-engine-primary {
-            background-color: #087DB5;
-            color: #FFFFFF;
-            box-shadow: 0 4px 16px rgba(8, 125, 181, 0.4);
-        }
-        .btn-engine-primary:hover {
-            background-color: #0A92D4;
-            box-shadow: 0 6px 24px rgba(189, 235, 250, 0.35);
-        }
-        .btn-engine-secondary {
-            border: 1px solid rgba(189, 235, 250, 0.3);
-            background-color: rgba(11, 43, 71, 0.7);
-            color: #FFFFFF;
-            backdrop-filter: blur(8px);
-        }
-        .btn-engine-secondary:hover {
-            border-color: #BDEBFA;
-            background-color: rgba(11, 43, 71, 0.95);
-            color: #BDEBFA;
-        }
         .section-pad {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
             max-width: 80rem;
             margin-left: auto;
             margin-right: auto;
@@ -1087,61 +1065,44 @@ function renderLayout(title, description, content, activeNav = '') {
                 padding-right: 2.5rem;
             }
         }
-        .icy-card {
-            background: #0B2B47;
-            border: 1px solid rgba(189, 235, 250, 0.18);
-            border-radius: 8px;
-            transition: all 0.25s ease;
-        }
-        .icy-card:hover {
-            border-color: rgba(189, 235, 250, 0.45);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(189, 235, 250, 0.1);
-        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-[#071F35] text-white">
-    <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#071F35]/95 backdrop-blur-md border-b border-[#BDEBFA]/20 shadow-lg shadow-black/20">
+<body class="min-h-screen flex flex-col antialiased">
+    <!-- Navbar (Matches Reference Header) -->
+    <header class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/85 backdrop-blur-md border-b border-[#BDEBFA]/80 shadow-sm">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3.5 group">
-                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 group-hover:border-[#BDEBFA] transition-all duration-200 shadow-sm bg-[#041321]/60 p-0.5">
-                    <div class="hidden sm:flex flex-col">
-                        <span class="font-heading font-800 text-lg tracking-tight text-white leading-none">
-                            North Fork Auto
-                        </span>
-                        <span class="font-mono-data text-[10px] mt-1 text-[#BDEBFA]/80">
-                            Talkeetna, Alaska
-                        </span>
-                    </div>
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
                 </a>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Home</a>
-                    <a href="/services" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'services' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Services</a>
-                    <a href="/about" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">About</a>
-                    <a href="/contact" class="text-sm font-medium tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#BDEBFA] font-bold border-b-2 border-[#087DB5] pb-0.5' : 'text-[#D8F1FA]/85 hover:text-[#BDEBFA]'}">Visit Us</a>
+                    <a href="/" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'home' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Home</a>
+                    <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 ${activeNav === 'services' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">
+                        Services
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="/about" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'about' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">About</a>
+                    <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'reviews' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Reviews</a>
+                    <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors ${activeNav === 'contact' ? 'text-[#087DB5] font-bold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]'}">Contact</a>
                 </nav>
 
-                <!-- Action Button -->
-                <div class="hidden md:flex items-center gap-5">
-                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA] hover:text-[#BDEBFA] transition-colors">
-                        <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <!-- Phone Pill Button -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="tel:9077333030" class="btn-navy-pill text-xs">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         (907) 733-3030
-                    </a>
-                    <a href="/book" class="btn-engine btn-engine-primary px-5 py-2.5 text-xs">
-                        Book Appointment
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="/book" class="btn-engine btn-engine-primary px-3 py-1.5 text-xs">
-                        Book
+                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs">
+                        Call
                     </a>
-                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#D8F1FA] hover:text-[#BDEBFA]">
+                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                     </button>
                 </div>
@@ -1149,104 +1110,45 @@ function renderLayout(title, description, content, activeNav = '') {
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA]/20 bg-[#071F35]/98 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-medium tracking-wide ${activeNav === 'home' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Home</a>
-            <a href="/services" class="block text-sm font-medium tracking-wide ${activeNav === 'services' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Services</a>
-            <a href="/about" class="block text-sm font-medium tracking-wide ${activeNav === 'about' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">About</a>
-            <a href="/contact" class="block text-sm font-medium tracking-wide ${activeNav === 'contact' ? 'text-[#BDEBFA] font-bold' : 'text-[#D8F1FA]'} hover:text-[#BDEBFA] py-1">Visit Us</a>
-            <div class="pt-4 border-t border-[#BDEBFA]/15 flex flex-col gap-3">
-                <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA]">
-                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    (907) 733-3030
-                </a>
-                <a href="/book" class="block btn-engine btn-engine-primary py-3 text-center text-xs">Book Appointment</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4">
+            <a href="/" class="block text-sm font-semibold ${activeNav === 'home' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Home</a>
+            <a href="/services" class="block text-sm font-semibold ${activeNav === 'services' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Services</a>
+            <a href="/about" class="block text-sm font-semibold ${activeNav === 'about' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">About</a>
+            <a href="/reviews" class="block text-sm font-semibold ${activeNav === 'reviews' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Reviews</a>
+            <a href="/contact" class="block text-sm font-semibold ${activeNav === 'contact' ? 'text-[#087DB5]' : 'text-[#071F35]'} py-1">Contact</a>
+            <div class="pt-4 border-t border-[#BDEBFA] flex flex-col gap-3">
+                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs">Call (907) 733-3030</a>
+                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs">Book Appointment</a>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pt-20">
+    <main class="flex-grow">
         ${content}
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-[#BDEBFA]/20 bg-[#041321] text-white mt-auto">
-        <div class="section-pad py-16">
-            <div class="grid gap-12 lg:grid-cols-4">
-                <div class="lg:col-span-1">
-                    <div class="flex items-center gap-3 mb-5">
-                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 shadow-sm bg-[#071F35]/80 p-1">
-                    </div>
-                    <p class="text-sm text-[#D8F1FA]/80 leading-relaxed mb-5">
-                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, certified workmanship, and dependable care built for Alaskan roads.
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </a>
-                    </div>
-                </div>
+    <!-- Footer (Matches Reference Footer) -->
+    <footer class="bg-[#071F35] text-white py-8 border-t border-[#BDEBFA]/20 mt-auto">
+        <div class="section-pad flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <img src="/images/logo.png" alt="North Fork Automotive" class="h-9 w-auto brightness-0 invert opacity-90 object-contain">
+            </div>
 
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Contact</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li>
-                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-                                <span>Talkeetna Spur Road, Talkeetna, AK 99676</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+19077333030" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                                <span>(907) 733-3030</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                                <span>info@northforkauto.com</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Hours</h3>
-                    <ul class="space-y-1">
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Monday – Friday</span>
-                            <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
-                        </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Saturday</span>
-                            <span class="font-mono-data text-white">By Appointment</span>
-                        </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Sunday</span>
-                            <span class="font-mono-data text-white">Closed</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Quick Links</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="/" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Home</a></li>
-                        <li><a href="/services" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Services Catalog</a></li>
-                        <li><a href="/about" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">About North Fork Auto</a></li>
-                        <li><a href="/contact" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Visit Us / Contact</a></li>
-                        <li><a href="/book" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Book Appointment</a></li>
-                    </ul>
+            <div class="text-center text-xs text-[#D8F1FA]/80 flex flex-col sm:flex-row items-center gap-4">
+                <span>© 2025 North Fork Automotive. All rights reserved.</span>
+                <div class="flex items-center gap-3">
+                    <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
+                    <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
                 </div>
             </div>
 
-            <div class="mt-12 pt-6 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#D8F1FA]/70">
-                <p>© ${new Date().getFullYear()} North Fork Auto. All rights reserved.</p>
-                <p class="font-mono-data text-[#BDEBFA]">Talkeetna, Alaska · Locally Owned &amp; Operated</p>
+            <div>
+                <a href="tel:9077333030" class="inline-flex items-center gap-2 bg-[#0B2B47] text-white border border-[#BDEBFA]/30 hover:border-[#BDEBFA] px-4 py-1.5 rounded-full text-xs font-bold transition">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>(907) 733-3030</span>
+                </a>
             </div>
         </div>
     </footer>
@@ -1274,573 +1176,584 @@ function renderLayout(title, description, content, activeNav = '') {
 function handleHome() {
   const currentDb = getDb();
   const services = currentDb.services.filter(s => s.is_active);
-  const featured = services.filter(s => s.is_featured).slice(0, 8);
 
   const heroHtml = `
-<section class="relative min-h-[92svh] flex flex-col justify-between overflow-hidden">
-    <!-- Alaskan Background Image -->
-    <img src="/images/hero.jpg" alt="North Fork Automotive Workshop & Alaskan Terrain" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out">
-    
-    <!-- Gradient Overlays with Icy Atmosphere -->
-    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35] via-[#071F35]/90 to-[#071F35]/40"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-[#071F35]/70"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#BDEBFA]/10 via-transparent to-transparent pointer-events-none"></div>
-    
-    <div class="relative section-pad pt-36 pb-20 flex-1 flex flex-col justify-center">
-        <div class="max-w-3xl">
-            <div class="font-mono-data flex items-center gap-3 mb-6 text-[#BDEBFA]">
-                <span class="h-px w-10 bg-[#BDEBFA]"></span>
-                <span class="tracking-widest text-[11px] font-bold">TALKEETNA, ALASKA · AUTO REPAIR EXPERTS</span>
-            </div>
-            
-            <h1 class="font-heading font-800 text-4xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white">
-                Trusted Auto Repair.<br>
-                <span class="text-[#BDEBFA] drop-shadow-[0_0_25px_rgba(189,235,250,0.35)]">Quality Service.</span><br>
-                Every Time.
+<!-- SECTION 1: HOMEPAGE HERO (EXACT MATCH TO REFERENCE SCREENSHOT) -->
+<section class="section-pad pt-8 pb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <!-- Left Column: Brand Lockup & CTAs -->
+        <div class="lg:col-span-5 flex flex-col justify-center">
+            <h1 class="text-[#071F35] font-extrabold uppercase tracking-tight leading-none text-4xl sm:text-5xl lg:text-[3.5rem]">
+                <span class="block">North Fork</span>
+                <span class="block mt-1">Automotive</span>
             </h1>
             
-            <p class="mt-6 text-base sm:text-xl text-[#D8F1FA]/85 leading-relaxed max-w-2xl font-normal">
-                From precision computerized diagnostics to complex brake, engine, and harsh-climate maintenance — North Fork Auto provides honest, master-certified automotive care for drivers across Talkeetna and the Mat-Su Valley.
-            </p>
-            
-            <!-- Live Open/Closed Status Pill -->
-            <div class="mt-8 icy-card px-6 py-4 max-w-2xl bg-[#0B2B47]/85 backdrop-blur-md border border-[#BDEBFA]/25 shadow-xl">
-                <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
-                    <div class="flex items-center gap-2.5">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span class="font-heading font-700 text-white">Currently Open For Service</span>
-                    </div>
-                    <span class="font-mono-data text-[#BDEBFA] font-medium">Mon – Fri 8:00 AM – 5:00 PM</span>
-                </div>
+            <div class="flex items-center gap-3 my-4">
+                <span class="h-0.5 w-10 bg-[#071F35]"></span>
+                <span class="font-bold text-xs uppercase tracking-widest text-[#071F35]">Talkeetna, AK</span>
+                <span class="h-0.5 w-10 bg-[#071F35]"></span>
             </div>
             
-            <!-- CTA Buttons -->
-            <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <a href="/book" class="btn-engine btn-engine-primary px-8 py-4 text-sm font-bold">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
-                    Book an Appointment
+            <h2 class="text-xl sm:text-2xl font-bold italic text-[#071F35] mb-3 leading-snug">
+                Reliable Auto Repair in Talkeetna - Alaska
+            </h2>
+            
+            <p class="text-sm sm:text-base text-[#334E68] leading-relaxed mb-8 max-w-md">
+                Honest answers, quality workmanship, and a team that cares.
+            </p>
+            
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="/book" class="btn-navy-pill text-sm px-6 py-3">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>Book Your Appointment</span>
                 </a>
-                <a href="tel:+19077333030" class="btn-engine btn-engine-secondary px-8 py-4 text-sm">
-                    <svg class="w-4 h-4 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call (907) 733-3030
+                <a href="tel:9077333030" class="btn-white-pill text-sm px-6 py-3">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>Call (907) 733-3030</span>
                 </a>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Trust Indicators Bar -->
-<div class="border-y border-[#BDEBFA]/20 bg-[#041321]/90">
-    <div class="section-pad py-7">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="flex items-center gap-3.5">
-                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">01</span>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-white">ASE Certified</h3>
-                    <p class="text-xs text-[#D8F1FA]/70">Master Level Techs</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-3.5">
-                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">02</span>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-white">OEM Diagnostics</h3>
-                    <p class="text-xs text-[#D8F1FA]/70">Dealer-Grade Scanners</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-3.5">
-                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">03</span>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-white">Warranty Backed</h3>
-                    <p class="text-xs text-[#D8F1FA]/70">Parts &amp; Labor Protected</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-3.5">
-                <span class="font-mono-data text-sm font-bold text-[#BDEBFA] px-2 py-1 bg-[#087DB5]/20 border border-[#BDEBFA]/30 rounded">04</span>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-white">Alaskan Proven</h3>
-                    <p class="text-xs text-[#D8F1FA]/70">Winterized Care</p>
-                </div>
+        
+        <!-- Right Column: Truck & Mountain Photograph -->
+        <div class="lg:col-span-7">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA] group">
+                <img src="/images/hero-truck-mountains.jpg" alt="Dark-blue pickup truck parked on wet reflective ice in front of Alaskan snow-covered mountain range" class="w-full h-auto max-h-[460px] object-cover object-center group-hover:scale-102 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/20 via-transparent to-transparent pointer-events-none"></div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Featured Capabilities / Services Section -->
-<section class="section-pad py-24">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-            <div class="font-mono-data flex items-center gap-2 mb-3 text-[#BDEBFA]">
-                <span class="h-px w-6 bg-[#BDEBFA]"></span>
-                <span>OUR CAPABILITIES</span>
-            </div>
-            <h2 class="font-heading font-800 text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white">
-                Expert Auto Care For Alaskan Roads
-            </h2>
-        </div>
-        <a href="/services" class="btn-engine btn-engine-secondary px-6 py-3 text-xs shrink-0">
-            View All Services (${services.length})
-            <svg class="w-3.5 h-3.5 ml-1 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-    </div>
-
-    <!-- Service Grid with Icy Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        ${featured.map(s => `
-            <div class="icy-card p-7 flex flex-col justify-between group">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono-data text-[10px] text-[#BDEBFA] px-2 py-0.5 bg-[#087DB5]/20 rounded border border-[#BDEBFA]/20">${escapeHtml(s.category)}</span>
-                        <span class="font-mono-data text-xs text-[#BDEBFA] font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
-                    </div>
-                    <h3 class="font-heading font-700 text-lg text-white group-hover:text-[#BDEBFA] transition-colors">
-                        ${escapeHtml(s.name)}
-                    </h3>
-                    <p class="mt-3 text-xs text-[#D8F1FA]/75 leading-relaxed line-clamp-3">
-                        ${escapeHtml(s.description)}
-                    </p>
-                </div>
-                <div class="mt-8 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between">
-                    <span class="text-[11px] text-[#D8F1FA]/60 font-mono-data">~${s.duration_minutes || 60}m</span>
-                    <a href="/book?service=${encodeURIComponent(s.name)}" class="font-heading font-700 text-xs text-[#BDEBFA] hover:text-white uppercase tracking-wider flex items-center gap-1.5 transition-colors">
-                        Book
-                        <svg class="w-3 h-3 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </div>
-        `).join('')}
-    </div>
 </section>
 
-<!-- Built For Alaskan Conditions (Why Choose Us) -->
-<section class="border-y border-[#BDEBFA]/20 bg-[#041321] py-24">
-    <div class="section-pad">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div class="space-y-6">
-                <div class="font-mono-data flex items-center gap-2 text-[#BDEBFA]">
-                    <span class="h-px w-6 bg-[#BDEBFA]"></span>
-                    <span>WHY TALKEETNA CHOOSES US</span>
+<!-- SECTION 2: TRUST BAR (4 HORIZONTAL INDICATORS) -->
+<section class="section-pad my-4">
+    <div class="bg-[#D8F1FA]/85 backdrop-blur-md rounded-2xl border border-[#BDEBFA] py-5 px-6 shadow-sm">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:divide-x md:divide-[#BDEBFA]">
+            <div class="flex items-center gap-3.5 md:justify-center">
+                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
-                    Engineered For Alaskan Driving Demands
-                </h2>
-                <p class="text-sm sm:text-base text-[#D8F1FA]/80 leading-relaxed">
-                    Driving in Alaska isn't like anywhere else. Extreme freezing temperatures, gravel roads, heavy snow, and backcountry trails put unmatched stress on suspensions, brakes, batteries, and powertrains.
-                </p>
-                <div class="space-y-4 pt-2">
-                    <div class="flex items-start gap-4 p-4 icy-card">
-                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-700 text-sm text-white">Winterization &amp; Cold-Start Systems</h4>
-                            <p class="text-xs text-[#D8F1FA]/70 mt-1">Block heaters, high-CCA battery testing, and sub-zero synthetic fluids that perform when it hits -30°F.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 icy-card">
-                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-700 text-sm text-white">4WD, AWD &amp; Heavy-Duty Suspension</h4>
-                            <p class="text-xs text-[#D8F1FA]/70 mt-1">Transfer cases, differentials, tie-rods, and shocks inspected and rebuilt to handle rough gravel and frost heaves.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 icy-card">
-                        <div class="w-9 h-9 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-700 text-sm text-white">Clear Upfront Estimates &amp; Honest Advice</h4>
-                            <p class="text-xs text-[#D8F1FA]/70 mt-1">We show you what's safety-critical vs what can wait. No pressure tactics, hidden shop fees, or unexpected invoices.</p>
-                        </div>
-                    </div>
+                <div>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">ASE-Certified</h3>
+                    <p class="text-xs text-[#334E68]">Technicians</p>
                 </div>
             </div>
             
-            <div class="relative rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
-                <img src="/images/why-choose.jpg" alt="Alaskan automotive care and repair equipment" class="w-full h-[480px] object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-transparent"></div>
-                <div class="absolute bottom-6 left-6 right-6 p-6 icy-card bg-[#071F35]/90 backdrop-blur-md">
-                    <div class="flex items-center justify-between text-xs font-mono-data text-[#BDEBFA]">
-                        <span>TALKEETNA WORKSHOP FACILITY</span>
-                        <span>EST. LOCALLY OPERATED</span>
-                    </div>
-                    <div class="font-heading font-700 text-white text-base mt-1">Serving Talkeetna, Trapper Creek &amp; Mat-Su Drivers</div>
+            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
+                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Transparent</h3>
+                    <p class="text-xs text-[#334E68]">Estimates</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
+                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">12-Month / 12K-Mile</h3>
+                    <p class="text-xs text-[#334E68]">Warranty</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
+                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Locally Owned</h3>
+                    <p class="text-xs text-[#334E68]">&amp; Operated</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Workshop Spotlight Section -->
-<section class="section-pad py-24">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="order-2 lg:order-1 relative rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
-            <img src="/images/about-workshop.jpg" alt="North Fork Auto certified service bay" class="w-full h-[400px] object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-transparent to-transparent"></div>
-        </div>
-        <div class="order-1 lg:order-2 space-y-6">
-            <div class="font-mono-data flex items-center gap-2 text-[#BDEBFA]">
-                <span class="h-px w-6 bg-[#BDEBFA]"></span>
-                <span>MASTER DIAGNOSTICS &amp; WORKMANSHIP</span>
-            </div>
-            <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
-                Modern Technology. Old-School Integrity.
-            </h2>
-            <p class="text-sm sm:text-base text-[#D8F1FA]/80 leading-relaxed">
-                Our shop is outfitted with the latest scan tools, oscilloscope analyzers, and lift equipment to service all makes and models — from modern Ford, Chevy, Ram, and GMC trucks to Subaru, Toyota, and Honda daily drivers.
-            </p>
-            <div class="grid grid-cols-2 gap-4 pt-2">
-                <div class="icy-card p-4">
-                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">100%</div>
-                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Transparent Estimates</div>
-                </div>
-                <div class="icy-card p-4">
-                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">12 Mo</div>
-                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Warranty Protection</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Customer Reviews Section -->
-<section class="border-y border-[#BDEBFA]/20 bg-[#041321] py-20">
-    <div class="section-pad">
-        <div class="text-center max-w-2xl mx-auto mb-14">
-            <div class="font-mono-data flex items-center justify-center gap-2 mb-3 text-[#BDEBFA]">
-                <span class="h-px w-8 bg-[#BDEBFA]"></span>
-                <span>VERIFIED DRIVER EXPERIENCES</span>
-                <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            </div>
-            <h2 class="font-heading font-800 text-3xl sm:text-4xl text-white">
-                What Talkeetna Drivers Say
-            </h2>
-        </div>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="icy-card p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
-                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
-                        "Broke down on the Spur Road during sub-zero temps. North Fork Auto quickly diagnosed the alternator and got us back on the road the same day. Honest, fast, and fair pricing."
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
-                    <span class="font-heading font-700 text-white">Marcus T.</span>
-                    <span class="font-mono-data text-[#BDEBFA]">Talkeetna Resident</span>
-                </div>
-            </div>
-            <div class="icy-card p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
-                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
-                        "The best brake and suspension shop in the Mat-Su area. They showed me exactly which parts were worn and gave me options. My F-250 handles the gravel roads like new again."
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
-                    <span class="font-heading font-700 text-white">David K.</span>
-                    <span class="font-mono-data text-[#BDEBFA]">Mat-Su Valley</span>
-                </div>
-            </div>
-            <div class="icy-card p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex text-amber-400 gap-1 mb-3">★★★★★</div>
-                    <p class="text-xs text-[#D8F1FA]/85 leading-relaxed italic">
-                        "Having a trustworthy mechanic in Talkeetna is a lifesaver. Routine maintenance, fluid checks, and pre-winter inspections are always on time and professional."
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between text-xs">
-                    <span class="font-heading font-700 text-white">Sarah B.</span>
-                    <span class="font-mono-data text-[#BDEBFA]">Trapper Creek</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Direct Booking CTA Section -->
-<section class="section-pad py-20">
-    <div class="icy-card p-10 sm:p-16 text-center max-w-4xl mx-auto space-y-6 bg-gradient-to-br from-[#0B2B47] to-[#071F35] border border-[#BDEBFA]/30 shadow-2xl">
-        <div class="font-mono-data flex items-center justify-center gap-2 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>GET BACK ON THE ROAD</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-        </div>
-        <h2 class="font-heading font-800 text-3xl sm:text-5xl text-white">
-            Ready For Dependable Auto Service?
+<!-- SECTION 3: OUR SERVICES (4 CARDS LEFT, MECHANIC PHOTO RIGHT) -->
+<section class="section-pad py-16">
+    <div class="text-center mb-12">
+        <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— OUR SERVICES —</span>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-[#071F35] tracking-tight mt-1 mb-2">
+            Expert Auto Services
         </h2>
-        <p class="text-[#D8F1FA]/80 text-sm sm:text-base max-w-xl mx-auto">
-            Schedule your appointment online or call us directly. We provide transparent estimates, rapid turnaround, and master technician care.
+        <p class="text-sm sm:text-base text-[#334E68] max-w-xl mx-auto">
+            From diagnostics to major repairs, we've got you covered.
         </p>
-        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/book" class="btn-engine btn-engine-primary px-8 py-4 text-sm font-bold">
-                Book Service Appointment
-            </a>
-            <a href="tel:+19077333030" class="btn-engine btn-engine-secondary px-8 py-4 text-sm">
-                Call (907) 733-3030
-            </a>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- 4 Frosted Service Cards (Left) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- 1. Diagnostics -->
+            <div class="frosted-card p-6 flex flex-col items-center text-center">
+                <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Diagnostics</h3>
+                <p class="text-xs text-[#334E68] mb-4">Find the problem. Fast.</p>
+                <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Learn More →
+                </a>
+            </div>
+            
+            <!-- 2. Brake Repair -->
+            <div class="frosted-card p-6 flex flex-col items-center text-center">
+                <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3"/></svg>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Brake Repair</h3>
+                <p class="text-xs text-[#334E68] mb-4">Stop with confidence.</p>
+                <a href="/book?service=Brake%20System%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Learn More →
+                </a>
+            </div>
+            
+            <!-- 3. Oil & Filter Service -->
+            <div class="frosted-card p-6 flex flex-col items-center text-center">
+                <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">Oil &amp; Filter Service</h3>
+                <p class="text-xs text-[#334E68] mb-4">Keep your engine healthy.</p>
+                <a href="/book?service=Oil%20%26%20Filter%20Change" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Learn More →
+                </a>
+            </div>
+            
+            <!-- 4. General Auto Repair -->
+            <div class="frosted-card p-6 flex flex-col items-center text-center">
+                <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L7.757 7.757m0 0l2.829-2.829a3 3 0 114.242 4.242L12 12"/></svg>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-[#071F35] mb-1">General Auto Repair</h3>
+                <p class="text-xs text-[#334E68] mb-4">Get back on the road.</p>
+                <a href="/book?service=Preventive%20Maintenance" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                    Learn More →
+                </a>
+            </div>
+        </div>
+        
+        <!-- Photographic Mechanic Visual (Right) -->
+        <div class="lg:col-span-5">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA]">
+                <img src="/images/service-mechanic-engine.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[360px] object-cover object-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/25 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP PHOTO, STORY, 4 BADGES) -->
+<section class="section-pad py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Workshop Exterior Photo (Left - 4 cols) -->
+        <div class="lg:col-span-4">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA]">
+                <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop Exterior in Talkeetna, Alaska" class="w-full h-[320px] object-cover object-center">
+            </div>
+        </div>
+        
+        <!-- Story & Description (Center - 5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">ABOUT NORTH FORK AUTOMOTIVE —</span>
+            <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35] tracking-tight leading-snug">
+                Your Trusted Auto Repair Shop in Talkeetna
+            </h2>
+            <p class="text-sm text-[#334E68] leading-relaxed">
+                We're committed to keeping you on the road. From diagnostics to major repairs, our experienced technicians deliver dependable service with transparent pricing and a 12-month / 12K-mile warranty.
+            </p>
+            <div class="pt-2">
+                <a href="/about" class="btn-navy-pill text-xs px-6 py-2.5">
+                    Learn More →
+                </a>
+            </div>
+        </div>
+        
+        <!-- 4 Badges Panel (Right - 3 cols) -->
+        <div class="lg:col-span-3">
+            <div class="bg-[#D8F1FA] border border-[#BDEBFA] rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Experienced Team</span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Quality Service</span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Fair Pricing</span>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Customer Focus</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 `;
 
-  return renderLayout('North Fork Auto | Trusted Auto Repair in Talkeetna, AK', 'Professional automotive repair and maintenance in Talkeetna, Alaska.', heroHtml, 'home');
+  return renderLayout('North Fork Automotive | Reliable Auto Repair in Talkeetna, Alaska', 'Honest answers, quality workmanship, and a team that cares in Talkeetna, AK.', heroHtml, 'home');
 }
 
 function handleServices() {
-  const currentDb = getDb();
-  const services = currentDb.services.filter(s => s.is_active);
-
   const content = `
-<div class="section-pad pt-32 pb-24">
-    <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>COMPLETE REPAIR &amp; MAINTENANCE</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-        </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
-            Our Automotive Services
+<!-- MOUNTAIN HERO BANNER (MATCHES TOP-RIGHT PANEL IN SCREENSHOT) -->
+<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
+    <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+            Our Services
         </h1>
-        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
-            From routine fluid changes to complex engine diagnostics, our certified technicians keep your vehicle running smoothly through harsh Alaskan conditions.
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
+            Professional Auto Care You Can Count On
         </p>
     </div>
+</section>
 
-    <!-- Grid of all services -->
+<!-- 6 SERVICE CARDS GRID -->
+<section class="section-pad py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        ${services.map(s => `
-            <div class="icy-card p-7 flex flex-col justify-between group">
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="font-mono-data text-[10px] text-[#BDEBFA] px-2 py-0.5 bg-[#087DB5]/20 rounded border border-[#BDEBFA]/20">${escapeHtml(s.category)}</span>
-                        <span class="font-mono-data text-xs text-[#BDEBFA] font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
-                    </div>
-                    <h3 class="font-heading font-700 text-lg text-white group-hover:text-[#BDEBFA] transition-colors mb-2">
-                        ${escapeHtml(s.name)}
-                    </h3>
-                    <p class="text-xs text-[#D8F1FA]/75 leading-relaxed mb-4">
-                        ${escapeHtml(s.description)}
-                    </p>
-                    ${s.symptoms && s.symptoms.length > 0 ? `
-                        <div class="border-t border-[#BDEBFA]/15 pt-3">
-                            <span class="text-[10px] font-mono-data text-[#BDEBFA] uppercase">Common Warning Signs:</span>
-                            <ul class="mt-1.5 space-y-1">
-                                ${s.symptoms.slice(0, 3).map(sym => `<li class="text-[11px] text-[#D8F1FA]/85 flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-[#087DB5] rounded-full shrink-0"></span> ${escapeHtml(sym)}</li>`).join('')}
-                            </ul>
-                        </div>
-                    ` : ''}
-                </div>
-                <div class="mt-6 pt-4 border-t border-[#BDEBFA]/15 flex items-center justify-between">
-                    <span class="text-[11px] text-[#D8F1FA]/60 font-mono-data">Duration: ~${s.duration_minutes || 60}m</span>
-                    <a href="/book?service=${encodeURIComponent(s.name)}" class="btn-engine btn-engine-primary px-4 py-2 text-xs">
-                        Book Now
-                    </a>
-                </div>
+        <!-- 1. Diagnostics -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
             </div>
-        `).join('')}
-    </div>
-
-    <!-- Warranty & Guarantee Banner -->
-    <div class="mt-16 icy-card p-8 bg-[#041321] border border-[#BDEBFA]/25 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded bg-[#087DB5]/25 border border-[#BDEBFA]/30 flex items-center justify-center shrink-0 text-[#BDEBFA]">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <div>
-                <h4 class="font-heading font-700 text-white text-base">All Services Backed By Warranty</h4>
-                <p class="text-xs text-[#D8F1FA]/70 mt-0.5">We stand behind every repair with our comprehensive parts and labor warranty protection.</p>
-            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Diagnostics</h3>
+            <p class="text-sm text-[#334E68] mb-6">Find the issue with precision.</p>
+            <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
         </div>
-        <a href="/contact" class="btn-engine btn-engine-secondary px-6 py-2.5 text-xs shrink-0">
-            Ask A Question
+        
+        <!-- 2. Brake Repair -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Brake Repair</h3>
+            <p class="text-sm text-[#334E68] mb-6">Drive safe, stop confident.</p>
+            <a href="/book?service=Brake%20System%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
+        </div>
+        
+        <!-- 3. Oil & Filter Service -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Oil &amp; Filter Service</h3>
+            <p class="text-sm text-[#334E68] mb-6">Keep your engine running smoothly.</p>
+            <a href="/book?service=Oil%20%26%20Filter%20Change" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
+        </div>
+        
+        <!-- 4. General Auto Repair -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L7.757 7.757m0 0l2.829-2.829a3 3 0 114.242 4.242L12 12"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">General Auto Repair</h3>
+            <p class="text-sm text-[#334E68] mb-6">From minor fixes to major repairs.</p>
+            <a href="/book?service=Preventive%20Maintenance" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
+        </div>
+        
+        <!-- 5. Engine Service -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Engine Service</h3>
+            <p class="text-sm text-[#334E68] mb-6">Boost performance and reliability.</p>
+            <a href="/book?service=Engine%20Diagnostics" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
+        </div>
+        
+        <!-- 6. Tire Services -->
+        <div class="frosted-card p-8 flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-5 shadow-sm">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v7m0 6v7m-10-8h7m6 0h7"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-[#071F35] mb-2">Tire Services</h3>
+            <p class="text-sm text-[#334E68] mb-6">Stay safe on any road.</p>
+            <a href="/book?service=Tire%20%26%20Wheel%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
+                Learn More →
+            </a>
+        </div>
+    </div>
+    
+    <!-- CTA BUTTON BANNER (MATCHES SCREENSHOT) -->
+    <div class="mt-12 text-center">
+        <a href="/book" class="inline-flex items-center gap-3 bg-[#071F35] text-white hover:bg-[#0B2B47] px-8 py-4 rounded-full font-bold text-sm shadow-xl transition">
+            <svg class="w-5 h-5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+            <span>Book Your Appointment Today →</span>
         </a>
     </div>
-</div>
+</section>
 `;
 
-  return renderLayout('Our Services', 'Complete automotive repair and maintenance services in Talkeetna, Alaska.', content, 'services');
+  return renderLayout('Our Services', 'Professional auto care you can count on in Talkeetna, Alaska.', content, 'services');
 }
 
 function handleAbout() {
   const content = `
-<div class="section-pad pt-32 pb-24">
-    <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>ABOUT NORTH FORK AUTO</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-        </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
-            Locally Owned. Alaskan Tested.
+<!-- MOUNTAIN HERO BANNER (MATCHES MIDDLE-RIGHT PANEL IN SCREENSHOT) -->
+<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
+    <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+            About Us
         </h1>
-        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
-            North Fork Auto is Talkeetna's premier independent auto care facility. We understand what it takes to keep vehicles running safely through Alaskan winters and rugged summer terrain.
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
+            Driven by Quality. Trusted by Talkeetna.
         </p>
     </div>
+</section>
 
-    <!-- Story & Values -->
-    <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
-        <div class="space-y-6">
-            <h2 class="font-heading font-800 text-2xl sm:text-3xl text-white">Our Story &amp; Workshop Standards</h2>
-            <p class="text-sm text-[#D8F1FA]/80 leading-relaxed">
-                Founded with a mission to deliver straightforward, trustworthy auto repairs to the Talkeetna community, North Fork Auto brings modern diagnostic technology and old-school honesty to every job.
+<!-- TWO-COLUMN CONTENT SECTION (MATCHES SCREENSHOT) -->
+<section class="section-pad py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Column: Our Story -->
+        <div class="lg:col-span-7 space-y-5">
+            <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35]">
+                Our Story
+            </h2>
+            <p class="text-sm sm:text-base text-[#334E68] leading-relaxed">
+                North Fork Automotive was built with a simple mission: to provide honest, reliable, and high-quality auto repair services to the Talkeetna community and beyond.
             </p>
-            <p class="text-sm text-[#D8F1FA]/80 leading-relaxed">
-                We believe in total transparency. When you bring your vehicle in, we thoroughly inspect it, explain what needs immediate attention versus what can wait, and provide clear upfront estimates before any work begins.
+            <p class="text-sm sm:text-base text-[#334E68] leading-relaxed">
+                We take pride in our work and treat every customer like family. Whether you're a year-round resident preparing for sub-zero weather or passing through on the Parks Highway, our certified technicians are dedicated to keeping you safe on the road.
             </p>
-            <div class="grid grid-cols-2 gap-4 pt-4">
-                <div class="icy-card p-4">
-                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">100%</div>
-                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Locally Owned &amp; Operated</div>
+            <div class="pt-3">
+                <a href="/book" class="btn-navy-pill text-xs px-6 py-2.5">
+                    Learn More →
+                </a>
+            </div>
+        </div>
+        
+        <!-- Right Column: 4 Checkmarks Card -->
+        <div class="lg:col-span-5">
+            <div class="frosted-card p-8 space-y-5 border-2 border-[#BDEBFA]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Experienced &amp; Certified Technicians</span>
                 </div>
-                <div class="icy-card p-4">
-                    <div class="font-heading font-800 text-2xl text-[#BDEBFA]">ASE</div>
-                    <div class="text-xs text-[#D8F1FA]/70 mt-1 font-mono-data">Certified Technicians</div>
+                
+                <div class="flex items-center gap-3.5">
+                    <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Transparent Pricing</span>
+                </div>
+                
+                <div class="flex items-center gap-3.5">
+                    <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">12-Month / 12K-Mile Warranty</span>
+                </div>
+                
+                <div class="flex items-center gap-3.5">
+                    <div class="w-7 h-7 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <span class="font-heading font-bold text-sm text-[#071F35]">Locally Owned &amp; Operated</span>
                 </div>
             </div>
         </div>
-        <div class="rounded-lg overflow-hidden border border-[#BDEBFA]/25 shadow-2xl">
-            <img src="/images/about-workshop.jpg" alt="North Fork Auto Workshop" class="w-full h-88 object-cover">
-        </div>
     </div>
-
-    <!-- Pillars Grid -->
-    <div class="grid md:grid-cols-3 gap-6">
-        <div class="icy-card p-6 space-y-3">
-            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 01</div>
-            <h3 class="font-heading font-700 text-white text-base">Alaskan Climate Readiness</h3>
-            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
-                We select fluids, belts, hoses, and batteries rated for sub-zero Arctic conditions, preventing costly roadside breakdowns during the deepest winter chills.
-            </p>
-        </div>
-        <div class="icy-card p-6 space-y-3">
-            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 02</div>
-            <h3 class="font-heading font-700 text-white text-base">Dealer-Grade Equipment</h3>
-            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
-                We invest in computerized factory scan tools that read proprietary codes and calibration protocols for all major truck, SUV, and passenger brands.
-            </p>
-        </div>
-        <div class="icy-card p-6 space-y-3">
-            <div class="font-mono-data text-[#BDEBFA] text-xs">PILLAR 03</div>
-            <h3 class="font-heading font-700 text-white text-base">Community Commitment</h3>
-            <p class="text-xs text-[#D8F1FA]/75 leading-relaxed">
-                As a local Talkeetna business, our reputation is everything. We treat every customer like our neighbor, because in Talkeetna, you truly are.
-            </p>
-        </div>
-    </div>
-</div>
+</section>
 `;
 
-  return renderLayout('About Us', 'Learn about North Fork Auto and our commitment to Talkeetna drivers.', content, 'about');
+  return renderLayout('About Us', 'Driven by quality. Trusted by Talkeetna.', content, 'about');
+}
+
+function handleReviews() {
+  const content = `
+<!-- MOUNTAIN HERO BANNER -->
+<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
+    <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+            Customer Reviews
+        </h1>
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
+            What Talkeetna Drivers Say About North Fork Automotive
+        </p>
+    </div>
+</section>
+
+<!-- REVIEWS GRID -->
+<section class="section-pad py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="frosted-card p-6 flex flex-col justify-between">
+            <div>
+                <div class="text-amber-400 text-lg mb-2">★★★★★</div>
+                <p class="text-xs text-[#334E68] leading-relaxed italic">
+                    "Broke down on the Spur Road during sub-zero temps. North Fork Auto quickly diagnosed the alternator and got us back on the road the same day. Honest, fast, and fair pricing."
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#BDEBFA] flex items-center justify-between text-xs">
+                <span class="font-heading font-bold text-[#071F35]">Marcus T.</span>
+                <span class="text-[#087DB5] font-semibold">Talkeetna Resident</span>
+            </div>
+        </div>
+        
+        <div class="frosted-card p-6 flex flex-col justify-between">
+            <div>
+                <div class="text-amber-400 text-lg mb-2">★★★★★</div>
+                <p class="text-xs text-[#334E68] leading-relaxed italic">
+                    "The best brake and suspension shop in the Mat-Su area. They showed me exactly which parts were worn and gave me options. My F-250 handles the gravel roads like new again."
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#BDEBFA] flex items-center justify-between text-xs">
+                <span class="font-heading font-bold text-[#071F35]">David K.</span>
+                <span class="text-[#087DB5] font-semibold">Mat-Su Valley</span>
+            </div>
+        </div>
+        
+        <div class="frosted-card p-6 flex flex-col justify-between">
+            <div>
+                <div class="text-amber-400 text-lg mb-2">★★★★★</div>
+                <p class="text-xs text-[#334E68] leading-relaxed italic">
+                    "Having a trustworthy mechanic in Talkeetna is a lifesaver. Routine maintenance, fluid checks, and pre-winter inspections are always on time and professional."
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[#BDEBFA] flex items-center justify-between text-xs">
+                <span class="font-heading font-bold text-[#071F35]">Sarah B.</span>
+                <span class="text-[#087DB5] font-semibold">Trapper Creek</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-12 text-center">
+        <a href="/book" class="btn-navy-pill text-sm px-8 py-3.5">
+            Book Your Appointment Today →
+        </a>
+    </div>
+</section>
+`;
+
+  return renderLayout('Customer Reviews', 'What Talkeetna drivers say about North Fork Automotive.', content, 'reviews');
 }
 
 function handleContact() {
   const content = `
-<div class="section-pad pt-32 pb-24">
-    <div class="max-w-4xl mx-auto mb-16 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>VISIT US IN TALKEETNA</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-        </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
-            Contact &amp; Location
+<!-- MOUNTAIN HERO BANNER (MATCHES BOTTOM-RIGHT PANEL IN SCREENSHOT) -->
+<section class="relative bg-[#071F35] text-white overflow-hidden py-16 sm:py-20">
+    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
+    <div class="relative section-pad text-center max-w-3xl mx-auto">
+        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
+            Contact Us
         </h1>
-        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
-            Conveniently located off the Talkeetna Spur Road. Drop by during shop hours or send us a message below.
+        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium">
+            We're Here to Help
         </p>
     </div>
+</section>
 
-    <div class="grid md:grid-cols-2 gap-12">
-        <!-- Contact Information -->
-        <div class="space-y-8">
-            <div class="icy-card p-8 space-y-6">
-                <h3 class="font-heading font-700 text-xl text-white">Shop Details</h3>
-                <div class="space-y-5 text-sm">
-                    <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-                        <div>
-                            <strong class="text-white block font-heading">Address</strong>
-                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="text-[#D8F1FA]/80 hover:text-[#BDEBFA] transition-colors">Talkeetna Spur Road, Talkeetna, AK 99676</a>
-                        </div>
+<!-- TWO-COLUMN CONTENT SECTION (MATCHES SCREENSHOT) -->
+<section class="section-pad py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <!-- Left Column: Contact Info Cards -->
+        <div class="lg:col-span-5 space-y-6">
+            <div class="frosted-card p-8 space-y-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     </div>
-                    <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        <div>
-                            <strong class="text-white block font-heading">Direct Phone</strong>
-                            <a href="tel:+19077333030" class="text-[#BDEBFA] hover:underline font-mono">(907) 733-3030</a>
-                            <span class="text-xs text-[#D8F1FA]/60 block mt-0.5">Alt: (907) 232-3859</span>
-                        </div>
+                    <div>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Direct Phone</span>
+                        <a href="tel:9077333030" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">(907) 733-3030</a>
                     </div>
-                    <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        <div>
-                            <strong class="text-white block font-heading">Email Inquiries</strong>
-                            <a href="mailto:info@northforkauto.com" class="text-[#BDEBFA] hover:underline font-mono">info@northforkauto.com</a>
-                        </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Shop Location</span>
+                        <span class="font-heading font-bold text-base text-[#071F35]">Talkeetna, AK</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block">Email Inquiries</span>
+                        <a href="mailto:info@northforkautomotive.com" class="font-heading font-bold text-base text-[#071F35] hover:text-[#087DB5] transition">info@northforkautomotive.com</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Operating Hours Card -->
-            <div class="icy-card p-8 space-y-4">
-                <h3 class="font-heading font-700 text-xl text-white">Operating Hours</h3>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
-                        <span class="text-[#D8F1FA]/80">Monday – Friday</span>
-                        <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
-                    </li>
-                    <li class="flex justify-between py-2 border-b border-[#BDEBFA]/15">
-                        <span class="text-[#D8F1FA]/80">Saturday</span>
-                        <span class="font-mono-data text-white">By Appointment</span>
-                    </li>
-                    <li class="flex justify-between py-2">
-                        <span class="text-[#D8F1FA]/80">Sunday</span>
-                        <span class="font-mono-data text-white">Closed</span>
-                    </li>
-                </ul>
+            
+            <div class="frosted-card p-6">
+                <span class="text-xs text-[#334E68] font-bold uppercase tracking-wider block mb-2">Shop Hours</span>
+                <p class="text-sm font-semibold text-[#071F35]">Monday – Friday: 8:00 AM – 5:00 PM</p>
+                <p class="text-xs text-[#334E68] mt-1">Saturday: By Appointment · Sunday: Closed</p>
             </div>
         </div>
-
-        <!-- Contact Form -->
-        <div class="icy-card p-6 sm:p-8">
-            <h3 class="font-heading font-700 text-xl text-white mb-2">Send an Inquiry</h3>
-            <p class="text-xs text-[#D8F1FA]/70 mb-6">Have a question about a diagnostic, repair, or estimate? Drop us a note.</p>
-            <form id="contact-form" action="/contact" method="POST" class="space-y-4">
-                <div>
-                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Your Name *</label>
-                    <input type="text" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
-                </div>
-                <div>
-                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Email Address *</label>
-                    <input type="email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
-                </div>
-                <div>
-                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Phone Number</label>
-                    <input type="tel" name="phone" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
-                </div>
-                <div>
-                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Subject</label>
-                    <input type="text" name="subject" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
-                </div>
-                <div>
-                    <label class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-1.5">Message *</label>
-                    <textarea name="message" rows="4" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
-                </div>
-                <button type="submit" class="w-full btn-engine btn-engine-primary py-3 text-xs font-bold">
-                    Send Message
-                </button>
-            </form>
+        
+        <!-- Right Column: Send Us a Message Form -->
+        <div class="lg:col-span-7">
+            <div class="frosted-card p-8 border-2 border-[#BDEBFA]">
+                <h3 class="font-heading font-bold text-2xl text-[#071F35] mb-2">Send Us a Message</h3>
+                <p class="text-xs text-[#334E68] mb-6">Drop us a line and our team will get back to you promptly.</p>
+                
+                <form id="contact-form" action="/contact" method="POST" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Name</label>
+                        <input type="text" name="name" placeholder="Your Full Name" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Email</label>
+                        <input type="email" name="email" placeholder="you@example.com" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-[#071F35] mb-1">Message</label>
+                        <textarea name="message" rows="4" placeholder="How can we help you?" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] rounded-lg focus:outline-none focus:border-[#087DB5]"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full btn-navy-pill py-3 text-sm font-bold justify-center rounded-lg">
+                        Send Message →
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
 `;
 
-  return renderLayout('Visit Us / Contact', 'Contact North Fork Auto in Talkeetna, Alaska.', content, 'contact');
+  return renderLayout('Contact Us', 'We are here to help in Talkeetna, Alaska.', content, 'contact');
 }
 
 // -------------------------------------------------------------
@@ -1852,12 +1765,12 @@ function handleBook() {
   const services = currentDb.services.filter(s => s.is_active);
 
   const serviceCardsHtml = services.map((s, idx) => `
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 ${idx === 0 ? 'border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20' : 'border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50'}" data-service-name="${escapeHtml(s.name)}">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 ${idx === 0 ? 'border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10' : 'border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50'}" data-service-name="${escapeHtml(s.name)}">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">${escapeHtml(s.name)}</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">${escapeHtml(s.name)}</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">${escapeHtml(s.price || 'Custom Quote')}</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">${escapeHtml(s.description)}</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">${escapeHtml(s.description)}</p>
     </div>
   `).join('');
 
@@ -1867,79 +1780,78 @@ function handleBook() {
 <div class="section-pad pt-32 pb-24 min-h-screen">
     <!-- Header -->
     <div class="max-w-4xl mx-auto mb-12 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>ONLINE SERVICE BOOKING</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#BDEBFA] text-[#087DB5] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-[#087DB5]"></span>
+            <span>Online Service Booking</span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#071F35]">
             Schedule Your Service
         </h1>
-        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
+        <p class="mt-4 text-[#071F35]/80 text-base sm:text-lg max-w-2xl mx-auto">
             Book in minutes. Choose your service, pick an available time, and our Talkeetna technicians will prepare for your arrival. No account required.
         </p>
     </div>
 
     <!-- Booking Wizard Container -->
-    <div class="max-w-4xl mx-auto icy-card p-6 sm:p-10 bg-[#0B2B47] border border-[#BDEBFA]/25 shadow-2xl">
+    <div class="max-w-4xl mx-auto frosted-card p-6 sm:p-10 border border-[#BDEBFA] shadow-xl bg-white/95 text-[#071F35] rounded-3xl">
         <!-- Step Progress Bar -->
         <div class="mb-10">
             <div class="grid grid-cols-4 gap-2">
                 <div id="step-tab-1" class="h-1.5 bg-[#087DB5] rounded-full transition-all duration-300"></div>
-                <div id="step-tab-2" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
-                <div id="step-tab-3" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
-                <div id="step-tab-4" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
+                <div id="step-tab-2" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
+                <div id="step-tab-3" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
+                <div id="step-tab-4" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
             </div>
-            <div class="mt-3 flex justify-between text-[11px] font-mono-data text-[#D8F1FA]/70">
-                <span id="step-label-1" class="text-[#BDEBFA] font-bold">1. Contact</span>
+            <div class="mt-3 flex justify-between text-xs font-heading font-600 text-[#071F35]/70">
+                <span id="step-label-1" class="text-[#087DB5] font-bold">1. Contact</span>
                 <span id="step-label-2">2. Vehicle</span>
                 <span id="step-label-3">3. Service</span>
                 <span id="step-label-4">4. Date &amp; Time</span>
             </div>
         </div>
 
-        <div id="booking-feedback" class="hidden mb-6 p-4 border rounded text-sm"></div>
+        <div id="booking-feedback" class="hidden mb-6 p-4 border rounded-xl text-sm"></div>
 
         <form id="booking-wizard-form" action="/book" method="POST">
             <!-- STEP 1: Contact Information -->
             <div id="step-panel-1" class="space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Customer Information</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Please provide your contact details so we can confirm your appointment.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Customer Information</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Please provide your contact details so we can confirm your appointment.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-name" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Full Name <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-name" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Full Name <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="cust-name" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Sarah Connor">
+                        <input type="text" id="cust-name" name="name" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Sarah Connor">
                     </div>
                     <div>
-                        <label for="cust-email" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Email Address <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-email" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Email Address <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="email" id="cust-email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="sarah@example.com">
+                        <input type="email" id="cust-email" name="email" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="sarah@example.com">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-phone" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Phone Number <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-phone" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Phone Number <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="(907) 555-0199">
+                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="(907) 555-0199">
                     </div>
                     <div>
-                        <label for="cust-notes" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="cust-notes" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             Special Requests / Vehicle Symptoms
                         </label>
-                        <input type="text" id="cust-notes" name="notes" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Grinding noise when braking...">
+                        <input type="text" id="cust-notes" name="notes" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Grinding noise when braking...">
                     </div>
                 </div>
 
                 <div class="pt-6 flex justify-end">
-                    <button type="button" id="btn-to-step-2" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-2" class="btn-navy-pill text-sm">
                         Continue to Vehicle
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -1948,52 +1860,52 @@ function handleBook() {
 
             <!-- STEP 2: Vehicle Details -->
             <div id="step-panel-2" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Vehicle Details</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Tell us about the vehicle you're bringing into the shop.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Vehicle Details</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Tell us about the vehicle you're bringing into the shop.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-3 gap-6">
                     <div>
-                        <label for="veh-year" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Year <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-year" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Year <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                     </div>
                     <div>
-                        <label for="veh-make" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Make <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-make" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Make <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Ford, Subaru, Toyota">
+                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Ford, Subaru, Toyota">
                     </div>
                     <div>
-                        <label for="veh-model" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Model <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-model" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Model <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. F-150, Outback, 4Runner">
+                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. F-150, Outback, 4Runner">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="veh-mileage" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="veh-mileage" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             Approximate Mileage
                         </label>
-                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. 85,000">
+                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. 85,000">
                     </div>
                     <div>
-                        <label for="veh-vin" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="veh-vin" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             VIN (Optional)
                         </label>
-                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="17-character VIN">
+                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="17-character VIN">
                     </div>
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-1" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-1" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-3" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-3" class="btn-navy-pill text-sm">
                         Continue to Service
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -2002,9 +1914,9 @@ function handleBook() {
 
             <!-- STEP 3: Select Service -->
             <div id="step-panel-3" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Select Requested Service</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Pick the primary service or inspection you need performed.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Select Requested Service</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Pick the primary service or inspection you need performed.</p>
                 </div>
 
                 <input type="hidden" id="selected-service-input" name="service" value="${escapeHtml(defaultServiceName)}">
@@ -2013,11 +1925,11 @@ function handleBook() {
                     ${serviceCardsHtml}
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-2" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-2" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-4" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-4" class="btn-navy-pill text-sm">
                         Continue to Date &amp; Time
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -2026,23 +1938,23 @@ function handleBook() {
 
             <!-- STEP 4: Date & Time Picker & Submit -->
             <div id="step-panel-4" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Select Appointment Date &amp; Time</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Select Appointment Date &amp; Time</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="app-date" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Preferred Date <span class="text-[#BDEBFA]">*</span>
+                        <label for="app-date" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Preferred Date <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                     </div>
                     <div>
-                        <label for="app-time" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Preferred Time Slot <span class="text-[#BDEBFA]">*</span>
+                        <label for="app-time" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Preferred Time Slot <span class="text-[#087DB5]">*</span>
                         </label>
-                        <select id="app-time" name="preferred_time" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <select id="app-time" name="preferred_time" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                             <option value="08:00 AM">08:00 AM (Early Drop-off)</option>
                             <option value="09:00 AM">09:00 AM</option>
                             <option value="10:00 AM" selected>10:00 AM</option>
@@ -2056,18 +1968,18 @@ function handleBook() {
                 </div>
 
                 <!-- Booking Summary Review Card -->
-                <div class="border border-[#BDEBFA]/20 bg-[#071F35] p-5 text-sm space-y-2 rounded-md">
-                    <div class="font-mono-data text-xs text-[#BDEBFA] mb-2 font-bold">APPOINTMENT REVIEW SUMMARY</div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Customer:</span><span id="review-cust" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Vehicle:</span><span id="review-veh" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="review-srv" class="font-heading font-600 text-[#BDEBFA]">${escapeHtml(defaultServiceName)}</span></div>
+                <div class="border border-[#BDEBFA] bg-[#EBF7FD]/60 p-5 text-sm space-y-2 rounded-2xl">
+                    <div class="font-heading text-xs text-[#087DB5] mb-2 font-bold uppercase tracking-wider">Appointment Review Summary</div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Customer:</span><span id="review-cust" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Vehicle:</span><span id="review-veh" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Service:</span><span id="review-srv" class="font-heading font-700 text-[#087DB5]">${escapeHtml(defaultServiceName)}</span></div>
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-3" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-3" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="submit" id="btn-submit-booking" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="submit" id="btn-submit-booking" class="btn-navy-pill text-sm">
                         Confirm &amp; Book Appointment
                     </button>
                 </div>
@@ -2075,24 +1987,24 @@ function handleBook() {
 
             <!-- STEP 5: Success Confirmation Screen -->
             <div id="step-panel-5" class="hidden text-center py-8 space-y-6">
-                <div class="w-16 h-16 rounded-full border-2 border-emerald-400 bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
+                <div class="w-16 h-16 rounded-full border-2 border-[#087DB5] bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center mx-auto shadow-lg shadow-[#087DB5]/20">
                     <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <h3 class="font-heading font-800 text-3xl text-white">Appointment Requested!</h3>
-                <p class="text-[#D8F1FA]/80 max-w-lg mx-auto text-sm leading-relaxed">
+                <h3 class="font-heading font-800 text-3xl text-[#071F35]">Appointment Requested!</h3>
+                <p class="text-[#071F35]/80 max-w-lg mx-auto text-sm leading-relaxed">
                     Thank you! We have received your booking request. Our service advisor will review your vehicle and slot details and confirm your drop-off.
                 </p>
-                <div class="border border-[#BDEBFA]/25 bg-[#071F35] p-6 max-w-md mx-auto text-left space-y-2.5 text-sm rounded-lg shadow-xl">
-                    <div class="flex justify-between items-center"><span class="text-[#D8F1FA]/70">Confirmation Ref:</span><span id="conf-ref" class="font-mono-data text-[#BDEBFA] font-bold text-base">NFA-2026-0001</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="conf-service" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Date:</span><span id="conf-date" class="font-mono-data text-white">-</span></div>
-                    <div class="flex justify-between items-center pt-2 border-t border-[#BDEBFA]/15"><span class="text-[#D8F1FA]/70">Status:</span><span class="px-2.5 py-0.5 text-[10px] uppercase font-bold border border-amber-400/40 bg-amber-400/15 text-amber-300 rounded">Pending Confirmation</span></div>
+                <div class="border border-[#BDEBFA] bg-[#EBF7FD]/60 p-6 max-w-md mx-auto text-left space-y-2.5 text-sm rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-center"><span class="text-[#071F35]/70">Confirmation Ref:</span><span id="conf-ref" class="font-heading text-[#087DB5] font-bold text-base">NFA-2026-0001</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Service:</span><span id="conf-service" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Date:</span><span id="conf-date" class="font-heading text-[#071F35]">-</span></div>
+                    <div class="flex justify-between items-center pt-2 border-t border-[#BDEBFA]"><span class="text-[#071F35]/70">Status:</span><span class="px-2.5 py-0.5 text-[10px] uppercase font-bold border border-[#087DB5]/30 bg-[#087DB5]/10 text-[#087DB5] rounded-full">Pending Confirmation</span></div>
                 </div>
                 <div class="pt-4 flex justify-center gap-4">
-                    <a href="/" class="btn-engine btn-engine-secondary px-6 py-3 text-xs">
+                    <a href="/" class="btn-white-pill text-xs">
                         Return Home
                     </a>
-                    <a href="tel:+19077333030" class="btn-engine btn-engine-primary px-6 py-3 text-xs font-bold">
+                    <a href="tel:+19077333030" class="btn-navy-pill text-xs">
                         Call Shop
                     </a>
                 </div>
@@ -2128,9 +2040,9 @@ function handleBook() {
             document.querySelectorAll('.service-select-card').forEach(c => {
                 if (c.getAttribute('data-service-name').toLowerCase() === preselectedService.toLowerCase()) {
                     document.querySelectorAll('.service-select-card').forEach(allC => {
-                        allC.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
+                        allC.className = 'service-select-card cursor-pointer border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50 p-4.5 rounded-2xl transition-all duration-200';
                     });
-                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
+                    c.className = 'service-select-card cursor-pointer border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10 p-4.5 rounded-2xl transition-all duration-200';
                 }
             });
         }
@@ -2152,18 +2064,18 @@ function handleBook() {
                     if (idx + 1 <= step) {
                         t.className = 'h-1.5 bg-[#087DB5] rounded-full transition-all duration-300';
                     } else {
-                        t.className = 'h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300';
+                        t.className = 'h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300';
                     }
                 }
             });
             labels.forEach((l, idx) => {
                 if (l) {
                     if (idx + 1 === step) {
-                        l.className = 'text-[#BDEBFA] font-bold';
+                        l.className = 'text-[#087DB5] font-bold';
                     } else if (idx + 1 < step) {
-                        l.className = 'text-white font-semibold';
+                        l.className = 'text-[#071F35] font-bold';
                     } else {
-                        l.className = 'text-[#D8F1FA]/60';
+                        l.className = 'text-[#071F35]/50';
                     }
                 }
             });
@@ -2216,9 +2128,9 @@ function handleBook() {
         document.querySelectorAll('.service-select-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.service-select-card').forEach(c => {
-                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
+                    c.className = 'service-select-card cursor-pointer border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50 p-4.5 rounded-2xl transition-all duration-200';
                 });
-                card.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
+                card.className = 'service-select-card cursor-pointer border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10 p-4.5 rounded-2xl transition-all duration-200';
                 const sName = card.getAttribute('data-service-name');
                 document.getElementById('selected-service-input').value = sName;
                 document.getElementById('review-srv').textContent = sName;
@@ -3168,6 +3080,11 @@ const server = http.createServer((req, res) => {
     return res.end(handleAbout());
   }
 
+  if (method === 'GET' && pathname === '/reviews') {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(handleReviews());
+  }
+
   if (method === 'GET' && pathname === '/contact') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     return res.end(handleContact());
@@ -4073,11 +3990,13 @@ const server = http.createServer((req, res) => {
   // 404 Catch-All
   res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(renderLayout('Page Not Found - 404', 'Page not found', `
-    <div class="section-pad py-32 text-center">
-        <h1 class="font-heading font-800 text-6xl text-[#DF1F40] mb-4">404</h1>
-        <h2 class="font-heading font-700 text-2xl text-white mb-4">Page Not Found</h2>
-        <p class="text-gray-400 max-w-md mx-auto mb-8 text-sm">The page you requested does not exist or has been moved.</p>
-        <a href="/" class="btn-engine bg-primary text-primary-foreground px-6 py-3 text-xs">Return Home</a>
+    <div class="section-pad py-32 text-center min-h-[60vh] flex flex-col justify-center items-center">
+        <div class="frosted-card p-10 sm:p-14 max-w-lg mx-auto border border-[#BDEBFA] rounded-3xl shadow-xl bg-white/95">
+            <h1 class="font-heading font-800 text-7xl text-[#087DB5] mb-2 tracking-tight">404</h1>
+            <h2 class="font-heading font-800 text-2xl text-[#071F35] mb-3">Page Not Found</h2>
+            <p class="text-[#071F35]/70 max-w-md mx-auto mb-8 text-sm">The page you requested does not exist or has been moved.</p>
+            <a href="/" class="btn-navy-pill text-sm inline-block">Return Home</a>
+        </div>
     </div>
   `));
 });

@@ -1,1 +1,280 @@
-{}
+{
+  "nfa_1fmq6tj_mwrnj58p": {
+    "session_id": "nfa_1fmq6tj_mwrnj58p",
+    "created_at": "2026-11-22T10:25:00.087Z",
+    "updated_at": "2026-11-22T10:25:00.087Z",
+    "daily_count": 1,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": null,
+      "vehicle_make": null,
+      "vehicle_model": null,
+      "vehicle_full": null,
+      "current_issue": null,
+      "service_needed": null
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi !",
+        "time": "15:25"
+      },
+      {
+        "role": "user",
+        "content": "Hi !",
+        "time": "2026-11-22T10:25:00.087Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble connecting right now. Please call our team at (907) 733-3030.",
+        "time": "2026-11-22T10:25:14.864Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_A_1795344738789": {
+    "session_id": "test_sess_A_1795344738789",
+    "created_at": "2026-11-22T10:52:18.846Z",
+    "updated_at": "2026-11-22T10:52:44.783Z",
+    "daily_count": 6,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": "2018",
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-150",
+      "vehicle_full": "2018 Ford F-150",
+      "current_issue": "Brake noise / inspection",
+      "service_needed": "Brake Repair & Replacement"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "I have a 2018 Ford F-150.",
+        "time": "2026-11-22T10:52:18.847Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble connecting right now. Please call our team at (907) 733-3030.",
+        "time": "2026-11-22T10:52:28.392Z"
+      },
+      {
+        "role": "user",
+        "content": "I have a 2018 Ford F-150.",
+        "time": "2026-11-22T10:52:30.023Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for confirming you have a 2018 Ford F-150. Is there anything specific we can help you with regarding your truck today? You're welcome to call us at (907) 733-3030 or schedule an appointment online!",
+        "time": "2026-11-22T10:52:44.747Z"
+      },
+      {
+        "role": "user",
+        "content": "My brakes are squeaking.",
+        "time": "2026-11-22T10:52:44.755Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Absolutely! That could be related to your brake pads, rotors, or another brake component. We can inspect it and identify the issue. Would you like to schedule a brake inspection?",
+        "time": "2026-11-22T10:52:44.760Z"
+      },
+      {
+        "role": "user",
+        "content": "How much time will it take?",
+        "time": "2026-11-22T10:52:44.766Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brake inspection usually takes around 30–60 minutes, depending on the issue. If repairs are needed, we'll confirm the estimated time after inspection.",
+        "time": "2026-11-22T10:52:44.768Z"
+      },
+      {
+        "role": "user",
+        "content": "Can you check whether you have parts for it?",
+        "time": "2026-11-22T10:52:44.775Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Which brake part do you need? We stock and source quality pads, rotors, and calipers for 2018 Ford F-150, but I'll be glad to verify our current inventory with our parts team.",
+        "time": "2026-11-22T10:52:44.779Z"
+      },
+      {
+        "role": "user",
+        "content": "What vehicle did I tell you I have?",
+        "time": "2026-11-22T10:52:44.783Z"
+      },
+      {
+        "role": "assistant",
+        "content": "You mentioned you have a 2018 Ford F-150.",
+        "time": "2026-11-22T10:52:44.785Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_B_1795344764787": {
+    "session_id": "test_sess_B_1795344764787",
+    "created_at": "2026-11-22T10:52:44.789Z",
+    "updated_at": "2026-11-22T10:52:44.798Z",
+    "daily_count": 2,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": null,
+      "vehicle_make": null,
+      "vehicle_model": null,
+      "vehicle_full": null,
+      "current_issue": "Check Engine Light diagnostics",
+      "service_needed": "Diagnostic Inspection"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "My check engine light is on.",
+        "time": "2026-11-22T10:52:44.789Z"
+      },
+      {
+        "role": "assistant",
+        "content": "We can help diagnose that. Our computerized diagnostic inspection can identify potential issues. Is the check engine light flashing or staying solid?",
+        "time": "2026-11-22T10:52:44.792Z"
+      },
+      {
+        "role": "user",
+        "content": "It is staying solid.",
+        "time": "2026-11-22T10:52:44.798Z"
+      },
+      {
+        "role": "assistant",
+        "content": "A steady check engine light indicates an emissions or sensor trouble code that should be scanned. Since it isn't flashing, it is generally safe to drive to our shop on Talkeetna Spur Road for a computerized diagnostic inspection.",
+        "time": "2026-11-22T10:52:44.799Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_C_1795344764802": {
+    "session_id": "test_sess_C_1795344764802",
+    "created_at": "2026-11-22T10:52:44.804Z",
+    "updated_at": "2026-11-22T10:52:44.804Z",
+    "daily_count": 1,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": null,
+      "vehicle_make": null,
+      "vehicle_model": null,
+      "vehicle_full": null,
+      "current_issue": "Oil & Filter Service",
+      "service_needed": "Oil & Filter Service"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Do I need an appointment for an oil change?",
+        "time": "2026-11-22T10:52:44.804Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Appointments are recommended so our technicians have a dedicated bay ready for your vehicle, but we also welcome walk-ins during regular shop hours (Monday–Friday, 8:00 AM–5:00 PM). Would you like to schedule an appointment?",
+        "time": "2026-11-22T10:52:44.806Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_D_1795344764811": {
+    "session_id": "test_sess_D_1795344764811",
+    "created_at": "2026-11-22T10:52:44.814Z",
+    "updated_at": "2026-11-22T10:52:44.814Z",
+    "daily_count": 1,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": null,
+      "vehicle_make": null,
+      "vehicle_model": null,
+      "vehicle_full": null,
+      "current_issue": null,
+      "service_needed": null
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "I am looking for a reliable place to maintain my truck in Talkeetna.",
+        "time": "2026-11-22T10:52:44.814Z"
+      },
+      {
+        "role": "assistant",
+        "content": "You've come to the right place! At North Fork Auto in Talkeetna, we specialize in reliable maintenance, diagnostics, and repairs for your vehicle and all vehicle makes. Give us a call at (907) 733-3030 or schedule online!",
+        "time": "2026-11-22T10:52:44.816Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_F1_1795344764822": {
+    "session_id": "test_sess_F1_1795344764822",
+    "created_at": "2026-11-22T10:52:44.825Z",
+    "updated_at": "2026-11-22T10:52:44.825Z",
+    "daily_count": 1,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": "2021",
+      "vehicle_make": "Subaru",
+      "vehicle_model": "OUTBACK",
+      "vehicle_full": "2021 Subaru OUTBACK",
+      "current_issue": null,
+      "service_needed": null
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "I drive a 2021 Subaru Outback.",
+        "time": "2026-11-22T10:52:44.825Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Thanks for letting me know you're driving a 2021 Subaru Outback! How can North Fork Auto help you with your vehicle today? You can call us at (907) 733-3030 or schedule an appointment online through our website.",
+        "time": "2026-11-22T10:53:02.417Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  },
+  "test_sess_F2_1795344764822": {
+    "session_id": "test_sess_F2_1795344764822",
+    "created_at": "2026-11-22T10:53:02.421Z",
+    "updated_at": "2026-11-22T10:53:18.940Z",
+    "daily_count": 2,
+    "last_active": "2026-11-22",
+    "context": {
+      "vehicle_year": null,
+      "vehicle_make": null,
+      "vehicle_model": null,
+      "vehicle_full": null,
+      "current_issue": null,
+      "service_needed": null
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "What vehicle did I tell you I have?",
+        "time": "2026-11-22T10:53:02.421Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm having trouble connecting right now. Please call our team at (907) 733-3030.",
+        "time": "2026-11-22T10:53:17.422Z"
+      },
+      {
+        "role": "user",
+        "content": "What vehicle did I tell you I have?",
+        "time": "2026-11-22T10:53:18.940Z"
+      },
+      {
+        "role": "assistant",
+        "content": "You haven't mentioned your vehicle to me just yet! Please let me know what you're driving so I can better assist you with your service needs. You can also call us at (907) 733-3030 to chat with our team.",
+        "time": "2026-11-22T10:53:31.788Z"
+      }
+    ],
+    "pendingAppointmentId": null,
+    "verifiedAppointmentId": null
+  }
+}

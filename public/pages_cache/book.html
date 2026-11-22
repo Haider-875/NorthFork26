@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,17 +14,16 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        background: '#071F35',
-                        foreground: '#FFFFFF',
+                        background: '#EBF7FD',
+                        foreground: '#071F35',
                         navy: {
                             DEFAULT: '#071F35',
                             surface: '#0B2B47',
@@ -44,34 +43,7 @@
                             DEFAULT: '#087DB5',
                             hover: '#0A92D4',
                             dark: '#065D88'
-                        },
-                        card: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
-                        },
-                        popover: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#FFFFFF'
-                        },
-                        primary: {
-                            DEFAULT: '#087DB5',
-                            foreground: '#FFFFFF'
-                        },
-                        secondary: {
-                            DEFAULT: '#0E3557',
-                            foreground: '#D8F1FA'
-                        },
-                        muted: {
-                            DEFAULT: '#0B2B47',
-                            foreground: '#94A3B8'
-                        },
-                        accent: {
-                            DEFAULT: '#BDEBFA',
-                            foreground: '#071F35'
-                        },
-                        border: 'rgba(189, 235, 250, 0.18)',
-                        input: 'rgba(189, 235, 250, 0.18)',
-                        ring: '#087DB5'
+                        }
                     },
                     fontFamily: {
                         heading: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -95,62 +67,68 @@
         }
         body {
             font-family: var(--font-body);
-            background-color: #071F35;
-            color: #F8FAFC;
+            background: linear-gradient(180deg, #F0F9FE 0%, #D8F1FA 350px, #EBF8FD 100%);
+            color: #071F35;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-heading);
-            font-weight: 800;
+            color: #071F35;
         }
-        .font-mono-data {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #BDEBFA;
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(7, 31, 53, 0.05);
+            transition: all 0.25s ease;
         }
-        .btn-engine {
+        .frosted-card:hover {
+            border-color: #087DB5;
+            box-shadow: 0 10px 30px rgba(8, 125, 181, 0.12);
+            transform: translateY(-2px);
+        }
+        .btn-navy-pill {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            font-family: var(--font-heading);
+            background-color: #071F35;
+            color: #FFFFFF;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 6px;
+            border-radius: 9999px;
+            padding: 0.625rem 1.5rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(7, 31, 53, 0.15);
         }
-        .btn-engine:hover {
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(7, 31, 53, 0.25);
+        }
+        .btn-white-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #071F35;
+            border: 1.5px solid #071F35;
+            font-weight: 700;
+            border-radius: 9999px;
+            padding: 0.625rem 1.5rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-white-pill:hover {
+            background-color: #FFFFFF;
+            border-color: #087DB5;
+            color: #087DB5;
             transform: translateY(-1px);
         }
-        .btn-engine:active {
-            transform: translateY(0);
-        }
-        .btn-engine-primary {
-            background-color: #087DB5;
-            color: #FFFFFF;
-            box-shadow: 0 4px 16px rgba(8, 125, 181, 0.4);
-        }
-        .btn-engine-primary:hover {
-            background-color: #0A92D4;
-            box-shadow: 0 6px 24px rgba(189, 235, 250, 0.35);
-        }
-        .btn-engine-secondary {
-            border: 1px solid rgba(189, 235, 250, 0.3);
-            background-color: rgba(11, 43, 71, 0.7);
-            color: #FFFFFF;
-            backdrop-filter: blur(8px);
-        }
-        .btn-engine-secondary:hover {
-            border-color: #BDEBFA;
-            background-color: rgba(11, 43, 71, 0.95);
-            color: #BDEBFA;
-        }
         .section-pad {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
             max-width: 80rem;
             margin-left: auto;
             margin-right: auto;
@@ -167,61 +145,44 @@
                 padding-right: 2.5rem;
             }
         }
-        .icy-card {
-            background: #0B2B47;
-            border: 1px solid rgba(189, 235, 250, 0.18);
-            border-radius: 8px;
-            transition: all 0.25s ease;
-        }
-        .icy-card:hover {
-            border-color: rgba(189, 235, 250, 0.45);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(189, 235, 250, 0.1);
-        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-[#071F35] text-white">
-    <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#071F35]/95 backdrop-blur-md border-b border-[#BDEBFA]/20 shadow-lg shadow-black/20">
+<body class="min-h-screen flex flex-col antialiased">
+    <!-- Navbar (Matches Reference Header) -->
+    <header class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/85 backdrop-blur-md border-b border-[#BDEBFA]/80 shadow-sm">
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3.5 group">
-                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-11 sm:h-12 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 group-hover:border-[#BDEBFA] transition-all duration-200 shadow-sm bg-[#041321]/60 p-0.5">
-                    <div class="hidden sm:flex flex-col">
-                        <span class="font-heading font-800 text-lg tracking-tight text-white leading-none">
-                            North Fork Auto
-                        </span>
-                        <span class="font-mono-data text-[10px] mt-1 text-[#BDEBFA]/80">
-                            Talkeetna, Alaska
-                        </span>
-                    </div>
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
                 </a>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="/" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">Home</a>
-                    <a href="/services" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">Services</a>
-                    <a href="/about" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">About</a>
-                    <a href="/contact" class="text-sm font-medium tracking-wide transition-colors text-[#D8F1FA]/85 hover:text-[#BDEBFA]">Visit Us</a>
+                    <a href="/" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Home</a>
+                    <a href="/services" class="text-sm font-semibold tracking-wide transition-colors flex items-center gap-1 text-[#071F35] hover:text-[#087DB5]">
+                        Services
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="/about" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">About</a>
+                    <a href="/reviews" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Reviews</a>
+                    <a href="/contact" class="text-sm font-semibold tracking-wide transition-colors text-[#071F35] hover:text-[#087DB5]">Contact</a>
                 </nav>
 
-                <!-- Action Button -->
-                <div class="hidden md:flex items-center gap-5">
-                    <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA] hover:text-[#BDEBFA] transition-colors">
-                        <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <!-- Phone Pill Button -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="tel:9077333030" class="btn-navy-pill text-xs">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         (907) 733-3030
-                    </a>
-                    <a href="/book" class="btn-engine btn-engine-primary px-5 py-2.5 text-xs">
-                        Book Appointment
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center gap-3">
-                    <a href="/book" class="btn-engine btn-engine-primary px-3 py-1.5 text-xs">
-                        Book
+                    <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs">
+                        Call
                     </a>
-                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#D8F1FA] hover:text-[#BDEBFA]">
+                    <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                     </button>
                 </div>
@@ -229,100 +190,97 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA]/20 bg-[#071F35]/98 backdrop-blur-md px-6 py-6 space-y-4">
-            <a href="/" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">Home</a>
-            <a href="/services" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">Services</a>
-            <a href="/about" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">About</a>
-            <a href="/contact" class="block text-sm font-medium tracking-wide text-[#D8F1FA] hover:text-[#BDEBFA] py-1">Visit Us</a>
-            <div class="pt-4 border-t border-[#BDEBFA]/15 flex flex-col gap-3">
-                <a href="tel:+19077333030" class="flex items-center gap-2 text-xs font-mono-data text-[#D8F1FA]">
-                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    (907) 733-3030
-                </a>
-                <a href="/book" class="block btn-engine btn-engine-primary py-3 text-center text-xs">Book Appointment</a>
+        <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4">
+            <a href="/" class="block text-sm font-semibold text-[#071F35] py-1">Home</a>
+            <a href="/services" class="block text-sm font-semibold text-[#071F35] py-1">Services</a>
+            <a href="/about" class="block text-sm font-semibold text-[#071F35] py-1">About</a>
+            <a href="/reviews" class="block text-sm font-semibold text-[#071F35] py-1">Reviews</a>
+            <a href="/contact" class="block text-sm font-semibold text-[#071F35] py-1">Contact</a>
+            <div class="pt-4 border-t border-[#BDEBFA] flex flex-col gap-3">
+                <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs">Call (907) 733-3030</a>
+                <a href="/book" class="btn-white-pill text-center py-2.5 text-xs">Book Appointment</a>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pt-20">
+    <main class="flex-grow">
         
 <div class="section-pad pt-32 pb-24 min-h-screen">
     <!-- Header -->
     <div class="max-w-4xl mx-auto mb-12 text-center">
-        <div class="font-mono-data flex items-center justify-center gap-2 mb-4 text-[#BDEBFA]">
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
-            <span>ONLINE SERVICE BOOKING</span>
-            <span class="h-px w-8 bg-[#BDEBFA]"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#BDEBFA] text-[#087DB5] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-[#087DB5]"></span>
+            <span>Online Service Booking</span>
         </div>
-        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white">
+        <h1 class="font-heading font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#071F35]">
             Schedule Your Service
         </h1>
-        <p class="mt-5 text-[#D8F1FA]/85 text-base sm:text-lg max-w-2xl mx-auto">
+        <p class="mt-4 text-[#071F35]/80 text-base sm:text-lg max-w-2xl mx-auto">
             Book in minutes. Choose your service, pick an available time, and our Talkeetna technicians will prepare for your arrival. No account required.
         </p>
     </div>
 
     <!-- Booking Wizard Container -->
-    <div class="max-w-4xl mx-auto icy-card p-6 sm:p-10 bg-[#0B2B47] border border-[#BDEBFA]/25 shadow-2xl">
+    <div class="max-w-4xl mx-auto frosted-card p-6 sm:p-10 border border-[#BDEBFA] shadow-xl bg-white/95 text-[#071F35] rounded-3xl">
         <!-- Step Progress Bar -->
         <div class="mb-10">
             <div class="grid grid-cols-4 gap-2">
                 <div id="step-tab-1" class="h-1.5 bg-[#087DB5] rounded-full transition-all duration-300"></div>
-                <div id="step-tab-2" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
-                <div id="step-tab-3" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
-                <div id="step-tab-4" class="h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300"></div>
+                <div id="step-tab-2" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
+                <div id="step-tab-3" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
+                <div id="step-tab-4" class="h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300"></div>
             </div>
-            <div class="mt-3 flex justify-between text-[11px] font-mono-data text-[#D8F1FA]/70">
-                <span id="step-label-1" class="text-[#BDEBFA] font-bold">1. Contact</span>
+            <div class="mt-3 flex justify-between text-xs font-heading font-600 text-[#071F35]/70">
+                <span id="step-label-1" class="text-[#087DB5] font-bold">1. Contact</span>
                 <span id="step-label-2">2. Vehicle</span>
                 <span id="step-label-3">3. Service</span>
                 <span id="step-label-4">4. Date &amp; Time</span>
             </div>
         </div>
 
-        <div id="booking-feedback" class="hidden mb-6 p-4 border rounded text-sm"></div>
+        <div id="booking-feedback" class="hidden mb-6 p-4 border rounded-xl text-sm"></div>
 
         <form id="booking-wizard-form" action="/book" method="POST">
             <!-- STEP 1: Contact Information -->
             <div id="step-panel-1" class="space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Customer Information</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Please provide your contact details so we can confirm your appointment.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Customer Information</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Please provide your contact details so we can confirm your appointment.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-name" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Full Name <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-name" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Full Name <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="cust-name" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Sarah Connor">
+                        <input type="text" id="cust-name" name="name" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Sarah Connor">
                     </div>
                     <div>
-                        <label for="cust-email" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Email Address <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-email" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Email Address <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="email" id="cust-email" name="email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="sarah@example.com">
+                        <input type="email" id="cust-email" name="email" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="sarah@example.com">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="cust-phone" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Phone Number <span class="text-[#BDEBFA]">*</span>
+                        <label for="cust-phone" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Phone Number <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="(907) 555-0199">
+                        <input type="tel" id="cust-phone" name="phone" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="(907) 555-0199">
                     </div>
                     <div>
-                        <label for="cust-notes" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="cust-notes" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             Special Requests / Vehicle Symptoms
                         </label>
-                        <input type="text" id="cust-notes" name="notes" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Grinding noise when braking...">
+                        <input type="text" id="cust-notes" name="notes" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Grinding noise when braking...">
                     </div>
                 </div>
 
                 <div class="pt-6 flex justify-end">
-                    <button type="button" id="btn-to-step-2" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-2" class="btn-navy-pill text-sm">
                         Continue to Vehicle
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -331,52 +289,52 @@
 
             <!-- STEP 2: Vehicle Details -->
             <div id="step-panel-2" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Vehicle Details</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Tell us about the vehicle you're bringing into the shop.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Vehicle Details</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Tell us about the vehicle you're bringing into the shop.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-3 gap-6">
                     <div>
-                        <label for="veh-year" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Year <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-year" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Year <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <input type="number" id="veh-year" name="vehicle_year" min="1950" max="2027" required value="2020" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                     </div>
                     <div>
-                        <label for="veh-make" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Make <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-make" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Make <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. Ford, Subaru, Toyota">
+                        <input type="text" id="veh-make" name="vehicle_make" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. Ford, Subaru, Toyota">
                     </div>
                     <div>
-                        <label for="veh-model" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Model <span class="text-[#BDEBFA]">*</span>
+                        <label for="veh-model" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Model <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. F-150, Outback, 4Runner">
+                        <input type="text" id="veh-model" name="vehicle_model" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. F-150, Outback, 4Runner">
                     </div>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="veh-mileage" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="veh-mileage" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             Approximate Mileage
                         </label>
-                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="e.g. 85,000">
+                        <input type="text" id="veh-mileage" name="vehicle_mileage" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="e.g. 85,000">
                     </div>
                     <div>
-                        <label for="veh-vin" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
+                        <label for="veh-vin" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
                             VIN (Optional)
                         </label>
-                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded placeholder-[#D8F1FA]/40" placeholder="17-character VIN">
+                        <input type="text" id="veh-vin" name="vehicle_vin" class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl placeholder-[#071F35]/40 transition" placeholder="17-character VIN">
                     </div>
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-1" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-1" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-3" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-3" class="btn-navy-pill text-sm">
                         Continue to Service
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -385,86 +343,86 @@
 
             <!-- STEP 3: Select Service -->
             <div id="step-panel-3" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Select Requested Service</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Pick the primary service or inspection you need performed.</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Select Requested Service</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Pick the primary service or inspection you need performed.</p>
                 </div>
 
                 <input type="hidden" id="selected-service-input" name="service" value="Diagnostic Inspection">
 
                 <div class="grid sm:grid-cols-2 gap-4 max-h-[460px] overflow-y-auto pr-1">
                     
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20" data-service-name="Diagnostic Inspection">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10" data-service-name="Diagnostic Inspection">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Diagnostic Inspection</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$120.00</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Diagnostic Inspection</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$120.00</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Brake Repair &amp; Replacement">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Brake Repair &amp; Replacement">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Brake Repair &amp; Replacement</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$189.99</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Brake Repair &amp; Replacement</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$189.99</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Oil &amp; Filter Service">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Oil &amp; Filter Service">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Oil &amp; Filter Service</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$89.99</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Oil &amp; Filter Service</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$89.99</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Engine Repair &amp; Overhaul">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Engine Repair &amp; Overhaul">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Engine Repair &amp; Overhaul</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$650.00</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Engine Repair &amp; Overhaul</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$650.00</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Transmission Service">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Transmission Service">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Transmission Service</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$189.99</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Transmission Service</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$189.99</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Steering &amp; Suspension">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Steering &amp; Suspension">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Steering &amp; Suspension</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$220.00</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Steering &amp; Suspension</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$220.00</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Electrical &amp; Battery">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Electrical &amp; Battery">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Electrical &amp; Battery</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$135.00</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Electrical &amp; Battery</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$135.00</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
     </div>
   
-    <div class="service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50" data-service-name="Cooling &amp; AC Repair">
+    <div class="service-select-card cursor-pointer p-4.5 rounded-2xl transition-all duration-200 border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50" data-service-name="Cooling &amp; AC Repair">
         <div class="flex items-start justify-between gap-2">
-            <h4 class="font-heading font-700 text-sm text-white">Cooling &amp; AC Repair</h4>
-            <span class="font-mono-data text-xs text-[#BDEBFA] shrink-0 font-bold">$160.00</span>
+            <h4 class="font-heading font-700 text-sm text-[#071F35]">Cooling &amp; AC Repair</h4>
+            <span class="font-heading text-xs text-[#087DB5] shrink-0 font-bold">$160.00</span>
         </div>
-        <p class="mt-1 text-xs text-[#D8F1FA]/70 leading-relaxed">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
+        <p class="mt-1 text-xs text-[#071F35]/70 leading-relaxed">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
     </div>
   
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-2" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-2" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="button" id="btn-to-step-4" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="button" id="btn-to-step-4" class="btn-navy-pill text-sm">
                         Continue to Date &amp; Time
                         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
@@ -473,23 +431,23 @@
 
             <!-- STEP 4: Date & Time Picker & Submit -->
             <div id="step-panel-4" class="hidden space-y-6">
-                <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-                    <h3 class="font-heading font-700 text-xl text-white">Select Appointment Date &amp; Time</h3>
-                    <p class="text-xs text-[#D8F1FA]/70 mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
+                <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+                    <h3 class="font-heading font-800 text-xl text-[#071F35]">Select Appointment Date &amp; Time</h3>
+                    <p class="text-xs text-[#071F35]/70 mt-1">Select your preferred drop-off slot (Mon - Fri, 8:00 AM – 5:00 PM).</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="app-date" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Preferred Date <span class="text-[#BDEBFA]">*</span>
+                        <label for="app-date" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Preferred Date <span class="text-[#087DB5]">*</span>
                         </label>
-                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <input type="date" id="app-date" name="preferred_date" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                     </div>
                     <div>
-                        <label for="app-time" class="block font-heading font-600 text-xs uppercase tracking-wide text-[#D8F1FA] mb-2">
-                            Preferred Time Slot <span class="text-[#BDEBFA]">*</span>
+                        <label for="app-time" class="block font-heading font-700 text-xs uppercase tracking-wide text-[#071F35] mb-2">
+                            Preferred Time Slot <span class="text-[#087DB5]">*</span>
                         </label>
-                        <select id="app-time" name="preferred_time" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <select id="app-time" name="preferred_time" required class="w-full bg-[#EBF7FD] border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
                             <option value="08:00 AM">08:00 AM (Early Drop-off)</option>
                             <option value="09:00 AM">09:00 AM</option>
                             <option value="10:00 AM" selected>10:00 AM</option>
@@ -503,18 +461,18 @@
                 </div>
 
                 <!-- Booking Summary Review Card -->
-                <div class="border border-[#BDEBFA]/20 bg-[#071F35] p-5 text-sm space-y-2 rounded-md">
-                    <div class="font-mono-data text-xs text-[#BDEBFA] mb-2 font-bold">APPOINTMENT REVIEW SUMMARY</div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Customer:</span><span id="review-cust" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Vehicle:</span><span id="review-veh" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="review-srv" class="font-heading font-600 text-[#BDEBFA]">Diagnostic Inspection</span></div>
+                <div class="border border-[#BDEBFA] bg-[#EBF7FD]/60 p-5 text-sm space-y-2 rounded-2xl">
+                    <div class="font-heading text-xs text-[#087DB5] mb-2 font-bold uppercase tracking-wider">Appointment Review Summary</div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Customer:</span><span id="review-cust" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Vehicle:</span><span id="review-veh" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Service:</span><span id="review-srv" class="font-heading font-700 text-[#087DB5]">Diagnostic Inspection</span></div>
                 </div>
 
-                <div class="pt-6 flex justify-between">
-                    <button type="button" id="btn-back-to-step-3" class="btn-engine btn-engine-secondary px-6 py-3 text-sm">
+                <div class="pt-6 flex justify-between items-center">
+                    <button type="button" id="btn-back-to-step-3" class="btn-white-pill text-sm">
                         Back
                     </button>
-                    <button type="submit" id="btn-submit-booking" class="btn-engine btn-engine-primary px-8 py-3 text-sm font-bold">
+                    <button type="submit" id="btn-submit-booking" class="btn-navy-pill text-sm">
                         Confirm &amp; Book Appointment
                     </button>
                 </div>
@@ -522,24 +480,24 @@
 
             <!-- STEP 5: Success Confirmation Screen -->
             <div id="step-panel-5" class="hidden text-center py-8 space-y-6">
-                <div class="w-16 h-16 rounded-full border-2 border-emerald-400 bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
+                <div class="w-16 h-16 rounded-full border-2 border-[#087DB5] bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center mx-auto shadow-lg shadow-[#087DB5]/20">
                     <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <h3 class="font-heading font-800 text-3xl text-white">Appointment Requested!</h3>
-                <p class="text-[#D8F1FA]/80 max-w-lg mx-auto text-sm leading-relaxed">
+                <h3 class="font-heading font-800 text-3xl text-[#071F35]">Appointment Requested!</h3>
+                <p class="text-[#071F35]/80 max-w-lg mx-auto text-sm leading-relaxed">
                     Thank you! We have received your booking request. Our service advisor will review your vehicle and slot details and confirm your drop-off.
                 </p>
-                <div class="border border-[#BDEBFA]/25 bg-[#071F35] p-6 max-w-md mx-auto text-left space-y-2.5 text-sm rounded-lg shadow-xl">
-                    <div class="flex justify-between items-center"><span class="text-[#D8F1FA]/70">Confirmation Ref:</span><span id="conf-ref" class="font-mono-data text-[#BDEBFA] font-bold text-base">NFA-2026-0001</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Service:</span><span id="conf-service" class="font-heading font-600 text-white">-</span></div>
-                    <div class="flex justify-between"><span class="text-[#D8F1FA]/70">Date:</span><span id="conf-date" class="font-mono-data text-white">-</span></div>
-                    <div class="flex justify-between items-center pt-2 border-t border-[#BDEBFA]/15"><span class="text-[#D8F1FA]/70">Status:</span><span class="px-2.5 py-0.5 text-[10px] uppercase font-bold border border-amber-400/40 bg-amber-400/15 text-amber-300 rounded">Pending Confirmation</span></div>
+                <div class="border border-[#BDEBFA] bg-[#EBF7FD]/60 p-6 max-w-md mx-auto text-left space-y-2.5 text-sm rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-center"><span class="text-[#071F35]/70">Confirmation Ref:</span><span id="conf-ref" class="font-heading text-[#087DB5] font-bold text-base">NFA-2026-0001</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Service:</span><span id="conf-service" class="font-heading font-700 text-[#071F35]">-</span></div>
+                    <div class="flex justify-between"><span class="text-[#071F35]/70">Date:</span><span id="conf-date" class="font-heading text-[#071F35]">-</span></div>
+                    <div class="flex justify-between items-center pt-2 border-t border-[#BDEBFA]"><span class="text-[#071F35]/70">Status:</span><span class="px-2.5 py-0.5 text-[10px] uppercase font-bold border border-[#087DB5]/30 bg-[#087DB5]/10 text-[#087DB5] rounded-full">Pending Confirmation</span></div>
                 </div>
                 <div class="pt-4 flex justify-center gap-4">
-                    <a href="/" class="btn-engine btn-engine-secondary px-6 py-3 text-xs">
+                    <a href="/" class="btn-white-pill text-xs">
                         Return Home
                     </a>
-                    <a href="tel:+19077333030" class="btn-engine btn-engine-primary px-6 py-3 text-xs font-bold">
+                    <a href="tel:+19077333030" class="btn-navy-pill text-xs">
                         Call Shop
                     </a>
                 </div>
@@ -575,9 +533,9 @@
             document.querySelectorAll('.service-select-card').forEach(c => {
                 if (c.getAttribute('data-service-name').toLowerCase() === preselectedService.toLowerCase()) {
                     document.querySelectorAll('.service-select-card').forEach(allC => {
-                        allC.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
+                        allC.className = 'service-select-card cursor-pointer border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50 p-4.5 rounded-2xl transition-all duration-200';
                     });
-                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
+                    c.className = 'service-select-card cursor-pointer border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10 p-4.5 rounded-2xl transition-all duration-200';
                 }
             });
         }
@@ -599,18 +557,18 @@
                     if (idx + 1 <= step) {
                         t.className = 'h-1.5 bg-[#087DB5] rounded-full transition-all duration-300';
                     } else {
-                        t.className = 'h-1.5 bg-[#BDEBFA]/20 rounded-full transition-all duration-300';
+                        t.className = 'h-1.5 bg-[#D8F1FA] rounded-full transition-all duration-300';
                     }
                 }
             });
             labels.forEach((l, idx) => {
                 if (l) {
                     if (idx + 1 === step) {
-                        l.className = 'text-[#BDEBFA] font-bold';
+                        l.className = 'text-[#087DB5] font-bold';
                     } else if (idx + 1 < step) {
-                        l.className = 'text-white font-semibold';
+                        l.className = 'text-[#071F35] font-bold';
                     } else {
-                        l.className = 'text-[#D8F1FA]/60';
+                        l.className = 'text-[#071F35]/50';
                     }
                 }
             });
@@ -663,9 +621,9 @@
         document.querySelectorAll('.service-select-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.service-select-card').forEach(c => {
-                    c.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA]/20 bg-[#071F35] hover:border-[#BDEBFA]/50';
+                    c.className = 'service-select-card cursor-pointer border border-[#BDEBFA] bg-white hover:border-[#087DB5]/50 p-4.5 rounded-2xl transition-all duration-200';
                 });
-                card.className = 'service-select-card cursor-pointer border p-4.5 rounded-md transition-all duration-200 border-[#BDEBFA] bg-[#087DB5]/20 shadow-md shadow-[#087DB5]/20';
+                card.className = 'service-select-card cursor-pointer border-2 border-[#087DB5] bg-[#EBF7FD] shadow-md shadow-[#087DB5]/10 p-4.5 rounded-2xl transition-all duration-200';
                 const sName = card.getAttribute('data-service-name');
                 document.getElementById('selected-service-input').value = sName;
                 document.getElementById('review-srv').textContent = sName;
@@ -722,84 +680,27 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-[#BDEBFA]/20 bg-[#041321] text-white mt-auto">
-        <div class="section-pad py-16">
-            <div class="grid gap-12 lg:grid-cols-4">
-                <div class="lg:col-span-1">
-                    <div class="flex items-center gap-3 mb-5">
-                        <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-14 sm:h-16 w-auto max-w-[200px] object-contain rounded-md border border-[#BDEBFA]/25 shadow-sm bg-[#071F35]/80 p-1">
-                    </div>
-                    <p class="text-sm text-[#D8F1FA]/80 leading-relaxed mb-5">
-                        Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, certified workmanship, and dependable care built for Alaskan roads.
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 border border-[#BDEBFA]/30 hover:border-[#BDEBFA] hover:text-[#BDEBFA] transition-colors text-white rounded">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </a>
-                    </div>
-                </div>
+    <!-- Footer (Matches Reference Footer) -->
+    <footer class="bg-[#071F35] text-white py-8 border-t border-[#BDEBFA]/20 mt-auto">
+        <div class="section-pad flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <img src="/images/logo.png" alt="North Fork Automotive" class="h-9 w-auto brightness-0 invert opacity-90 object-contain">
+            </div>
 
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Contact</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li>
-                            <a href="https://maps.google.com/?q=Talkeetna+Spur+Road,+Talkeetna,+AK+99676" target="_blank" rel="noreferrer" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-                                <span>Talkeetna Spur Road, Talkeetna, AK 99676</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+19077333030" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                                <span>(907) 733-3030</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@northforkauto.com" class="flex gap-3 hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">
-                                <svg class="w-4 h-4 text-[#BDEBFA] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                                <span>info@northforkauto.com</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Hours</h3>
-                    <ul class="space-y-1">
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Monday – Friday</span>
-                            <span class="font-mono-data text-white">8:00 AM – 5:00 PM</span>
-                        </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Saturday</span>
-                            <span class="font-mono-data text-white">By Appointment</span>
-                        </li>
-                        <li class="flex justify-between gap-4 text-sm py-1.5 border-b border-[#BDEBFA]/15">
-                            <span class="text-[#D8F1FA]/70">Sunday</span>
-                            <span class="font-mono-data text-white">Closed</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-mono-data text-[#BDEBFA] mb-4">Quick Links</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="/" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Home</a></li>
-                        <li><a href="/services" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Services Catalog</a></li>
-                        <li><a href="/about" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">About North Fork Auto</a></li>
-                        <li><a href="/contact" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Visit Us / Contact</a></li>
-                        <li><a href="/book" class="hover:text-[#BDEBFA] transition-colors text-[#D8F1FA]/80">Book Appointment</a></li>
-                    </ul>
+            <div class="text-center text-xs text-[#D8F1FA]/80 flex flex-col sm:flex-row items-center gap-4">
+                <span>© 2025 North Fork Automotive. All rights reserved.</span>
+                <div class="flex items-center gap-3">
+                    <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
+                    <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
                 </div>
             </div>
 
-            <div class="mt-12 pt-6 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#D8F1FA]/70">
-                <p>© 2026 North Fork Auto. All rights reserved.</p>
-                <p class="font-mono-data text-[#BDEBFA]">Talkeetna, Alaska · Locally Owned &amp; Operated</p>
+            <div>
+                <a href="tel:9077333030" class="inline-flex items-center gap-2 bg-[#0B2B47] text-white border border-[#BDEBFA]/30 hover:border-[#BDEBFA] px-4 py-1.5 rounded-full text-xs font-bold transition">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>(907) 733-3030</span>
+                </a>
             </div>
         </div>
     </footer>

@@ -388,25 +388,32 @@
     </div>
 </section>
 
-<!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP BANNER, STORY, 4 POINTS WITH FROST OVERLAY) -->
-<section class="relative section-pad py-16 overflow-hidden">
-    <!-- Section Background: Ice Texture with Soft Top & Bottom Blends -->
-    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#EBF7FD] via-[#EBF7FD]/65 to-[#EBF7FD]"></div>
+<!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP BANNER, STORY, 4 POINTS WITH 100% WIDTH FROST OVERLAY) -->
+<section id="about-section" class="relative section-pad py-16 overflow-hidden">
+    <!-- 100% Full-Width Ice Background Image Across Entire Banner with Reduced Opacity at Corners -->
+    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" 
+         style="-webkit-mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 45%, rgba(0,0,0,0.85) 68%, rgba(0,0,0,0.25) 88%, transparent 100%);
+                mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 45%, rgba(0,0,0,0.85) 68%, rgba(0,0,0,0.25) 88%, transparent 100%);">
+        <!-- Watercolor Ice Backing across full 100% width -->
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 48%, rgba(189, 235, 250, 0.45) 82%, transparent 100%);"></div>
+        <!-- 100% Width Frost Texture Image -->
+        <img src="/images/hero-frost-texture.jpg" 
+             alt="" 
+             aria-hidden="true" 
+             class="w-full h-full object-cover opacity-50 mix-blend-multiply sm:opacity-50 lg:opacity-52">
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
         <!-- Workshop Exterior Visual (Left - 5 cols) - Chiseled Glacial Ice Silhouette (Zero Frame Look) -->
         <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
-            <!-- Organic Frost Mist Aura Behind Visual (Soft, Non-Geometric Glacial Vapor) -->
-            <div class="absolute -inset-5 sm:-inset-7 pointer-events-none -z-1 overflow-hidden" 
-                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 35%, rgba(0,0,0,0.7) 65%, transparent 95%);
-                        mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 35%, rgba(0,0,0,0.7) 65%, transparent 95%);">
+            <!-- Organic Frost Mist Aura Directly Behind Visual (Soft Glacial Vapour, Corners with Reduced Opacity) -->
+            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none -z-1 overflow-hidden" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);
+                        mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);">
                 <!-- Glacial Cyan Ice Vapour -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/70 via-[#D8F1FA]/50 to-[#087DB5]/20"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/75 via-[#D8F1FA]/55 to-[#087DB5]/20"></div>
                 <!-- Natural Frost Texture -->
-                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-50 mix-blend-multiply scale-105">
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-45 mix-blend-multiply scale-105">
             </div>
 
             <!-- Dynamic Chiseled Ice Slab (Asymmetrical Glacial Faceted Angles, No Picture Frame) -->
@@ -447,21 +454,8 @@
             </div>
         </div>
         
-        <!-- Story Text & Points Container with Frost Texture Overlay (Right - 7 cols) -->
-        <div class="lg:col-span-7 relative">
-            <!-- Organic Frost Texture & Watercolor Patch Behind Text & Points (Hero Banner Style, No Box Corners) -->
-            <div class="absolute -inset-6 sm:-inset-10 pointer-events-none -z-1 overflow-hidden" 
-                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);
-                        mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);">
-                <!-- Watercolor Ice Backing -->
-                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.40) 72%, transparent 96%);"></div>
-                <!-- Frost Texture Image (Blended softly at 40% opacity with mix-blend-multiply) -->
-                <img src="/images/hero-frost-texture.jpg" 
-                     alt="" 
-                     aria-hidden="true" 
-                     class="w-full h-full object-cover opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
-            </div>
-
+        <!-- Story Text & Points Container (Right - 7 cols, seamlessly resting on the 100% width ice background) -->
+        <div class="lg:col-span-7 relative z-10">
             <!-- Content Grid: Story Text (Center) + 4 Points (Right, Taken out of the Card Box) -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
                 <!-- Center: Story & Description (7 cols) -->

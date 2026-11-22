@@ -1746,61 +1746,94 @@ function handleHome(isScrolled = false) {
     </div>
 </section>
 
-<!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP PHOTO, STORY, 4 BADGES) -->
-<section class="section-pad py-16">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- Workshop Exterior Photo (Left - 4 cols) -->
-        <div class="lg:col-span-4">
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA]">
-                <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop Exterior in Talkeetna, Alaska" class="w-full h-[320px] object-cover object-center">
+<!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP BANNER, STORY, 4 POINTS WITH FROST OVERLAY) -->
+<section class="relative section-pad py-16 overflow-hidden">
+    <!-- Section Background: Ice Texture with Soft Top & Bottom Blends -->
+    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#EBF7FD] via-[#EBF7FD]/65 to-[#EBF7FD]"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+        <!-- Workshop Exterior Banner Image (Left - 5 cols) -->
+        <div class="lg:col-span-5">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[#BDEBFA] group">
+                <img src="/images/workshop-exterior.jpg" alt="North Fork Automotive Workshop Exterior in Talkeetna, Alaska" class="w-full h-[380px] sm:h-[420px] object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/35 via-transparent to-transparent pointer-events-none"></div>
+                <!-- Subtle Location Pill Over Image -->
+                <div class="absolute bottom-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#071F35]/80 backdrop-blur-md border border-[#BDEBFA]/40 text-white text-xs font-bold">
+                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>Talkeetna Spur Road Workshop</span>
+                </div>
             </div>
         </div>
         
-        <!-- Story & Description (Center - 5 cols) -->
-        <div class="lg:col-span-5 space-y-4">
-            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">TALKEETNA'S TRUSTED AUTO CARE —</span>
-            <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35] tracking-tight leading-snug">
-                Locally Owned. Honest Service. Real Results.
-            </h2>
-            <p class="text-sm text-[#334E68] leading-relaxed">
-                North Fork Auto was built with a simple goal: provide our Talkeetna neighbors with honest, high-quality automotive repair you can count on. We treat every vehicle like it\'s our own.
-            </p>
-            <div class="pt-2">
-                <a href="/about" class="btn-navy-pill text-xs px-6 py-2.5">
-                    Learn More →
-                </a>
+        <!-- Story Text & Points Container with Frost Texture Overlay (Right - 7 cols) -->
+        <div class="lg:col-span-7 relative">
+            <!-- Organic Frost Texture & Watercolor Patch Behind Text & Points (Hero Banner Style, No Box Corners) -->
+            <div class="absolute -inset-6 sm:-inset-10 pointer-events-none -z-1 overflow-hidden" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);
+                        mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);">
+                <!-- Watercolor Ice Backing -->
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.40) 72%, transparent 96%);"></div>
+                <!-- Frost Texture Image (Blended softly at 40% opacity with mix-blend-multiply) -->
+                <img src="/images/hero-frost-texture.jpg" 
+                     alt="" 
+                     aria-hidden="true" 
+                     class="w-full h-full object-cover opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
             </div>
-        </div>
-        
-        <!-- 4 Badges Panel (Right - 3 cols) -->
-        <div class="lg:col-span-3">
-            <div class="bg-[#D8F1FA] border border-[#BDEBFA] rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+
+            <!-- Content Grid: Story Text (Center) + 4 Points (Right, Taken out of the Card Box) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+                <!-- Center: Story & Description (7 cols) -->
+                <div class="md:col-span-7 space-y-4 text-left">
+                    <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">TALKEETNA'S TRUSTED AUTO CARE —</span>
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#071F35] tracking-tight leading-snug">
+                        Locally Owned. Honest Service. Real Results.
+                    </h2>
+                    <p class="text-xs sm:text-sm text-[#334E68] leading-relaxed">
+                        North Fork Auto was built with a simple goal: provide our Talkeetna neighbors with honest, high-quality automotive repair you can count on. We treat every vehicle like it's our own.
+                    </p>
+                    <div class="pt-2">
+                        <a href="/about" class="btn-navy-pill text-xs px-6 py-2.5 shadow-md">
+                            Learn More →
+                        </a>
                     </div>
-                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">ASE-Certified Master Technicians</span>
                 </div>
                 
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <!-- Right: 4 Points (5 cols) - COMPLETELY FREED FROM CARD BOX -->
+                <div class="md:col-span-5 flex flex-col gap-4">
+                    <!-- Point 1 -->
+                    <div class="flex items-center gap-3.5 group">
+                        <div class="w-10 h-10 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35] leading-snug">ASE-Certified Master Technicians</span>
                     </div>
-                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">Advanced Computer Diagnostics</span>
-                </div>
-                
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                    
+                    <!-- Point 2 -->
+                    <div class="flex items-center gap-3.5 group">
+                        <div class="w-10 h-10 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35] leading-snug">Advanced Computer Diagnostics</span>
                     </div>
-                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">3-Year / 36,000-Mile Warranty</span>
-                </div>
-                
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+                    
+                    <!-- Point 3 -->
+                    <div class="flex items-center gap-3.5 group">
+                        <div class="w-10 h-10 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35] leading-snug">3-Year / 36,000-Mile Warranty</span>
                     </div>
-                    <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35]">Locally Owned &amp; Community Minded</span>
+                    
+                    <!-- Point 4 -->
+                    <div class="flex items-center gap-3.5 group">
+                        <div class="w-10 h-10 rounded-full bg-[#087DB5] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+                        </div>
+                        <span class="font-heading font-bold text-xs sm:text-sm text-[#071F35] leading-snug">Locally Owned &amp; Community Minded</span>
+                    </div>
                 </div>
             </div>
         </div>

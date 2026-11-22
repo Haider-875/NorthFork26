@@ -1489,10 +1489,24 @@ function handleHome(isScrolled = false) {
         </a>
     </div>
     
-    <!-- Top Row: 4 Cards Left + Photographic Mechanic Visual Right (Matches Reference Screen Exactly) -->
+    <!-- Top Row: 4 Cards Left with Frost Texture Overlay + Flipped Photographic Mechanic Visual Right -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
-        <!-- 4 Frosted Service Cards (Left) -->
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <!-- 4 Frosted Service Cards (Left) with Frost Texture Overlay (Same Styling & Reduced Opacity as Hero Banner) -->
+        <div class="lg:col-span-7 relative">
+            <!-- Organic Frost Texture & Watercolor Patch behind Left-Side Cards (Naturally Feathered Edges, Zero Sharp Borders) -->
+            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none z-0 rounded-3xl overflow-hidden" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 45% 50%, black 30%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.3) 78%, transparent 95%);
+                        mask-image: radial-gradient(ellipse 85% 80% at 45% 50%, black 30%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.3) 78%, transparent 95%);">
+                <!-- Organic Watercolor Ice Backing -->
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 45% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.45) 75%, transparent 96%);"></div>
+                <!-- Exact Uploaded Frost Texture Image (Blended softly at 40% opacity with mix-blend-multiply) -->
+                <img src="/images/hero-frost-texture.jpg" 
+                     alt="" 
+                     aria-hidden="true" 
+                     class="w-full h-full object-cover object-left opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative z-10">
             <!-- 1. Diagnostic Inspection -->
             <div class="frosted-card p-6 flex flex-col items-center text-center">
                 <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
@@ -1556,12 +1570,13 @@ function handleHome(isScrolled = false) {
                     Book Now →
                 </a>
             </div>
+            </div>
         </div>
         
         <!-- Photographic Mechanic Visual (Right) -->
         <div class="lg:col-span-5">
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-[#BDEBFA]">
-                <img src="/images/service-mechanic-engine.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[400px] object-cover object-center">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[#BDEBFA] group">
+                <img src="/images/service-mechanic-flipped.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[430px] object-cover object-center">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/25 via-transparent to-transparent pointer-events-none"></div>
             </div>
         </div>

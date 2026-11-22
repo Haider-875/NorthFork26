@@ -1599,12 +1599,24 @@ function handleHome(isScrolled = false) {
         
         <!-- Photographic Mechanic Visual (Right) - Mosaic Ice-Crystal Splash Frame (Non-standard organic corners) -->
         <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
-            <!-- Organic Icy Watercolor Splash Aura Behind the Image -->
-            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none -z-1" 
-                 style="-webkit-mask-image: radial-gradient(ellipse 85% 82% at 50% 50%, black 35%, rgba(0,0,0,0.75) 60%, transparent 94%);
-                        mask-image: radial-gradient(ellipse 85% 82% at 50% 50%, black 35%, rgba(0,0,0,0.75) 60%, transparent 94%);">
-                <div class="absolute inset-0 bg-gradient-to-tr from-[#BDEBFA] via-[#D8F1FA] to-[#087DB5]/30"></div>
-                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-55 mix-blend-multiply">
+            <!-- Reverse Mosaic Crystalline Ice Aura Behind the Image (Faceted & Reversed) -->
+            <div class="absolute -inset-5 sm:-inset-8 pointer-events-none -z-1 shadow-xl" 
+                 style="clip-path: polygon(
+                     0% 6%, 16% 0%, 38% 3%, 64% 0%, 86% 2%, 100% 0%, 
+                     97% 20%, 100% 46%, 95% 68%, 100% 88%, 93% 100%, 
+                     74% 96%, 46% 100%, 22% 95%, 0% 100%, 
+                     5% 72%, 0% 48%, 4% 24%, 1% 10%
+                 ); -webkit-clip-path: polygon(
+                     0% 6%, 16% 0%, 38% 3%, 64% 0%, 86% 2%, 100% 0%, 
+                     97% 20%, 100% 46%, 95% 68%, 100% 88%, 93% 100%, 
+                     74% 96%, 46% 100%, 22% 95%, 0% 100%, 
+                     5% 72%, 0% 48%, 4% 24%, 1% 10%
+                 ); -webkit-mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 65%, rgba(0,0,0,0.8) 85%, transparent 100%);
+                    mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 65%, rgba(0,0,0,0.8) 85%, transparent 100%);">
+                <!-- Reverse Gradient Backing -->
+                <div class="absolute inset-0 bg-gradient-to-bl from-[#BDEBFA] via-[#D8F1FA] to-[#087DB5]/25"></div>
+                <!-- Reversed Frost Texture Image -->
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-60 mix-blend-multiply scale-x-[-1] rotate-180">
             </div>
 
             <!-- Main Image with Organic Crystalline Mosaic Facet Contour (Zero Standard Box Corners) -->
@@ -1650,10 +1662,23 @@ function handleHome(isScrolled = false) {
             </div>
         </div>
     </div>
-    </div>
 
-    <!-- Bottom Row: Remaining 4 Canonical Services (Ensures all 8 services from live site are displayed) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
+    <!-- Bottom Row: Remaining 4 Canonical Services with Frost Texture Overlay -->
+    <div class="relative mt-8 z-10">
+        <!-- Seamless Organic Frost Texture Overlay Behind Bottom Cards (No Sharp Box Corners) -->
+        <div class="absolute -inset-6 sm:-inset-10 pointer-events-none z-0 overflow-hidden" 
+             style="-webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);
+                    mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);">
+            <!-- Organic Watercolor Ice Backing -->
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.40) 72%, transparent 96%);"></div>
+            <!-- Frost Texture Image (Blended softly at 40% opacity) -->
+            <img src="/images/hero-frost-texture.jpg" 
+                 alt="" 
+                 aria-hidden="true" 
+                 class="w-full h-full object-cover opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
         <!-- 5. Transmission Service -->
         <div class="frosted-card p-6 flex flex-col items-center text-center">
             <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">
@@ -1716,6 +1741,7 @@ function handleHome(isScrolled = false) {
             <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
                 Book Now →
             </a>
+        </div>
         </div>
     </div>
 </section>

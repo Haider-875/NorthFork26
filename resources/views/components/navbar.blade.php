@@ -2,9 +2,13 @@
 <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 {{ !empty($isScrolled) ? 'navbar-scrolled' : 'navbar-top' }}">
     <div class="section-pad">
         <div class="flex items-center justify-between h-20">
-            <!-- Logo -->
-            <a href="/" class="flex items-center gap-3 group">
-                <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
+            <!-- Logo (Clean transparent silhouette matching reference design) -->
+            <a href="/" class="flex items-center gap-2.5 sm:gap-3 group">
+                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-8 sm:h-10 w-auto object-contain">
+                <div class="flex flex-col">
+                    <span class="font-heading font-extrabold text-[#071F35] text-base sm:text-lg leading-tight tracking-tight">North Fork Automotive</span>
+                    <span class="text-[9px] sm:text-[10px] font-bold text-[#087DB5] tracking-widest uppercase">— Talkeetna, AK —</span>
+                </div>
             </a>
 
             <!-- Desktop Navigation (Crisp Dark Text) -->

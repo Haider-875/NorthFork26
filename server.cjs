@@ -1140,8 +1140,12 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
         <div class="section-pad">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 group">
-                    <img src="/images/logo.png" alt="North Fork Automotive - Talkeetna, AK" class="h-10 sm:h-12 w-auto object-contain">
+                <a href="/" class="flex items-center gap-2.5 sm:gap-3 group">
+                    <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-8 sm:h-10 w-auto object-contain">
+                    <div class="flex flex-col">
+                        <span class="font-heading font-extrabold text-[#071F35] text-base sm:text-lg leading-tight tracking-tight">North Fork Automotive</span>
+                        <span class="text-[9px] sm:text-[10px] font-bold text-[#087DB5] tracking-widest uppercase">— Talkeetna, AK —</span>
+                    </div>
                 </a>
 
                 <!-- Desktop Navigation (Crisp Dark Text) -->
@@ -1210,15 +1214,23 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
     </main>
 
         <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
-    <footer class="relative bg-[#071F35] text-white pt-16 pb-12 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
+    <!-- Pine Trees Alaska Horizon Border Transition (Matches Reference Design) -->
+    <div class="w-full overflow-hidden leading-none -mb-[1px] relative z-10 pointer-events-none">
+        <img src="/images/pine-trees-silhouette.svg" alt="" class="w-full h-7 sm:h-10 object-cover object-bottom">
+    </div>
+    <footer class="relative bg-[#071F35] text-white pt-14 pb-12 border-t border-[#BDEBFA]/20 mt-auto overflow-hidden">
         <img src="/images/alaska-landscape-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-15 pointer-events-none">
         <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/95 to-[#071F35]/85 pointer-events-none"></div>
         <div class="relative section-pad">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
                 <!-- Col 1: Brand & Description -->
                 <div class="space-y-4">
-                    <a href="/" class="inline-block">
-                        <img src="/images/logo.png" alt="North Fork Automotive" class="h-10 w-auto brightness-0 invert opacity-95 object-contain">
+                    <a href="/" class="flex items-center gap-2.5 group">
+                        <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-8 w-auto brightness-0 invert object-contain">
+                        <div class="flex flex-col">
+                            <span class="font-heading font-extrabold text-white text-base leading-tight tracking-tight">North Fork Automotive</span>
+                            <span class="text-[9px] font-bold text-[#BDEBFA] tracking-widest uppercase">— Talkeetna, AK —</span>
+                        </div>
                     </a>
                     <p class="text-xs text-[#D8F1FA]/80 leading-relaxed">
                         Trusted auto repair and maintenance in Talkeetna, Alaska. Honest service, quality workmanship, and dependable care for your vehicle.
@@ -1268,13 +1280,23 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
                 </div>
             </div>
 
-            <!-- Bottom Subfooter Bar -->
-            <div class="pt-8 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D8F1FA]/70">
-                <span>© 2026 North Fork Auto. All rights reserved.</span>
+            <!-- Bottom Subfooter Bar (Matches Reference Design) -->
+            <div class="pt-8 border-t border-[#BDEBFA]/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#D8F1FA]/70">
+                <div class="flex items-center gap-2">
+                    <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-6 w-auto brightness-0 invert object-contain">
+                    <span class="font-heading font-bold text-white text-xs">North Fork Automotive <span class="text-[#BDEBFA] font-normal text-[10px] ml-1">— Talkeetna, AK —</span></span>
+                </div>
+                <span class="text-center">© 2025 North Fork Automotive. All rights reserved.</span>
                 <div class="flex items-center gap-3">
-                    <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
-                    <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
-                    <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
+                    <div class="flex items-center gap-2">
+                        <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">f</a>
+                        <a href="https://google.com" target="_blank" rel="noreferrer" aria-label="Google" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">G</a>
+                        <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" class="w-7 h-7 rounded-full bg-[#0B2B47] border border-[#BDEBFA]/30 flex items-center justify-center hover:border-[#BDEBFA] transition text-white text-[11px] font-bold">ig</a>
+                    </div>
+                    <a href="tel:9077333030" class="btn-navy-pill text-[11px] px-3.5 py-1.5 border border-[#BDEBFA]/30 bg-[#0B2B47] hover:bg-[#0E3557] flex items-center gap-1.5 ml-2">
+                        <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span>(907) 733-3030</span>
+                    </a>
                 </div>
             </div>
         </div>

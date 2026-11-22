@@ -135,8 +135,13 @@
 </section>
 
 <!-- SECTION 3: OUR CAPABILITIES (ALL 8 CANONICAL SERVICES WITH TITLES, DESCRIPTIONS & PRICES) -->
-<section class="section-pad py-16">
-    <div class="text-center mb-12">
+<section class="relative section-pad py-16 overflow-hidden">
+    <!-- Section 3 Background: Ice Texture with Soft Top & Bottom Blends -->
+    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#EBF7FD] via-[#EBF7FD]/60 to-[#EBF7FD]"></div>
+    </div>
+    <div class="text-center mb-12 relative z-10">
         <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— OUR CAPABILITIES —</span>
         <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-[#071F35] tracking-tight mt-1 mb-2">
             Expert Auto Care For Alaskan Roads
@@ -154,17 +159,17 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
         <!-- 4 Frosted Service Cards (Left) with Frost Texture Overlay (Same Styling & Reduced Opacity as Hero Banner) -->
         <div class="lg:col-span-7 relative">
-            <!-- Organic Frost Texture & Watercolor Patch behind Left-Side Cards (Naturally Feathered Edges, Zero Sharp Borders) -->
-            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none z-0 rounded-3xl overflow-hidden" 
-                 style="-webkit-mask-image: radial-gradient(ellipse 85% 80% at 45% 50%, black 30%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.3) 78%, transparent 95%);
-                        mask-image: radial-gradient(ellipse 85% 80% at 45% 50%, black 30%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.3) 78%, transparent 95%);">
+            <!-- Left Side Ice Texture Overlay: Seamless Organic Feathering (Zero Sharp Box Corners) -->
+            <div class="absolute -inset-6 sm:-inset-10 pointer-events-none z-0 overflow-hidden" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, black 20%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.2) 72%, transparent 95%);
+                        mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, black 20%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.2) 72%, transparent 95%);">
                 <!-- Organic Watercolor Ice Backing -->
-                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 45% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.45) 75%, transparent 96%);"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 45%, rgba(189, 235, 250, 0.40) 72%, transparent 96%);"></div>
                 <!-- Exact Uploaded Frost Texture Image (Blended softly at 40% opacity with mix-blend-multiply) -->
                 <img src="/images/hero-frost-texture.jpg" 
                      alt="" 
                      aria-hidden="true" 
-                     class="w-full h-full object-cover object-left opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+                     class="w-full h-full object-cover opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 relative z-10">
@@ -234,17 +239,63 @@
             </div>
         </div>
         
-        <!-- Photographic Mechanic Visual (Right) -->
-        <div class="lg:col-span-5">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[#BDEBFA] group">
-                <img src="/images/service-mechanic-flipped.jpg" alt="Automotive mechanic inspecting engine components with diagnostic tools" class="w-full h-[430px] object-cover object-center">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#071F35]/25 via-transparent to-transparent pointer-events-none"></div>
+        <!-- Photographic Mechanic Visual (Right) - Mosaic Ice-Crystal Splash Frame (Non-standard organic corners) -->
+        <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
+            <!-- Organic Icy Watercolor Splash Aura Behind the Image -->
+            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none -z-1" 
+                 style="-webkit-mask-image: radial-gradient(ellipse 85% 82% at 50% 50%, black 35%, rgba(0,0,0,0.75) 60%, transparent 94%);
+                        mask-image: radial-gradient(ellipse 85% 82% at 50% 50%, black 35%, rgba(0,0,0,0.75) 60%, transparent 94%);">
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#BDEBFA] via-[#D8F1FA] to-[#087DB5]/30"></div>
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-55 mix-blend-multiply">
+            </div>
+
+            <!-- Main Image with Organic Crystalline Mosaic Facet Contour (Zero Standard Box Corners) -->
+            <div class="relative w-full h-[420px] sm:h-[450px] shadow-2xl transition-all duration-300 hover:scale-[1.01] overflow-hidden" 
+                 style="clip-path: polygon(
+                     4% 3%, 18% 1%, 42% 2%, 68% 0%, 88% 3%, 97% 6%, 
+                     100% 18%, 98% 38%, 100% 62%, 97% 82%, 99% 94%, 
+                     86% 98%, 62% 97%, 38% 99%, 16% 97%, 3% 94%, 
+                     0% 78%, 2% 52%, 0% 32%, 2% 14%
+                 ); -webkit-clip-path: polygon(
+                     4% 3%, 18% 1%, 42% 2%, 68% 0%, 88% 3%, 97% 6%, 
+                     100% 18%, 98% 38%, 100% 62%, 97% 82%, 99% 94%, 
+                     86% 98%, 62% 97%, 38% 99%, 16% 97%, 3% 94%, 
+                     0% 78%, 2% 52%, 0% 32%, 2% 14%
+                 );">
+                
+                <!-- The Uploaded Diagnostic Mechanic Photograph -->
+                <img src="/images/service-mechanic-diagnostic.jpg" alt="Automotive diagnostic technician with computer tablet" class="w-full h-full object-cover object-[70%_center]">
+                
+                <!-- Frost Mosaic Crystallization Over Corners & Edges -->
+                <div class="absolute inset-0 pointer-events-none" 
+                     style="background: radial-gradient(ellipse 88% 85% at 50% 50%, transparent 58%, rgba(216, 241, 250, 0.45) 78%, rgba(189, 235, 250, 0.85) 100%);">
+                    <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-40 mix-blend-overlay">
+                </div>
+
+                <!-- Soft Bottom Contrast Shadow -->
+                <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071F35]/40 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+
+            <!-- Exterior Crystalline Accent Border -->
+            <div class="absolute inset-1 sm:inset-3 pointer-events-none border-2 border-[#BDEBFA]/50 shadow-inner"
+                 style="clip-path: polygon(
+                     4% 3%, 18% 1%, 42% 2%, 68% 0%, 88% 3%, 97% 6%, 
+                     100% 18%, 98% 38%, 100% 62%, 97% 82%, 99% 94%, 
+                     86% 98%, 62% 97%, 38% 99%, 16% 97%, 3% 94%, 
+                     0% 78%, 2% 52%, 0% 32%, 2% 14%
+                 ); -webkit-clip-path: polygon(
+                     4% 3%, 18% 1%, 42% 2%, 68% 0%, 88% 3%, 97% 6%, 
+                     100% 18%, 98% 38%, 100% 62%, 97% 82%, 99% 94%, 
+                     86% 98%, 62% 97%, 38% 99%, 16% 97%, 3% 94%, 
+                     0% 78%, 2% 52%, 0% 32%, 2% 14%
+                 );">
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Bottom Row: Remaining 4 Canonical Services (Ensures all 8 services from live site are displayed) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
         <!-- 5. Transmission Service -->
         <div class="frosted-card p-6 flex flex-col items-center text-center">
             <div class="w-12 h-12 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center mb-4">

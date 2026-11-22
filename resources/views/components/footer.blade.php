@@ -1,6 +1,8 @@
 <!-- Alaska Pine Forest Horizon Transition Banner (Above Footer Content) -->
-<div class="w-full overflow-hidden leading-none -mb-[1px] relative z-10 pointer-events-none select-none">
-    <img src="/images/footer-pine-trees.jpg" alt="Alaskan pine trees horizon" class="w-full h-36 sm:h-48 md:h-60 lg:h-72 object-cover object-center">
+<div class="w-full overflow-hidden leading-none -mb-[1px] relative z-10 pointer-events-none select-none"
+     style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 1.5%, black 4%, black 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 1.5%, black 4%, black 100%);">
+        <img src="/images/footer-pine-trees.jpg" alt="Alaskan pine trees horizon" class="w-full h-36 sm:h-48 md:h-60 lg:h-72 object-cover object-center">
     
 </div>
 <!-- Footer (Matches Reference Footer with Alaska landscape background) -->

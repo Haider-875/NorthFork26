@@ -3442,35 +3442,41 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // 1. PUBLIC GET ROUTES
-  if (method === 'GET' && pathname === '/') {
+  // 1. PUBLIC GET & HEAD ROUTES
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/') {
     const isScrolled = parsed.query && parsed.query.scrolled === '1';
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleHome(isScrolled));
   }
 
-  if (method === 'GET' && pathname === '/services') {
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/services') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleServices());
   }
 
-  if (method === 'GET' && pathname === '/about') {
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/about') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleAbout());
   }
 
-  if (method === 'GET' && pathname === '/reviews') {
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/reviews') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleReviews());
   }
 
-  if (method === 'GET' && pathname === '/contact') {
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/contact') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleContact());
   }
 
-  if (method === 'GET' && pathname === '/book') {
+  if ((method === 'GET' || method === 'HEAD') && pathname === '/book') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (method === 'HEAD') return res.end();
     return res.end(handleBook());
   }
 

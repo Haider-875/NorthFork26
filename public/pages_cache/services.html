@@ -266,17 +266,45 @@
     <!-- Main Content -->
     <main class="flex-grow">
         
-<!-- MOUNTAIN HERO BANNER (MATCHES TOP-RIGHT PANEL IN SCREENSHOT) -->
-<section class="relative bg-[#071F35] text-white overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20">
-    <img src="/images/mountain-banner.jpg" alt="Alaskan mountain range" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
-    <div class="absolute inset-0 bg-gradient-to-r from-[#071F35]/90 via-[#071F35]/75 to-[#071F35]/90"></div>
-    <div class="relative section-pad text-center max-w-3xl mx-auto">
-        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-white mb-2">
-            Our Automotive Services
-        </h1>
-        <p class="text-sm sm:text-base text-[#BDEBFA] font-medium leading-relaxed max-w-2xl mx-auto">
-            From routine fluid changes to complete engine diagnostics, our certified technicians keep your vehicle running smoothly in harsh Alaskan conditions.
-        </p>
+<!-- SERVICES HERO BANNER (MISTY ALASKAN MOUNTAINS WITH FROST OVERLAY) -->
+<section class="relative w-full overflow-hidden min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] flex items-center">
+    <!-- Layer 1: Full-Width Background: Misty Alaskan Mountain Range & Dense Pine Valley -->
+    <div class="absolute inset-0 z-0 bg-[#EBF7FD]">
+        <img src="/images/misty-mountains-hero.jpg" alt="Misty Alaskan Mountain Valley in Talkeetna, Alaska" class="w-full h-full object-cover object-center opacity-75 sm:opacity-80">
+    </div>
+    
+    <!-- Layer 1.5 & Layer 2: Organic Frost Texture & Watercolor Patch behind Left-Side Text (Naturally Feathered Edges, Same as Homepage Hero Banner) -->
+    <div class="absolute inset-y-0 left-0 w-full lg:w-[62%] pointer-events-none z-1" 
+         style="-webkit-mask-image: radial-gradient(ellipse 75% 70% at 30% 50%, black 25%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 90%);
+                mask-image: radial-gradient(ellipse 75% 70% at 30% 50%, black 25%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.3) 68%, transparent 90%);">
+        
+        <!-- Organic Watercolor Ice Backing (Provides gentle icy watercolor foundation and ensures text readability) -->
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 50%, rgba(240, 249, 254, 0.98) 0%, rgba(216, 241, 250, 0.92) 42%, rgba(189, 235, 250, 0.45) 72%, transparent 95%);"></div>
+        
+        <!-- Exact Frost Texture Image (Blended softly at 40% opacity) -->
+        <img src="/images/hero-frost-texture.jpg" 
+             alt="" 
+             aria-hidden="true" 
+             class="w-full h-full object-cover object-left opacity-40 mix-blend-multiply sm:opacity-40 lg:opacity-42">
+    </div>
+    
+    <!-- Top & Bottom Soft Atmospheric Blends -->
+    <div class="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-white/35 to-transparent z-1 pointer-events-none"></div>
+    <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#EBF7FD]/80 to-transparent z-1 pointer-events-none"></div>
+
+    <!-- Layer 3: Foreground Content (Padded to clear fixed navbar seamlessly, Left-Aligned) -->
+    <div class="relative z-10 section-pad w-full pt-32 pb-14 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20">
+        <div class="max-w-2xl text-left">
+            <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#087DB5] mb-2.5">
+                Talkeetna, Alaska · Complete Auto Care
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-[#071F35] mb-3 leading-tight">
+                Our Automotive Services
+            </h1>
+            <p class="text-sm sm:text-base text-[#334E68] font-medium leading-relaxed max-w-xl">
+                From routine fluid changes to complete engine diagnostics, our certified technicians keep your vehicle running smoothly in harsh Alaskan conditions.
+            </p>
+        </div>
     </div>
 </section>
 

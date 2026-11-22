@@ -2065,8 +2065,8 @@ function handleAbout() {
 <!-- ABOUT US HERO BANNER (WORKSHOP EXTERIOR WITH HOMEPAGE HERO STYLE FROST OVERLAY) -->
 <section class="relative w-full overflow-hidden min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] flex items-center">
     <!-- Layer 1: Full-Width Background: Snowy Workshop Exterior in Alaskan Mountains -->
-    <div class="absolute inset-0 z-0">
-        <img src="/images/about-hero-workshop.jpg" alt="North Fork Automotive Workshop in Talkeetna, Alaska" class="w-full h-full object-cover object-[70%_center] lg:object-right">
+    <div class="absolute inset-0 z-0 bg-[#EBF7FD]">
+        <img src="/images/about-hero-workshop.jpg" alt="North Fork Automotive Workshop in Talkeetna, Alaska" class="w-full h-full object-cover object-[70%_center] lg:object-right opacity-75 sm:opacity-80">
     </div>
     
     <!-- Layer 1.5 & Layer 2: Organic Frost Texture & Watercolor Patch behind Left-Side Text (Naturally Feathered Edges, Same as Homepage Hero Banner) -->

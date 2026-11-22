@@ -1199,32 +1199,36 @@ function handleHome() {
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         <!-- Left Column: Brand Lockup & CTAs -->
         <div class="lg:col-span-5 flex flex-col justify-center">
-            <h1 class="text-[#071F35] font-extrabold uppercase tracking-tight leading-none text-4xl sm:text-5xl lg:text-[3.5rem]">
+            <h1 class="text-[#071F35] font-heading font-extrabold uppercase tracking-tight leading-[0.96] text-4xl sm:text-5xl lg:text-[3.6rem]">
                 <span class="block">North Fork</span>
                 <span class="block mt-1">Automotive</span>
             </h1>
             
-            <div class="flex items-center gap-3 my-4">
-                <span class="h-0.5 w-10 bg-[#071F35]"></span>
-                <span class="font-bold text-xs uppercase tracking-widest text-[#071F35]">Talkeetna, AK</span>
-                <span class="h-0.5 w-10 bg-[#071F35]"></span>
+            <!-- Car with Mechanic Hood Graphic -->
+            <div class="my-3">
+                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive Mechanic & Car" class="h-14 sm:h-16 w-auto object-contain">
+                <div class="flex items-center gap-2.5 mt-1.5 max-w-[240px]">
+                    <span class="h-0.5 flex-1 bg-[#071F35]"></span>
+                    <span class="font-heading font-bold text-xs uppercase tracking-widest text-[#071F35]">Talkeetna, AK</span>
+                    <span class="h-0.5 flex-1 bg-[#071F35]"></span>
+                </div>
             </div>
             
-            <h2 class="text-xl sm:text-2xl font-bold italic text-[#071F35] mb-3 leading-snug">
-                Reliable Auto Repair in Talkeetna - Alaska
+            <h2 class="text-xl sm:text-2xl font-heading font-extrabold italic text-[#071F35] mt-2 mb-3 leading-snug">
+                Reliable Auto Repair<br>in Talkeetna - Alaska
             </h2>
             
-            <p class="text-sm sm:text-base text-[#334E68] leading-relaxed mb-8 max-w-md">
-                Honest answers, quality workmanship, and a team that cares.
+            <p class="text-sm sm:text-base text-[#1E3A5F] font-medium leading-relaxed mb-8 max-w-md">
+                Honest answers, quality workmanship,<br class="hidden sm:inline"> and a team that cares.
             </p>
             
-            <div class="flex flex-wrap items-center gap-4">
-                <a href="/book" class="btn-navy-pill text-sm px-6 py-3">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                <a href="/book" class="inline-flex items-center justify-center gap-2.5 bg-[#071F35] hover:bg-[#0B2B47] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all duration-200 hover:-translate-y-0.5">
+                    <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span>Book Your Appointment</span>
                 </a>
-                <a href="tel:9077333030" class="btn-white-pill text-sm px-6 py-3">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <a href="tel:9077333030" class="inline-flex items-center justify-center gap-2.5 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5">
+                    <svg class="w-4 h-4 text-[#071F35] shrink-0 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     <span>Call (907) 733-3030</span>
                 </a>
             </div>

@@ -3,61 +3,69 @@
 @section('header_title', 'Booking Management')
 
 @section('content')
-<div class="space-y-6">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 class="font-heading font-800 text-2xl">All Customer Bookings</h2>
-        <div class="flex gap-2">
-            <a href="/admin/bookings" class="px-3 py-1.5 text-xs font-bold border border-border bg-card hover:border-primary">All</a>
-            <a href="/admin/bookings?status=Pending" class="px-3 py-1.5 text-xs font-bold border border-primary/40 bg-primary/10 text-primary">Pending</a>
-            <a href="/admin/bookings?status=Confirmed" class="px-3 py-1.5 text-xs font-bold border border-emerald-500/40 bg-emerald-500/10 text-emerald-400">Confirmed</a>
-            <a href="/admin/bookings?status=Completed" class="px-3 py-1.5 text-xs font-bold border border-sky-500/40 bg-sky-500/10 text-sky-400">Completed</a>
+<div class="space-y-8">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-[#BDEBFA] gap-4">
+        <div>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— APPOINTMENTS LEDGER —</span>
+            <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">All Customer Bookings</h2>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Review and manage vehicle service bookings</p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+            @php $currentStatus = request('status', 'all'); @endphp
+            <a href="/admin/bookings" class="px-3.5 py-1.5 rounded-full border transition-all {{ $currentStatus === 'all' ? 'bg-[#071F35] text-white border-[#071F35] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]' }}">All</a>
+            <a href="/admin/bookings?status=Pending" class="px-3.5 py-1.5 rounded-full border transition-all {{ strtolower($currentStatus) === 'pending' ? 'bg-amber-500 text-white border-amber-600 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]' }}">Pending</a>
+            <a href="/admin/bookings?status=Confirmed" class="px-3.5 py-1.5 rounded-full border transition-all {{ strtolower($currentStatus) === 'confirmed' ? 'bg-[#087DB5] text-white border-[#087DB5] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]' }}">Confirmed</a>
+            <a href="/admin/bookings?status=Completed" class="px-3.5 py-1.5 rounded-full border transition-all {{ strtolower($currentStatus) === 'completed' ? 'bg-emerald-600 text-white border-emerald-700 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]' }}">Completed</a>
         </div>
     </div>
 
-    <div class="border border-border bg-card overflow-x-auto">
-        <table class="w-full text-left text-sm">
-            <thead>
-                <tr class="border-b border-border text-xs uppercase font-mono-data text-muted-foreground bg-secondary/30">
-                    <th class="py-3 px-4">Ref #</th>
-                    <th class="py-3 px-4">Customer</th>
-                    <th class="py-3 px-4">Vehicle</th>
-                    <th class="py-3 px-4">Service</th>
-                    <th class="py-3 px-4">Appt Slot</th>
-                    <th class="py-3 px-4">Status</th>
-                    <th class="py-3 px-4 text-right">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-border">
-                @forelse($bookings ?? [] as $b)
-                    <tr class="hover:bg-secondary/40">
-                        <td class="py-3 px-4 font-mono-data text-xs text-primary font-bold">{{ $b['booking_number'] }}</td>
-                        <td class="py-3 px-4">
-                            <div class="font-heading font-700">{{ $b['name'] }}</div>
-                            <div class="text-xs text-muted-foreground"><a href="tel:{{ $b['phone'] }}" class="hover:underline">{{ $b['phone'] }}</a> · <a href="mailto:{{ $b['email'] }}" class="hover:underline">{{ $b['email'] }}</a></div>
-                        </td>
-                        <td class="py-3 px-4 text-xs">{{ $b['vehicle_year'] ?? '' }} {{ $b['vehicle_make'] ?? '' }} {{ $b['vehicle_model'] ?? '' }}</td>
-                        <td class="py-3 px-4 text-xs font-semibold">{{ $b['service'] }}</td>
-                        <td class="py-3 px-4 font-mono-data text-xs">{{ $b['preferred_date'] }} {{ $b['preferred_time'] }}</td>
-                        <td class="py-3 px-4">
-                            <span class="px-2 py-0.5 text-[10px] uppercase font-bold border 
-                                {{ $b['status'] === 'Confirmed' ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400' : '' }}
-                                {{ $b['status'] === 'Pending' ? 'border-primary/40 bg-primary/10 text-primary' : '' }}
-                                {{ $b['status'] === 'Completed' ? 'border-sky-500/40 bg-sky-500/10 text-sky-400' : '' }}
-                                {{ $b['status'] === 'Cancelled' ? 'border-border bg-muted text-muted-foreground' : '' }}">
-                                {{ $b['status'] }}
-                            </span>
-                        </td>
-                        <td class="py-3 px-4 text-right space-x-2">
-                            <a href="/admin/bookings/{{ $b['id'] }}" class="px-2.5 py-1 text-xs border border-border hover:border-primary text-foreground">View</a>
-                        </td>
-                    </tr>
-                @empty
+    <div class="frosted-card overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
                     <tr>
-                        <td colspan="7" class="py-8 text-center text-muted-foreground">No bookings found in this view.</td>
+                        <th class="p-4 font-bold">Ref #</th>
+                        <th class="p-4 font-bold">Customer Details</th>
+                        <th class="p-4 font-bold">Vehicle</th>
+                        <th class="p-4 font-bold">Requested Service</th>
+                        <th class="p-4 font-bold">Date &amp; Time</th>
+                        <th class="p-4 font-bold">Status</th>
+                        <th class="p-4 text-right font-bold">Actions</th>
                     </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
+                    @forelse($bookings ?? [] as $b)
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">{{ $b['booking_number'] ?? $b['booking_reference'] }}</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">{{ $b['name'] ?? $b['customer_name'] }}</div>
+                                <div class="text-[#334E68] font-mono"><a href="tel:{{ $b['phone'] ?? $b['customer_phone'] }}" class="hover:underline">{{ $b['phone'] ?? $b['customer_phone'] }}</a></div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">{{ $b['email'] ?? $b['customer_email'] }}</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">{{ $b['vehicle_info'] ?? ($b['vehicle_year'] ?? '') . ' ' . ($b['vehicle_make'] ?? '') . ' ' . ($b['vehicle_model'] ?? 'Vehicle Not Specified') }}</div>
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">{{ $b['service'] ?? $b['service_name'] }}</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">{{ $b['preferred_date'] }}</div>
+                                <div class="text-[#334E68] text-[11px]">{{ $b['preferred_time'] }}</div>
+                            </td>
+                            <td class="p-4">
+                                @php $st = strtolower($b['status'] ?? 'pending'); @endphp
+                                <span class="status-badge status-{{ $st }}">{{ $b['status'] ?? 'Pending' }}</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <a href="/admin/bookings/{{ $b['id'] }}" class="btn-navy-pill text-[11px] px-3.5 py-1.5 shadow-sm">Manage</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="p-12 text-center text-[#334E68] font-mono">No bookings found in this view.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,110 +11,179 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        background: '#071F35',
-                        foreground: '#FFFFFF',
-                        card: { DEFAULT: '#0B2B47', foreground: '#FFFFFF' },
-                        primary: { DEFAULT: '#087DB5', foreground: '#FFFFFF' },
-                        secondary: { DEFAULT: '#0E3557', foreground: '#D8F1FA' },
-                        muted: { DEFAULT: '#0B2B47', foreground: '#94A3B8' },
-                        border: 'rgba(189,235,250,0.15)'
-                    },
-                    fontFamily: {
-                        heading: ['Sora', 'sans-serif'],
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #071F35; color: #FFFFFF; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
-        .font-mono-data { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #BDEBFA; }
+        :root {
+            --color-navy: #071F35;
+            --color-navy-dark: #041321;
+            --color-ocean: #087DB5;
+            --color-ice: #BDEBFA;
+            --color-sky: #D8F1FA;
+            --color-bg-light: #EBF7FD;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--color-bg-light); color: var(--color-navy); }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; font-weight: 800; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px -2px rgba(8, 125, 181, 0.08);
+        }
+
+        .btn-navy-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #071F35;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px 0 rgba(7, 31, 53, 0.20);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(7, 31, 53, 0.30);
+        }
+
+        .btn-white-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #071F35 !important;
+            border: 1.5px solid #071F35;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-white-pill:hover {
+            background-color: #FFFFFF;
+            border-color: #087DB5;
+            color: #087DB5 !important;
+            transform: translateY(-1px);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border-radius: 9999px;
+        }
+        .status-pending { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+        .status-confirmed { background: #D8F1FA; color: #087DB5; border: 1px solid #BDEBFA; }
+        .status-in_progress { background: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+        .status-completed { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+        .status-cancelled { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
     </style>
     @stack('styles')
 </head>
-<body class="min-h-screen bg-background text-foreground antialiased flex flex-col md:flex-row">
+<body class="min-h-screen bg-[#EBF7FD] text-[#071F35] antialiased flex flex-col md:flex-row">
     <!-- Admin Sidebar -->
-    <aside id="admin-sidebar" class="w-full md:w-64 border-b md:border-b-0 md:border-r border-border bg-card/60 flex flex-col shrink-0">
-        <div class="h-16 flex items-center justify-between px-6 border-b border-border">
-            <a href="/admin" class="flex items-center gap-3">
-                <img src="/images/logo.png" alt="North Fork Auto" class="h-8 object-contain">
-                <span class="font-heading font-800 text-sm tracking-tight text-white">NFA Admin</span>
-            </a>
-            <button id="admin-mobile-nav-toggle" class="md:hidden p-2 text-muted-foreground hover:text-foreground">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
+    <aside id="admin-sidebar" class="w-full md:w-64 bg-[#071F35] border-b md:border-b-0 md:border-r border-[#BDEBFA]/20 p-6 flex flex-col justify-between shrink-0 shadow-2xl z-20">
+        <div>
+            <!-- Brand -->
+            <div class="flex items-center justify-between md:justify-start gap-3.5 mb-8 pb-6 border-b border-[#BDEBFA]/15">
+                <a href="/admin" class="flex items-center gap-3">
+                    <img src="/images/logo.png" alt="North Fork Auto" class="h-10 w-auto object-contain rounded-xl bg-white/10 border border-[#BDEBFA]/30 p-1">
+                    <div class="min-w-0">
+                        <div class="font-heading font-extrabold text-sm tracking-wide text-white leading-tight">North Fork Auto</div>
+                        <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Staff Console</div>
+                    </div>
+                </a>
+                <button id="admin-mobile-nav-toggle" class="md:hidden p-2 text-[#D8F1FA] hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav id="admin-nav-links" class="hidden md:flex flex-col space-y-1.5 font-sans text-xs font-semibold">
+                <a href="/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->is('admin') ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]' }}">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    Dashboard
+                </a>
+                <a href="/admin/bookings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->is('admin/bookings*') ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]' }}">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                    Bookings
+                </a>
+                <a href="/admin/services" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->is('admin/services*') ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]' }}">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    Services Catalog
+                </a>
+                <a href="/admin/users" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->is('admin/users*') ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]' }}">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Users &amp; Staff
+                </a>
+                <a href="/admin/settings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->is('admin/settings*') ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]' }}">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Settings &amp; Inbox
+                </a>
+            </nav>
         </div>
 
-        <nav id="admin-nav-links" class="hidden md:flex flex-col p-4 space-y-1 flex-1">
-            <a href="/admin" class="flex items-center gap-3 px-3 py-2 text-sm rounded font-heading font-600 {{ request()->is('admin') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary hover:text-foreground' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                Dashboard
+        <div class="pt-6 border-t border-[#BDEBFA]/15 space-y-3">
+            <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-[#D8F1FA]/80 hover:text-white transition-colors">
+                <svg class="w-3.5 h-3.5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Public Website
             </a>
-            <a href="/admin/bookings" class="flex items-center gap-3 px-3 py-2 text-sm rounded font-heading font-600 {{ request()->is('admin/bookings*') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary hover:text-foreground' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                Bookings
-            </a>
-            <a href="/admin/services" class="flex items-center gap-3 px-3 py-2 text-sm rounded font-heading font-600 {{ request()->is('admin/services*') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary hover:text-foreground' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
-                Services
-            </a>
-            <a href="/admin/users" class="flex items-center gap-3 px-3 py-2 text-sm rounded font-heading font-600 {{ request()->is('admin/users*') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary hover:text-foreground' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                Users &amp; Staff
-            </a>
-            <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 text-sm rounded font-heading font-600 {{ request()->is('admin/settings*') ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary hover:text-foreground' }}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-                Shop Settings
-            </a>
-            
-            <div class="pt-6 mt-6 border-t border-border">
-                <a href="/" target="_blank" class="flex items-center gap-3 px-3 py-2 text-xs text-muted-foreground hover:text-foreground">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    View Live Website
-                </a>
-                <form action="/admin/logout" method="POST" class="mt-2">
-                    @csrf
-                    <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 text-xs text-primary hover:bg-secondary rounded">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                        Sign Out
-                    </button>
-                </form>
-            </div>
-        </nav>
+            <form action="/admin/logout" method="POST">
+                @csrf
+                <button type="submit" class="w-full flex items-center gap-2 text-xs font-mono text-rose-300 hover:text-rose-100 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </button>
+            </form>
+        </div>
     </aside>
 
     <!-- Main Admin Content Area -->
-    <div class="flex-1 flex flex-col min-w-0">
-        <header class="h-16 border-b border-border bg-card/40 px-6 flex items-center justify-between">
-            <h1 class="font-heading font-700 text-lg">@yield('header_title', 'Admin Console')</h1>
-            <div class="flex items-center gap-4">
-                <span class="font-mono-data text-xs bg-secondary px-3 py-1 border border-border text-foreground">Logged in as: Administrator</span>
-            </div>
-        </header>
+    <div class="flex-1 flex flex-col min-w-0 relative bg-[#EBF7FD]">
+        <!-- Subtle ice texture background blend -->
+        <div class="absolute inset-0 pointer-events-none opacity-25 z-0">
+            <img src="/images/hero-frost-texture.jpg" class="w-full h-full object-cover mix-blend-multiply" alt="">
+        </div>
 
-        <main class="flex-1 p-6 md:p-8 overflow-y-auto">
-            @if(session('success'))
-                <div class="mb-6 p-4 border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 text-sm">
-                    {{ session('success') }}
+        <div class="relative z-10 flex-1 flex flex-col">
+            <header class="h-16 border-b border-[#BDEBFA] bg-white/70 backdrop-blur-md px-6 lg:px-12 flex items-center justify-between">
+                <div>
+                    <h1 class="font-heading font-extrabold text-base sm:text-lg text-[#071F35]">@yield('header_title', 'Admin Console')</h1>
                 </div>
-            @endif
-            @if(session('error'))
-                <div class="mb-6 p-4 border border-primary/40 bg-primary/10 text-primary text-sm">
-                    {{ session('error') }}
+                <div class="flex items-center gap-4">
+                    <span class="inline-flex items-center gap-2 bg-[#D8F1FA] border border-[#BDEBFA] text-[#087DB5] text-xs font-mono font-bold px-3 py-1 rounded-full">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Administrator · Talkeetna, AK
+                    </span>
                 </div>
-            @endif
+            </header>
 
-            @yield('content')
-        </main>
+            <main class="flex-1 p-6 lg:p-12 overflow-y-auto max-w-7xl w-full mx-auto space-y-8">
+                @if(session('success'))
+                    <div class="p-4 border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-mono rounded-xl shadow-sm">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if(session('error'))
+                    <div class="p-4 border border-rose-300 bg-rose-50 text-rose-700 text-xs font-mono rounded-xl shadow-sm">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
     </div>
 
     <script>

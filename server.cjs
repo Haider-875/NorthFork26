@@ -2948,7 +2948,7 @@ function handleBook() {
 
 function renderStaffLayout(title, content, activeNav = 'dashboard') {
   return `<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2958,56 +2958,113 @@ function renderStaffLayout(title, content, activeNav = 'dashboard') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #071F35; color: #f8fafc; }
+        :root {
+            --color-navy: #071F35;
+            --color-navy-dark: #041321;
+            --color-ocean: #087DB5;
+            --color-ice: #BDEBFA;
+            --color-sky: #D8F1FA;
+            --color-bg-light: #EBF7FD;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--color-bg-light); color: var(--color-navy); }
         h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; font-weight: 800; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px -2px rgba(8, 125, 181, 0.08);
+        }
+
+        .btn-navy-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #071F35;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px 0 rgba(7, 31, 53, 0.20);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(7, 31, 53, 0.30);
+        }
+
+        .btn-white-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #071F35 !important;
+            border: 1.5px solid #071F35;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-white-pill:hover {
+            background-color: #FFFFFF;
+            border-color: #087DB5;
+            color: #087DB5 !important;
+            transform: translateY(-1px);
+        }
+
         .status-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.25rem 0.6rem;
+            padding: 0.25rem 0.75rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: 0.68rem;
             text-transform: uppercase;
             font-weight: 700;
             letter-spacing: 0.05em;
-            border-radius: 4px;
+            border-radius: 9999px;
         }
-        .status-pending { background: rgba(250, 204, 21, 0.15); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35); }
-        .status-confirmed { background: rgba(8, 125, 181, 0.25); color: #BDEBFA; border: 1px solid rgba(189, 235, 250, 0.4); }
-        .status-in_progress { background: rgba(168, 85, 247, 0.2); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.4); }
-        .status-completed { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
-        .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .status-pending { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+        .status-confirmed { background: #D8F1FA; color: #087DB5; border: 1px solid #BDEBFA; }
+        .status-in_progress { background: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+        .status-completed { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+        .status-cancelled { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
     </style>
 </head>
-<body class="min-h-screen bg-[#071F35] text-white flex flex-col antialiased">
+<body class="min-h-screen bg-[#EBF7FD] text-[#071F35] flex flex-col antialiased">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 border-r border-[#BDEBFA]/20 bg-[#0B2B47] p-6 flex flex-col justify-between shrink-0 shadow-xl">
+        <aside class="w-64 bg-[#071F35] border-r border-[#BDEBFA]/20 p-6 flex flex-col justify-between shrink-0 shadow-2xl z-20">
             <div>
                 <!-- Brand -->
-                <div class="flex items-center gap-3 mb-10">
-                    <img src="/images/logo.png" alt="North Fork Auto" class="h-10 w-auto object-contain rounded bg-[#041321]/80 border border-[#BDEBFA]/25 p-1">
-                    <div>
-                        <div class="font-heading font-extrabold text-sm tracking-wide text-white">NORTH FORK AUTO</div>
-                        <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Staff Portal</div>
+                <div class="flex items-center gap-3.5 mb-8 pb-6 border-b border-[#BDEBFA]/15">
+                    <img src="/images/logo.png" alt="North Fork Auto" class="h-10 w-auto object-contain rounded-xl bg-white/10 border border-[#BDEBFA]/30 p-1">
+                    <div class="min-w-0">
+                        <div class="font-heading font-extrabold text-sm tracking-wide text-white leading-tight">North Fork Auto</div>
+                        <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Staff Console</div>
                     </div>
                 </div>
 
                 <!-- Navigation -->
-                <nav class="space-y-1.5 font-mono text-xs">
-                    <a href="/staff/dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'dashboard' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
+                <nav class="space-y-1.5 font-sans text-xs font-semibold">
+                    <a href="/staff/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${activeNav === 'dashboard' ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                         Dashboard
                     </a>
-                    <a href="/staff/bookings" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'bookings' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
+                    <a href="/staff/bookings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${activeNav === 'bookings' ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
                         Bookings
                     </a>
-                    <a href="/staff/services" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'services' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
+                    <a href="/staff/services" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${activeNav === 'services' ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                        Services
+                        Services Catalog
                     </a>
-                    <a href="/staff/settings" class="flex items-center gap-3 px-3.5 py-2.5 rounded transition-colors ${activeNav === 'settings' ? 'bg-[#087DB5] text-white font-bold border-l-4 border-[#BDEBFA]' : 'text-[#D8F1FA]/70 hover:text-white hover:bg-[#0E3557]'}">
+                    <a href="/staff/settings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${activeNav === 'settings' ? 'bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30' : 'text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]'}">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                         Settings &amp; Inbox
                     </a>
@@ -3015,20 +3072,27 @@ function renderStaffLayout(title, content, activeNav = 'dashboard') {
             </div>
 
             <div class="pt-6 border-t border-[#BDEBFA]/15 space-y-3">
-                <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-[#D8F1FA]/70 hover:text-[#BDEBFA] transition-colors">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    Live Public Site
+                <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-[#D8F1FA]/80 hover:text-white transition-colors">
+                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    Live Public Website
                 </a>
-                <a href="/staff/logout" class="flex items-center gap-2 text-xs font-mono text-red-400 hover:text-red-300 transition-colors">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <a href="/staff/logout" class="flex items-center gap-2 text-xs font-mono text-rose-300 hover:text-rose-100 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                     Sign Out
                 </a>
             </div>
         </aside>
 
         <!-- Main Body -->
-        <main class="flex-1 overflow-y-auto p-8 lg:p-12 bg-[#071F35]">
-            ${content}
+        <main class="flex-1 overflow-y-auto p-8 lg:p-12 relative bg-[#EBF7FD]">
+            <!-- Subtle ice texture background blend -->
+            <div class="absolute inset-0 pointer-events-none opacity-25 z-0">
+                <img src="/images/hero-frost-texture.jpg" class="w-full h-full object-cover mix-blend-multiply" alt="">
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto space-y-8">
+                ${content}
+            </div>
         </main>
     </div>
 </body>
@@ -3037,7 +3101,7 @@ function renderStaffLayout(title, content, activeNav = 'dashboard') {
 
 function handleStaffLogin(res, errorMsg = '') {
   const html = `<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3047,43 +3111,72 @@ function handleStaffLogin(res, errorMsg = '') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #071F35; color: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background-color: #EBF7FD; color: #071F35; }
         h1, h2, h3 { font-family: 'Sora', sans-serif; font-weight: 800; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px -5px rgba(8, 125, 181, 0.12);
+        }
+        .btn-navy-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #071F35;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px 0 rgba(7, 31, 53, 0.20);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(7, 31, 53, 0.30);
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6 bg-[#071F35]">
-    <div class="w-full max-w-md bg-[#0B2B47] border border-[#BDEBFA]/25 p-8 sm:p-10 rounded-xl shadow-2xl">
-        <div class="flex items-center gap-3.5 mb-8">
-            <img src="/images/logo.png" alt="North Fork Auto" class="h-11 w-auto object-contain rounded bg-[#041321] border border-[#BDEBFA]/25 p-1">
+<body class="min-h-screen flex items-center justify-center p-6 bg-[#EBF7FD] relative">
+    <div class="absolute inset-0 pointer-events-none opacity-25 z-0">
+        <img src="/images/hero-frost-texture.jpg" class="w-full h-full object-cover mix-blend-multiply" alt="">
+    </div>
+
+    <div class="relative z-10 w-full max-w-md frosted-card p-8 sm:p-10">
+        <div class="flex items-center gap-3.5 mb-8 pb-6 border-b border-[#BDEBFA]">
+            <img src="/images/logo.png" alt="North Fork Auto" class="h-11 w-auto object-contain rounded-xl bg-white/80 border border-[#BDEBFA] p-1 shadow-sm">
             <div>
-                <div class="font-heading font-extrabold text-base text-white">NORTH FORK AUTO</div>
-                <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Authorized Staff Portal</div>
+                <div class="font-heading font-extrabold text-base text-[#071F35]">North Fork Auto</div>
+                <div class="font-mono text-[10px] text-[#087DB5] uppercase tracking-wider font-bold">Authorized Staff Portal</div>
             </div>
         </div>
 
         ${errorMsg ? `
-            <div class="mb-6 p-4 border border-red-500/40 bg-red-500/10 text-red-400 text-xs font-mono rounded">
+            <div class="mb-6 p-4 border border-rose-300 bg-rose-50 text-rose-700 text-xs font-mono rounded-xl">
                 ${escapeHtml(errorMsg)}
             </div>
         ` : ''}
 
         <form action="/staff/login" method="POST" class="space-y-5">
             <div>
-                <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-1.5">Staff Email</label>
-                <input type="email" name="email" required value="admin@northforkauto.com" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-1.5">Staff Email</label>
+                <input type="email" name="email" required value="admin@northforkauto.com" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
             </div>
             <div>
-                <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-1.5">Password</label>
-                <input type="password" name="password" required placeholder="••••••••" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-1.5">Password</label>
+                <input type="password" name="password" required placeholder="••••••••" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-3 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl transition">
             </div>
-            <div class="flex items-center justify-between text-xs font-mono text-[#D8F1FA]/70">
-                <label class="flex items-center gap-2 cursor-pointer">
+            <div class="flex items-center justify-between text-xs font-mono text-[#334E68]">
+                <label class="flex items-center gap-2 cursor-pointer font-medium">
                     <input type="checkbox" name="remember" class="accent-[#087DB5]"> Remember session
                 </label>
-                <a href="/" class="text-[#D8F1FA]/70 hover:text-[#BDEBFA] transition-colors">Public Site &rarr;</a>
+                <a href="/" class="text-[#087DB5] hover:underline font-bold transition-colors">Public Site</a>
             </div>
-            <button type="submit" class="w-full bg-[#087DB5] text-white py-3.5 font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#0A92D4] transition-colors rounded shadow-lg shadow-[#087DB5]/30">
+            <button type="submit" class="btn-navy-pill w-full py-3.5 font-mono text-xs uppercase font-bold tracking-wider">
                 Sign In to Portal
             </button>
         </form>
@@ -3111,109 +3204,148 @@ function handleStaffDashboard(res) {
   const recentBookings = bookings.slice(0, 8);
 
   const content = `
-<div>
+<div class="space-y-8">
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA] gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Operations Dashboard</h1>
-            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Real-time shop metrics, bookings &amp; workflow</p>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— TALKEETNA OPERATIONS CONSOLE —</span>
+            <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">Operations Dashboard</h1>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Real-time shop metrics, bookings &amp; workflow</p>
         </div>
-        <div class="flex gap-3">
-            <a href="/staff/bookings" class="px-4 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors rounded shadow-md shadow-[#087DB5]/25">
-                + Manage Bookings
+        <div class="flex flex-wrap items-center gap-3">
+            <div class="hidden md:flex items-center gap-2.5 bg-white/80 border border-[#BDEBFA] px-3.5 py-2 rounded-full shadow-sm text-xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-bold text-[#071F35]">Administrator</span>
+                <span class="text-[#334E68]">·</span>
+                <span class="text-[#087DB5] font-mono text-[11px] font-semibold">Talkeetna, AK</span>
+            </div>
+            <a href="/staff/bookings" class="btn-navy-pill text-xs px-5 py-2.5 shadow-md">
+                Manage Bookings
             </a>
-            <a href="/staff/services" class="px-4 py-2.5 border border-[#BDEBFA]/25 bg-[#0B2B47] text-white text-xs font-mono uppercase hover:border-[#BDEBFA] transition-colors rounded">
+            <a href="/staff/services" class="btn-white-pill text-xs px-5 py-2.5 shadow-sm">
                 Services Catalog
             </a>
         </div>
     </div>
 
     <!-- Metric Cards Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-5 rounded-lg shadow-md">
-            <div class="text-[11px] font-mono text-[#D8F1FA]/70 uppercase tracking-wider">Total Bookings</div>
-            <div class="text-3xl font-extrabold text-white mt-2">${bookings.length}</div>
-            <div class="text-[10px] text-[#BDEBFA] font-mono mt-1">All-time volume</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Total Bookings -->
+        <div class="frosted-card p-6 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono font-bold text-[#334E68] uppercase tracking-wider">Total Bookings</span>
+                <div class="w-9 h-9 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+            </div>
+            <div class="text-3xl font-heading font-extrabold text-[#071F35]">${bookings.length}</div>
+            <div class="text-xs text-[#087DB5] font-medium mt-2">All-time volume</div>
         </div>
-        <div class="bg-[#0B2B47] border border-amber-400/35 p-5 rounded-lg shadow-md">
-            <div class="text-[11px] font-mono text-amber-300 uppercase tracking-wider">Pending Action</div>
-            <div class="text-3xl font-extrabold text-amber-300 mt-2">${pendingCount}</div>
-            <div class="text-[10px] text-amber-400/80 font-mono mt-1">Requires confirmation</div>
+
+        <!-- Pending Action -->
+        <div class="frosted-card p-6 flex flex-col justify-between border-amber-300/80 bg-amber-50/40">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono font-bold text-amber-800 uppercase tracking-wider">Pending Action</span>
+                <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+            </div>
+            <div class="text-3xl font-heading font-extrabold text-amber-600">${pendingCount}</div>
+            <div class="text-xs text-amber-800 font-medium mt-2">Requires confirmation</div>
         </div>
-        <div class="bg-[#0B2B47] border border-[#087DB5]/40 p-5 rounded-lg shadow-md">
-            <div class="text-[11px] font-mono text-[#BDEBFA] uppercase tracking-wider">Confirmed &amp; Active</div>
-            <div class="text-3xl font-extrabold text-[#BDEBFA] mt-2">${confirmedCount + inProgressCount}</div>
-            <div class="text-[10px] text-[#D8F1FA]/70 font-mono mt-1">${inProgressCount} in progress</div>
+
+        <!-- Confirmed & Active -->
+        <div class="frosted-card p-6 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono font-bold text-[#087DB5] uppercase tracking-wider">Confirmed &amp; Active</span>
+                <div class="w-9 h-9 rounded-xl bg-[#D8F1FA] text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+            </div>
+            <div class="text-3xl font-heading font-extrabold text-[#087DB5]">${confirmedCount + inProgressCount}</div>
+            <div class="text-xs text-[#334E68] font-medium mt-2">${inProgressCount} in progress</div>
         </div>
-        <div class="bg-[#0B2B47] border border-emerald-400/35 p-5 rounded-lg shadow-md">
-            <div class="text-[11px] font-mono text-emerald-300 uppercase tracking-wider">Completed Jobs</div>
-            <div class="text-3xl font-extrabold text-emerald-300 mt-2">${completedCount}</div>
-            <div class="text-[10px] text-emerald-400/80 font-mono mt-1">Ready for pickup</div>
+
+        <!-- Completed Jobs -->
+        <div class="frosted-card p-6 flex flex-col justify-between border-emerald-300/80 bg-emerald-50/40">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[11px] font-mono font-bold text-emerald-800 uppercase tracking-wider">Completed Jobs</span>
+                <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+            </div>
+            <div class="text-3xl font-heading font-extrabold text-emerald-600">${completedCount}</div>
+            <div class="text-xs text-emerald-800 font-medium mt-2">Ready for pickup</div>
         </div>
     </div>
 
     <!-- Secondary Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="frosted-card p-6 flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Active Catalog Services</div>
-                <div class="text-2xl font-extrabold text-white mt-1">${activeServicesCount}</div>
+                <div class="text-xs font-mono font-bold text-[#334E68] uppercase">Active Catalog Services</div>
+                <div class="text-2xl font-heading font-extrabold text-[#071F35] mt-1">${activeServicesCount}</div>
             </div>
-            <div class="text-xs font-mono text-[#D8F1FA]/50">${inactiveServicesCount} hidden</div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-[#D8F1FA] text-[#087DB5] font-bold">${activeServicesCount} active · ${inactiveServicesCount} hidden</span>
         </div>
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
+
+        <div class="frosted-card p-6 flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Customer Inquiries</div>
-                <div class="text-2xl font-extrabold text-white mt-1">${messages.length}</div>
+                <div class="text-xs font-mono font-bold text-[#334E68] uppercase">Customer Inquiries</div>
+                <div class="text-2xl font-heading font-extrabold text-[#071F35] mt-1">${messages.length}</div>
             </div>
-            <a href="/staff/settings" class="text-xs font-mono text-[#BDEBFA] hover:underline font-bold">View Inbox &rarr;</a>
+            <a href="/staff/settings" class="btn-navy-pill text-xs px-4 py-2 shadow-sm">View Inbox</a>
         </div>
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 rounded-lg flex items-center justify-between">
+
+        <div class="frosted-card p-6 flex items-center justify-between">
             <div>
-                <div class="text-xs font-mono text-[#D8F1FA]/70 uppercase">Cancelled Requests</div>
-                <div class="text-2xl font-extrabold text-[#D8F1FA]/60 mt-1">${cancelledCount}</div>
+                <div class="text-xs font-mono font-bold text-[#334E68] uppercase">Shop Dispatch</div>
+                <div class="text-sm font-bold text-[#071F35] mt-1">(907) 733-3030</div>
             </div>
-            <div class="text-xs font-mono text-[#D8F1FA]/50">Archived</div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Mon-Fri 8am-5pm</span>
         </div>
     </div>
 
     <!-- Recent Bookings Table -->
-    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
-        <div class="p-6 border-b border-[#BDEBFA]/15 flex items-center justify-between">
-            <h2 class="text-lg font-bold text-white">Recent Customer Bookings</h2>
-            <a href="/staff/bookings" class="text-xs font-mono text-[#BDEBFA] hover:underline font-bold">View Full Ledger &rarr;</a>
+    <div class="frosted-card overflow-hidden">
+        <div class="p-6 border-b border-[#BDEBFA] flex items-center justify-between bg-white/60">
+            <div>
+                <h2 class="text-lg font-heading font-bold text-[#071F35]">Recent Customer Bookings</h2>
+                <p class="text-xs text-[#334E68] mt-0.5">Latest service appointments submitted online</p>
+            </div>
+            <a href="/staff/bookings" class="btn-white-pill text-xs px-5 py-2">View Full Ledger</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
+                <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
                     <tr>
-                        <th class="p-4">Reference</th>
-                        <th class="p-4">Customer</th>
-                        <th class="p-4">Vehicle</th>
-                        <th class="p-4">Service</th>
-                        <th class="p-4">Date &amp; Slot</th>
-                        <th class="p-4">Status</th>
-                        <th class="p-4 text-right">Quick Action</th>
+                        <th class="p-4 font-bold">Reference</th>
+                        <th class="p-4 font-bold">Customer</th>
+                        <th class="p-4 font-bold">Vehicle</th>
+                        <th class="p-4 font-bold">Service</th>
+                        <th class="p-4 font-bold">Date &amp; Slot</th>
+                        <th class="p-4 font-bold">Status</th>
+                        <th class="p-4 text-right font-bold">Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#BDEBFA]/10">
+                <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
                     ${recentBookings.length === 0 ? `
-                        <tr><td colspan="7" class="p-8 text-center text-[#D8F1FA]/60 font-mono">No bookings found in database.</td></tr>
+                        <tr><td colspan="7" class="p-8 text-center text-[#334E68] font-mono">No bookings found in database.</td></tr>
                     ` : recentBookings.map(b => `
-                        <tr class="hover:bg-[#0E3557] transition-colors">
-                            <td class="p-4 font-mono text-[#BDEBFA] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono font-bold text-[#087DB5]">${escapeHtml(b.booking_number || b.booking_reference)}</td>
                             <td class="p-4">
-                                <div class="font-bold text-white">${escapeHtml(b.customer_name)}</div>
-                                <div class="text-[11px] text-[#D8F1FA]/70 font-mono">${escapeHtml(b.customer_phone)}</div>
+                                <div class="font-bold text-[#071F35] text-sm">${escapeHtml(b.customer_name)}</div>
+                                <div class="text-xs text-[#334E68] font-mono">${escapeHtml(b.customer_phone)}</div>
                             </td>
-                            <td class="p-4 text-[#D8F1FA]/90">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Standard'))}</td>
-                            <td class="p-4 text-white font-medium">${escapeHtml(b.service_name)}</td>
-                            <td class="p-4 font-mono text-[#D8F1FA]/90">${escapeHtml(b.preferred_date)} <span class="text-[#D8F1FA]/50">${escapeHtml(b.preferred_time)}</span></td>
+                            <td class="p-4 text-xs font-medium text-[#334E68]">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Standard'))}</td>
+                            <td class="p-4 font-semibold text-[#071F35]">${escapeHtml(b.service_name)}</td>
+                            <td class="p-4 font-mono text-[#334E68]">${escapeHtml(b.preferred_date)} <span class="text-[#334E68]/60">${escapeHtml(b.preferred_time)}</span></td>
                             <td class="p-4">
                                 <span class="status-badge status-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
                             </td>
-                            <td class="p-4 text-right font-mono">
-                                <a href="/staff/bookings?search=${encodeURIComponent(b.booking_number || b.booking_reference)}" class="text-[#BDEBFA] hover:underline font-bold">Edit / Manage</a>
+                            <td class="p-4 text-right">
+                                <a href="/staff/bookings?search=${encodeURIComponent(b.booking_number || b.booking_reference)}" class="btn-navy-pill text-[11px] px-3.5 py-1.5 shadow-sm">Manage</a>
                             </td>
                         </tr>
                     `).join('')}
@@ -3249,82 +3381,83 @@ function handleStaffBookings(res, reqUrl) {
   }
 
   const content = `
-<div>
+<div class="space-y-8">
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA] gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Bookings Management</h1>
-            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Create, review, update status, and manage shop schedule</p>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— APPOINTMENTS LEDGER —</span>
+            <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">Bookings Management</h1>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Create, review, update status, and manage shop schedule</p>
         </div>
-        <button onclick="document.getElementById('modal-create-booking').classList.remove('hidden')" class="px-5 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors flex items-center gap-2 rounded shadow-md shadow-[#087DB5]/25">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-            + Create Manual Booking
+        <button onclick="document.getElementById('modal-create-booking').classList.remove('hidden')" class="btn-navy-pill text-xs px-5 py-2.5 shadow-md flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Create Manual Booking
         </button>
     </div>
 
     <!-- Filters & Search Toolbar -->
-    <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center rounded-lg shadow-sm">
+    <div class="frosted-card p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
         <!-- Status Tabs -->
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <a href="/staff/bookings?status=all${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'all' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">All (${(currentDb.bookings || []).length})</a>
-            <a href="/staff/bookings?status=pending${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'pending' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Pending</a>
-            <a href="/staff/bookings?status=confirmed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'confirmed' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Confirmed</a>
-            <a href="/staff/bookings?status=in_progress${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'in_progress' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">In Progress</a>
-            <a href="/staff/bookings?status=completed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'completed' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Completed</a>
-            <a href="/staff/bookings?status=cancelled${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3 py-1.5 rounded border ${filterStatus === 'cancelled' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">Cancelled</a>
+            <a href="/staff/bookings?status=all${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'all' ? 'bg-[#071F35] text-white border-[#071F35] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">All (${(currentDb.bookings || []).length})</a>
+            <a href="/staff/bookings?status=pending${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'pending' ? 'bg-amber-500 text-white border-amber-600 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">Pending</a>
+            <a href="/staff/bookings?status=confirmed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'confirmed' ? 'bg-[#087DB5] text-white border-[#087DB5] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">Confirmed</a>
+            <a href="/staff/bookings?status=in_progress${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'in_progress' ? 'bg-purple-600 text-white border-purple-700 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">In Progress</a>
+            <a href="/staff/bookings?status=completed${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'completed' ? 'bg-emerald-600 text-white border-emerald-700 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">Completed</a>
+            <a href="/staff/bookings?status=cancelled${searchQuery ? '&search=' + encodeURIComponent(searchQuery) : ''}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterStatus === 'cancelled' ? 'bg-slate-500 text-white border-slate-600 font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">Cancelled</a>
         </div>
 
         <!-- Search Input -->
         <form method="GET" action="/staff/bookings" class="flex gap-2 w-full md:w-auto">
             <input type="hidden" name="status" value="${escapeHtml(filterStatus)}">
-            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search customer, VIN, ref..." class="bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#BDEBFA] rounded w-full md:w-64">
-            <button type="submit" class="px-4 py-1.5 bg-[#087DB5] text-white text-xs font-mono hover:bg-[#0A92D4] rounded">Filter</button>
+            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search customer, VIN, ref..." class="bg-white/90 border border-[#BDEBFA] px-4 py-2 text-xs text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl w-full md:w-64 transition">
+            <button type="submit" class="btn-navy-pill text-xs px-4 py-2">Filter</button>
         </form>
     </div>
 
     <!-- Bookings Table -->
-    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
+    <div class="frosted-card overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
+                <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
                     <tr>
-                        <th class="p-4">Ref #</th>
-                        <th class="p-4">Customer Details</th>
-                        <th class="p-4">Vehicle</th>
-                        <th class="p-4">Requested Service</th>
-                        <th class="p-4">Date &amp; Time</th>
-                        <th class="p-4">Status</th>
-                        <th class="p-4 text-right">Actions</th>
+                        <th class="p-4 font-bold">Ref #</th>
+                        <th class="p-4 font-bold">Customer Details</th>
+                        <th class="p-4 font-bold">Vehicle</th>
+                        <th class="p-4 font-bold">Requested Service</th>
+                        <th class="p-4 font-bold">Date &amp; Time</th>
+                        <th class="p-4 font-bold">Status</th>
+                        <th class="p-4 text-right font-bold">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#BDEBFA]/10">
+                <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
                     ${bookings.length === 0 ? `
-                        <tr><td colspan="7" class="p-12 text-center text-[#D8F1FA]/60 font-mono">No matching bookings found.</td></tr>
+                        <tr><td colspan="7" class="p-12 text-center text-[#334E68] font-mono">No matching bookings found.</td></tr>
                     ` : bookings.map(b => `
-                        <tr class="hover:bg-[#0E3557] transition-colors">
-                            <td class="p-4 font-mono text-[#BDEBFA] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">${escapeHtml(b.booking_number || b.booking_reference)}</td>
                             <td class="p-4">
-                                <div class="font-bold text-white text-sm">${escapeHtml(b.customer_name)}</div>
-                                <div class="text-[#D8F1FA]/70 font-mono">${escapeHtml(b.customer_phone)}</div>
-                                <div class="text-[#D8F1FA]/50 text-[11px] font-mono">${escapeHtml(b.customer_email)}</div>
+                                <div class="font-bold text-[#071F35] text-sm">${escapeHtml(b.customer_name)}</div>
+                                <div class="text-[#334E68] font-mono">${escapeHtml(b.customer_phone)}</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">${escapeHtml(b.customer_email)}</div>
                             </td>
                             <td class="p-4">
-                                <div class="text-[#D8F1FA]/90 font-medium">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Vehicle Not Specified'))}</div>
-                                ${b.vehicle_vin ? `<div class="text-[10px] text-[#D8F1FA]/50 font-mono">VIN: ${escapeHtml(b.vehicle_vin)}</div>` : ''}
+                                <div class="text-[#071F35] font-medium">${escapeHtml(b.vehicle_info || (b.vehicle_year ? b.vehicle_year + ' ' + b.vehicle_make + ' ' + b.vehicle_model : 'Vehicle Not Specified'))}</div>
+                                ${b.vehicle_vin ? `<div class="text-[10px] text-[#334E68] font-mono">VIN: ${escapeHtml(b.vehicle_vin)}</div>` : ''}
                             </td>
-                            <td class="p-4 text-white font-medium">${escapeHtml(b.service_name)}</td>
+                            <td class="p-4 text-[#071F35] font-semibold">${escapeHtml(b.service_name)}</td>
                             <td class="p-4 font-mono">
-                                <div class="text-[#D8F1FA]/90">${escapeHtml(b.preferred_date)}</div>
-                                <div class="text-[#D8F1FA]/50 text-[11px]">${escapeHtml(b.preferred_time)}</div>
+                                <div class="text-[#071F35] font-medium">${escapeHtml(b.preferred_date)}</div>
+                                <div class="text-[#334E68] text-[11px]">${escapeHtml(b.preferred_time)}</div>
                             </td>
                             <td class="p-4">
                                 <span class="status-badge status-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
                             </td>
                             <td class="p-4 text-right space-x-2 font-mono">
-                                <button onclick="openEditBooking(${JSON.stringify(b).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#BDEBFA]/25 text-[#D8F1FA] hover:border-[#BDEBFA] hover:text-white text-[11px] rounded">
+                                <button onclick="openEditBooking(${JSON.stringify(b).replace(/"/g, '&quot;')})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
                                     Edit
                                 </button>
-                                <button onclick="confirmDeleteBooking(${b.id}, '${escapeHtml(b.booking_number || b.booking_reference)}')" class="px-2.5 py-1.5 border border-red-500/40 text-red-400 hover:bg-red-500/20 text-[11px] rounded">
+                                <button onclick="confirmDeleteBooking(${b.id}, '${escapeHtml(b.booking_number || b.booking_reference)}')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
                                     Delete
                                 </button>
                             </td>
@@ -3336,47 +3469,47 @@ function handleStaffBookings(res, reqUrl) {
     </div>
 
     <!-- MODAL: Create Booking -->
-    <div id="modal-create-booking" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl">
-            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
-                <h3 class="text-xl font-bold text-white">Create New Appointment</h3>
-                <button onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
+    <div id="modal-create-booking" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Create New Appointment</h3>
+                <button onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
             </div>
             <form action="/staff/bookings" method="POST" class="space-y-4">
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Customer Name *</label>
-                        <input type="text" name="customer_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Customer Name *</label>
+                        <input type="text" name="customer_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Phone Number *</label>
-                        <input type="tel" name="customer_phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Phone Number *</label>
+                        <input type="tel" name="customer_phone" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Email Address *</label>
-                        <input type="email" name="customer_email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Email Address *</label>
+                        <input type="email" name="customer_email" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Requested Service *</label>
-                        <select name="service_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Requested Service *</label>
+                        <select name="service_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                             ${services.map(s => `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)} (${escapeHtml(s.price || 'Quote')})</option>`).join('')}
                         </select>
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Vehicle Details *</label>
-                        <input type="text" name="vehicle_info" required placeholder="e.g. 2021 Subaru Outback" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Vehicle Details *</label>
+                        <input type="text" name="vehicle_info" required placeholder="e.g. 2021 Subaru Outback" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Date *</label>
-                        <input type="date" name="preferred_date" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Date *</label>
+                        <input type="date" name="preferred_date" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Time *</label>
-                        <select name="preferred_time" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Time *</label>
+                        <select name="preferred_time" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                             <option value="08:00 AM">08:00 AM</option>
                             <option value="09:00 AM">09:00 AM</option>
                             <option value="10:00 AM" selected>10:00 AM</option>
@@ -3388,67 +3521,67 @@ function handleStaffBookings(res, reqUrl) {
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Initial Status</label>
-                    <select name="status" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Initial Status</label>
+                    <select name="status" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                         <option value="pending">Pending</option>
                         <option value="confirmed" selected>Confirmed</option>
                         <option value="in_progress">In Progress</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Internal Staff Notes</label>
-                    <textarea name="internal_notes" rows="2" placeholder="e.g. Parts assigned to bay 2" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Internal Staff Notes</label>
+                    <textarea name="internal_notes" rows="2" placeholder="e.g. Parts assigned to bay 2" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
-                    <button type="button" onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Save Booking</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Save Booking</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: Edit Booking -->
-    <div id="modal-edit-booking" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl">
-            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
-                <h3 class="text-xl font-bold text-white">Edit Booking <span id="edit-modal-ref" class="text-[#BDEBFA] font-mono font-normal"></span></h3>
-                <button onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
+    <div id="modal-edit-booking" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Edit Booking <span id="edit-modal-ref" class="text-[#087DB5] font-mono font-normal"></span></h3>
+                <button onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
             </div>
             <form id="form-edit-booking" method="POST" class="space-y-4">
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Customer Name *</label>
-                        <input type="text" id="edit-cust-name" name="customer_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Customer Name *</label>
+                        <input type="text" id="edit-cust-name" name="customer_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Phone Number *</label>
-                        <input type="tel" id="edit-cust-phone" name="customer_phone" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Phone Number *</label>
+                        <input type="tel" id="edit-cust-phone" name="customer_phone" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Email Address *</label>
-                        <input type="email" id="edit-cust-email" name="customer_email" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Email Address *</label>
+                        <input type="email" id="edit-cust-email" name="customer_email" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Requested Service *</label>
-                        <select id="edit-service" name="service_name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Requested Service *</label>
+                        <select id="edit-service" name="service_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                             ${services.map(s => `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`).join('')}
                         </select>
                     </div>
                 </div>
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Vehicle Details</label>
-                        <input type="text" id="edit-vehicle" name="vehicle_info" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Vehicle Details</label>
+                        <input type="text" id="edit-vehicle" name="vehicle_info" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Preferred Date</label>
-                        <input type="date" id="edit-date" name="preferred_date" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Date</label>
+                        <input type="date" id="edit-date" name="preferred_date" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Status Transition *</label>
-                        <select id="edit-status" name="status" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Status Transition *</label>
+                        <select id="edit-status" name="status" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
                             <option value="in_progress">In Progress</option>
@@ -3458,12 +3591,12 @@ function handleStaffBookings(res, reqUrl) {
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Internal Staff Notes</label>
-                    <textarea id="edit-notes" name="internal_notes" rows="3" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Internal Staff Notes</label>
+                    <textarea id="edit-notes" name="internal_notes" rows="3" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
-                    <button type="button" onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Update Booking</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Update Booking</button>
                 </div>
             </form>
         </div>
@@ -3520,74 +3653,75 @@ function handleStaffServices(res, reqUrl) {
   }
 
   const content = `
-<div>
+<div class="space-y-8">
     <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA]/15 mb-8 gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA] gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Services Catalog</h1>
-            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Manage shop capabilities, pricing, and live website availability</p>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— CATALOG OF WORK —</span>
+            <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">Services Catalog</h1>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Manage shop capabilities, pricing, and live website availability</p>
         </div>
-        <button onclick="document.getElementById('modal-create-service').classList.remove('hidden')" class="px-5 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] transition-colors flex items-center gap-2 rounded shadow-md shadow-[#087DB5]/25">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-            + Add New Service
+        <button onclick="document.getElementById('modal-create-service').classList.remove('hidden')" class="btn-navy-pill text-xs px-5 py-2.5 shadow-md flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Add New Service
         </button>
     </div>
 
     <!-- Filter Bar -->
-    <div class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-4 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center rounded-lg shadow-sm">
+    <div class="frosted-card p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-            <a href="/staff/services?category=all" class="px-3 py-1.5 rounded border ${filterCat === 'all' ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">All Categories</a>
+            <a href="/staff/services?category=all" class="px-3.5 py-1.5 rounded-full border transition-all ${filterCat === 'all' ? 'bg-[#071F35] text-white border-[#071F35] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">All Categories</a>
             ${categories.map(c => `
-                <a href="/staff/services?category=${encodeURIComponent(c)}" class="px-3 py-1.5 rounded border ${filterCat.toLowerCase() === c.toLowerCase() ? 'border-[#087DB5] bg-[#087DB5] text-white font-bold' : 'border-[#BDEBFA]/20 text-[#D8F1FA]/70 hover:text-white'}">${escapeHtml(c)}</a>
+                <a href="/staff/services?category=${encodeURIComponent(c)}" class="px-3.5 py-1.5 rounded-full border transition-all ${filterCat.toLowerCase() === c.toLowerCase() ? 'bg-[#071F35] text-white border-[#071F35] font-bold shadow-sm' : 'bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]'}">${escapeHtml(c)}</a>
             `).join('')}
         </div>
         <form method="GET" action="/staff/services" class="flex gap-2 w-full md:w-auto">
-            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search service..." class="bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-1.5 text-xs text-white focus:outline-none focus:border-[#BDEBFA] rounded">
-            <button type="submit" class="px-4 py-1.5 bg-[#087DB5] text-white text-xs font-mono hover:bg-[#0A92D4] rounded">Search</button>
+            <input type="text" name="search" value="${escapeHtml(searchQuery)}" placeholder="Search service..." class="bg-white/90 border border-[#BDEBFA] px-4 py-2 text-xs text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl w-full md:w-64 transition">
+            <button type="submit" class="btn-navy-pill text-xs px-4 py-2">Search</button>
         </form>
     </div>
 
     <!-- Services Table -->
-    <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
+    <div class="frosted-card overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
+                <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
                     <tr>
-                        <th class="p-4">Service Name</th>
-                        <th class="p-4">Category</th>
-                        <th class="p-4">Price</th>
-                        <th class="p-4">Est. Duration</th>
-                        <th class="p-4">Status on Live Site</th>
-                        <th class="p-4 text-right">Actions</th>
+                        <th class="p-4 font-bold">Service Name</th>
+                        <th class="p-4 font-bold">Category</th>
+                        <th class="p-4 font-bold">Price</th>
+                        <th class="p-4 font-bold">Est. Duration</th>
+                        <th class="p-4 font-bold">Status on Live Site</th>
+                        <th class="p-4 text-right font-bold">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#BDEBFA]/10">
+                <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
                     ${services.map(s => `
-                        <tr class="hover:bg-[#0E3557] transition-colors">
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
                             <td class="p-4">
-                                <div class="font-bold text-white text-sm">${escapeHtml(s.name)}</div>
-                                <div class="text-[#D8F1FA]/70 text-[11px] max-w-md truncate mt-0.5">${escapeHtml(s.description)}</div>
+                                <div class="font-bold text-[#071F35] text-sm">${escapeHtml(s.name)}</div>
+                                <div class="text-[#334E68] text-[11px] max-w-md truncate mt-0.5">${escapeHtml(s.description)}</div>
                             </td>
-                            <td class="p-4 font-mono text-[#D8F1FA]/90">${escapeHtml(s.category)}</td>
-                            <td class="p-4 font-mono text-[#BDEBFA] font-bold text-sm">${escapeHtml(s.price || 'Custom Quote')}</td>
-                            <td class="p-4 font-mono text-[#D8F1FA]/70">${s.duration_minutes || 60} mins</td>
+                            <td class="p-4 font-mono text-[#334E68] font-medium">${escapeHtml(s.category)}</td>
+                            <td class="p-4 font-mono text-[#087DB5] font-bold text-sm">${escapeHtml(s.price || 'Custom Quote')}</td>
+                            <td class="p-4 font-mono text-[#334E68]">${s.duration_minutes || 60} mins</td>
                             <td class="p-4">
                                 ${s.is_active ? `
-                                    <span class="inline-flex items-center px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 rounded">Active &amp; Public</span>
+                                    <span class="inline-flex items-center px-3 py-1 font-mono text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full">Active &amp; Public</span>
                                 ` : `
-                                    <span class="inline-flex items-center px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-red-500/15 text-red-300 border border-red-500/30 rounded">Disabled / Hidden</span>
+                                    <span class="inline-flex items-center px-3 py-1 font-mono text-[10px] font-bold uppercase bg-rose-100 text-rose-800 border border-rose-300 rounded-full">Disabled / Hidden</span>
                                 `}
                             </td>
                             <td class="p-4 text-right space-x-2 font-mono">
                                 <form action="/staff/services/${s.id}/toggle" method="POST" class="inline">
-                                    <button type="submit" class="px-2.5 py-1.5 border ${s.is_active ? 'border-amber-400/40 text-amber-300 hover:bg-amber-400/10' : 'border-emerald-400/40 text-emerald-300 hover:bg-emerald-400/10'} text-[11px] rounded">
+                                    <button type="submit" class="px-3 py-1 rounded-full border ${s.is_active ? 'border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100' : 'border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100'} text-[11px] font-bold transition">
                                         ${s.is_active ? 'Disable' : 'Enable'}
                                     </button>
                                 </form>
-                                <button onclick="openEditService(${JSON.stringify(s).replace(/"/g, '&quot;')})" class="px-2.5 py-1.5 border border-[#BDEBFA]/25 text-[#D8F1FA] hover:border-[#BDEBFA] hover:text-white text-[11px] rounded">
+                                <button onclick="openEditService(${JSON.stringify(s).replace(/"/g, '&quot;')})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
                                     Edit
                                 </button>
-                                <button onclick="confirmDeleteService(${s.id}, '${escapeHtml(s.name)}')" class="px-2.5 py-1.5 border border-red-500/40 text-red-400 hover:bg-red-500/20 text-[11px] rounded">
+                                <button onclick="confirmDeleteService(${s.id}, '${escapeHtml(s.name)}')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
                                     Delete
                                 </button>
                             </td>
@@ -3599,68 +3733,68 @@ function handleStaffServices(res, reqUrl) {
     </div>
 
     <!-- MODAL: Create Service -->
-    <div id="modal-create-service" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-xl shadow-2xl">
-            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
-                <h3 class="text-xl font-bold text-white">Add New Service</h3>
-                <button onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
+    <div id="modal-create-service" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Add New Service</h3>
+                <button onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
             </div>
             <form action="/staff/services" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Service Name *</label>
-                    <input type="text" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Service Name *</label>
+                    <input type="text" name="name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Category *</label>
-                        <input type="text" name="category" required placeholder="e.g. Engine, Brakes" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Category *</label>
+                        <input type="text" name="category" required placeholder="e.g. Engine, Brakes" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Price</label>
-                        <input type="text" name="price" placeholder="e.g. $149.99 or Custom Quote" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Price</label>
+                        <input type="text" name="price" placeholder="e.g. $149.99 or Custom Quote" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Description *</label>
-                    <textarea name="description" rows="3" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Description *</label>
+                    <textarea name="description" rows="3" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
-                    <button type="button" onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Create Service</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-create-service').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Create Service</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL: Edit Service -->
-    <div id="modal-edit-service" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#0B2B47] border border-[#BDEBFA]/30 max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-xl shadow-2xl">
-            <div class="flex items-center justify-between border-b border-[#BDEBFA]/15 pb-4">
-                <h3 class="text-xl font-bold text-white">Edit Service</h3>
-                <button onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="text-[#D8F1FA]/60 hover:text-white text-xl">&times;</button>
+    <div id="modal-edit-service" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-xl w-full p-6 sm:p-8 space-y-6 rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Edit Service</h3>
+                <button onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
             </div>
             <form id="form-edit-service" method="POST" class="space-y-4">
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Service Name *</label>
-                    <input type="text" id="edit-srv-name" name="name" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Service Name *</label>
+                    <input type="text" id="edit-srv-name" name="name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Category *</label>
-                        <input type="text" id="edit-srv-cat" name="category" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Category *</label>
+                        <input type="text" id="edit-srv-cat" name="category" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Price</label>
-                        <input type="text" id="edit-srv-price" name="price" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Price</label>
+                        <input type="text" id="edit-srv-price" name="price" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-mono text-xs text-[#D8F1FA]/80 mb-1">Description *</label>
-                    <textarea id="edit-srv-desc" name="description" rows="3" required class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-3 py-2 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded"></textarea>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Description *</label>
+                    <textarea id="edit-srv-desc" name="description" rows="3" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
                 </div>
-                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]/15">
-                    <button type="button" onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="px-4 py-2 border border-[#BDEBFA]/25 text-xs font-mono text-[#D8F1FA]/70 hover:text-white rounded">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Update Service</button>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-edit-service').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Update Service</button>
                 </div>
             </form>
         </div>
@@ -3702,66 +3836,68 @@ function handleStaffSettings(res) {
 <div class="space-y-12">
     <!-- Shop Information -->
     <div>
-        <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-            <h1 class="text-2xl font-extrabold text-white">General Shop Settings</h1>
-            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Update shop contact numbers, physical location, and operating hours</p>
+        <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— PREFERENCES &amp; CONFIGURATION —</span>
+            <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">General Shop Settings</h1>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Update shop contact numbers, physical location, and operating hours</p>
         </div>
-        <form action="/staff/settings" method="POST" class="bg-[#0B2B47] border border-[#BDEBFA]/20 p-6 sm:p-8 max-w-3xl space-y-6 rounded-lg shadow-md">
+        <form action="/staff/settings" method="POST" class="frosted-card p-6 sm:p-8 max-w-3xl space-y-6">
             <div class="grid sm:grid-cols-2 gap-6">
                 <div>
-                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Shop Name</label>
-                    <input type="text" name="shop_name" value="${escapeHtml(settings.shop_name || 'North Fork Auto')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-2">Shop Name</label>
+                    <input type="text" name="shop_name" value="${escapeHtml(settings.shop_name || 'North Fork Auto')}" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
                 <div>
-                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Primary Phone</label>
-                    <input type="text" name="shop_phone" value="${escapeHtml(settings.shop_phone || '(907) 733-3030')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-2">Primary Phone</label>
+                    <input type="text" name="shop_phone" value="${escapeHtml(settings.shop_phone || '(907) 733-3030')}" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
             </div>
             <div class="grid sm:grid-cols-2 gap-6">
                 <div>
-                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Contact Email</label>
-                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'titussr88@gmail.com')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-2">Contact Email</label>
+                    <input type="email" name="shop_email" value="${escapeHtml(settings.shop_email || 'titussr88@gmail.com')}" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
                 <div>
-                    <label class="block font-mono text-xs uppercase text-[#D8F1FA]/80 mb-2">Physical Address</label>
-                    <input type="text" name="shop_address" value="${escapeHtml(settings.shop_address || 'Talkeetna Spur Road, Talkeetna, AK 99676')}" class="w-full bg-[#071F35] border border-[#BDEBFA]/25 px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#BDEBFA] rounded">
+                    <label class="block font-mono text-xs uppercase text-[#334E68] font-bold mb-2">Physical Address</label>
+                    <input type="text" name="shop_address" value="${escapeHtml(settings.shop_address || 'Talkeetna Spur Road, Talkeetna, AK 99676')}" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-4 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
                 </div>
             </div>
             <div class="pt-4 flex justify-end">
-                <button type="submit" class="px-6 py-2.5 bg-[#087DB5] text-white text-xs font-mono uppercase font-bold hover:bg-[#0A92D4] rounded shadow-md">Save Settings</button>
+                <button type="submit" class="btn-navy-pill text-xs px-6 py-2.5 shadow-md">Save Settings</button>
             </div>
         </form>
     </div>
 
     <!-- Customer Inquiries Inbox -->
     <div>
-        <div class="border-b border-[#BDEBFA]/15 pb-4 mb-6">
-            <h2 class="text-xl font-bold text-white">Customer Inquiries Inbox (${messages.length})</h2>
-            <p class="text-xs text-[#D8F1FA]/70 mt-1 font-mono">Inbound messages submitted through the public contact form</p>
+        <div class="border-b border-[#BDEBFA] pb-4 mb-6">
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— INBOX —</span>
+            <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">Customer Inquiries Inbox (${messages.length})</h2>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Inbound messages submitted through the public contact form</p>
         </div>
-        <div class="border border-[#BDEBFA]/20 bg-[#0B2B47] rounded-lg overflow-hidden shadow-lg">
+        <div class="frosted-card overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
-                    <thead class="border-b border-[#BDEBFA]/15 font-mono text-[#D8F1FA]/70 bg-[#041321]">
+                    <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
                         <tr>
-                            <th class="p-4">Sender</th>
-                            <th class="p-4">Subject</th>
-                            <th class="p-4">Message</th>
-                            <th class="p-4">Received Date</th>
+                            <th class="p-4 font-bold">Sender</th>
+                            <th class="p-4 font-bold">Subject</th>
+                            <th class="p-4 font-bold">Message</th>
+                            <th class="p-4 font-bold">Received Date</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-[#BDEBFA]/10">
+                    <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
                         ${messages.length === 0 ? `
-                            <tr><td colspan="4" class="p-8 text-center text-[#D8F1FA]/60 font-mono">No customer inquiries received yet.</td></tr>
+                            <tr><td colspan="4" class="p-8 text-center text-[#334E68] font-mono">No customer inquiries received yet.</td></tr>
                         ` : messages.map(m => `
-                            <tr class="hover:bg-[#0E3557] transition-colors">
-                                <td class="p-4 font-bold text-white">
-                                    <div>${escapeHtml(m.name || 'Anonymous')}</div>
-                                    <div class="text-[11px] text-[#D8F1FA]/70 font-mono font-normal">${escapeHtml(m.email || '')} ${m.phone ? '· ' + escapeHtml(m.phone) : ''}</div>
+                            <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                                <td class="p-4 font-bold text-[#071F35]">
+                                    <div class="text-sm">${escapeHtml(m.name || 'Anonymous')}</div>
+                                    <div class="text-[11px] text-[#334E68] font-mono font-normal">${escapeHtml(m.email || '')} ${m.phone ? '· ' + escapeHtml(m.phone) : ''}</div>
                                 </td>
-                                <td class="p-4 font-medium text-[#BDEBFA]">${escapeHtml(m.subject || 'General Inquiry')}</td>
-                                <td class="p-4 text-[#D8F1FA]/90 max-w-lg leading-relaxed">${escapeHtml(m.message || '')}</td>
-                                <td class="p-4 font-mono text-[#D8F1FA]/60">${new Date(m.created_at).toLocaleDateString()}</td>
+                                <td class="p-4 font-semibold text-[#087DB5]">${escapeHtml(m.subject || 'General Inquiry')}</td>
+                                <td class="p-4 text-[#334E68] max-w-lg leading-relaxed">${escapeHtml(m.message || '')}</td>
+                                <td class="p-4 font-mono text-[#334E68]">${new Date(m.created_at).toLocaleDateString()}</td>
                             </tr>
                         `).join('')}
                     </tbody>

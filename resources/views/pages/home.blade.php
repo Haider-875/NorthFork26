@@ -64,11 +64,11 @@
             </p>
             
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                <a href="/book" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#071F35] hover:bg-[#0B2B47] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all duration-200 hover:-translate-y-0.5">
+                <a href="/book" class="w-full sm:w-64 inline-flex items-center justify-center gap-2 bg-[#071F35] hover:bg-[#0B2B47] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all duration-200 hover:-translate-y-0.5 text-center">
                     <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span>Book an Appointment</span>
                 </a>
-                <a href="tel:9077333030" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5">
+                <a href="tel:9077333030" class="w-full sm:w-64 inline-flex items-center justify-center gap-2 bg-white/95 hover:bg-white text-[#071F35] border border-[#BDEBFA] hover:border-[#087DB5] px-5 sm:px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all duration-200 hover:-translate-y-0.5 text-center">
                     <svg class="w-4 h-4 text-[#071F35] shrink-0 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     <span>Call Now · (907) 733-3030</span>
                 </a>
@@ -146,7 +146,6 @@
         </p>
         <a href="/services" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#087DB5] hover:text-[#071F35] transition">
             <span>View All Services (8)</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>
     </div>
     
@@ -179,8 +178,8 @@
                 </div>
                 <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Diagnostic Inspection</h3>
                 <p class="text-xs text-[#334E68] mb-4">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
-                <a href="/book?service=Diagnostic%20Inspection" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Book Now →
+                <a href="/book?service=Diagnostic%20Inspection" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                    Book Now
                 </a>
             </div>
             
@@ -195,8 +194,8 @@
                 </div>
                 <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Brake Repair &amp; Replacement</h3>
                 <p class="text-xs text-[#334E68] mb-4">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
-                <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Book Now →
+                <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                    Book Now
                 </a>
             </div>
             
@@ -211,8 +210,8 @@
                 </div>
                 <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Oil &amp; Filter Service</h3>
                 <p class="text-xs text-[#334E68] mb-4">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
-                <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Book Now →
+                <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                    Book Now
                 </a>
             </div>
             
@@ -227,8 +226,8 @@
                 </div>
                 <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Engine Repair &amp; Overhaul</h3>
                 <p class="text-xs text-[#334E68] mb-4">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
-                <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                    Book Now →
+                <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                    Book Now
                 </a>
             </div>
             </div>
@@ -327,8 +326,8 @@
             </div>
             <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Transmission Service</h3>
             <p class="text-xs text-[#334E68] mb-4">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
-            <a href="/book?service=Transmission%20Service" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Book Now →
+            <a href="/book?service=Transmission%20Service" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -343,8 +342,8 @@
             </div>
             <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Steering &amp; Suspension</h3>
             <p class="text-xs text-[#334E68] mb-4">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
-            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Book Now →
+            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -359,8 +358,8 @@
             </div>
             <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Electrical &amp; Battery</h3>
             <p class="text-xs text-[#334E68] mb-4">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
-            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Book Now →
+            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -375,8 +374,8 @@
             </div>
             <h3 class="font-heading font-bold text-base text-[#071F35] mb-1">Cooling &amp; AC Repair</h3>
             <p class="text-xs text-[#334E68] mb-4">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
-            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto text-xs font-bold text-[#087DB5] hover:text-[#071F35] flex items-center gap-1 transition">
-                Book Now →
+            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
         </div>
@@ -465,8 +464,8 @@
                         North Fork Auto was built with a simple goal: provide our Talkeetna neighbors with honest, high-quality automotive repair you can count on. We treat every vehicle like it's our own.
                     </p>
                     <div class="pt-2">
-                        <a href="/about" class="btn-navy-pill text-xs px-6 py-2.5 shadow-md">
-                            Learn More →
+                        <a href="/about" class="w-full sm:w-64 btn-navy-pill text-xs py-3.5 text-center justify-center shadow-md">
+                            Learn More
                         </a>
                     </div>
                 </div>
@@ -522,10 +521,10 @@
             Schedule your appointment online or call us directly. We provide transparent estimates and expert care.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/book" class="w-full sm:w-auto btn-navy-pill text-sm px-8 py-3.5 shadow-lg">
+            <a href="/book" class="w-full sm:w-64 btn-navy-pill text-sm py-3.5 shadow-lg text-center justify-center">
                 Book Service Appointment
             </a>
-            <a href="tel:9077333030" class="w-full sm:w-auto btn-white-pill text-sm px-8 py-3.5 shadow-sm">
+            <a href="tel:9077333030" class="w-full sm:w-64 btn-white-pill text-sm py-3.5 shadow-sm text-center justify-center">
                 Call (907) 733-3030
             </a>
         </div>

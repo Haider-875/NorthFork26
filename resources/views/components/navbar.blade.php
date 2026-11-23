@@ -30,7 +30,7 @@
                             <a href="/book?service=Electrical%20%26%20Battery" class="block px-3 py-1.5 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Electrical &amp; Battery</a>
                             <a href="/book?service=Cooling%20%26%20AC%20Repair" class="block px-3 py-1.5 rounded-xl text-xs font-semibold text-[#071F35] hover:bg-[#EBF7FD] hover:text-[#087DB5] transition">Cooling &amp; AC Repair</a>
                             <div class="border-t border-[#BDEBFA] my-1 pt-1"></div>
-                            <a href="/services" class="block px-3 py-1.5 rounded-xl text-[11px] font-bold text-[#087DB5] hover:bg-[#EBF7FD] transition">View All Services (8) →</a>
+                            <a href="/services" class="block px-3 py-1.5 rounded-xl text-[11px] font-bold text-[#087DB5] hover:bg-[#EBF7FD] transition">View All Services (8)</a>
                         </div>
                     </div>
                 </div>

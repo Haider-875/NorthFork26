@@ -140,7 +140,7 @@
                     </div>
                     
                     <button type="submit" class="w-full btn-navy-pill py-3 text-sm font-bold justify-center rounded-lg">
-                        Send Inquiry →
+                        Send Inquiry
                     </button>
                 </form>
             </div>

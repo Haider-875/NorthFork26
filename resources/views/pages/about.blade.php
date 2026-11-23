@@ -64,8 +64,8 @@
                 Whether you're a year-round resident preparing for sub-zero weather or passing through on the Parks Highway, our certified technicians are dedicated to keeping you safe on the road.
             </p>
             <div class="pt-3">
-                <a href="/book" class="btn-navy-pill text-xs px-6 py-2.5">
-                    Book an Appointment →
+                <a href="/book" class="w-full sm:w-64 btn-navy-pill text-xs py-3.5 text-center justify-center">
+                    Book an Appointment
                 </a>
             </div>
         </div>

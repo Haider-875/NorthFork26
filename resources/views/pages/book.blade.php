@@ -83,7 +83,6 @@
                 <div class="pt-6 flex justify-end">
                     <button type="button" id="btn-to-step-2" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
                         Continue to Vehicle
-                        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>
@@ -137,7 +136,6 @@
                     </button>
                     <button type="button" id="btn-to-step-3" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
                         Continue to Service
-                        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>
@@ -182,7 +180,6 @@
                     </button>
                     <button type="button" id="btn-to-step-4" class="btn-engine bg-primary text-primary-foreground px-8 py-3 text-sm">
                         Continue to Date &amp; Time
-                        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </button>
                 </div>
             </div>

@@ -33,7 +33,7 @@
     <div class="border border-border bg-card p-6">
         <div class="flex items-center justify-between mb-6">
             <h3 class="font-heading font-700 text-lg">Recent Booking Requests</h3>
-            <a href="/admin/bookings" class="font-heading font-600 text-xs text-primary hover:underline">View All Bookings →</a>
+            <a href="/admin/bookings" class="font-heading font-600 text-xs text-primary hover:underline">View All Bookings</a>
         </div>
 
         <div class="overflow-x-auto">

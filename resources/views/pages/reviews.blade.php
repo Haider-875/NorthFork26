@@ -90,8 +90,8 @@
     </div>
     
     <div class="mt-12 text-center">
-        <a href="/book" class="btn-navy-pill text-sm px-8 py-3.5">
-            Book Your Appointment Today →
+        <a href="/book" class="w-full sm:w-72 whitespace-nowrap btn-navy-pill text-sm py-3.5 text-center justify-center">
+            Book Your Appointment Today
         </a>
     </div>
 </section>

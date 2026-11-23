@@ -60,8 +60,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Diagnostic Inspection</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">State-of-the-art computerized diagnostic scanning for check engine lights and electronic faults.</p>
-            <a href="/book?service=Diagnostic%20Inspection" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Diagnostic%20Inspection" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
         
@@ -76,8 +76,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Brake Repair &amp; Replacement</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Complete brake pad, rotor, caliper, and hydraulic system inspections and repairs.</p>
-            <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Brake%20Repair%20%26%20Replacement" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
         
@@ -92,8 +92,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Oil &amp; Filter Service</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Full synthetic, blend, or conventional oil changes with comprehensive multi-point safety check.</p>
-            <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Oil%20%26%20Filter%20Service" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
         
@@ -108,8 +108,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Engine Repair &amp; Overhaul</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Precision engine diagnostics, timing belt replacements, head gaskets, and full engine repairs.</p>
-            <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Engine%20Repair%20%26%20Overhaul" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -124,8 +124,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Transmission Service</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Fluid exchange, filter replacements, clutch service, and transmission diagnostics.</p>
-            <a href="/book?service=Transmission%20Service" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Transmission%20Service" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -140,8 +140,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Steering &amp; Suspension</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Shocks, struts, control arms, ball joints, and tie rod ends for a smooth, stable ride.</p>
-            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Steering%20%26%20Suspension" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -156,8 +156,8 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Electrical &amp; Battery</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Alternators, starters, battery testing, wiring repairs, and complex parasitic draw testing.</p>
-            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Electrical%20%26%20Battery" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
 
@@ -172,17 +172,17 @@
             </div>
             <h3 class="font-heading font-bold text-lg text-[#071F35] mb-2">Cooling &amp; AC Repair</h3>
             <p class="text-xs text-[#334E68] mb-6 leading-relaxed">Radiator flushes, water pump replacement, thermostat diagnostics, and AC recharge.</p>
-            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto btn-navy-pill text-xs w-full py-2.5">
-                Book Now →
+            <a href="/book?service=Cooling%20%26%20AC%20Repair" class="mt-auto btn-navy-pill text-xs w-44 py-2.5 text-center justify-center">
+                Book Now
             </a>
         </div>
     </div>
     
     <!-- CTA BUTTON BANNER (MATCHES SCREENSHOT) -->
     <div class="mt-12 text-center">
-        <a href="/book" class="inline-flex items-center gap-3 bg-[#071F35] text-white hover:bg-[#0B2B47] px-8 py-4 rounded-full font-bold text-sm shadow-xl transition">
-            <svg class="w-5 h-5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
-            <span>Book Your Appointment Today →</span>
+        <a href="/book" class="w-full sm:w-72 whitespace-nowrap inline-flex items-center justify-center gap-2 bg-[#071F35] text-white hover:bg-[#0B2B47] px-6 py-3.5 rounded-full font-bold text-sm shadow-xl transition text-center">
+            <svg class="w-5 h-5 text-[#BDEBFA] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+            <span>Book Your Appointment Today</span>
         </a>
     </div>
 </section>

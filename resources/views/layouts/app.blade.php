@@ -100,6 +100,88 @@
     <!-- Chatbot Component -->
     @include('components.chatbot')
 
+    <!-- North Fork Auto Gentle Winter Snow Falling Effect (100% Click-Through, Zero Layout Shift) -->
+    <canvas id="nfa-snow-canvas" class="fixed inset-0 pointer-events-none select-none z-30" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; user-select: none; z-index: 30;"></canvas>
+    <script>
+    (function() {
+        const canvas = document.getElementById('nfa-snow-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        const isMobile = width < 768;
+        const flakeCount = isMobile ? 35 : 75;
+        const flakes = [];
+
+        for (let i = 0; i < flakeCount; i++) {
+            flakes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                r: Math.random() * 2.2 + 0.8,
+                speed: Math.random() * 0.75 + 0.45,
+                opacity: Math.random() * 0.55 + 0.35,
+                swing: Math.random() * 2,
+                swingSpeed: Math.random() * 0.02 + 0.01
+            });
+        }
+
+        let angle = 0;
+        let animationFrameId = null;
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, width, height);
+            angle += 0.01;
+
+            for (let i = 0; i < flakeCount; i++) {
+                const f = flakes[i];
+                f.y += f.speed;
+                f.x += Math.sin(angle + f.swing) * 0.6;
+
+                if (f.y > height) {
+                    f.y = -5;
+                    f.x = Math.random() * width;
+                }
+                if (f.x > width + 5) {
+                    f.x = -5;
+                } else if (f.x < -5) {
+                    f.x = width + 5;
+                }
+
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, false);
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + f.opacity + ')';
+                ctx.fill();
+            }
+
+            if (!document.hidden) {
+                animationFrameId = requestAnimationFrame(drawSnow);
+            }
+        }
+
+        function handleResize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        window.addEventListener('resize', handleResize, { passive: true });
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(drawSnow);
+            }
+        });
+
+        animationFrameId = requestAnimationFrame(drawSnow);
+    })();
+    </script>
+
     @stack('scripts')
 </body>
 </html>

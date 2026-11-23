@@ -31,7 +31,7 @@
     <div class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#EBF7FD]/80 to-transparent z-1 pointer-events-none"></div>
 
     <!-- Layer 3: Foreground Content (Padded to clear fixed navbar seamlessly, Left-Aligned) -->
-    <div class="relative z-10 section-pad w-full">
+    <div class="relative z-10 w-full px-4 sm:px-8 lg:px-12">
         <div class="max-w-2xl text-left">
             <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#087DB5] mb-2.5">
                 About North Fork Auto

@@ -1,6 +1,6 @@
 <!-- Navbar (Transparent over Hero Banner at top; Scrolled state reveals exact ice texture background with crisp dark text) -->
 <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 {{ !empty($isScrolled) ? 'navbar-scrolled' : 'navbar-top' }}">
-    <div class="section-pad">
+    <div class="w-full px-4 sm:px-8 lg:px-12">
         <div class="flex items-center justify-between h-20">
             <!-- Logo (Clean transparent silhouette matching reference design) -->
             <a href="/" class="flex items-center gap-2 sm:gap-3 group shrink min-w-0">

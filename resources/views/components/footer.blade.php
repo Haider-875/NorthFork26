@@ -6,7 +6,7 @@
     
 </div>
 <!-- Footer (Matches Reference Footer with Alaska landscape background) -->
-<footer class="relative bg-[#071F35] text-white pt-8 sm:pt-10 pb-12 mt-auto overflow-hidden">
+<footer class="relative bg-[#071F35] text-white pt-8 sm:pt-10 pb-14 sm:pb-16 lg:pb-20 mt-auto overflow-hidden">
     <img src="/images/alaska-landscape-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-bottom opacity-15 pointer-events-none">
     <div class="absolute inset-0 bg-gradient-to-t from-[#071F35] via-[#071F35]/95 to-[#071F35]/85 pointer-events-none"></div>
     <div class="relative section-pad">
@@ -73,11 +73,11 @@
 
         <!-- Bottom Subfooter Bar -->
         <div class="pt-8 border-t border-[#BDEBFA]/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D8F1FA]/70">
-            <div>
+            <div class="text-center sm:text-left">
                 <span>© 2025 North Fork Automotive. All rights reserved.</span>
             </div>
-            <div class="md:mr-64 lg:mr-72">
-                <span>Designed By <a href="https://azorasolution.com" target="_blank" rel="noopener noreferrer" class="text-[#BDEBFA] hover:text-white transition font-medium no-underline">Azora Solution</a></span>
+            <div class="text-center sm:text-right">
+                <span>Designed By <a href="https://azorasolution.com" target="_blank" rel="noopener noreferrer" class="text-[#BDEBFA] hover:text-white transition font-medium no-underline" style="text-decoration: none !important; border-bottom: none !important;">Azora Solution</a></span>
             </div>
         </div>
     </div>

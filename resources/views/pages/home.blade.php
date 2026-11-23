@@ -31,7 +31,7 @@
     <div class="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#D8F1FA]/80 to-transparent z-1 pointer-events-none"></div>
 
     <!-- Layer 3: Foreground Content (Padded to clear fixed navbar seamlessly, Strictly Left-Aligned) -->
-    <div class="relative z-10 section-pad w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20">
+    <div class="relative z-10 w-full px-4 sm:px-8 lg:px-12 pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20">
         <div class="max-w-xl lg:max-w-xl text-left">
             <!-- Eyebrow: Talkeetna, Alaska · Auto Repair Experts -->
             <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#087DB5] mb-1">

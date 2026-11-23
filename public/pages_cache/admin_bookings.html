@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Management | Staff Portal - North Fork Auto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-navy: #071F35;
+            --color-navy-dark: #041321;
+            --color-ocean: #087DB5;
+            --color-ice: #BDEBFA;
+            --color-sky: #D8F1FA;
+            --color-bg-light: #EBF7FD;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--color-bg-light); color: var(--color-navy); }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; font-weight: 800; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .frosted-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid #BDEBFA;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px -2px rgba(8, 125, 181, 0.08);
+        }
+
+        .btn-navy-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #071F35;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            border-radius: 9999px;
+            box-shadow: 0 4px 14px 0 rgba(7, 31, 53, 0.20);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-navy-pill:hover {
+            background-color: #0B2B47;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(7, 31, 53, 0.30);
+        }
+
+        .btn-white-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #071F35 !important;
+            border: 1.5px solid #071F35;
+            font-weight: 700;
+            border-radius: 9999px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+        }
+        .btn-white-pill:hover {
+            background-color: #FFFFFF;
+            border-color: #087DB5;
+            color: #087DB5 !important;
+            transform: translateY(-1px);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border-radius: 9999px;
+        }
+        .status-pending { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+        .status-confirmed { background: #D8F1FA; color: #087DB5; border: 1px solid #BDEBFA; }
+        .status-in_progress { background: #F3E8FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+        .status-completed { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+        .status-cancelled { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
+    </style>
+</head>
+<body class="min-h-screen bg-[#EBF7FD] text-[#071F35] flex flex-col antialiased">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#071F35] border-r border-[#BDEBFA]/20 p-6 flex flex-col justify-between shrink-0 shadow-2xl z-20">
+            <div>
+                <!-- Brand -->
+                <div class="flex items-center gap-3.5 mb-8 pb-6 border-b border-[#BDEBFA]/15">
+                    <img src="/images/logo.png" alt="North Fork Auto" class="h-10 w-auto object-contain rounded-xl bg-white/10 border border-[#BDEBFA]/30 p-1">
+                    <div class="min-w-0">
+                        <div class="font-heading font-extrabold text-sm tracking-wide text-white leading-tight">North Fork Auto</div>
+                        <div class="font-mono text-[10px] text-[#BDEBFA] uppercase tracking-wider font-semibold">Staff Console</div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-1.5 font-sans text-xs font-semibold">
+                    <a href="/staff/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="/staff/bookings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors bg-[#087DB5] text-white font-bold shadow-md shadow-[#087DB5]/30">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        Bookings
+                    </a>
+                    <a href="/staff/services" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        Services Catalog
+                    </a>
+                    <a href="/staff/settings" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-[#D8F1FA]/80 hover:text-white hover:bg-[#0E3557]">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Settings &amp; Inbox
+                    </a>
+                </nav>
+            </div>
+
+            <div class="pt-6 border-t border-[#BDEBFA]/15 space-y-3">
+                <a href="/" target="_blank" class="flex items-center gap-2 text-xs font-mono text-[#D8F1FA]/80 hover:text-white transition-colors">
+                    <svg class="w-3.5 h-3.5 text-[#BDEBFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    Live Public Website
+                </a>
+                <a href="/staff/logout" class="flex items-center gap-2 text-xs font-mono text-rose-300 hover:text-rose-100 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <main class="flex-1 overflow-y-auto p-8 lg:p-12 relative bg-[#EBF7FD]">
+            <!-- Subtle ice texture background blend -->
+            <div class="absolute inset-0 pointer-events-none opacity-25 z-0">
+                <img src="/images/hero-frost-texture.jpg" class="w-full h-full object-cover mix-blend-multiply" alt="">
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto space-y-8">
+                
+<div class="space-y-8">
+    <!-- Top Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#BDEBFA] gap-4">
+        <div>
+            <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— APPOINTMENTS LEDGER —</span>
+            <h1 class="text-2xl sm:text-3xl font-heading font-extrabold text-[#071F35] tracking-tight mt-0.5">Bookings Management</h1>
+            <p class="text-xs text-[#334E68] mt-1 font-mono">Create, review, update status, and manage shop schedule</p>
+        </div>
+        <button onclick="document.getElementById('modal-create-booking').classList.remove('hidden')" class="btn-navy-pill text-xs px-5 py-2.5 shadow-md flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Create Manual Booking
+        </button>
+    </div>
+
+    <!-- Filters & Search Toolbar -->
+    <div class="frosted-card p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+        <!-- Status Tabs -->
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <a href="/staff/bookings?status=all" class="px-3.5 py-1.5 rounded-full border transition-all bg-[#071F35] text-white border-[#071F35] font-bold shadow-sm">All (15)</a>
+            <a href="/staff/bookings?status=pending" class="px-3.5 py-1.5 rounded-full border transition-all bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]">Pending</a>
+            <a href="/staff/bookings?status=confirmed" class="px-3.5 py-1.5 rounded-full border transition-all bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]">Confirmed</a>
+            <a href="/staff/bookings?status=in_progress" class="px-3.5 py-1.5 rounded-full border transition-all bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]">In Progress</a>
+            <a href="/staff/bookings?status=completed" class="px-3.5 py-1.5 rounded-full border transition-all bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]">Completed</a>
+            <a href="/staff/bookings?status=cancelled" class="px-3.5 py-1.5 rounded-full border transition-all bg-white/80 text-[#334E68] border-[#BDEBFA] hover:border-[#087DB5]">Cancelled</a>
+        </div>
+
+        <!-- Search Input -->
+        <form method="GET" action="/staff/bookings" class="flex gap-2 w-full md:w-auto">
+            <input type="hidden" name="status" value="all">
+            <input type="text" name="search" value="" placeholder="Search customer, VIN, ref..." class="bg-white/90 border border-[#BDEBFA] px-4 py-2 text-xs text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl w-full md:w-64 transition">
+            <button type="submit" class="btn-navy-pill text-xs px-4 py-2">Filter</button>
+        </form>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="frosted-card overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead class="border-b border-[#BDEBFA] font-mono text-[#071F35] bg-[#D8F1FA]/60">
+                    <tr>
+                        <th class="p-4 font-bold">Ref #</th>
+                        <th class="p-4 font-bold">Customer Details</th>
+                        <th class="p-4 font-bold">Vehicle</th>
+                        <th class="p-4 font-bold">Requested Service</th>
+                        <th class="p-4 font-bold">Date &amp; Time</th>
+                        <th class="p-4 font-bold">Status</th>
+                        <th class="p-4 text-right font-bold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#BDEBFA]/40 bg-white/70">
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-9165</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alex Hunter</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-8822</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alex.hunter@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2021 Ford F-150</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Brake Pad &amp; Rotor Replacement</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-11-25</div>
+                                <div class="text-[#334E68] text-[11px]">10:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1795190235981,&quot;booking_number&quot;:&quot;NFA-2026-9165&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-9165&quot;,&quot;customer_name&quot;:&quot;Alex Hunter&quot;,&quot;customer_email&quot;:&quot;alex.hunter@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-8822&quot;,&quot;service_name&quot;:&quot;Brake Pad & Rotor Replacement&quot;,&quot;preferred_date&quot;:&quot;2026-11-25&quot;,&quot;preferred_time&quot;:&quot;10:00 AM&quot;,&quot;vehicle_year&quot;:&quot;2021&quot;,&quot;vehicle_make&quot;:&quot;Ford&quot;,&quot;vehicle_model&quot;:&quot;F-150&quot;,&quot;vehicle_info&quot;:&quot;2021 Ford F-150&quot;,&quot;notes&quot;:&quot;&quot;,&quot;internal_notes&quot;:&quot;Created via AI Auto Assistant&quot;,&quot;source&quot;:&quot;ai_chatbot&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-11-20T15:57:15.981Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1795190235981, 'NFA-2026-9165')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-5778</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alex Hunter</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-8822</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alex.hunter@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2021 Ford F-150</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Brake Pad &amp; Rotor Replacement</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-11-25</div>
+                                <div class="text-[#334E68] text-[11px]">10:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1795190008666,&quot;booking_number&quot;:&quot;NFA-2026-5778&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-5778&quot;,&quot;customer_name&quot;:&quot;Alex Hunter&quot;,&quot;customer_email&quot;:&quot;alex.hunter@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-8822&quot;,&quot;service_name&quot;:&quot;Brake Pad & Rotor Replacement&quot;,&quot;preferred_date&quot;:&quot;2026-11-25&quot;,&quot;preferred_time&quot;:&quot;10:00 AM&quot;,&quot;vehicle_year&quot;:&quot;2021&quot;,&quot;vehicle_make&quot;:&quot;Ford&quot;,&quot;vehicle_model&quot;:&quot;F-150&quot;,&quot;vehicle_info&quot;:&quot;2021 Ford F-150&quot;,&quot;notes&quot;:&quot;&quot;,&quot;internal_notes&quot;:&quot;Created via AI Auto Assistant&quot;,&quot;source&quot;:&quot;ai_chatbot&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-11-20T15:53:28.666Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1795190008666, 'NFA-2026-5778')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-8659</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Test</div>
+                                <div class="text-[#334E68] font-mono">180236126792</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono"></div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2020 BMW BMW</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Diagnostic Inspection</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-11-21</div>
+                                <div class="text-[#334E68] text-[11px]">03:30 PM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1795022471495,&quot;booking_number&quot;:&quot;NFA-2026-8659&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-8659&quot;,&quot;customer_name&quot;:&quot;Test&quot;,&quot;customer_email&quot;:&quot;&quot;,&quot;customer_phone&quot;:&quot;180236126792&quot;,&quot;service_name&quot;:&quot;Diagnostic Inspection&quot;,&quot;preferred_date&quot;:&quot;2026-11-21&quot;,&quot;preferred_time&quot;:&quot;03:30 PM&quot;,&quot;vehicle_year&quot;:&quot;2020&quot;,&quot;vehicle_make&quot;:&quot;BMW&quot;,&quot;vehicle_model&quot;:&quot;BMW&quot;,&quot;vehicle_info&quot;:&quot;2020 BMW BMW&quot;,&quot;notes&quot;:&quot;&quot;,&quot;internal_notes&quot;:&quot;Created via AI Auto Assistant&quot;,&quot;source&quot;:&quot;ai_chatbot&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-11-18T17:21:11.495Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1795022471495, 'NFA-2026-8659')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-3302</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Dave Carlson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-7766</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">dave@test.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2021 Ford F-150</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Oil &amp; Filter Service</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-20</div>
+                                <div class="text-[#334E68] text-[11px]">08:30 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1795020436239,&quot;booking_number&quot;:&quot;NFA-2026-3302&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-3302&quot;,&quot;customer_name&quot;:&quot;Dave Carlson&quot;,&quot;customer_email&quot;:&quot;dave@test.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-7766&quot;,&quot;service_name&quot;:&quot;Oil & Filter Service&quot;,&quot;preferred_date&quot;:&quot;2026-10-20&quot;,&quot;preferred_time&quot;:&quot;08:30 AM&quot;,&quot;vehicle_year&quot;:&quot;2021&quot;,&quot;vehicle_make&quot;:&quot;Ford&quot;,&quot;vehicle_model&quot;:&quot;F-150&quot;,&quot;vehicle_info&quot;:&quot;2021 Ford F-150&quot;,&quot;vehicle_mileage&quot;:null,&quot;vehicle_vin&quot;:null,&quot;notes&quot;:&quot;Standard oil change&quot;,&quot;internal_notes&quot;:null,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-11-18T16:47:16.239Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1795020436239, 'NFA-2026-3302')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-4302</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Titus Miller</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-0144</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">tmiller@alaska.net</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2022 Subaru Outback</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Brake Repair &amp; Replacement</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">10:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1795020323826,&quot;booking_number&quot;:&quot;NFA-2026-4302&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-4302&quot;,&quot;customer_name&quot;:&quot;Titus Miller&quot;,&quot;customer_email&quot;:&quot;tmiller@alaska.net&quot;,&quot;customer_phone&quot;:&quot;(907) 555-0144&quot;,&quot;service_name&quot;:&quot;Brake Repair & Replacement&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;10:00 AM&quot;,&quot;vehicle_year&quot;:&quot;2022&quot;,&quot;vehicle_make&quot;:&quot;Subaru&quot;,&quot;vehicle_model&quot;:&quot;Outback&quot;,&quot;vehicle_info&quot;:&quot;2022 Subaru Outback&quot;,&quot;notes&quot;:&quot;Squeaking brake noise when stopping.&quot;,&quot;internal_notes&quot;:&quot;Created via AI Auto Assistant&quot;,&quot;source&quot;:&quot;ai_chatbot&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-11-18T16:45:23.826Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1795020323826, 'NFA-2026-4302')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-8897</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Auditor Test</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-8822</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">auditor@test.local</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2022 Subaru Crosstrek</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Brake Pad &amp; Rotor Service</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-11-28</div>
+                                <div class="text-[#334E68] text-[11px]">11:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-rescheduled">rescheduled</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790355846813,&quot;booking_number&quot;:&quot;NFA-2026-8897&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-8897&quot;,&quot;customer_name&quot;:&quot;Auditor Test&quot;,&quot;customer_email&quot;:&quot;auditor@test.local&quot;,&quot;customer_phone&quot;:&quot;(907) 555-8822&quot;,&quot;service_name&quot;:&quot;Brake Pad & Rotor Service&quot;,&quot;preferred_date&quot;:&quot;2026-11-28&quot;,&quot;preferred_time&quot;:&quot;11:00 AM&quot;,&quot;vehicle_year&quot;:&quot;2022&quot;,&quot;vehicle_make&quot;:&quot;Subaru&quot;,&quot;vehicle_model&quot;:&quot;Crosstrek&quot;,&quot;vehicle_info&quot;:&quot;2022 Subaru Crosstrek&quot;,&quot;vehicle_mileage&quot;:null,&quot;vehicle_vin&quot;:null,&quot;notes&quot;:&quot;Automated test suite check&quot;,&quot;internal_notes&quot;:&quot;2026-11-18T17:41:23.635Z: Rescheduled via Virtual Assistant\n2026-11-18T17:43:53.539Z: Rescheduled via Virtual Assistant&quot;,&quot;status&quot;:&quot;rescheduled&quot;,&quot;created_at&quot;:&quot;2026-09-25T17:04:06.813Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790355846813, 'NFA-2026-8897')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-4362</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790355090738,&quot;booking_number&quot;:&quot;NFA-2026-4362&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-4362&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:51:30.738Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790355090738, 'NFA-2026-4362')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-9471</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790354132922,&quot;booking_number&quot;:&quot;NFA-2026-9471&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-9471&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:35:32.922Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790354132922, 'NFA-2026-9471')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-1126</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790354087493,&quot;booking_number&quot;:&quot;NFA-2026-1126&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-1126&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:34:47.493Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790354087493, 'NFA-2026-1126')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-8503</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790354061927,&quot;booking_number&quot;:&quot;NFA-2026-8503&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-8503&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:34:21.928Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790354061927, 'NFA-2026-8503')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-3802</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790353626114,&quot;booking_number&quot;:&quot;NFA-2026-3802&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-3802&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:27:06.114Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790353626114, 'NFA-2026-3802')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-9275</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2023 Toyota RAV4 Prime</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-15</div>
+                                <div class="text-[#334E68] text-[11px]">09:00</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790353516611,&quot;booking_number&quot;:&quot;NFA-2026-9275&quot;,&quot;booking_reference&quot;:&quot;NFA-2026-9275&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-15&quot;,&quot;preferred_time&quot;:&quot;09:00&quot;,&quot;vehicle_info&quot;:&quot;2023 Toyota RAV4 Prime&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:25:16.611Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790353516611, 'NFA-2026-9275')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-1000</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Alice Johnson</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-3344</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">alice@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">Standard Vehicle</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Synthetic Oil Change</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-01</div>
+                                <div class="text-[#334E68] text-[11px]">10:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1790353396109,&quot;booking_reference&quot;:&quot;NFA-2026-1000&quot;,&quot;customer_name&quot;:&quot;Alice Johnson&quot;,&quot;customer_email&quot;:&quot;alice@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-3344&quot;,&quot;service_name&quot;:&quot;Synthetic Oil Change&quot;,&quot;preferred_date&quot;:&quot;2026-10-01&quot;,&quot;preferred_time&quot;:&quot;10:00 AM&quot;,&quot;vehicle_info&quot;:&quot;Standard Vehicle&quot;,&quot;notes&quot;:&quot;First time customer in Talkeetna.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;created_at&quot;:&quot;2026-09-25T16:23:16.109Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1790353396109, 'NFA-2026-1000')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-1001</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Sarah Connor</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-0199</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">sarah@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2021 Subaru Outback (AWD)</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Diagnostic Inspection</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-05</div>
+                                <div class="text-[#334E68] text-[11px]">09:00 AM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-confirmed">confirmed</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:1,&quot;booking_reference&quot;:&quot;NFA-2026-1001&quot;,&quot;customer_name&quot;:&quot;Sarah Connor&quot;,&quot;customer_email&quot;:&quot;sarah@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-0199&quot;,&quot;service_name&quot;:&quot;Diagnostic Inspection&quot;,&quot;preferred_date&quot;:&quot;2026-10-05&quot;,&quot;preferred_time&quot;:&quot;09:00 AM&quot;,&quot;vehicle_info&quot;:&quot;2021 Subaru Outback (AWD)&quot;,&quot;notes&quot;:&quot;Check engine light blinking occasionally on cold start.&quot;,&quot;status&quot;:&quot;confirmed&quot;,&quot;internal_notes&quot;:&quot;Assigned to Dave.&quot;,&quot;created_at&quot;:&quot;2026-09-20T10:30:00Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(1, 'NFA-2026-1001')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                        <tr class="hover:bg-[#EBF7FD]/80 transition-colors">
+                            <td class="p-4 font-mono text-[#087DB5] font-bold">NFA-2026-1002</td>
+                            <td class="p-4">
+                                <div class="font-bold text-[#071F35] text-sm">Michael Vance</div>
+                                <div class="text-[#334E68] font-mono">(907) 555-0245</div>
+                                <div class="text-[#334E68]/70 text-[11px] font-mono">mvance@example.com</div>
+                            </td>
+                            <td class="p-4">
+                                <div class="text-[#071F35] font-medium">2019 Toyota Tacoma</div>
+                                
+                            </td>
+                            <td class="p-4 text-[#071F35] font-semibold">Brake Repair &amp; Replacement</td>
+                            <td class="p-4 font-mono">
+                                <div class="text-[#071F35] font-medium">2026-10-06</div>
+                                <div class="text-[#334E68] text-[11px]">01:30 PM</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="status-badge status-pending">pending</span>
+                            </td>
+                            <td class="p-4 text-right space-x-2 font-mono">
+                                <button onclick="openEditBooking({&quot;id&quot;:2,&quot;booking_reference&quot;:&quot;NFA-2026-1002&quot;,&quot;customer_name&quot;:&quot;Michael Vance&quot;,&quot;customer_email&quot;:&quot;mvance@example.com&quot;,&quot;customer_phone&quot;:&quot;(907) 555-0245&quot;,&quot;service_name&quot;:&quot;Brake Repair & Replacement&quot;,&quot;preferred_date&quot;:&quot;2026-10-06&quot;,&quot;preferred_time&quot;:&quot;01:30 PM&quot;,&quot;vehicle_info&quot;:&quot;2019 Toyota Tacoma&quot;,&quot;notes&quot;:&quot;Front brakes squealing when slowing down.&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;internal_notes&quot;:null,&quot;created_at&quot;:&quot;2026-09-21T14:15:00Z&quot;})" class="btn-white-pill text-[11px] px-3 py-1 shadow-sm">
+                                    Edit
+                                </button>
+                                <button onclick="confirmDeleteBooking(2, 'NFA-2026-1002')" class="px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 text-[11px] font-bold transition">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Create Booking -->
+    <div id="modal-create-booking" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Create New Appointment</h3>
+                <button onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
+            </div>
+            <form action="/staff/bookings" method="POST" class="space-y-4">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Customer Name *</label>
+                        <input type="text" name="customer_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Phone Number *</label>
+                        <input type="tel" name="customer_phone" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Email Address *</label>
+                        <input type="email" name="customer_email" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Requested Service *</label>
+                        <select name="service_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                            <option value="Diagnostic Inspection">Diagnostic Inspection ($120.00)</option><option value="Brake Repair &amp; Replacement">Brake Repair &amp; Replacement ($189.99)</option><option value="Oil &amp; Filter Service">Oil &amp; Filter Service ($89.99)</option><option value="Engine Repair &amp; Overhaul">Engine Repair &amp; Overhaul ($650.00)</option><option value="Transmission Service">Transmission Service ($189.99)</option><option value="Steering &amp; Suspension">Steering &amp; Suspension ($220.00)</option><option value="Electrical &amp; Battery">Electrical &amp; Battery ($135.00)</option><option value="Cooling &amp; AC Repair">Cooling &amp; AC Repair ($160.00)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Vehicle Details *</label>
+                        <input type="text" name="vehicle_info" required placeholder="e.g. 2021 Subaru Outback" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Date *</label>
+                        <input type="date" name="preferred_date" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Time *</label>
+                        <select name="preferred_time" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                            <option value="08:00 AM">08:00 AM</option>
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="10:00 AM" selected>10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="01:00 PM">01:00 PM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                            <option value="03:00 PM">03:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Initial Status</label>
+                    <select name="status" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                        <option value="pending">Pending</option>
+                        <option value="confirmed" selected>Confirmed</option>
+                        <option value="in_progress">In Progress</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Internal Staff Notes</label>
+                    <textarea name="internal_notes" rows="2" placeholder="e.g. Parts assigned to bay 2" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
+                </div>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-create-booking').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Save Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit Booking -->
+    <div id="modal-edit-booking" class="hidden fixed inset-0 z-50 bg-[#071F35]/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-[#BDEBFA] max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#BDEBFA] pb-4">
+                <h3 class="text-xl font-heading font-extrabold text-[#071F35]">Edit Booking <span id="edit-modal-ref" class="text-[#087DB5] font-mono font-normal"></span></h3>
+                <button onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="text-[#334E68] hover:text-[#071F35] text-2xl font-bold">&times;</button>
+            </div>
+            <form id="form-edit-booking" method="POST" class="space-y-4">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Customer Name *</label>
+                        <input type="text" id="edit-cust-name" name="customer_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Phone Number *</label>
+                        <input type="tel" id="edit-cust-phone" name="customer_phone" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Email Address *</label>
+                        <input type="email" id="edit-cust-email" name="customer_email" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Requested Service *</label>
+                        <select id="edit-service" name="service_name" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                            <option value="Diagnostic Inspection">Diagnostic Inspection</option><option value="Brake Repair &amp; Replacement">Brake Repair &amp; Replacement</option><option value="Oil &amp; Filter Service">Oil &amp; Filter Service</option><option value="Engine Repair &amp; Overhaul">Engine Repair &amp; Overhaul</option><option value="Transmission Service">Transmission Service</option><option value="Steering &amp; Suspension">Steering &amp; Suspension</option><option value="Electrical &amp; Battery">Electrical &amp; Battery</option><option value="Cooling &amp; AC Repair">Cooling &amp; AC Repair</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Vehicle Details</label>
+                        <input type="text" id="edit-vehicle" name="vehicle_info" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Preferred Date</label>
+                        <input type="date" id="edit-date" name="preferred_date" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Status Transition *</label>
+                        <select id="edit-status" name="status" required class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl">
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-mono text-xs text-[#334E68] font-bold mb-1">Internal Staff Notes</label>
+                    <textarea id="edit-notes" name="internal_notes" rows="3" class="w-full bg-[#EBF7FD]/40 border border-[#BDEBFA] px-3.5 py-2.5 text-sm text-[#071F35] focus:outline-none focus:border-[#087DB5] rounded-xl"></textarea>
+                </div>
+                <div class="pt-4 flex justify-end gap-3 border-t border-[#BDEBFA]">
+                    <button type="button" onclick="document.getElementById('modal-edit-booking').classList.add('hidden')" class="btn-white-pill text-xs px-5 py-2">Cancel</button>
+                    <button type="submit" class="btn-navy-pill text-xs px-6 py-2 shadow-md">Update Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openEditBooking(b) {
+        document.getElementById('edit-modal-ref').textContent = '(' + (b.booking_number || b.booking_reference) + ')';
+        document.getElementById('form-edit-booking').action = '/staff/bookings/' + b.id + '/edit';
+        document.getElementById('edit-cust-name').value = b.customer_name || '';
+        document.getElementById('edit-cust-phone').value = b.customer_phone || '';
+        document.getElementById('edit-cust-email').value = b.customer_email || '';
+        document.getElementById('edit-service').value = b.service_name || '';
+        document.getElementById('edit-vehicle').value = b.vehicle_info || '';
+        document.getElementById('edit-date').value = b.preferred_date || '';
+        document.getElementById('edit-status').value = b.status || 'pending';
+        document.getElementById('edit-notes').value = b.internal_notes || b.notes || '';
+        document.getElementById('modal-edit-booking').classList.remove('hidden');
+    }
+
+    function confirmDeleteBooking(id, ref) {
+        if (confirm('Are you sure you want to permanently delete booking ' + ref + '? This action cannot be undone.')) {
+            const f = document.createElement('form');
+            f.method = 'POST';
+            f.action = '/staff/bookings/' + id + '/delete';
+            document.body.appendChild(f);
+            f.submit();
+        }
+    }
+</script>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>

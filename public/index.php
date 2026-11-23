@@ -925,12 +925,24 @@ if ($method === 'GET' && in_array($path, ['/api/appointments/provider-status', '
 // 6. Web Page Routing (Pre-rendered Pages Cache)
 // -------------------------------------------------------------
 $pageMap = [
-    '/'         => 'home.html',
-    '/services' => 'services.html',
-    '/about'    => 'about.html',
-    '/reviews'  => 'reviews.html',
-    '/contact'  => 'contact.html',
-    '/book'     => 'book.html',
+    '/'                 => 'home.html',
+    '/services'         => 'services.html',
+    '/about'            => 'about.html',
+    '/reviews'          => 'reviews.html',
+    '/contact'          => 'contact.html',
+    '/book'             => 'book.html',
+    '/staff'            => 'admin_dashboard.html',
+    '/staff/dashboard'  => 'admin_dashboard.html',
+    '/staff/bookings'   => 'admin_bookings.html',
+    '/staff/services'   => 'admin_services.html',
+    '/staff/settings'   => 'admin_settings.html',
+    '/staff/login'      => 'admin_login.html',
+    '/admin'            => 'admin_dashboard.html',
+    '/admin/dashboard'  => 'admin_dashboard.html',
+    '/admin/bookings'   => 'admin_bookings.html',
+    '/admin/services'   => 'admin_services.html',
+    '/admin/settings'   => 'admin_settings.html',
+    '/admin/login'      => 'admin_login.html',
 ];
 
 if ($method === 'GET' && isset($pageMap[$path])) {

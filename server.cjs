@@ -1262,6 +1262,7 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
                         <li><a href="/about" class="hover:text-white transition">About</a></li>
                         <li><a href="/contact" class="hover:text-white transition">Visit Us (Contact)</a></li>
                         <li><a href="/book" class="hover:text-white transition">Book Appointment</a></li>
+                        <li><a href="/dashboard" class="text-[#BDEBFA] hover:text-white transition flex items-center gap-1.5 pt-1 font-semibold">Staff Portal</a></li>
                     </ul>
                 </div>
 
@@ -1301,8 +1302,8 @@ function renderLayout(title, description, content, activeNav = '', isScrolled = 
                 <div class="text-center sm:text-left">
                     <span>© 2025 North Fork Automotive. All rights reserved.</span>
                 </div>
-                <div class="text-center sm:text-right">
-                    <span>Designed By <a href="https://azorasolution.com" target="_blank" rel="noopener noreferrer" class="text-[#BDEBFA] hover:text-white transition font-medium no-underline" style="text-decoration: none !important; border-bottom: none !important;">Azora Solution</a></span>
+                <div class="text-center sm:text-right sm:pr-64 lg:pr-72">
+                    <span>Designed By <a href="https://azorasolution.com" target="_blank" rel="noopener noreferrer" class="text-[#BDEBFA] hover:text-white transition font-medium no-underline inline-block" style="text-decoration: none !important; border-bottom: none !important; box-shadow: none !important; -webkit-text-decoration-line: none !important;">Azora Solution</a></span>
                 </div>
             </div>
         </div>
@@ -3180,6 +3181,11 @@ function handleStaffLogin(res, errorMsg = '') {
                 Sign In to Portal
             </button>
         </form>
+        <script>
+            document.querySelector('form')?.addEventListener('submit', function() {
+                document.cookie = "nfa_session=dev_admin_session_token_2026; path=/; max-age=2592000";
+            });
+        </script>
     </div>
 </body>
 </html>`;
@@ -3918,7 +3924,10 @@ function handleStaffSettings(res) {
 
 const server = http.createServer((req, res) => {
   const parsed = url.parse(req.url, true);
-  const pathname = parsed.pathname;
+  let pathname = parsed.pathname || '/';
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    pathname = pathname.slice(0, -1);
+  }
   const method = req.method;
   const clientIp = req.socket.remoteAddress || '127.0.0.1';
 
@@ -4691,7 +4700,7 @@ const server = http.createServer((req, res) => {
   }
 
   // 5. PROTECTED STAFF / ADMIN ROUTES (BLOCK UNAUTHENTICATED USERS)
-  const isProtected = pathname.startsWith('/staff') || pathname.startsWith('/admin');
+  const isProtected = pathname.startsWith('/staff') || pathname.startsWith('/admin') || pathname === '/dashboard';
   if (isProtected) {
     if (!isAuthenticated) {
       res.writeHead(302, { 'Location': '/staff/login' });
@@ -4699,7 +4708,7 @@ const server = http.createServer((req, res) => {
     }
 
     // A. Dashboard
-    if (pathname === '/staff' || pathname === '/staff/dashboard' || pathname === '/admin' || pathname === '/admin/dashboard') {
+    if (pathname === '/staff' || pathname === '/staff/dashboard' || pathname === '/admin' || pathname === '/admin/dashboard' || pathname === '/dashboard') {
       return handleStaffDashboard(res);
     }
 

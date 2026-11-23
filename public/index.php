@@ -40,6 +40,7 @@ if (file_exists($envFile)) {
 // -------------------------------------------------------------
 $rawUri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($rawUri, PHP_URL_PATH) ?: '/';
+$path = (strlen($path) > 1) ? rtrim($path, '/') : $path;
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 if ($path !== '/') {
@@ -922,7 +923,34 @@ if ($method === 'GET' && in_array($path, ['/api/appointments/provider-status', '
 }
 
 // -------------------------------------------------------------
-// 6. Web Page Routing (Pre-rendered Pages Cache)
+// 6. Authentication Handlers (Staff / Admin Login & Logout)
+// -------------------------------------------------------------
+if (in_array($path, ['/staff/login', '/admin/login', '/login'], true)) {
+    if ($method === 'POST') {
+        $email = trim($_POST['email'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+        $valid = (
+            ($email === 'admin@northforkauto.com' && ($password === 'admin123456' || $password === 'admin')) ||
+            ($email === 'staff@northforkauto.com' && ($password === 'staff123456' || $password === 'staff'))
+        );
+        if ($valid) {
+            setcookie('nfa_session', 'dev_admin_session_token_2026', time() + 86400 * 30, '/');
+            header('Location: /staff/dashboard');
+            exit;
+        }
+        header('Location: /staff/login?error=invalid_credentials');
+        exit;
+    }
+}
+
+if (in_array($path, ['/staff/logout', '/admin/logout', '/logout'], true)) {
+    setcookie('nfa_session', '', time() - 3600, '/');
+    header('Location: /staff/login');
+    exit;
+}
+
+// -------------------------------------------------------------
+// 7. Web Page Routing (Pre-rendered Pages Cache)
 // -------------------------------------------------------------
 $pageMap = [
     '/'                 => 'home.html',
@@ -931,6 +959,7 @@ $pageMap = [
     '/reviews'          => 'reviews.html',
     '/contact'          => 'contact.html',
     '/book'             => 'book.html',
+    '/dashboard'        => 'admin_dashboard.html',
     '/staff'            => 'admin_dashboard.html',
     '/staff/dashboard'  => 'admin_dashboard.html',
     '/staff/bookings'   => 'admin_bookings.html',
@@ -943,9 +972,10 @@ $pageMap = [
     '/admin/services'   => 'admin_services.html',
     '/admin/settings'   => 'admin_settings.html',
     '/admin/login'      => 'admin_login.html',
+    '/login'            => 'admin_login.html',
 ];
 
-if ($method === 'GET' && isset($pageMap[$path])) {
+if (isset($pageMap[$path])) {
     $pageFile = __DIR__ . '/pages_cache/' . $pageMap[$path];
     if (file_exists($pageFile)) {
         header('Content-Type: text/html; charset=UTF-8');

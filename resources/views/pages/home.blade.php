@@ -59,7 +59,7 @@
             </h2>
             
             <!-- Exact Live Description -->
-            <p class="text-xs sm:text-sm text-white sm:text-[#1E3A5F] font-normal leading-relaxed mb-6 max-w-md">
+            <p class="text-xs sm:text-sm text-white lg:text-[#1E3A5F] font-normal leading-relaxed mb-6 max-w-md">
                 From routine maintenance to complex diagnostics, North Fork Auto provides professional, honest automotive care for drivers across Talkeetna and the Mat-Su Valley.
             </p>
             
@@ -79,49 +79,49 @@
 
 <!-- SECTION 2: TRUST BAR (4 HORIZONTAL INDICATORS FROM LIVE SITE) -->
 <section class="section-pad my-4">
-    <div class="bg-[#D8F1FA]/85 backdrop-blur-md rounded-2xl border border-[#BDEBFA] py-5 px-6 shadow-sm">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:divide-x md:divide-[#BDEBFA]">
+    <div class="bg-[#D8F1FA]/85 backdrop-blur-md rounded-2xl border border-[#BDEBFA] py-4 px-3 sm:py-5 sm:px-6 shadow-sm">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:divide-x lg:divide-[#BDEBFA]">
             <!-- 1. ASE Certified -->
-            <div class="flex items-center gap-3.5 md:justify-center">
-                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <div class="flex items-center gap-2 sm:gap-3.5 lg:justify-center">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">ASE Certified</h3>
-                    <p class="text-xs text-[#334E68]">Skilled Master Techs</p>
+                <div class="min-w-0">
+                    <h3 class="font-heading font-700 text-xs sm:text-sm text-[#071F35] truncate sm:overflow-visible">ASE Certified</h3>
+                    <p class="text-[10px] sm:text-xs text-[#334E68] truncate sm:overflow-visible">Master Techs</p>
                 </div>
             </div>
             
             <!-- 2. OEM Diagnostic -->
-            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
-                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <div class="flex items-center gap-2 sm:gap-3.5 lg:justify-center lg:pl-4">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">OEM Diagnostic</h3>
-                    <p class="text-xs text-[#334E68]">Dealer-Level Equipment</p>
+                <div class="min-w-0">
+                    <h3 class="font-heading font-700 text-xs sm:text-sm text-[#071F35] truncate sm:overflow-visible">OEM Diagnostic</h3>
+                    <p class="text-[10px] sm:text-xs text-[#334E68] truncate sm:overflow-visible">Dealer Equipment</p>
                 </div>
             </div>
             
             <!-- 3. Warranty Backed -->
-            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
-                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 00-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+            <div class="flex items-center gap-2 sm:gap-3.5 lg:justify-center lg:pl-4">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 00-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
                 </div>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Warranty Backed</h3>
-                    <p class="text-xs text-[#334E68]">Parts &amp; Labor Protected</p>
+                <div class="min-w-0">
+                    <h3 class="font-heading font-700 text-xs sm:text-sm text-[#071F35] truncate sm:overflow-visible">Warranty Backed</h3>
+                    <p class="text-[10px] sm:text-xs text-[#334E68] truncate sm:overflow-visible">Parts &amp; Labor</p>
                 </div>
             </div>
             
             <!-- 4. Local Alaskan -->
-            <div class="flex items-center gap-3.5 md:justify-center md:pl-4">
-                <div class="w-10 h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
+            <div class="flex items-center gap-2 sm:gap-3.5 lg:justify-center lg:pl-4">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#087DB5]/15 text-[#087DB5] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10l9-7 9 7v11H3V10z"/></svg>
                 </div>
-                <div>
-                    <h3 class="font-heading font-700 text-sm text-[#071F35]">Local Alaskan</h3>
-                    <p class="text-xs text-[#334E68]">Community Focused</p>
+                <div class="min-w-0">
+                    <h3 class="font-heading font-700 text-xs sm:text-sm text-[#071F35] truncate sm:overflow-visible">Local Alaskan</h3>
+                    <p class="text-[10px] sm:text-xs text-[#334E68] truncate sm:overflow-visible">Talkeetna Shop</p>
                 </div>
             </div>
         </div>
@@ -129,13 +129,14 @@
 </section>
 
 <!-- SECTION 3: OUR CAPABILITIES (ALL 8 CANONICAL SERVICES WITH TITLES, DESCRIPTIONS & PRICES) -->
-<section class="relative section-pad py-16 overflow-hidden">
+<section class="relative w-full py-16 overflow-hidden">
     <!-- Section 3 Background: Ice Texture with Soft Top & Bottom Blends -->
     <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
         <div class="absolute inset-0 bg-gradient-to-b from-[#EBF7FD] via-[#EBF7FD]/60 to-[#EBF7FD]"></div>
     </div>
-    <div class="text-center mb-12 relative z-10">
+    <div class="relative z-10 section-pad">
+        <div class="text-center mb-12">
         <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase">— OUR CAPABILITIES —</span>
         <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-[#071F35] tracking-tight mt-1 mb-2">
             Expert Auto Care For Alaskan Roads
@@ -154,7 +155,7 @@
         <!-- 4 Frosted Service Cards (Left) with Frost Texture Overlay (Same Styling & Reduced Opacity as Hero Banner) -->
         <div class="lg:col-span-7 relative">
             <!-- Left Side Ice Texture Overlay: Seamless Organic Feathering (Zero Sharp Box Corners) -->
-            <div class="absolute -inset-6 sm:-inset-10 pointer-events-none z-0 overflow-hidden" 
+            <div class="absolute inset-0 sm:-inset-6 lg:-inset-10 pointer-events-none z-0 overflow-hidden" 
                  style="-webkit-mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, black 20%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.2) 72%, transparent 95%);
                         mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, black 20%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.2) 72%, transparent 95%);">
                 <!-- Organic Watercolor Ice Backing -->
@@ -236,7 +237,7 @@
         <!-- Photographic Mechanic Visual (Right) - Mosaic Ice-Crystal Splash Frame (Non-standard organic corners) -->
         <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
             <!-- Reverse Mosaic Crystalline Ice Aura Behind the Image (Faceted & Reversed) -->
-            <div class="absolute -inset-5 sm:-inset-8 pointer-events-none -z-1 shadow-xl" 
+            <div class="absolute inset-0 sm:-inset-5 lg:-inset-8 pointer-events-none -z-1 shadow-xl" 
                  style="clip-path: polygon(
                      0% 6%, 16% 0%, 38% 3%, 64% 0%, 86% 2%, 100% 0%, 
                      97% 20%, 100% 46%, 95% 68%, 100% 88%, 93% 100%, 
@@ -302,7 +303,7 @@
     <!-- Bottom Row: Remaining 4 Canonical Services with Frost Texture Overlay -->
     <div class="relative mt-8 z-10">
         <!-- Seamless Organic Frost Texture Overlay Behind Bottom Cards (No Sharp Box Corners) -->
-        <div class="absolute -inset-6 sm:-inset-10 pointer-events-none z-0 overflow-hidden" 
+        <div class="absolute inset-0 sm:-inset-6 lg:-inset-10 pointer-events-none z-0 overflow-hidden" 
              style="-webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);
                     mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 75%, transparent 96%);">
             <!-- Organic Watercolor Ice Backing -->
@@ -380,10 +381,11 @@
         </div>
         </div>
     </div>
+    </div>
 </section>
 
 <!-- SECTION 4: ABOUT NORTH FORK AUTOMOTIVE (WORKSHOP BANNER, STORY, 4 POINTS WITH 100% WIDTH FROST OVERLAY) -->
-<section id="about-section" class="relative section-pad py-16 overflow-hidden">
+<section id="about-section" class="relative w-full py-16 overflow-hidden">
     <!-- 100% Full-Width Ice Background Image Across Entire Banner with Reduced Opacity at Corners -->
     <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" 
          style="-webkit-mask-image: radial-gradient(ellipse 96% 92% at 50% 50%, black 45%, rgba(0,0,0,0.85) 68%, rgba(0,0,0,0.25) 88%, transparent 100%);
@@ -397,17 +399,18 @@
              class="w-full h-full object-cover opacity-25 mix-blend-multiply sm:opacity-25 lg:opacity-25">
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+    <div class="relative z-10 section-pad">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         <!-- Workshop Exterior Visual (Left - 5 cols) - Chiseled Glacial Ice Silhouette (Zero Frame Look) -->
         <div class="lg:col-span-5 relative z-10 flex items-center justify-center p-2 sm:p-4">
             <!-- Organic Frost Mist Aura Directly Behind Visual (Soft Glacial Vapour, Corners with Reduced Opacity) -->
-            <div class="absolute -inset-4 sm:-inset-6 pointer-events-none -z-1 overflow-hidden" 
+            <div class="absolute inset-0 sm:-inset-4 lg:-inset-6 pointer-events-none -z-1 overflow-hidden" 
                  style="-webkit-mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);
                         mask-image: radial-gradient(ellipse 88% 82% at 50% 50%, black 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.15) 85%, transparent 100%);">
                 <!-- Glacial Cyan Ice Vapour -->
                 <div class="absolute inset-0 bg-gradient-to-br from-[#BDEBFA]/50 via-[#D8F1FA]/30 to-[#087DB5]/10"></div>
                 <!-- Natural Frost Texture -->
-                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-25 mix-blend-multiply scale-105">
+                <img src="/images/hero-frost-texture.jpg" alt="" class="w-full h-full object-cover opacity-25 mix-blend-multiply sm:scale-105">
             </div>
 
             <!-- Dynamic Chiseled Ice Slab (Asymmetrical Glacial Faceted Angles, No Picture Frame) -->
@@ -505,11 +508,12 @@
             </div>
         </div>
     </div>
+    </div>
 </section>
 
 <!-- SECTION 5: HOMEPAGE CALL TO ACTION (FROM LIVE SITE) -->
 <section class="section-pad py-12">
-    <div class="frosted-card p-8 sm:p-12 text-center border-2 border-[#BDEBFA] bg-gradient-to-r from-white/95 via-[#EBF7FD] to-white/95">
+    <div class="frosted-card max-w-4xl mx-auto p-8 sm:p-12 text-center border-2 border-[#BDEBFA] bg-gradient-to-r from-white/95 via-[#EBF7FD] to-white/95">
         <span class="text-xs font-bold tracking-widest text-[#087DB5] uppercase mb-2 block">— GET BACK ON THE ROAD —</span>
         <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-[#071F35] tracking-tight mb-3">
             Ready For Reliable Automotive Service?

@@ -3,16 +3,16 @@
     <div class="section-pad">
         <div class="flex items-center justify-between h-20">
             <!-- Logo (Clean transparent silhouette matching reference design) -->
-            <a href="/" class="flex items-center gap-2.5 sm:gap-3 group">
-                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-8 sm:h-10 w-auto object-contain">
-                <div class="flex flex-col">
-                    <span class="font-heading font-extrabold text-[#071F35] text-base sm:text-lg leading-tight tracking-tight">North Fork Automotive</span>
-                    <span class="text-[9px] sm:text-[10px] font-bold text-[#087DB5] tracking-widest uppercase">— Talkeetna, AK —</span>
+            <a href="/" class="flex items-center gap-2 sm:gap-3 group shrink min-w-0">
+                <img src="/images/hero-car-mechanic-silhouette.png" alt="North Fork Automotive" class="h-6 sm:h-10 w-auto max-w-[75px] sm:max-w-none object-contain shrink-0">
+                <div class="flex flex-col min-w-0">
+                    <span class="font-heading font-extrabold text-[#071F35] text-[13px] sm:text-lg leading-tight tracking-tight whitespace-nowrap">North Fork Automotive</span>
+                    <span class="text-[8px] sm:text-[10px] font-bold text-[#087DB5] tracking-widest uppercase">— Talkeetna, AK —</span>
                 </div>
             </a>
 
             <!-- Desktop Navigation (Crisp Dark Text) -->
-            <nav class="hidden md:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-8">
                 <a href="/" class="text-sm font-bold tracking-wide transition-colors {{ request()->is('/') ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Home</a>
                 <div class="relative group">
                     <a href="/services" class="text-sm font-bold tracking-wide transition-colors flex items-center gap-1 py-2 {{ request()->is('services*') ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5]' : 'text-[#071F35] hover:text-[#087DB5]' }}">
@@ -35,23 +35,24 @@
                     </div>
                 </div>
                 <a href="/about" class="text-sm font-bold tracking-wide transition-colors {{ request()->is('about*') ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">About</a>
+                <a href="/reviews" class="text-sm font-bold tracking-wide transition-colors {{ request()->is('reviews*') ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Reviews</a>
                 <a href="/contact" class="text-sm font-bold tracking-wide transition-colors {{ request()->is('contact*') ? 'text-[#087DB5] font-extrabold border-b-2 border-[#087DB5] pb-1' : 'text-[#071F35] hover:text-[#087DB5]' }}">Contact</a>
             </nav>
 
             <!-- Phone Pill Button -->
-            <div class="hidden md:flex items-center gap-4">
+            <div class="hidden lg:flex items-center gap-4">
                 <a href="tel:9077333030" class="btn-navy-pill text-xs shadow-md">
                     <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     (907) 733-3030
                 </a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <div class="flex md:hidden items-center gap-3">
-                <a href="tel:9077333030" class="btn-navy-pill px-3 py-1.5 text-xs shadow-sm">
-                    Call
+            <!-- Mobile Call & Menu Button -->
+            <div class="flex lg:hidden items-center gap-2 shrink-0">
+                <a href="tel:9077333030" aria-label="Call (907) 733-3030" class="w-8 h-8 rounded-full bg-[#071F35] hover:bg-[#0B2B47] text-white flex items-center justify-center shadow-sm transition">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                 </a>
-                <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-2 text-[#071F35] hover:text-[#087DB5]">
+                <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="p-1.5 text-[#071F35] hover:text-[#087DB5] transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                 </button>
             </div>
@@ -59,10 +60,11 @@
     </div>
 
     <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4 shadow-xl" style="background-image: linear-gradient(rgba(240, 249, 254, 0.94), rgba(216, 241, 250, 0.96)), url('/images/hero-frost-texture.jpg'); background-size: cover; background-position: center;">
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-[#BDEBFA] bg-white/98 backdrop-blur-md px-6 py-6 space-y-4 shadow-xl" style="background-image: linear-gradient(rgba(240, 249, 254, 0.94), rgba(216, 241, 250, 0.96)), url('/images/hero-frost-texture.jpg'); background-size: cover; background-position: center;">
         <a href="/" class="block text-sm font-bold {{ request()->is('/') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Home</a>
         <a href="/services" class="block text-sm font-bold {{ request()->is('services*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Services</a>
         <a href="/about" class="block text-sm font-bold {{ request()->is('about*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">About</a>
+        <a href="/reviews" class="block text-sm font-bold {{ request()->is('reviews*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Reviews</a>
         <a href="/contact" class="block text-sm font-bold {{ request()->is('contact*') ? 'text-[#087DB5]' : 'text-[#071F35]' }} py-1">Contact</a>
         <div class="pt-4 border-t border-[#BDEBFA] flex flex-col gap-3">
             <a href="tel:9077333030" class="btn-navy-pill text-center py-2.5 text-xs font-bold">Call (907) 733-3030</a>

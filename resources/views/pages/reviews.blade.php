@@ -48,7 +48,7 @@
 
 <!-- REVIEWS GRID -->
 <section class="section-pad py-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="frosted-card p-6 flex flex-col justify-between">
             <div>
                 <div class="text-amber-400 text-lg mb-2">★★★★★</div>
